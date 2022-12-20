@@ -4,7 +4,7 @@ description: "Practical examples of Script-Fu for Gimp" # This will show up in p
 
 # Email / Social media user names used by the minima theme:
 # All of these are optional and can be removed or commented out
-# email: "example@mail.com"
+email: "finkinghard@mail.com"
 # twitter_username: "twitteruser"
 github_username: "script-fu"
 #linkedin_username: "linkedinuser"
@@ -24,7 +24,7 @@ rss: rss
 
 kramdown:
   syntax_highlighter_opts:
-    disable: true
+    disable: false
     
 plugins:
   - jekyll-feed
