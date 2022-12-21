@@ -56,7 +56,7 @@
 *Here's a menu option, Script-Fu->smartScaleExample*   
 
 
-```Scheme
+```scheme
 (define (smartScaleExample img drawable)
 	(let*
 		(
