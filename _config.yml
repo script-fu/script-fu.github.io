@@ -20,6 +20,9 @@ github_username: "script-fu"
 #########################################################################################
 theme: "minima"
 
+markdown: kramdown
+highlighter: rouge
+
 rss: rss
     
 plugins:
