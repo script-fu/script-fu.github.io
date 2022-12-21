@@ -26,9 +26,6 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
 
-kramdown:
-  header_offset: 2
-
 titles_from_headings:
   strip_title: true
   collections: true
