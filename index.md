@@ -20,28 +20,4 @@ Check out the Procedure Browser.
 
 https://docs.gimp.org/en/gimp-concepts-script-fu.html
 
-```scheme
-;The script procedure
-(define (bareBones img drawable) ;image and layer to work on
-	(let*
-	    (
-	    ;variables here
-	    )
-	
-	;scripty stuff here
-	
-	)
-);end of script procedure
 
-;This bit tells Gimp about it, and can also create an interface
-(script-fu-register "bareBones"
-	"<Image>/Script-Fu/bareBones" ;menu item
-	"an empty script" ;description
-	"Mark Sweeney" ;author
-	"copyright 2022, Mark Sweeney" ;copyright notice
-	"2022" ;date
-	"*";used on an image
-	SF-IMAGE       "Image"           		0
-	SF-DRAWABLE    "Drawable"        		0
-)
-```
