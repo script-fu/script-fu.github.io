@@ -1,4 +1,6 @@
-## Basic script, saved as *bareBones.scm* in a scripts folder
+## Basic script
+
+*saved as bareBones.scm in a scripts folder*
 
 ```scheme
 ;The script procedure
@@ -17,8 +19,8 @@
 (script-fu-register "bareBones"
 	"<Image>/Script-Fu/bareBones" ;menu item
 	"an empty script" ;description
-	"Mark Sweeney" ;author
-	"copyright 2022, Mark Sweeney" ;copyright notice
+	"Your Name" ;author
+	"copyright 2022, Your Name" ;copyright notice
 	"2022" ;date
 	"*";used on an image
 	SF-IMAGE       "Image"           		0
