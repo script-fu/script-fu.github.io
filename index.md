@@ -24,10 +24,12 @@ https://docs.gimp.org/en/gimp-concepts-script-fu.html
 ;The script procedure
 (define (bareBones img drawable) ;image and layer to work on
 	(let*
-		(
-	  ;variables here
-		)
+	    (
+	    ;variables here
+	    )
+	
 	;scripty stuff here
+	
 	)
 );end of script procedure
 
