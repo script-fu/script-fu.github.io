@@ -1,4 +1,4 @@
-#### For novices and artists interested in Script-Fu
+### For novices and artists interested in Script-Fu
 
 First create a local directory as a sandbox for new scripts.  
 
