@@ -7,7 +7,7 @@ Restart Gimp, any scripts in that new folder should appear as menu items
 or useable procedures. 
 
 After editing and saving a script I press the "#" key in Gimp, 
-which has been set as a keyboard shortcut to refresh scripts.
+which can be set as a keyboard shortcut to refresh scripts.
 *Gimp->Edit->Keyboard Shortcuts (Refresh Scripts)*
 
 Also, I keep the Error Console window open at all times.
