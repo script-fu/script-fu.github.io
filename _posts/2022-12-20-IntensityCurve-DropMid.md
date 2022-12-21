@@ -3,7 +3,7 @@
 *A wrapper around this procedure can be useful, in this case
 when I wanted a scripted "Colours->Curves" for the image value.*
 
-```scheme
+```Scheme
 (define (curve3Value img drawable x1 y1 x2 y2 x3 y3)
 	(let*
 		(
@@ -37,7 +37,7 @@ when I wanted a scripted "Colours->Curves" for the image value.*
 *Here's a menu option, Script-Fu->curveDropMid*   
 
 
-```scheme
+```Scheme
 (define (curveDropMid img drawable)
 	(let*
 	()
