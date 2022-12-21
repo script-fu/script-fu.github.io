@@ -37,7 +37,7 @@ when I wanted a scripted "Colours->Curves" for the image value.*
 *Here's a menu option, Script-Fu->curveDropMid*   
 
 
-```Scheme
+```scheme
 (define (curveDropMid img drawable)
 	(let*
 	()
