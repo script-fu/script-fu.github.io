@@ -1,8 +1,9 @@
 ## Using (gimp-drawable-curves-spline)
 
-wrapper
+*A wrapper around this procedure can be useful, in this case
+when I wanted a scripted "Colours->Curves" for the image value.*
 
-```scm
+```scheme
 (define (curve3Value img drawable x1 y1 x2 y2 x3 y3)
 	(let*
 		(
@@ -33,9 +34,10 @@ wrapper
 )
 ```
 
-menu 
+*Here's a menu option, Script-Fu->curveDropMid*   
 
-```scm
+
+```scheme
 (define (curveDropMid img drawable)
 	(let*
 	()
