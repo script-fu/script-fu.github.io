@@ -69,7 +69,7 @@
     (gimp-image-undo-group-start img)
 	  (smartScale img drawable pixels scale scale allLayers mode)
 	  (gimp-displays-flush)
-		(gimp-image-undo-group-end img)
+	  (gimp-image-undo-group-end img)
 
 	)
 )
