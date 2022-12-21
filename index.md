@@ -8,10 +8,10 @@ or useable procedures.
 
 After editing and saving a script I press the "#" key in Gimp, 
 which can be set as a keyboard shortcut to refresh scripts.
+\
 *Gimp->Edit->Keyboard Shortcuts (Refresh Scripts)*
 
-I keep the Error Console window open at all times.
-It's the only way I've been able to find to debug a script.\
+I keep the Error Console window open. It's the only way I've been able to find to debug a script.\
 *Gimp->Windows->Dockable Dialogues->Error Console*
 
 Check out the Procedure Browser.
