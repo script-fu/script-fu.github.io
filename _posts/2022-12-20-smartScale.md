@@ -2,7 +2,7 @@
 
 *A few scaling related procedure calls, also finds the image and layer sizes*
 
-```Scheme
+```scheme
 (define (smartScale img layer pixels scaleX scaleY allLayers interpolation)
 	(let*
 		(
