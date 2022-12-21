@@ -6,10 +6,10 @@
 (define (smartScale img layer pixels scaleX scaleY allLayers interpolation)
 	(let*
 		(
-			(imgWidth (car (gimp-image-width img)))
-			(imgHeight (car (gimp-image-height img)))
-			(layerWidth (car (gimp-drawable-width layer)))
-			(layerHeight (car (gimp-drawable-height layer)))
+		(imgWidth (car (gimp-image-width img)))
+		(imgHeight (car (gimp-image-height img)))
+		(layerWidth (car (gimp-drawable-width layer)))
+		(layerHeight (car (gimp-drawable-height layer)))
 		)
 
 	(gimp-context-set-interpolation interpolation) ;interpolation method
