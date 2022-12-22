@@ -1,4 +1,4 @@
-## Basic script
+## basic script
 
 *saved as bareBones.scm in a scripts folder*
 
