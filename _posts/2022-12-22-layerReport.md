@@ -1,5 +1,8 @@
 ## active layer information
 
+A layer has an ID number, a position in the image tree, possibly a parent folder and a mask.
+
+
 *This procedure gathers some active layer information and returns it in an array*
 
 ```scheme
