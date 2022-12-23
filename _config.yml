@@ -19,8 +19,7 @@ github_username: "script-fu"
 ######### Nothing below needs to be changed (unless you know what you're doing) #########
 #########################################################################################
 theme: "minima"
-minima:
-  skin: dark
+
 
 markdown: kramdown
 highlighter: rouge
@@ -30,6 +29,7 @@ rss: rss
 plugins:
   - jekyll-feed
   - jekyll-sitemap
+  - jekyll-seo-tag
 
 titles_from_headings:
   strip_title: true
