@@ -4,10 +4,10 @@ First create a local directory as a sandbox for new scripts. Add that directory 
 *Gimp->Edit->Preferences->Folders->Scripts (add new folder).*
 
 Restart Gimp, any scripts in that new folder should appear as menu items
-or useable procedures. 
+or useable procedures.
 
-After editing and saving a script I press the "#" key in Gimp, 
-which can be set as a keyboard shortcut to refresh scripts.
+After editing and saving a script I press the "#" key in Gimp,
+which can be set as a keyboard shortcut to refresh scripts..
 \
 *Gimp->Edit->Keyboard Shortcuts (Refresh Scripts)*
 
@@ -20,5 +20,3 @@ Check out the Procedure Browser.
 
 
 https://docs.gimp.org/en/gimp-concepts-script-fu.html
-
-
