@@ -11,7 +11,11 @@ set up as a keyboard shortcut.
 *Gimp->Edit->Keyboard Shortcuts (Refresh Scripts)*
 
 * Keep the Error Console window open. It's the only way I've been able to find to debug a script.\
-*Gimp->Windows->Dockable Dialogues->Error Console*
+*Gimp->Windows->Dockable Dialogues->Error Console* 
+  
+  
+  
+
 
 
 
