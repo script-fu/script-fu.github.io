@@ -89,17 +89,18 @@ find it easily again. The tag is saved with the image as a parasite.
 
 		foundImage
 		)
-		)
+	)
 
-		(script-fu-register "findImageTagged"
-		"<Image>/Script-Fu/testFindImageTagged"
-		"finds image tagged with the tag name and returns it's ID"
-		"Mark Sweeney"
-		"copyright 2022, Mark Sweeney"
-		"2022"
-		""
-		SF-STRING      "find image tagged with"   "findMe"
-		)
+
+	(script-fu-register "findImageTagged"
+	"<Image>/Script-Fu/testFindImageTagged"
+	"finds image tagged with the tag name and returns it's ID"
+	"Mark Sweeney"
+	"copyright 2022, Mark Sweeney"
+	"2022"
+	""
+	SF-STRING      "find image tagged with"   "findMe"
+	)
 ```
 
 *The menu item that reports what parasites are on the active image*
