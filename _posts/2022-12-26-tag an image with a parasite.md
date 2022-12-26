@@ -1,4 +1,4 @@
-## file information
+## tag an image with a parasite
 
 *A function to tag an image with a parasite*
 
