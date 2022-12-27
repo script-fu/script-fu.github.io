@@ -59,7 +59,7 @@
 *The menu item that reports what parasites are on the active layer*
 
 ```scheme
-(define (sweeney_reportLayerTags img drawable)
+(define (reportLayerTags img drawable)
 (let*
 	(
 	(i 0)
@@ -93,7 +93,7 @@
 	)
 )
 
-(script-fu-register "sweeney_reportLayerTags"
+(script-fu-register "reportLayerTags"
 	"<Image>/Script-Fu/reportLayerTags"
 	"read layer parasites and print to error console" ;description
 	"Mark Sweeney"
