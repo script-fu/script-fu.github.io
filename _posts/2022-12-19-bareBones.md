@@ -6,13 +6,13 @@
 ;The script procedure
 (define (bareBones img drawable) ; image and layer to work on
 	(let*
-		(
-	  ;variables
-		;(i 0)
-		)
-  ;*************
-	;scripty stuff here
-  ;*************
+	 (
+	 ;variables
+	 ;(i 0)
+	 )
+	 ;*************
+	 ;scripty stuff here
+	 ;*************
 	) ;end of let*
 );end of script procedure
 
@@ -29,5 +29,5 @@
 	SF-DRAWABLE    "Drawable"        		0    ;pass the active drawable
 )
 ;***** Gimp 3.0 menu item register method, if a menu item is needed *****
-;(script-fu-menu-register "bareBones" "<Image>/Script-Fu")
+;(script-fu-menu-register "bareBones" "<Image>/Script-Fu")+
 ```
