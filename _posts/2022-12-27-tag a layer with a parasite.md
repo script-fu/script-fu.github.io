@@ -44,7 +44,7 @@
 
 
 (script-fu-register "testTagLayer"
-	"<Image>/Script-Fu/testTagLayer"
+	"testTagLayer"
 	"test tag layer"
 	"Mark Sweeney"
 	"copyright 2022, Mark Sweeney"
@@ -54,6 +54,7 @@
 	SF-DRAWABLE    "Drawable"        		0
 	SF-STRING      "layer tagged as"   "findMe"
 )
+(script-fu-menu-register "testTagLayer" "<Image>/Script-Fu")
 ```
 
 *The menu item that reports what parasites are on the active layer*
@@ -94,7 +95,7 @@
 )
 
 (script-fu-register "reportLayerTags"
-	"<Image>/Script-Fu/reportLayerTags"
+	"reportLayerTags"
 	"read layer parasites and print to error console" ;description
 	"Mark Sweeney"
 	"copyright 2022, Mark Sweeney"
@@ -103,6 +104,7 @@
 	SF-IMAGE       "Image"           		0
 	SF-DRAWABLE    "Drawable"        		0
 )
+(script-fu-menu-register "reportLayerTags" "<Image>/Script-Fu")
 ```
 
 *The menu item that removes a specified tag*
@@ -134,7 +136,7 @@
 
 
 (script-fu-register "removeTag"
-  "<Image>/Script-Fu/removeLayerTag"
+  "removeLayerTag"
   "remove tag parasite data" ;description
   "Mark Sweeney"
   "copyright 2022, Mark Sweeney"
@@ -144,6 +146,7 @@
   SF-DRAWABLE    "Drawable"        		0
   SF-STRING      " remove layer tag "   "findMe"
 )
+(script-fu-menu-register "removeTag" "<Image>/Script-Fu")
 ```
 
 *This procedure returns a list of all layers with a specific tag*
@@ -238,7 +241,7 @@
 
 
 (script-fu-register "findLayersTagged"
-	"<Image>/Script-Fu/findLayersTagged"
+	"findLayersTagged"
 	"returns a list of tagged layers" ;description
 	"Mark Sweeney"
 	"copyright 2022, Mark Sweeney"
@@ -247,6 +250,7 @@
 	SF-IMAGE       "Image"           		0
 	SF-STRING      "Tag to Find" "storeLayer"
 )
+(script-fu-menu-register "findLayersTagged" "<Image>/Script-Fu")
 ```
 
 *This procedure finds if a layer has a specific tag*

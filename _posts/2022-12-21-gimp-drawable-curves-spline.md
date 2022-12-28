@@ -18,7 +18,7 @@ when I wanted a scripted "Colours->Curves" for the image value.*
 		(vector-set! points 3 (* y2 conv) )
 		(vector-set! points 4 (* x3 conv) )
 		(vector-set! points 5 (* y3 conv) )
-    
+
 		(gimp-drawable-curves-spline drawable 0 6 points)
 		drawable
 	)
@@ -42,12 +42,12 @@ when I wanted a scripted "Colours->Curves" for the image value.*
 	(let*
 	()
 	(curve3Value img drawable 0 0 160 65 255 255)
-	(gimp-displays-flush) 
+	(gimp-displays-flush)
 	)
 )
 
 (script-fu-register "curveDropMid"
-	"<Image>/Script-Fu/curveDropMid"
+	"valueDropMid"
 	"apply a specific curve to the image intensity levels"
 	"Mark Sweeney"
 	"copyright 2022, Mark Sweeney"
@@ -56,4 +56,5 @@ when I wanted a scripted "Colours->Curves" for the image value.*
 	SF-IMAGE       "Image"           		0
 	SF-DRAWABLE    "Drawable"        		0
 )
+(script-fu-menu-register "curveDropMid" "<Image>/Script-Fu")
 ```

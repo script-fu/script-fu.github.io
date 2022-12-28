@@ -18,16 +18,17 @@ find it easily again. The tag is saved with the image as a parasite.
 	)
 
 
-	(script-fu-register "testTagImage"
-	"<Image>/Script-Fu/testTagImage"
-	"test tag image"
-	"Mark Sweeney"
-	"copyright 2022, Mark Sweeney"
-	"2022"
-	"*"
-	SF-IMAGE       "Image"           		0
-	SF-STRING      "image tagged as"   "findMe"
-	)
+(script-fu-register "testTagImage"
+"testTagImage"
+"test tag image"
+"Mark Sweeney"
+"copyright 2022, Mark Sweeney"
+"2022"
+"*"
+SF-IMAGE       "Image"           		0
+SF-STRING      "image tagged as"   "findMe"
+)
+(script-fu-menu-register "testTagImage" "<Image>/Script-Fu")
 ```
 
 *The menu item that finds the image again*
@@ -89,18 +90,19 @@ find it easily again. The tag is saved with the image as a parasite.
 
 		foundImage
 		)
-	)
+		)
 
 
-	(script-fu-register "findImageTagged"
-	"<Image>/Script-Fu/testFindImageTagged"
-	"finds image tagged with the tag name and returns it's ID"
-	"Mark Sweeney"
-	"copyright 2022, Mark Sweeney"
-	"2022"
-	""
-	SF-STRING      "find image tagged with"   "findMe"
-	)
+(script-fu-register "findImageTagged"
+"testFindImageTagged"
+"finds image tagged with the tag name and returns it's ID"
+"Mark Sweeney"
+"copyright 2022, Mark Sweeney"
+"2022"
+""
+SF-STRING      "find image tagged with"   "findMe"
+)
+(script-fu-menu-register "findImageTagged" "<Image>/Script-Fu")
 ```
 
 *The menu item that reports what parasites are on the active image*
@@ -142,13 +144,14 @@ find it easily again. The tag is saved with the image as a parasite.
 )
 
 
-  (script-fu-register "reportImageTags"
-  "<Image>/Script-Fu/reportImageTags"
-  "reports image tags"
-  "Mark Sweeney"
-  "copyright 2022, Mark Sweeney"
-  "2022"
-  "*"
-  SF-IMAGE       "Image"           		0
-  )
+(script-fu-register "reportImageTags"
+"reportImageTags"
+"reports image tags"
+"Mark Sweeney"
+"copyright 2022, Mark Sweeney"
+"2022"
+"*"
+SF-IMAGE       "Image"           		0
+)
+(script-fu-menu-register "reportImageTags" "<Image>/Script-Fu")
 ```
