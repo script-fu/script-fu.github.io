@@ -88,7 +88,7 @@
 
 
 (script-fu-register "findLayersTagged"
-	"<Image>/Script-Fu/findLayersTagged"
+	"findLayersTagged"
 	"returns a list of tagged layers" ;description
 	"Mark Sweeney"
 	"copyright 2022, Mark Sweeney"
@@ -97,3 +97,4 @@
 	SF-IMAGE       "Image"           		0
 	SF-STRING      "Tag to Find" "storeLayer"
 )
+(script-fu-menu-register "findLayersTagged" "<Image>/Script-Fu")

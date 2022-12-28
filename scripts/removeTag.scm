@@ -25,7 +25,7 @@
 
 
 (script-fu-register "removeTag"
-  "<Image>/Script-Fu/removeLayerTag"
+  "removeLayerTag"
   "remove tag parasite data" ;description
   "Mark Sweeney"
   "copyright 2022, Mark Sweeney"
@@ -35,3 +35,4 @@
   SF-DRAWABLE    "Drawable"        		0
   SF-STRING      " remove layer tag "   "findMe"
 )
+(script-fu-menu-register "removeTag" "<Image>/Script-Fu")

@@ -33,7 +33,7 @@
 )
 
 (script-fu-register "reportLayerTags"
-	"<Image>/Script-Fu/reportLayerTags"
+	"reportLayerTags"
 	"read layer parasites and print to error console" ;description
 	"Mark Sweeney"
 	"copyright 2022, Mark Sweeney"
@@ -42,3 +42,4 @@
 	SF-IMAGE       "Image"           		0
 	SF-DRAWABLE    "Drawable"        		0
 )
+(script-fu-menu-register "reportLayerTags" "<Image>/Script-Fu")

@@ -1,5 +1,5 @@
 
-(define (reportActiveLayer img drawable) 
+(define (reportActiveLayer img drawable)
 	(let*
 		(
 		(parent 0)
@@ -29,7 +29,7 @@
 )
 
 (script-fu-register "reportActiveLayer"
-	"<Image>/Script-Fu/reportActiveLayer"
+	"reportActiveLayer"
 	"prints the active layer to the error console"
 	"Mark Sweeney"
 	"copyright 2022, Mark Sweeney"
@@ -38,3 +38,4 @@
 	SF-IMAGE       "Image"           		0
 	SF-DRAWABLE    "Drawable"        		0
 )
+(script-fu-menu-register "reportActiveLayer" "<Image>/Script-Fu")

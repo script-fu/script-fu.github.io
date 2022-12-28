@@ -56,12 +56,14 @@
 		)
 		)
 
-		(script-fu-register "findImageTagged"
-		"<Image>/Script-Fu/testFindImageTagged"
-		"finds image tagged with the tag name and returns it's ID"
-		"Mark Sweeney"
-		"copyright 2022, Mark Sweeney"
-		"2022"
-		""
-		SF-STRING      "find image tagged with"   "findMe"
-		)
+
+(script-fu-register "findImageTagged"
+"testFindImageTagged"
+"finds image tagged with the tag name and returns it's ID"
+"Mark Sweeney"
+"copyright 2022, Mark Sweeney"
+"2022"
+""
+SF-STRING      "find image tagged with"   "findMe"
+)
+(script-fu-menu-register "findImageTagged" "<Image>/Script-Fu")

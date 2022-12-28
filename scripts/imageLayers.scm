@@ -31,7 +31,7 @@
 
 
 (script-fu-register "imageLayers"
-	"<Image>/Script-Fu/imageLayers"
+	"imageLayers"
 	"prints all the layers and folders to the error console"
 	"Mark Sweeney"
 	"copyright 2022, Mark Sweeney"
@@ -39,3 +39,4 @@
 	"*"
 	SF-IMAGE       "Image"           		0
 )
+(script-fu-menu-register "imageLayers" "<Image>/Script-Fu")

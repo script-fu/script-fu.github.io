@@ -8,6 +8,8 @@
 	(strippedfileName 0)
 	)
 
+	(when (not(equal? (car(gimp-image-get-filename img)) ""))
+	(gimp-message " file has a name ")
 	(set! fileName (car(gimp-image-get-filename img)))
 	(set! fileBase (car (reverse (strbreakup fileName "/"))))
 	(set! filePath (unbreakupstr (reverse (cdr (reverse (strbreakup fileName "/")))) "/"))
@@ -16,6 +18,14 @@
 	(vector-set! returnInfo 0 fileBase)
 	(vector-set! returnInfo 1 strippedfileName)
 	(vector-set! returnInfo 2 filePath)
+  )
+
+	(when (equal? (car(gimp-image-get-filename img)) "")
+	(gimp-message " file has no name ")
+	(vector-set! returnInfo 0 "file not named")
+	(vector-set! returnInfo 1 "file not named")
+	(vector-set! returnInfo 2 "file not saved")
+	)
 
 	returnInfo
 	)

@@ -10,7 +10,7 @@
 
 
 (script-fu-register "testTagLayer"
-	"<Image>/Script-Fu/testTagLayer"
+	"testTagLayer"
 	"test tag layer"
 	"Mark Sweeney"
 	"copyright 2022, Mark Sweeney"
@@ -20,3 +20,4 @@
 	SF-DRAWABLE    "Drawable"        		0
 	SF-STRING      "layer tagged as"   "findMe"
 )
+(script-fu-menu-register "testTagLayer" "<Image>/Script-Fu")

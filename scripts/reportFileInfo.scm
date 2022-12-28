@@ -20,12 +20,13 @@
 		)
 		)
 
-		(script-fu-register "reportFileInfo"
-		"<Image>/Script-Fu/reportFileInfo"
-		"prints the active file info to the error console"
-		"Mark Sweeney"
-		"copyright 2022, Mark Sweeney"
-		"2022"
-		"*"
-		SF-IMAGE       "Image"           		0
-		)
+(script-fu-register "reportFileInfo"
+"reportFileInfo"
+"prints the active file info to the error console"
+"Mark Sweeney"
+"copyright 2022, Mark Sweeney"
+"2022"
+"*"
+SF-IMAGE       "Image"           		0
+)
+(script-fu-menu-register "reportFileInfo" "<Image>/Script-Fu")

@@ -34,12 +34,13 @@
 )
 
 
-  (script-fu-register "reportImageTags"
-  "<Image>/Script-Fu/reportImageTags"
-  "reports image tags"
-  "Mark Sweeney"
-  "copyright 2022, Mark Sweeney"
-  "2022"
-  "*"
-  SF-IMAGE       "Image"           		0
-  )
+(script-fu-register "reportImageTags"
+"reportImageTags"
+"reports image tags"
+"Mark Sweeney"
+"copyright 2022, Mark Sweeney"
+"2022"
+"*"
+SF-IMAGE       "Image"           		0
+)
+(script-fu-menu-register "reportImageTags" "<Image>/Script-Fu")

@@ -9,6 +9,7 @@
 	(i 0)
 	)
 
+
 	(set! returnList (layerScan img 0 0))
 	(when (> (car returnList) 0)
 	(set! layerCount (car returnList))
@@ -33,9 +34,8 @@
 	)
 )
 
-
 (script-fu-register "findLayer"
-"<Image>/Script-Fu/findLayer"
+"findLayerByName"
 "finds a layer by it's name, returns its ID"
 "Mark Sweeney"
 "copyright 2022, Mark Sweeney"
@@ -44,3 +44,4 @@
 SF-IMAGE       "Image"           		0
 SF-STRING      "Layer to Find" "findMe"
 )
+(script-fu-menu-register "findLayer" "<Image>/Script-Fu")
