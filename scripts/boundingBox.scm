@@ -43,7 +43,7 @@
 			(when (= isAlpha 1)
 				(if (= isMask 0)(gimp-message (string-append " boxing alpha of layer -> " drawableName)))
 			)
-		)
+		) 
 
 		(when (= isSelection 0)
 			(set! layerOffsetWidth (car (gimp-drawable-offsets drawable)))
