@@ -20,4 +20,4 @@ to debug a script.\
 define name.For example, a script defined as *bareBones* would be saved as
 *bareBones.scm* in a scripts folder.
 
-* https://github.com/script-fu/script-fu.github.io/blob/main/LICENSE
+* [Under GNU GENERAL PUBLIC LICENSE Version 3](https://github.com/script-fu/script-fu.github.io/blob/main/LICENSE)
