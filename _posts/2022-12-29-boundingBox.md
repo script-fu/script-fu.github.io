@@ -25,7 +25,8 @@ If nothing is selected but a layer with alpha is active, then it bounding boxes 
    )
 
   (when (= (car(gimp-selection-is-empty img)) 0)
-    (gimp-message (string-append " There is an active selection to bounding box"))
+    (gimp-message (string-append
+    " There is an active selection to bounding box"))
    (set! isSelection 1)
    )
 
@@ -43,7 +44,8 @@ If nothing is selected but a layer with alpha is active, then it bounding boxes 
 
    (when (= isAlpha 0)
     (when (= isMask 0)
-     (gimp-message (string-append " no alpha channel on layer -> " drawableName))
+     (gimp-message (string-append " no alpha channel on layer -> "
+     drawableName))
      (when (> (car (gimp-layer-get-mask drawable)) 0)
       (gimp-message (string-append " using mask of layer -> " drawableName))
       (set! drawable (car (gimp-layer-get-mask drawable)))
@@ -52,7 +54,8 @@ If nothing is selected but a layer with alpha is active, then it bounding boxes 
    )
 
    (when (= isAlpha 1)
-    (if (= isMask 0)(gimp-message (string-append " boxing alpha of layer -> " drawableName)))
+    (if (= isMask 0)
+     (gimp-message (string-append " boxing alpha of layer -> " drawableName)))
    )
   )
 
@@ -100,4 +103,5 @@ If nothing is selected but a layer with alpha is active, then it bounding boxes 
  SF-ADJUSTMENT  "expand (in pixels)" (list 100 1 5000 1 10 0 SF-SPINNER)
  )
 (script-fu-menu-register "boundingBox" "<Image>/Script-Fu")
+
 ```

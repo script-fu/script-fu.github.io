@@ -14,7 +14,8 @@
    )
 
   (when (= (car(gimp-selection-is-empty img)) 0)
-    (gimp-message (string-append " There is an active selection to bounding box"))
+    (gimp-message (string-append
+    " There is an active selection to bounding box"))
    (set! isSelection 1)
    )
 
@@ -32,7 +33,8 @@
 
    (when (= isAlpha 0)
     (when (= isMask 0)
-     (gimp-message (string-append " no alpha channel on layer -> " drawableName))
+     (gimp-message (string-append " no alpha channel on layer -> "
+     drawableName))
      (when (> (car (gimp-layer-get-mask drawable)) 0)
       (gimp-message (string-append " using mask of layer -> " drawableName))
       (set! drawable (car (gimp-layer-get-mask drawable)))
@@ -41,7 +43,8 @@
    )
 
    (when (= isAlpha 1)
-    (if (= isMask 0)(gimp-message (string-append " boxing alpha of layer -> " drawableName)))
+    (if (= isMask 0)
+     (gimp-message (string-append " boxing alpha of layer -> " drawableName)))
    )
   )
 
