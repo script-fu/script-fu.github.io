@@ -43,7 +43,7 @@
 			(when (= isAlpha 1)
 				(if (= isMask 0)(gimp-message (string-append " boxing alpha of layer -> " drawableName)))
 			)
-		) 
+		)
 
 		(when (= isSelection 0)
 			(set! layerOffsetWidth (car (gimp-drawable-offsets drawable)))
@@ -64,12 +64,13 @@
 		(vector-set! points 2 (+ (vector-ref points 2) expand))
 		(vector-set! points 3 (+ (vector-ref points 3) expand))
 
-		(gimp-image-select-rectangle img
-																	2
-																	(vector-ref points 0)
-																	(vector-ref points 1)
-																	(- (vector-ref points 2) (vector-ref points 0))
-																	(- (vector-ref points 3) (vector-ref points 1))
+		(gimp-image-select-rectangle
+			img
+			2
+			(vector-ref points 0)
+			(vector-ref points 1)
+			(- (vector-ref points 2) (vector-ref points 0))
+			(- (vector-ref points 3) (vector-ref points 1))
 		)
 		(gimp-displays-flush)
 	 )

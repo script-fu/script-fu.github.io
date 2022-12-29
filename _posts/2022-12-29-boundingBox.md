@@ -75,12 +75,13 @@ If nothing is selected but a layer with alpha is active, then it bounding boxes 
 		(vector-set! points 2 (+ (vector-ref points 2) expand))
 		(vector-set! points 3 (+ (vector-ref points 3) expand))
 
-		(gimp-image-select-rectangle img
-																	2
-																	(vector-ref points 0)
-																	(vector-ref points 1)
-																	(- (vector-ref points 2) (vector-ref points 0))
-																	(- (vector-ref points 3) (vector-ref points 1))
+		(gimp-image-select-rectangle
+			img
+			2
+			(vector-ref points 0)
+			(vector-ref points 1)
+			(- (vector-ref points 2) (vector-ref points 0))
+			(- (vector-ref points 3) (vector-ref points 1))
 		)
 		(gimp-displays-flush)
 	 )
