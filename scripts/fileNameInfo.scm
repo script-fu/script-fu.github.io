@@ -1,42 +1,44 @@
 (define (fileNameInfo img)
-(let*
-	(
-	(fileName 0)
-	(fileBase 0)
-	(filePath 0)
-	(returnInfo (make-vector 3 ""))
-	(strippedfileName 0)
-	)
+ (let*
+ (
+  (fileName 0)
+  (fileBase 0)
+  (filePath 0)
+  (returnInfo (make-vector 3 ""))
+  (strippedfileName 0)
+ )
 
-	(when (not(equal? (car(gimp-image-get-filename img)) ""))
-	(gimp-message " file has a name ")
-	(set! fileName (car(gimp-image-get-filename img)))
-	(set! fileBase (car (reverse (strbreakup fileName "/"))))
-	(set! filePath (unbreakupstr (reverse (cdr (reverse (strbreakup fileName "/")))) "/"))
-	(set! strippedfileName (car (strbreakup fileBase ".")))
+ (when (not(equal? (car(gimp-image-get-filename img)) ""))
+  (gimp-message " file has a name ")
+  (set! fileName (car(gimp-image-get-filename img)))
+  (set! fileBase (car (reverse (strbreakup fileName "/"))))
+  (set! filePath (unbreakupstr (reverse (cdr (reverse
+                 (strbreakup fileName "/")))) "/"))
 
-	(vector-set! returnInfo 0 fileBase)
-	(vector-set! returnInfo 1 strippedfileName)
-	(vector-set! returnInfo 2 filePath)
-  )
+  (set! strippedfileName (car (strbreakup fileBase ".")))
 
-	(when (equal? (car(gimp-image-get-filename img)) "")
-	(gimp-message " file has no name ")
-	(vector-set! returnInfo 0 "file not named")
-	(vector-set! returnInfo 1 "file not named")
-	(vector-set! returnInfo 2 "file not saved")
-	)
+  (vector-set! returnInfo 0 fileBase)
+  (vector-set! returnInfo 1 strippedfileName)
+  (vector-set! returnInfo 2 filePath)
+ )
 
-	returnInfo
-	)
-	)
+ (when (equal? (car(gimp-image-get-filename img)) "")
+  (gimp-message " file has no name ")
+  (vector-set! returnInfo 0 "file not named")
+  (vector-set! returnInfo 1 "file not named")
+  (vector-set! returnInfo 2 "file not saved")
+ )
 
-	(script-fu-register "fileNameInfo"
-	""
-	"find file name and path" ;description
-	"Mark Sweeney"
-	"copyright 2022, Mark Sweeney"
-	"2022"
-	"*"
-	SF-IMAGE       "Image"           		0
-	)
+ returnInfo
+ )
+)
+
+(script-fu-register "fileNameInfo"
+ ""
+ "find file name and path" ;description
+ "Mark Sweeney"
+ "copyright 2022, Mark Sweeney"
+ "2022"
+ "*"
+ SF-IMAGE       "Image"             0
+)
