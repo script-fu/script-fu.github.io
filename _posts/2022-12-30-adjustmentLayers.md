@@ -2,7 +2,7 @@
 
 Layers can be used as adjustments by selecting different modes and putting them
 above a target layer.  Here is an example of that method.  It puts two layers
-above the source that can be used to create non-linear intensity changes.  
+above the source that can be used to create non-linear intensity changes.
 It also wraps up the target layer in a folder structure that limits the range
 of the effect to just the source layer.  More layers doing different things
 can be added manually, or just edit the script to suite your needs.
@@ -14,7 +14,7 @@ Edit the adjustmentLayers mask to control the region adjusted.
 
 Done as suggestion from CinnamonCajaCrunch on r/Gimp
 
-*This script creates a wrapper around a layer that allows simple adjustments*
+*This script creates a wrapper around a layer that allows simple adjustments*  
 ```scheme
 (define (adjustmentLayers img drawable)
  (let*
