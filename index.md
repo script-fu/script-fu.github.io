@@ -1,3 +1,4 @@
+
 ### Quickstart in Script-Fu - GIMP 2.10.30
 
 * Create a local directory as a sandbox for new scripts. Add that directory in
@@ -21,3 +22,4 @@ define name.For example, a script defined as *bareBones* would be saved as
 *bareBones.scm* in a scripts folder.
 
 * [Under GNU GENERAL PUBLIC LICENSE Version 3](https://github.com/script-fu/script-fu.github.io/blob/main/LICENSE)
+* [Download all scripts](https://downgit.github.io/#/home?url=https://github.com/script-fu/script-fu.github.io/tree/main/scripts)
