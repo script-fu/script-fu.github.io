@@ -130,8 +130,8 @@ Done as suggestion from CinnamonCajaCrunch on r/Gimp
   (gimp-layer-set-opacity toneLayer 100)
   (gimp-layer-set-mode toneLayer mode)
   (gimp-context-set-foreground (list tone tone tone))
- 	(gimp-context-set-opacity 100)
- 	(gimp-drawable-fill toneLayer 0)
+  (gimp-context-set-opacity 100)
+  (gimp-drawable-fill toneLayer 0)
   (gimp-context-set-paint-mode normalMode)
   (gimp-context-set-default-colors)
   toneLayer
