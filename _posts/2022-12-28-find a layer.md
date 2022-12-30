@@ -8,49 +8,52 @@ See the post *layers in an image*
 ```scheme
 (define (findLayer img name)
 (let*
-	(
-	(matchedLayer 0)
-	(matchName 0)
-	(returnList 0)
-	(layerCount 0)
-	(returnLayerList 0)
-	(i 0)
-	)
+ (
+ (matchedLayer 0)
+ (matchName 0)
+ (returnList 0)
+ (layerCount 0)
+ (returnLayerList 0)
+ (i 0)
+)
 
 
-	(set! returnList (layerScan img 0 0))
-	(when (> (car returnList) 0)
-	(set! layerCount (car returnList))
-	(set! returnLayerList (car(cdr returnList)))
-	)
+ (set! returnList (layerScan img 0 0))
+ (when (> (car returnList) 0)
+  (set! layerCount (car returnList))
+  (set! returnLayerList (car(cdr returnList)))
+ )
 
-	(while (< i layerCount)
-	(set! matchName (car(gimp-item-get-name (vector-ref returnLayerList i))))
-	(when (equal? name matchName)
-	(set! matchedLayer (vector-ref returnLayerList i))
-	(set! i layerCount)
-	(gimp-message (string-append " found layer -> " name " : ID = " (number->string matchedLayer)))
-	)
-	(set! i (+ i 1))
-	)
+ (while (< i layerCount)
+  (set! matchName (car(gimp-item-get-name (vector-ref returnLayerList i))))
+  (when (equal? name matchName)
+   (set! matchedLayer (vector-ref returnLayerList i))
+   (set! i layerCount)
+   (gimp-message (string-append " found layer -> " name " : ID = "
+                                (number->string matchedLayer)))
+   ;(gimp-image-set-active-layer img matchedLayer) make it the active layer
+  )
+ (set! i (+ i 1))
+ )
 
-	(when (= matchedLayer 0)
-	(gimp-message (string-append "* not found layer --> " name))
-	)
+ (when (= matchedLayer 0)
+  (gimp-message (string-append "* not found layer --> " name))
+ )
 
-	matchedLayer
-	)
+ matchedLayer
+ )
 )
 
 (script-fu-register "findLayer"
-"findLayerByName"
-"finds a layer by it's name, returns its ID"
-"Mark Sweeney"
-"copyright 2022, Mark Sweeney"
-"2020"
-"*"
-SF-IMAGE       "Image"           		0
-SF-STRING      "Layer to Find" "findMe"
+ "findLayerByName"
+ "finds a layer by it's name, returns its ID"
+ "Mark Sweeney"
+ "copyright 2022, Mark Sweeney"
+ "2020"
+ "*"
+ SF-IMAGE       "Image"             0
+ SF-STRING      "Layer to Find" "findMe"
 )
 (script-fu-menu-register "findLayer" "<Image>/Script-Fu")
+
 ```
