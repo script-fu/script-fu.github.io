@@ -91,11 +91,6 @@ Done as suggestion from CinnamonCajaCrunch on r/Gimp
   (gimp-layer-add-mask adjustmentLayers
                        (car(gimp-layer-create-mask adjustmentLayers whiteMask)))
 
-
-
-
-
-
   (gimp-displays-flush)
   (gimp-image-undo-group-end img)
 
