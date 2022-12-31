@@ -28,7 +28,7 @@ when I wanted a scripted "Colours->Curves" for the image value.*
  ""
  "apply a 3 value scripted curve to the intensity levels"
  "Mark Sweeney"
- "copyright 2022, Mark Sweeney"
+ "copyright 2022, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
  "2022"
  ""
 )
@@ -51,7 +51,7 @@ when I wanted a scripted "Colours->Curves" for the image value.*
  "valueDropMid"
  "apply a specific curve to the image intensity levels"
  "Mark Sweeney"
- "copyright 2022, Mark Sweeney"
+ "copyright 2022, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
  "2022"
  "*"
  SF-IMAGE       "Image"             0

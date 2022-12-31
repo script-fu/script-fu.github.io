@@ -94,7 +94,7 @@ If nothing is selected but a layer with alpha is active, then it bounding boxes 
  "boundingBox"
  "convert current selection, layer alpha or layer mask to a bounding box"
  "Mark Sweeney"
- "copyright 2022, Mark Sweeney"
+ "copyright 2022, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
  "2022"
  "*"
  SF-IMAGE       "Image"             0

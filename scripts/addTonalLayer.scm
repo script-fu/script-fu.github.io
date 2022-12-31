@@ -27,7 +27,7 @@
  ""
  "add a tonal layer, sized from the image"
  "Mark Sweeney"
- "Mark Sweeney"
- "2020"
+ "copyright 2022, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
+ "2022"
  ""
 )

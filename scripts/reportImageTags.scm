@@ -39,7 +39,7 @@
  "reportImageTags"
  "reports image tags"
  "Mark Sweeney"
- "copyright 2022, Mark Sweeney"
+ "copyright 2022, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
  "2022"
  "*"
  SF-IMAGE       "Image"           		0

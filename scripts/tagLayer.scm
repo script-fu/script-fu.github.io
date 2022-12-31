@@ -17,7 +17,7 @@
  ""
  "tag layer with parasite data and set colour" ;description
  "Mark Sweeney"
- "copyright 2022, Mark Sweeney"
+ "copyright 2022, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
  "2022"
  ""
  SF-STRING      "layer tagged as"   "findMe"

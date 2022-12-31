@@ -58,7 +58,7 @@
  "testFindImageTagged"
  "finds image tagged with the tag name and returns it's ID"
  "Mark Sweeney"
- "copyright 2022, Mark Sweeney"
+ "copyright 2022, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
  "2022"
  ""
  SF-STRING      "find image tagged with"   "findMe"

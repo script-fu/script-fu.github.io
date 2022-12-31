@@ -40,7 +40,7 @@
  "findLayerByName"
  "finds a layer by it's name, returns its ID"
  "Mark Sweeney"
- "copyright 2022, Mark Sweeney"
+ "copyright 2022, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
  "2020"
  "*"
  SF-IMAGE       "Image"             0

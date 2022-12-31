@@ -41,7 +41,7 @@ A layer has an ID number, a position in the image tree, possibly a parent folder
  ""
  "returns the active layer, mask and layer name"
  "Mark Sweeney"
- "copyright 2022, Mark Sweeney"
+ "copyright 2022, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
  "2022"
  "*"
  SF-IMAGE       "Image"             0
@@ -85,7 +85,7 @@ A layer has an ID number, a position in the image tree, possibly a parent folder
  "reportActiveLayer"
  "prints the active layer to the error console"
  "Mark Sweeney"
- "copyright 2022, Mark Sweeney"
+ "copyright 2022, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
  "2022"
  "*"
  SF-IMAGE       "Image"             0
