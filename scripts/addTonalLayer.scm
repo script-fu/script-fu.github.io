@@ -7,7 +7,7 @@
    (cur-height 0)
    (normalMode 28)
   )
-
+  (gimp-context-push)
   (set! cur-width  (car (gimp-image-width img)))
   (set! cur-height (car (gimp-image-height img)))
   (set! toneLayer (car (gimp-layer-new img cur-width cur-height 0 name 100 28)))
@@ -17,8 +17,7 @@
   (gimp-context-set-foreground (list tone tone tone))
   (gimp-context-set-opacity 100)
   (gimp-drawable-fill toneLayer 0)
-  (gimp-context-set-paint-mode normalMode)
-  (gimp-context-set-default-colors)
+  (gimp-context-pop)
   toneLayer
  )
 )
