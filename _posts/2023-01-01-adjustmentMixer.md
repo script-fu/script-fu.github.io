@@ -15,13 +15,9 @@ This takes whatever layer is in the "original-source" folder and rebakes the
 post-process effects using that changed image. Which is nice if you change the
 source a lot and want to preserve any previous adjustments you made.  
 
-Also depends on having these scripts in the same folder:
-
-*layerScan.scm
-*curve2Value.scm
-*applyCurve_S.scm
-*copyToLayer.scm
-*adjustmentBaker.scm
+Also depends on having these files in a scripts folder:
+layerScan.scm, curve2Value.scm, applyCurve_S.scm, copyToLayer.scm and
+adjustmentBaker.scm
 
 Non-programmers, notice that this script has several function definitions that
 are used by the final *registered* function definition. This lets you avoid
