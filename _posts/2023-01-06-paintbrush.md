@@ -35,7 +35,6 @@ Two scripts, one to draw the shape and one to create a new image.
  (gimp-context-set-default-colors)
  (gimp-context-set-gradient "FG to BG (RGB)")
 
-
  (set! displayReturn (newDisplay width height type precision))
  (set! newImg (vector-ref displayReturn 1))
  (set! activeLayer (vector-ref displayReturn 0))
