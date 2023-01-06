@@ -5,7 +5,7 @@
   (conv (/ 1 255))
  )
 
- (set! points (make-vector 6 'double))
+ (set! points (make-vector 4 'double))
  (vector-set! points 0 (* x1 conv) )
  (vector-set! points 1 (* y1 conv) )
  (vector-set! points 2 (* x2 conv) )
