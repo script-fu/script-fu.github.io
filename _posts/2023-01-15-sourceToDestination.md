@@ -6,6 +6,10 @@ might not work.
 Here's a script that copies the active folder tree or layer from the source
 image to a destination image, and goes several folders deep.
 
+Update : Found out that you can drag a folder structure from one canvas to
+         another manually! Silly me, ctrl-C and ctrl-V no though.
+         Anyhow, when it needs to be done in a script...
+
 *copies the active layer or folder from a source image to a destination image*
 
 ```scheme
