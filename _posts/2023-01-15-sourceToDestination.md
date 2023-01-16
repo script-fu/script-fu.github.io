@@ -78,7 +78,7 @@ image to a destination image, and goes several folders deep.
  )
 
  (set! folderMask(car (gimp-layer-get-mask startGroup)))
- (set! folder (srcLayerToDes startGroup srcImg dstImg 0))
+ (set! folder (srcLayerToDst startGroup srcImg dstImg 0))
  (set! getChildren (gimp-item-get-children startGroup))
  (set! topTreeCount (car getChildren))
  (set! topTreeLayerList (cadr getChildren))
@@ -87,7 +87,7 @@ image to a destination image, and goes several folders deep.
  (while (> i -1)
   (set! layer (vector-ref topTreeLayerList i))
   (when (equal? (car (gimp-item-is-group layer)) FALSE)
-   (srcLayerToDes layer srcImg dstImg folder)
+   (srcLayerToDst layer srcImg dstImg folder)
   )
 
   (when (equal? (car (gimp-item-is-group layer)) TRUE)
@@ -96,13 +96,13 @@ image to a destination image, and goes several folders deep.
    (set! secondGroupCount (car secondGetChildren))
    (set! secondGroupList (cadr secondGetChildren))
    (set! j (- secondGroupCount 1))
-   (set! secFolder (srcLayerToDes layer srcImg dstImg folder))
+   (set! secFolder (srcLayerToDst layer srcImg dstImg folder))
 
    (when (> secondGroupCount 0)
     (while (> j -1)
      (set! layer (vector-ref secondGroupList j))
      (when (equal? (car (gimp-item-is-group layer)) FALSE)
-      (srcLayerToDes layer srcImg dstImg secFolder)
+      (srcLayerToDst layer srcImg dstImg secFolder)
      )
 
      (when (equal? (car (gimp-item-is-group layer)) TRUE)
@@ -111,13 +111,13 @@ image to a destination image, and goes several folders deep.
       (set! thirdGroupCount (car thirdGetChildren))
       (set! thirdGroupList (cadr thirdGetChildren))
       (set! k (- thirdGroupCount 1))
-      (set! thirdFolder (srcLayerToDes layer srcImg dstImg secFolder))
+      (set! thirdFolder (srcLayerToDst layer srcImg dstImg secFolder))
 
       (when (> thirdGroupCount 0)
        (while (> k -1)
         (set! layer (vector-ref thirdGroupList k))
         (when (equal? (car (gimp-item-is-group layer)) FALSE)
-         (srcLayerToDes layer srcImg dstImg thirdFolder)
+         (srcLayerToDst layer srcImg dstImg thirdFolder)
         )
 
         (when (equal? (car (gimp-item-is-group layer)) TRUE)
@@ -126,14 +126,14 @@ image to a destination image, and goes several folders deep.
          (set! fourthGroupCount (car fourthGetChildren))
          (set! fourthGroupList (cadr fourthGetChildren))
          (set! l (- fourthGroupCount 1))
-         (set! fourthFolder (srcLayerToDes layer srcImg dstImg thirdFolder))
+         (set! fourthFolder (srcLayerToDst layer srcImg dstImg thirdFolder))
 
          (when (> fourthGroupCount 0)
           (while (> l -1)
            (set! layer (vector-ref fourthGroupList l))
 
            (when (equal? (car (gimp-item-is-group layer)) FALSE)
-            (srcLayerToDes layer srcImg dstImg fourthFolder)
+            (srcLayerToDst layer srcImg dstImg fourthFolder)
            )
 
            (when (equal? (car (gimp-item-is-group layer)) TRUE)
@@ -142,14 +142,14 @@ image to a destination image, and goes several folders deep.
             (set! fithGroupCount (car fithGetChildren))
             (set! fithGroupList (cadr fithGetChildren))
             (set! m (- fithGroupCount 1))
-            (set! fithFolder (srcLayerToDes layer srcImg dstImg fourthFolder))
+            (set! fithFolder (srcLayerToDst layer srcImg dstImg fourthFolder))
 
             (when (> fithGroupCount 0)
              (while (> m -1)
               (set! layer (vector-ref fithGroupList m))
 
               (when (equal? (car (gimp-item-is-group layer)) FALSE)
-               (srcLayerToDes layer srcImg dstImg fithFolder)
+               (srcLayerToDst layer srcImg dstImg fithFolder)
               )
 
               (when (equal? (car (gimp-item-is-group layer)) TRUE)
@@ -158,13 +158,13 @@ image to a destination image, and goes several folders deep.
                (set! sixthGroupCount (car sixthGetChildren))
                (set! sixthGroupList (cadr sixthGetChildren))
                (set! n (- sixthGroupCount 1))
-               (set! sixthFolder (srcLayerToDes layer srcImg dstImg fithFolder))
+               (set! sixthFolder (srcLayerToDst layer srcImg dstImg fithFolder))
 
                (when (> sixthGroupCount 0)
                 (while (> n -1)
                  (set! layer (vector-ref sixthGroupList n))
                  (when (equal? (car (gimp-item-is-group layer)) TRUE)
-                  (srcLayerToDes layer srcImg dstImg sixthFolder)
+                  (srcLayerToDst layer srcImg dstImg sixthFolder)
                  )
 
                  (when (equal? (car (gimp-item-is-group layer)) TRUE)
@@ -205,7 +205,7 @@ image to a destination image, and goes several folders deep.
 
 
 
-(define (srcLayerToDes src srcImg dstImg parent)
+(define (srcLayerToDst src srcImg dstImg parent)
  (let*
  (
   (srcLayerWidth 0)
@@ -308,12 +308,8 @@ image to a destination image, and goes several folders deep.
 (define (sourceToDestination image src srcImg dstImg)
  (let*
  (
-  (i 0)
-  (returnList 0)
-  (layerCount 0)
-  (returnLayerList 0)
-  (isGroup 0)
  )
+
  (gimp-context-push)
  (gimp-selection-none srcImg)
  (gimp-image-undo-group-start dstImg)
@@ -323,7 +319,7 @@ image to a destination image, and goes several folders deep.
  )
 
  (when (equal? (car (gimp-item-is-group src)) FALSE)
-  (srcLayerToDes src srcImg dstImg 0)
+  (srcLayerToDst src srcImg dstImg 0)
  )
 
  (when (equal? (car (gimp-item-is-group src)) TRUE)
@@ -350,6 +346,5 @@ SF-IMAGE       "src Image"       0
 SF-IMAGE       "dst Image"       0
 )
 (script-fu-menu-register "sourceToDestination" "<Image>/Script-Fu")
-
 
 ```
