@@ -1,14 +1,9 @@
 ## source to destination across images
 
-If you need to copy a complex folder structure across images, copy and paste
-might not work.
+If you need to copy a complex folder structure across images via script.
 
-Here's a script that copies the active folder tree or layer from the source
-image to a destination image, and goes several folders deep.
-
-Update : Found out that you can drag a folder structure from one canvas to
-         another manually! Silly me, ctrl-C and ctrl-V no though.
-         Anyhow, when it needs to be done in a script...
+Update : Found out that you can also drag a folder structure from one canvas to
+         another manually.
 
 *copies the active layer or folder from a source image to a destination image*
 
@@ -34,174 +29,35 @@ Update : Found out that you can drag a folder structure from one canvas to
 
 
 
-(define (layerNest startGroup srcImg dstImg)
+(define (layerTree activeFolder srcImg dstImg parent)
 (let*
  (
-  (i 0)(j 0)(k 0)(l 0)(m 0)(n 0)
-  (layer 0)
-  (layerCount 0)
-  (getChildren 0)
-  (topTreeCount 0)
-  (topTreeLayerList 0)
-  (secondGetChildren 0)
-  (secondGroupCount 0)
-  (secondGroupList 0)
-  (thirdGetChildren 0)
-  (thirdGroupCount 0)
-  (thirdGroupList 0)
-  (fourthGetChildren 0)
-  (fourthGroupCount 0)
-  (fourthGroupList 0)
-  (fithGetChildren 0)
-  (fithGroupCount 0)
-  (fithGroupList 0)
-  (sixthGetChildren 0)
-  (sixthGroupCount 0)
-  (sixthGroupList 0)
-  (returnList 0)
-  (returnLayerList 0)
-  (folder 0)
-  (folderName 0)
-  (secFolder 0)
-  (secFolderName 0)
-  (thirdFolder 0)
-  (thirdFolderName 0)
-  (fourthFolder 0)
-  (fourthFolderName 0)
-  (fithFolder 0)
-  (fithFolderName 0)
-  (sixthFolder 0)
-  (sixthFolderName 0)
-  (folderMask 0)
-  (secFolderMask 0)
-  (thirdFolderMask 0)
-  (fourthFolderMask 0)
-  (fithFolderMask 0)
-  (sixthFolderMask 0)
-  (folderMask 0)
+ (layerCount 0)
+ (getChildren 0)
+ (layerList 0)
+ (i 0)
+ (layer 0)
+ (folderMask 0)
+ (folder 0)
  )
 
- (set! folderMask(car (gimp-layer-get-mask startGroup)))
- (set! folder (srcLayerToDst startGroup srcImg dstImg 0))
- (set! getChildren (gimp-item-get-children startGroup))
- (set! topTreeCount (car getChildren))
- (set! topTreeLayerList (cadr getChildren))
+ (set! folderMask(car (gimp-layer-get-mask activeFolder)))
+ (set! folder (srcLayerToDst activeFolder srcImg dstImg parent))
+ (set! getChildren (gimp-item-get-children activeFolder))
+ (set! layerCount (car getChildren))
+ (set! layerList (cadr getChildren))
+ (set! layerList (list->vector (reverse (vector->list layerList))))
 
- (set! i (- topTreeCount 1))
- (while (> i -1)
-  (set! layer (vector-ref topTreeLayerList i))
-  (when (equal? (car (gimp-item-is-group layer)) FALSE)
-   (srcLayerToDst layer srcImg dstImg folder)
+ (while (< i layerCount)
+  (set! layer (vector-ref layerList i))
+
+  (if (equal? (car (gimp-item-is-group layer)) FALSE)
+   (srcLayerToDst layer srcImg dstImg folder) ;true
+   (layerTree layer srcImg dstImg folder) ;false - recursive
   )
 
-  (when (equal? (car (gimp-item-is-group layer)) TRUE)
-   (set! secFolderMask(car (gimp-layer-get-mask layer)))
-   (set! secondGetChildren (gimp-item-get-children layer))
-   (set! secondGroupCount (car secondGetChildren))
-   (set! secondGroupList (cadr secondGetChildren))
-   (set! j (- secondGroupCount 1))
-   (set! secFolder (srcLayerToDst layer srcImg dstImg folder))
-
-   (when (> secondGroupCount 0)
-    (while (> j -1)
-     (set! layer (vector-ref secondGroupList j))
-     (when (equal? (car (gimp-item-is-group layer)) FALSE)
-      (srcLayerToDst layer srcImg dstImg secFolder)
-     )
-
-     (when (equal? (car (gimp-item-is-group layer)) TRUE)
-      (set! thirdFolderMask(car (gimp-layer-get-mask layer)))
-      (set! thirdGetChildren (gimp-item-get-children layer))
-      (set! thirdGroupCount (car thirdGetChildren))
-      (set! thirdGroupList (cadr thirdGetChildren))
-      (set! k (- thirdGroupCount 1))
-      (set! thirdFolder (srcLayerToDst layer srcImg dstImg secFolder))
-
-      (when (> thirdGroupCount 0)
-       (while (> k -1)
-        (set! layer (vector-ref thirdGroupList k))
-        (when (equal? (car (gimp-item-is-group layer)) FALSE)
-         (srcLayerToDst layer srcImg dstImg thirdFolder)
-        )
-
-        (when (equal? (car (gimp-item-is-group layer)) TRUE)
-         (set! fourthFolderMask(car (gimp-layer-get-mask layer)))
-         (set! fourthGetChildren (gimp-item-get-children layer))
-         (set! fourthGroupCount (car fourthGetChildren))
-         (set! fourthGroupList (cadr fourthGetChildren))
-         (set! l (- fourthGroupCount 1))
-         (set! fourthFolder (srcLayerToDst layer srcImg dstImg thirdFolder))
-
-         (when (> fourthGroupCount 0)
-          (while (> l -1)
-           (set! layer (vector-ref fourthGroupList l))
-
-           (when (equal? (car (gimp-item-is-group layer)) FALSE)
-            (srcLayerToDst layer srcImg dstImg fourthFolder)
-           )
-
-           (when (equal? (car (gimp-item-is-group layer)) TRUE)
-            (set! fithFolderMask(car (gimp-layer-get-mask layer)))
-            (set! fithGetChildren (gimp-item-get-children layer))
-            (set! fithGroupCount (car fithGetChildren))
-            (set! fithGroupList (cadr fithGetChildren))
-            (set! m (- fithGroupCount 1))
-            (set! fithFolder (srcLayerToDst layer srcImg dstImg fourthFolder))
-
-            (when (> fithGroupCount 0)
-             (while (> m -1)
-              (set! layer (vector-ref fithGroupList m))
-
-              (when (equal? (car (gimp-item-is-group layer)) FALSE)
-               (srcLayerToDst layer srcImg dstImg fithFolder)
-              )
-
-              (when (equal? (car (gimp-item-is-group layer)) TRUE)
-               (set! sixthFolderMask(car (gimp-layer-get-mask layer)))
-               (set! sixthGetChildren (gimp-item-get-children layer))
-               (set! sixthGroupCount (car sixthGetChildren))
-               (set! sixthGroupList (cadr sixthGetChildren))
-               (set! n (- sixthGroupCount 1))
-               (set! sixthFolder (srcLayerToDst layer srcImg dstImg fithFolder))
-
-               (when (> sixthGroupCount 0)
-                (while (> n -1)
-                 (set! layer (vector-ref sixthGroupList n))
-                 (when (equal? (car (gimp-item-is-group layer)) TRUE)
-                  (srcLayerToDst layer srcImg dstImg sixthFolder)
-                 )
-
-                 (when (equal? (car (gimp-item-is-group layer)) TRUE)
-                  ;further nests
-                 )
-
-                 (if (= n 0)(updatefolderMask sixthFolderMask sixthFolder))
-                 (set! n (- n 1))
-                )
-               )
-              )
-              (if (= m 0)(updatefolderMask fithFolderMask fithFolder))
-              (set! m (- m 1))
-             )
-            )
-           )
-           (if (= l 0)(updatefolderMask fourthFolderMask fourthFolder))
-           (set! l (- l 1))
-          )
-         )
-        )
-        (if (= k 0)(updatefolderMask thirdFolderMask thirdFolder))
-        (set! k (- k 1))
-       )
-      )
-     )
-     (if (= j 0)(updatefolderMask secFolderMask secFolder))
-     (set! j (- j 1))
-    )
-   )
-  )
- (if (= i 0)(updatefolderMask folderMask folder))
- (set! i (- i 1))
+ (if (= i (- layerCount 1))(updatefolderMask folderMask folder))
+ (set! i (+ i 1))
  )
 
  )
@@ -254,13 +110,13 @@ Update : Found out that you can drag a folder structure from one canvas to
 
  (when (equal? (car (gimp-item-is-group src)) FALSE)
   (set! dstLayer (car (gimp-layer-new dstImg
-                                              srcLayerWidth
-                                              srcLayerHeight
-                                              srcType
-                                              srcName
-                                              srcOpacity
-                                              srcMode
-                                              )))
+                                      srcLayerWidth
+                                      srcLayerHeight
+                                      srcType
+                                      srcName
+                                      srcOpacity
+                                      srcMode
+                                      )))
 
   (gimp-image-insert-layer dstImg
                            dstLayer
@@ -303,7 +159,6 @@ Update : Found out that you can drag a folder structure from one canvas to
  )
 
  dstLayer
-
  )
 )
 
@@ -322,12 +177,9 @@ Update : Found out that you can drag a folder structure from one canvas to
   (set! src (car(gimp-layer-from-mask src)))
  )
 
- (when (equal? (car (gimp-item-is-group src)) FALSE)
+ (if (equal? (car (gimp-item-is-group src)) FALSE)
   (srcLayerToDst src srcImg dstImg 0)
- )
-
- (when (equal? (car (gimp-item-is-group src)) TRUE)
-  (layerNest src srcImg dstImg)
+  (layerTree src srcImg dstImg 0)
  )
 
  (gimp-image-undo-group-end dstImg)
@@ -350,5 +202,6 @@ SF-IMAGE       "src Image"       0
 SF-IMAGE       "dst Image"       0
 )
 (script-fu-menu-register "sourceToDestination" "<Image>/Script-Fu")
+
 
 ```
