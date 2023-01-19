@@ -33,9 +33,9 @@
   (if (> parent 0) (set! parentName (car (gimp-item-get-name parent))))
 
   (set! adjustmentGroup (car (gimp-layer-group-new img)))
-  (gimp-image-insert-layer img adjustmentGroup parent position)
+ 	(gimp-image-insert-layer img adjustmentGroup parent position)
   (gimp-image-reorder-item img adjustmentGroup parent originalPosition)
-  (gimp-item-set-name adjustmentGroup "adjustmentGroup")
+ 	(gimp-item-set-name adjustmentGroup "adjustmentGroup")
 
   (set! adjustmentLayers (car (gimp-layer-group-new img)))
   (gimp-image-insert-layer img adjustmentLayers adjustmentGroup position)

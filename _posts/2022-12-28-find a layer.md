@@ -11,23 +11,19 @@ See the post *layers in an image*
  (
  (matchedLayer 0)
  (matchName 0)
- (returnList 0)
  (layerCount 0)
- (returnLayerList 0)
+ (layerList 0)
  (i 0)
 )
 
-
- (set! returnList (layerScan img 0 0))
- (when (> (car returnList) 0)
-  (set! layerCount (car returnList))
-  (set! returnLayerList (car(cdr returnList)))
- )
+ (set! layerList (layerScan img 0))
+ (set! layerCount (length layerList))
+ (set! layerList (list->vector layerList))
 
  (while (< i layerCount)
-  (set! matchName (car(gimp-item-get-name (vector-ref returnLayerList i))))
+  (set! matchName (car(gimp-item-get-name (vector-ref layerList i))))
   (when (equal? name matchName)
-   (set! matchedLayer (vector-ref returnLayerList i))
+   (set! matchedLayer (vector-ref layerList i))
    (set! i layerCount)
    (gimp-message (string-append " found layer -> " name " : ID = "
                                 (number->string matchedLayer)))
@@ -55,5 +51,6 @@ See the post *layers in an image*
  SF-STRING      "Layer to Find" "findMe"
 )
 (script-fu-menu-register "findLayer" "<Image>/Script-Fu")
+
 
 ```

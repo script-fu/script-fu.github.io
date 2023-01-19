@@ -1,7 +1,6 @@
 (define (adjustmentBaker img drawable)
  (let*
  (
-  (returnList 0)
   (layerCount 0)
   (returnLayerList 0)
   (i 0)
@@ -18,12 +17,11 @@
  (gimp-context-push)
  (gimp-image-undo-group-start img)
 
- (set! returnList (layerScan img 0 0))
- (set! layerCount (car returnList))
- (set! returnLayerList (car(cdr returnList)))
+ (set! returnLayerList (layerScan img 0))
+ (set! layerCount (length returnLayerList))
 
  (while (< i layerCount)
-  (set! scanLayer (vector-ref returnLayerList i))
+  (set! scanLayer (vector-ref (list->vector returnLayerList) i))
   (set! parasiteCount (car(gimp-item-get-parasite-list scanLayer)))
 
   (when (> parasiteCount 0)
@@ -52,7 +50,7 @@
   (set! i 0)
   (set! j 0)
   (while (< i layerCount)
-   (set! scanLayer (vector-ref returnLayerList i))
+   (set! scanLayer (vector-ref (list->vector returnLayerList) i))
    (set! parasiteCount (car(gimp-item-get-parasite-list scanLayer)))
 
    (when (> parasiteCount 0)
