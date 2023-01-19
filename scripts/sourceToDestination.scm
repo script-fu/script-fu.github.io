@@ -41,9 +41,9 @@
  (while (< i layerCount)
   (set! layer (vector-ref layerList i))
 
-  (if (equal? (car (gimp-item-is-group layer)) FALSE)
-   (srcLayerToDst layer srcImg dstImg folder) ;true
-   (layerTree layer srcImg dstImg folder) ;false - recursive
+  (if (equal? (car (gimp-item-is-group layer)) TRUE)
+   (layerTree layer srcImg dstImg folder) ;true - recursive
+   (srcLayerToDst layer srcImg dstImg folder) ;false
   )
 
  (if (= i (- layerCount 1))(updatefolderMask folderMask folder))
