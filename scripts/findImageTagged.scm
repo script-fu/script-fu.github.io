@@ -48,7 +48,9 @@
  )
 
  (if(> foundImage 0)(gimp-message (string-append " found image tagged -> " tag
-  "\n id -> " (number->string foundImage))))
+  "\n id -> " (number->string foundImage)))
+  (gimp-message (string-append " found no image tagged -> " tag))
+  )
 
  foundImage
  )
@@ -60,7 +62,7 @@
  "Mark Sweeney"
  "copyright 2022, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
  "2022"
- ""
+ "*"
  SF-STRING      "find image tagged with"   "findMe"
 )
 (script-fu-menu-register "findImageTagged" "<Image>/Script-Fu")
