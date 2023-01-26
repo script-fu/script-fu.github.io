@@ -9,7 +9,7 @@ useable procedures.\
 *Gimp->Edit->Preferences->Folders->Scripts (add new folder)*
 
 * After editing and saving a script, I press the "#" key in Gimp,
-set up as a keyboard shortcut.
+set up as a keyboard shortcut. I use "sublime" as a syntax highlighting editor. 
 \
 *Gimp->Edit->Keyboard Shortcuts (Refresh Scripts)*
 
