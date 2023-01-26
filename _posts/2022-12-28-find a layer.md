@@ -1,4 +1,4 @@
-## find a layer by its name
+## find a layer by name
 
 Also calls the _layerScan.scm_ script, this won't work without that in the scripts folder.
 See the post *layers in an image*
