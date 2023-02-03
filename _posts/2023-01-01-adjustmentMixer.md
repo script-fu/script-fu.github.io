@@ -10,14 +10,23 @@ adjustments you make are recorded and reusable again.
 This builds the mixer using the active layer, then slide some sliders to play.
 If you want to use the effect settings again, save the file.
 
+*Script-Fu->adjustmentMixer->setMixerSource*
+Select the complex file, the one with all those layers, and then select this
+menu item to tag that image as the source for the mixer.  That way if you run 
+the refreshMixer menu item, it automatically updates from the source if that 
+file is open.
+
 *Script-Fu->adjustmentMixer->refreshMixer*
+If a source file has been tagged, then that is copied to the "original-source"
+folder first. The mixer is also resized to match the source image.
+
 This takes whatever layer is in the "original-source" folder and rebakes the
 post-process effects using that changed image. Which is nice if you change the
 source a lot and want to preserve any previous adjustments you made.  
 
 Also depends on having these files in a scripts folder:
 layerScan.scm, curve2Value.scm, applyCurve_S.scm, copyToLayer.scm and
-adjustmentBaker.scm
+adjustmentBaker.scm findImageTagged.scm
 
 Non-programmers, notice that this script has several function definitions that
 are used by the final *registered* function definition. This lets you avoid
@@ -272,6 +281,7 @@ repeating the same kind of operations in the main script.
  (gimp-context-set-default-colors)
  (gimp-layer-set-opacity hue_tint_layer zeroOpacity)
 
+ (gimp-image-attach-parasite img (list "adjustmentMixer" 1 "42"))
  (gimp-drawable-invert adjustmentsMask linear)
  (gimp-displays-flush)
  (gimp-image-undo-group-end img)
@@ -292,4 +302,5 @@ repeating the same kind of operations in the main script.
  SF-DRAWABLE    "Drawable"          0
 )
 (script-fu-menu-register "adjustmentMixer" "<Image>/Script-Fu/adjustmentMixer")
+
 ```

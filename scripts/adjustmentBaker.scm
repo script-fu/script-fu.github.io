@@ -12,11 +12,19 @@
   (parasiteList 0)
   (getChildren 0)
   (sourceLayer 0)
+  (sourceImage 0)
+  (floatingSelection 0)
+  (sourceHeight 0)
+  (sourceWidth 0)
  )
 
  (gimp-context-push)
+ 
+ (set! sourceImage (findImageTagged "sourceForMixer"))
+ (set! img (findImageTagged "adjustmentMixer"))
+ (when (= img 0) (error! no adjustmentMixer found))
  (gimp-image-undo-group-start img)
-
+ 
  (set! returnLayerList (layerScan img 0))
  (set! layerCount (length returnLayerList))
 
@@ -45,6 +53,17 @@
   )
  (set! i (+ i 1))
  )
+
+ (when (> sourceImage 0)
+  (set! sourceHeight (car(gimp-image-height sourceImage)))
+  (set! sourceWidth (car(gimp-image-width sourceImage))) 
+  (gimp-image-scale img sourceWidth sourceHeight)
+  (gimp-edit-copy-visible sourceImage)
+  (set! floatingSelection (car (gimp-edit-paste sourceLayer 1)))
+  (gimp-floating-sel-anchor floatingSelection)
+  (set! sourceLayer  (car (gimp-image-get-active-drawable img)))
+ )
+
 
  (when (> sourceLayer 0)
   (set! i 0)
@@ -100,6 +119,9 @@
   )
  )
 
+ 
+ 
+ (gimp-displays-flush)
  (gimp-image-undo-group-end img)
  (gimp-context-pop)
 

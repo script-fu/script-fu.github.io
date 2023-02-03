@@ -244,6 +244,7 @@
  (gimp-context-set-default-colors)
  (gimp-layer-set-opacity hue_tint_layer zeroOpacity)
 
+ (gimp-image-attach-parasite img (list "adjustmentMixer" 1 "42"))
  (gimp-drawable-invert adjustmentsMask linear)
  (gimp-displays-flush)
  (gimp-image-undo-group-end img)
