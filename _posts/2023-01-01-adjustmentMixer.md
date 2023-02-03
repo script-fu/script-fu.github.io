@@ -7,19 +7,19 @@ here is you set the adjustments using the layer opacity sliders. So that the
 adjustments you make are recorded and reusable again.
 
 *Script-Fu->adjustmentMixer->createMixer*
- 
+  
 This builds the mixer using the active layer, then slide some sliders to play.
 If you want to use the effect settings again, save the file.
- 
+  
 *Script-Fu->adjustmentMixer->setMixerSource*
- 
+  
 Select the complex file, the one with all those layers, and then select this
 menu item to tag that image as the source for the mixer.  That way if you run 
 the refreshMixer menu item, it automatically updates from the source if that 
 file is open.
 
 *Script-Fu->adjustmentMixer->refreshMixer*
- 
+  
 If a source file has been tagged, then that is copied to the "original-source"
 folder first. The mixer is also resized to match the source image.
 
