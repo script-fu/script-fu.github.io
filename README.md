@@ -1,4 +1,4 @@
-# Practical examples of using Script-Fu in Gimp.
+# Practical examples of using Script-Fu in Gimp 2.10.30
 
 The procedure browser in Gimp is a great resource.
 This repository provides examples of its use, to
