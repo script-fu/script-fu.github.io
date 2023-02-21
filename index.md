@@ -2,12 +2,10 @@
 ### Quickstart in Script-Fu - GIMP 2.10.30
 
 * Create a local directory as a sandbox for new scripts.
-*YourPath->scripts*
-
-Add that directory in Gimp as a scripts folder
+*YourPath->scripts* \Add that directory in Gimp as a scripts folder
 *Gimp->Edit->Preferences->Folders->Scripts*
-Restart Gimp, any scripts in that new folder should appear as menu items or
-useable procedures.
+ Restart Gimp, any scripts in that new folder should appear as menu items or
+ useable procedures.
 
 * After editing and saving a script, refresh scripts in Gimp,
 *Filters->Script-Fu->Refresh Scripts*
