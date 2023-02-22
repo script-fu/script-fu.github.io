@@ -17,7 +17,7 @@
   define name.For example, a script defined as *bareBones* would be saved as
   *bareBones.scm* in a scripts folder.
 
-### Quickstart in Script-Fu Plug-Ins - GIMP 2.99.14 - in developement
+# Quickstart in Script-Fu Plug-Ins - GIMP 2.99.14 - in developement
 
 * Create a local directory as a sandbox for new plug-ins. Create folders in that 
   directory for each plug-in. Add that directory in Gimp as a plug-ins folder. 
