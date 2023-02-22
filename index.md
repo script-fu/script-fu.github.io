@@ -2,11 +2,11 @@
 ### Quickstart in Script-Fu - GIMP 2.10.30
 
 * Create a local directory as a sandbox for new scripts. Add that directory in 
-  Gimp as a scripts folder.
+  Gimp as a scripts folder.  
   *Gimp->Edit->Preferences->Folders->Scripts*
  
 * After editing and saving a script, refresh scripts in Gimp.
-  *Filters->Script-Fu->Refresh Scripts*
+  *Filters->Script-Fu->Refresh Scripts*  
   It's easier to set up a keyboard shortcut to refresh scripts. 
  
 * Keep the Error Console window open. It's the only way I've been able to find
