@@ -25,7 +25,7 @@
 * The first line of the script needs to be  
   ```#!/usr/bin/env gimp-script-fu-interpreter-3.0```
 
-* The script file must also be set as an executable in the OS. If it's not the plug-in won't appear. In Linux, new text files are not executable by default.  
+* The script file must also be set as an executable in the OS. If it's not, the plug-in won't appear. In Linux, new text files are not executable by default.  
   
 
 * [Under GNU GENERAL PUBLIC LICENSE Version 3](https://github.com/script-fu/script-fu.github.io/blob/main/LICENSE)
