@@ -1,5 +1,5 @@
 
-### Quickstart in Script-Fu - GIMP 2.10.30
+### Quickstart in Script-Fu - GIMP 2
 
 * Create a local directory as a sandbox for new scripts. Add that directory in 
   Gimp as a scripts folder.  
@@ -14,8 +14,8 @@
 
 * Scripts copied from the blog posts should be saved as the same name as the define name. For example, a script defined as *bareBones* would be saved as *bareBones.scm* in a scripts folder.  
   
-  
-# Quickstart in Script-Fu Plug-Ins - GIMP 2.99.14  
+
+# Quickstart in Script-Fu Plug-Ins - GIMP 3 
 
 * Create a local directory as a sandbox for new plug-ins. Create folders in that directory for each plug-in. Add that directory in Gimp as a plug-ins folder.  
   *Gimp->Edit->Preferences->Folders->Plug-ins*
