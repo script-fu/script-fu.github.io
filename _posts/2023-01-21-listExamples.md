@@ -1,4 +1,4 @@
-## list examples
+## List examples - Script for Gimp 2
 
 There's comes a time to build lists and access lists.
 

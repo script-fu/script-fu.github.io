@@ -1,4 +1,4 @@
-## (gimp-drawable-curves-spline)
+## Adjustment curves - Script for Gimp 2
 
 *A wrapper around this procedure can be useful, in this case
 when I wanted a scripted "Colours->Curves" for the image value.*

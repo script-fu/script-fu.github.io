@@ -1,4 +1,4 @@
-## tag an image with a parasite
+## Tag an image with a parasite - Script for Gimp 2
 
 *A function to tag an image with a parasite*
 

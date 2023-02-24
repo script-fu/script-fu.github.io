@@ -1,4 +1,4 @@
-## basic script
+## Basic script - Script for Gimp 2
 
 *saved as bareBones.scm in a scripts folder*
 

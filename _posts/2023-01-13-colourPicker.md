@@ -1,4 +1,4 @@
-## colour picker
+## Colour picker - Script for Gimp 2
 
 Sometimes, in a script, it's *really* useful to find out what a pixel is doing.
 

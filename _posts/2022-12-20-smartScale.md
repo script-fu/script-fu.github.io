@@ -1,4 +1,4 @@
-## (gimp-image-scale)
+## Scaling example - Script for Gimp 2
 
 *A few scaling related procedure calls, also finds the image and layer sizes*
 

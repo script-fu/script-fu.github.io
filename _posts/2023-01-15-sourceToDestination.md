@@ -1,4 +1,4 @@
-## source to destination across images
+## Source to destination across images - Script for Gimp 2
 
 If you need to copy a complex folder structure across images via script.
 

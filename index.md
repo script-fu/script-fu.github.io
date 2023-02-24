@@ -18,9 +18,9 @@
 # Quickstart in Script-Fu Plug-Ins - GIMP 2.99.14  
 
 * Create a local directory as a sandbox for new plug-ins. Create folders in that directory for each plug-in. Add that directory in Gimp as a plug-ins folder.  
-  *Gimp->Edit->Preferences->Folders->Plug-Ins*
+  *Gimp->Edit->Preferences->Folders->Plug-ins*
   
-* There is no need to refresh plug-ins.  
+* There is no need to refresh plug-ins after editing the script.  
   
 * The first line of the script needs to be  
   ```#!/usr/bin/env gimp-script-fu-interpreter-3.0```

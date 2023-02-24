@@ -7,7 +7,7 @@
  
  (while (< i 30)
   (gimp-message "hello again")
-  (usleep 500000)
+  (usleep 1000000)
   (set! i (+ i 1))
  )
 

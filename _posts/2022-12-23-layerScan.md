@@ -1,4 +1,4 @@
-## layers in an image
+## Layers in an image - Script for Gimp 2
 
 It's often essential to get a list of the layers in an image.
 

@@ -1,4 +1,4 @@
-## active layer information
+## Active layer information - Script for Gimp 2
 
 A layer has an ID number, a position in the image tree, possibly a parent folder and a mask.
 

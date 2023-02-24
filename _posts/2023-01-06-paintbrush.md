@@ -1,4 +1,4 @@
-## paintbrush demo
+## Paintbrush demo - Script for Gimp 2
 
 A few procedural brushstrokes and demonstration of new image creation.
 Two scripts, one to draw the shape and one to create a new image.

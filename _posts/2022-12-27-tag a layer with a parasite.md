@@ -1,4 +1,4 @@
-## tag a layer with a parasite
+## Tag a layer with a parasite - Script for Gimp 2
 
 *A function to tag a layer with a parasite*
 
