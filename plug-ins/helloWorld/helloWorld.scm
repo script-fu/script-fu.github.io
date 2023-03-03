@@ -4,7 +4,7 @@
  (
  (i 0)
  )
- 
+ (gimp-context-set-foreground (list 0 0 0))
  (while (< i 30)
   (gimp-message "hello world")
   (usleep 1000000)
@@ -22,4 +22,4 @@
  "2023"
  ""
 )
-(script-fu-menu-register "script-fu-helloWorld" "<Image>/Fu-Plug-ins")
+(script-fu-menu-register "script-fu-helloWorld" "<Image>/Fu-Plugin")
