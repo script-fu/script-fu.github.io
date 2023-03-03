@@ -3,7 +3,7 @@
 Here's how I've learned to use the relatively new function (dir-make "mydir")
 Seems to like only creating one directory at a time so I put it in a wrapper.  
 
-*Makes a directory relative to "home/username"*
+*Makes a directory relative to "home/username"*  
 
 *Using the path format /my/new/directory*  
 
