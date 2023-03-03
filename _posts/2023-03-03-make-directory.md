@@ -4,11 +4,11 @@ Here's how I've learned to use the relatively new function (dir-make "mydir")
 Seems to like only creating one directory at a time so I put it in a wrapper.  
 
 *Makes a directory relative to "home/username"*
-  
+
 *Using the path format /my/new/directory*  
-  
+
 *In WindowsOS relative to "C:\Users\username"*  
-  
+
 *Keep using "/" to denote path even in Windows!*  
   
 ```scheme
