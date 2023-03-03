@@ -1,12 +1,12 @@
 ## Make a directory - Plug-in for Gimp 3
 
 Here's how I've learned to use the relatively new function (dir-make "mydir")
-Seems to like only creating one directory at a time so I put it in a wrapper.
+Seems to like only creating one directory at a time so I put it in a wrapper.  
 
-*makes a directory relative to "home/username"  path format /my/new/directory*
-*in WindowsOS relative to "C:\Users\username"  keep using "/" to denote path*
-*even in Windows!*
-
+*makes a directory relative to "home/username"  path format /my/new/directory*  
+*in WindowsOS relative to "C:\Users\username"*  
+*keep using "/" to denote path even in Windows!*  
+  
 ```scheme
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
 
