@@ -33,7 +33,7 @@ Seems to like only creating one directory at a time so I put it in a wrapper.
 
 (script-fu-register "makeDir"
  "makeDir"
- "makes a directory relative to \"home/username\", use forward slashes" 
+ "makes a directory relative to (home/username), use forward slashes" 
  "Mark Sweeney"
  "copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
  "2023"
