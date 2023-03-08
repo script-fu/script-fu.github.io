@@ -1,4 +1,4 @@
-## filter plug-in - for Gimp 3
+## Filter plug-in - for Gimp 3
 
 In Gimp 3 the user can select more than one layer.  Plug-ins can also take in
 more than one layer, as a vector, which is a list of drawables.  This is enabled 
