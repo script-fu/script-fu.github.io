@@ -1,8 +1,7 @@
 
 ### Quickstart in Script-Fu - GIMP 2
 
-* Create a directory as a sandbox for new scripts. eg /home/username/scripts/
-  
+* Create a directory as a sandbox for new scripts. e.g /home/username/scripts/        
   Add that directory in Gimp as a scripts folder.  
   *Gimp->Edit->Preferences->Folders->Scripts*     Then restart Gimp
 
@@ -21,14 +20,13 @@
 
 # Quickstart in Script-Fu Plug-Ins - GIMP 3 
 
-* Create a directory as a sandbox for plug-ins. eg /home/username/plug-ins/
-  
+* Create a directory as a sandbox for plug-ins. e.g /home/username/plug-ins/        
   Add that directory in Gimp as a plug-ins folder.  
   *Gimp->Edit->Preferences->Folders->Plug-ins*     Then restart Gimp
 
 * [all plug-ins](https://github.com/script-fu/script-fu.github.io/blob/main/plug-ins)
   
-* Right click a file to download, Save Link As... ...Save in a plug-ins **subfolder** of the same name.   eg /plug-ins/plug-in-name/plug-in-name.scm.
+* Right click an individual file to download, Save Link As... ...Save in a plug-ins **subfolder** of the same name. e.g /plug-ins/plug-in-name/plug-in-name.scm.
 
 * The script file **must** also be set as an executable in the OS. If it's not, the plug-in won't appear.
 
