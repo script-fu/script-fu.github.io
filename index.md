@@ -18,9 +18,10 @@
   
 * The first line of a plug-in script needs to be  
   ```#!/usr/bin/env gimp-script-fu-interpreter-3.0```  
-  
 
-### Quickstart in Script-Fu - GIMP 2
+
+
+# Quickstart in Script-Fu - GIMP 2
 
 * Create a directory as a sandbox for new scripts. e.g /home/username/scripts/        
   Add that directory in Gimp as a scripts folder, then restart Gimp.
@@ -36,9 +37,12 @@
 
 * Keep the Error Console window open. It's the only way I've been able to find to debug a script.  
   *Gimp->Windows->Dockable Dialogues->Error Console*  
-  
+
+
 
 * [Under GNU GENERAL PUBLIC LICENSE Version 3](https://github.com/script-fu/script-fu.github.io/blob/main/LICENSE)  
   
-  
+    
+      
+
 
