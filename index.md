@@ -5,7 +5,7 @@
   Add that directory in Gimp as a scripts folder, then restart Gimp.
   *Gimp->Edit->Preferences->Folders->Scripts*     
 
-* all [scripts](https://github.com/script-fu/script-fu.github.io/blob/main/scripts) can be downloaded here
+* all [scripts](https://github.com/script-fu/script-fu.github.io/blob/main/scripts) can be downloaded here...
 
 * Right click a file to download, Save Link As... ...Save in the scripts folder.
   
@@ -24,12 +24,12 @@
   Add that directory in Gimp as a plug-ins folder, then restart Gimp.
   *Gimp->Edit->Preferences->Folders->Plug-ins*
 
-* all [ plug-ins](https://github.com/script-fu/script-fu.github.io/blob/main/plug-ins) can be downloaded here
+* all [ plug-ins](https://github.com/script-fu/script-fu.github.io/blob/main/plug-ins) can be downloaded here...
   
 * Right click an individual file to download, Save Link As... ...Save in a plug-ins **subfolder** of the same name. e.g /plug-ins/plug-in-name/plug-in-name.scm.
 
-* The script file **must** also be set as an executable in the OS. If it's not, the plug-in won't appear...
-  In Linux, right click the file, properties->permissions->allow executing file as program
+* The script file **must** also be set as an executable in the OS. If it's not, the plug-in won't appear...  
+  In Linux, right click the file, *properties->permissions->allow executing file as program*
 
 * Restart Gimp to see the plug-in menu.
   
