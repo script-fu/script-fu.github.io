@@ -36,7 +36,7 @@
     (set! newLayer (car(gimp-layer-new img
                                  (- (vector-ref points 2) (vector-ref points 0))
                                  (- (vector-ref points 3) (vector-ref points 1))
-                                 RGB-IMAGE
+                                 RGBA-IMAGE
                                  name 
                                  100
                                  layermode)))
