@@ -6,7 +6,7 @@ visibilty. The default behaviour is to use two plug-ins, one to isolate and
 another to restore the layers. That felt the most natural to me, letting you
 expand the isolation easily. However, you can just use one plug-in to
 toggle between isolate and normal if you prefer. Just edit this line...
-**(toggleMode 0) ; 1 for the plugin to toggle between isolate and normal**
+```(toggleMode 0) ; 1 for the plugin to toggle between isolate and normal**```
 
 Download both from [here](https://github.com/script-fu/script-fu.github.io/tree/main/plug-ins)
 
