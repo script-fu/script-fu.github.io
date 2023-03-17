@@ -12,7 +12,7 @@
 * The script file **must** also be set as an executable in the OS. If it's not, the plug-in won't appear...  
   In Linux, right click the file, *properties->permissions->allow executing file as program*
 
-* Restart Gimp to see the plug-in menu.
+* Restart Gimp to see the plug-in menu. Keyboard shortcut the plug-in if it's useful to your workflow.
   
 * There is no need to refresh plug-ins after editing the script.  
   
