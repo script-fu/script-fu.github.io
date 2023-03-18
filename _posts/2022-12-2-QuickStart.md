@@ -1,4 +1,4 @@
-# Quickstart in Script-Fu Plug-Ins - GIMP 3 
+# Quickstart in Script-Fu - Gimp 3 Plug-ins & Gimp 2 Scripts
 
 * Create a directory as a sandbox for plug-ins. **e.g /home/username/plug-ins/**        
   Add that directory in Gimp as a plug-ins folder, then restart Gimp.
@@ -14,7 +14,6 @@
 * Restart Gimp to see the plug-in menu. Keyboard shortcut the plug-in if it's useful to your workflow.
   
 * There is no need to refresh plug-ins after editing the script.  
-
 
 # Quickstart in Script-Fu - GIMP 2
 
