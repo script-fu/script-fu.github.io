@@ -1,4 +1,6 @@
-# Quickstart in Script-Fu - Gimp 3 Plug-ins & Gimp 2 Scripts
+# Installation
+
+# Gimp 3 Plug-ins
 
 * Create a directory as a sandbox for plug-ins. **e.g /home/username/plug-ins/**        
   Add that directory in Gimp as a plug-ins folder, then restart Gimp.
@@ -15,7 +17,7 @@
   
 * There is no need to refresh plug-ins after editing the script.  
 
-# Quickstart in Script-Fu - GIMP 2
+# Scripts - GIMP 2
 
 * Create a directory as a sandbox for new scripts. e.g /home/username/scripts/        
   Add that directory in Gimp as a scripts folder, then restart Gimp.
