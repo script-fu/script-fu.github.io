@@ -1,4 +1,4 @@
-## Isolate selection - for Gimp 3
+## Isolate selected layers - for Gimp 3
 
 Gimp 3 allows multilayer selection, which is a great boost for plug-ins.
 This tool allows the user to quickly isolate a selection by toggling layer
