@@ -54,7 +54,7 @@
 )
 
 (script-fu-register-filter "script-fu-newlayerFromSelection"
-  "newlayerFromSelectedArea" 
+  "Layer From Selection" 
   "creates a new layer from the selection area size"
   "Mark Sweeney"
   "copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
@@ -65,4 +65,4 @@
   SF-COLOR      "fill colour"   "white"
   SF-TOGGLE     "multiply"             TRUE
 )
-(script-fu-menu-register "script-fu-newlayerFromSelection" "<Image>/Fu-Plugin")
+(script-fu-menu-register "script-fu-newlayerFromSelection" "<Image>/Layer")
