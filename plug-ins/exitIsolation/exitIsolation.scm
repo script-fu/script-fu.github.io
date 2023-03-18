@@ -17,6 +17,7 @@
       (revertLayer img layerList "hidden")
       (revertLayer img layerList "isoParent")
       (plugin-set-lock "exitIsolation" 0) ; unlock the plugin
+      (plugin-set-lock "isolateSelected" 0) ; unlock the isolate plugin
       (gimp-displays-flush)
     )
 
