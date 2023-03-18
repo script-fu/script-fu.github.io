@@ -8,8 +8,7 @@ expand the isolation easily. However, you can just use one plug-in to
 toggle between isolate and normal if you prefer. Just edit this line...
 ```(toggleMode 0) ; 1 for the plugin to toggle between isolate and normal**```
 
-Download both from [here](https://github.com/script-fu/script-fu.github.io/tree/main/plug-ins)
-**isolateSelected.scm** and **exitIsolation.scm**
+Download [**isolateSelected.scm**](https://github.com/script-fu/script-fu.github.io/tree/main/plug-ins/isolateSelected) and [**exitIsolation.scm**](https://github.com/script-fu/script-fu.github.io/tree/main/plug-ins/exitIsolation)
 
 *Two plug-ins, one to isolate and one to revert*
 
