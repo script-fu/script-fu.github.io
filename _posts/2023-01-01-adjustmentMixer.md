@@ -1,4 +1,6 @@
-## Adjustment mixer - Script for Gimp 2
+## Adjustment Mixer
+
+# * Tested in Gimp 2.10.30 *
 
 If you create a complex, layer heavy source file, copy visible and paste as a
 new image. This script is then executed on that simple image to allow the user

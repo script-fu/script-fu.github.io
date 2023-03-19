@@ -1,9 +1,8 @@
-## Source to destination across images - Script for Gimp 2
+## Source To Destination
+
+# * Tested in Gimp 2.10.30 *
 
 If you need to copy a complex folder structure across images via script.
-
-Update : Found out that you can also drag a folder structure from one canvas to
-         another manually.
 
 *copies the active layer or folder from a source image to a destination image*
 

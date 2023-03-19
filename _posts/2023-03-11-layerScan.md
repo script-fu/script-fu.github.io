@@ -1,4 +1,6 @@
-## Find all layers - for Gimp 3
+## Find All Layers
+
+# * Tested in Gimp 2.99.14 *
 
 This isn't a plug-in, just an example of how to find all those nested layers.
 

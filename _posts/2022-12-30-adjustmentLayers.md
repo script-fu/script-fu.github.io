@@ -1,4 +1,6 @@
-## Simple adjustment layers - Script for Gimp 2
+## Simple Adjustment Layers
+
+# * Tested in Gimp 2.10.30 *
 
 Layers can be used as adjustments by selecting different modes and putting them
 above a target layer.  Here is an example of that method.  It puts two layers

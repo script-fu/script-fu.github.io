@@ -1,4 +1,6 @@
-## Scaling example - Script for Gimp 2
+## Scaling Example
+
+# * Tested in Gimp 2.10.30 *
 
 *A few scaling related procedure calls, also finds the image and layer sizes*
 

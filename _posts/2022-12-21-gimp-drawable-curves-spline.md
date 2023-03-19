@@ -1,4 +1,6 @@
-## Adjustment curves - Script for Gimp 2
+## Adjustment Curves
+
+# * Tested in Gimp 2.10.30 *
 
 *A wrapper around this procedure can be useful, in this case
 when I wanted a scripted "Colours->Curves" for the image value.*

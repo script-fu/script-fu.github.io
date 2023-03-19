@@ -1,4 +1,6 @@
-## Find a layer by its name - Script for Gimp 2
+## Find A Layer By Name
+
+# * Tested in Gimp 2.10.30 *
 
 Also calls the _layerScan.scm_ script, this won't work without that in the scripts folder.
 See the post *layers in an image*

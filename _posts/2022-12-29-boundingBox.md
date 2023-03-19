@@ -1,4 +1,6 @@
-## Bounding box - Script for Gimp 2
+## Bounding Box
+
+# * Tested in Gimp 2.10.30 *
 
 This also demonstrates some different ways to examine what is currently active.
 If there is an active user selection it expands it to a bounding box.

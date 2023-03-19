@@ -1,4 +1,6 @@
-## Layers in an image - Script for Gimp 2
+## Layers In An Image
+
+# * Tested in Gimp 2.10.30 *
 
 It's often essential to get a list of the layers in an image.
 

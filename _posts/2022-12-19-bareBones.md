@@ -1,4 +1,6 @@
-## Basic script - Script for Gimp 2
+## Basic Script
+
+# * Tested in Gimp 2.10.30 *
 
 *saved as bareBones.scm in a scripts folder*
 

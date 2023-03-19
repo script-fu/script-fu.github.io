@@ -1,4 +1,6 @@
-## Make a directory - Plug-in for Gimp 3
+## Make A Directory
+
+# * Tested in Gimp 2.99.14 *
 
 Here's how I've learned to use the relatively new function (dir-make "mydir")
 Seems to like only creating one directory at a time so I put it in a wrapper.  
