@@ -1,4 +1,4 @@
-## Locking A Plug-in
+## Locking a Plug-in
 
 # * Tested in Gimp 2.99.14 *
 

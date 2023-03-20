@@ -1,4 +1,4 @@
-## Make A Directory
+## Make a Directory
 
 # * Tested in Gimp 2.99.14 *
 

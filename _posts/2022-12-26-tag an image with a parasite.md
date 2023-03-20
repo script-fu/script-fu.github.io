@@ -1,4 +1,4 @@
-## Tag An Image With A Parasite
+## Tag An Image With a Parasite
 
 # * Tested in Gimp 2.10.30 *
 

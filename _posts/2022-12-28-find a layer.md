@@ -1,4 +1,4 @@
-## Find A Layer By Name
+## Find a Layer By Name
 
 # * Tested in Gimp 2.10.30 *
 

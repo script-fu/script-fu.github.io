@@ -1,4 +1,4 @@
-## Tag A Layer With A Parasite
+## Tag a Layer With a Parasite
 
 # * Tested in Gimp 2.10.30 *
 
