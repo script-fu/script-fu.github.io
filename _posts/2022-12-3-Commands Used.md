@@ -2,6 +2,9 @@
 
 # Sorted by Frequency of Use
 
+Open Gimp and navigate to the Procedure Browser.  **Help->Procedure Browser**
+Here you can find the full descriptions and expected parameters.
+
 **(gimp-message)**  
 **(gimp-item-set-lock-content)**  
 **(gimp-displays-flush)**  
