@@ -1,10 +1,10 @@
-# Commands Used
-
-# Sorted by Frequency of Use
-
-Open Gimp and navigate to the Procedure Browser.    **Help->Procedure Browser**
+# Commands Used  
+  
+Open Gimp and navigate to the Procedure Browser.    **Help->Procedure Browser**  
 It's home to the full descriptions and expected parameters of the following commands:
-
+  
+# Sorted by Frequency of Use  
+  
 **(gimp-message)**  
 **(gimp-item-set-lock-content)**  
 **(gimp-displays-flush)**  
