@@ -1,35 +1,51 @@
 # Installation
 
-# Gimp 3 Plug-ins
-
-* Create a directory as a sandbox for plug-ins. **e.g /home/username/plug-ins/**        
+* Create a directory as a sandbox for plug-ins. **e.g /home/username/plug-ins/**  
   Add that directory in Gimp as a plug-ins folder, then restart Gimp.
   *Gimp->Edit->Preferences->Folders->Plug-ins*
 
-* all [ plug-ins](https://github.com/script-fu/script-fu.github.io/blob/main/plug-ins) can be downloaded here...
+
+# Windows OS
+
+When you download a plug-in or script from github it does this as a raw text file.
+So a *plugin.scm* can become *plugin.scm.txt*.  This will cause an install fail.
+To avoid this, make Windows show file extentions.
   
-* Right click an individual file to download, Save Link As... ...Save in a **subfolder** of the same name. **e.g /plug-ins/plug-in-name/plug-in-name.scm.**
-
-* The script file **must** also be set as an executable in the OS. If it's not, the plug-in won't appear...  
-  In Linux, right click the file, *properties->permissions->allow executing file as program*
-
+* Open File Explorer by pressing the Windows key + E.
+* Click on the “View” tab at the top of the window.
+* Check the “File name extensions” box in the “Show/hide” section of the menu.
+  
+After you have completed these steps, file extensions will be visible for all
+files on your computer.
+  
+  
+# Gimp 3 Plug-ins
+  
+To download an individual file, first navigate to the file you want to download 
+on the GitHub website.
+  
+* Click the *filename.scm*
+* Click the “Raw” download button that appears, this will present the raw text.
+* Right click the page and “Save As” to download the file to your computer.
+* Remove any .txt extension that gets added by the OS
+* Save plug-ins in a folder named the same as the .scm file;
+  **e.g /plug-ins/plug-in-name/plug-in-name.scm.**
+* In Linux, right click the file, *properties->permissions->allow executing file as program*
 * Restart Gimp to see the plug-in menu. Keyboard shortcut the plug-in if it's useful to your workflow.
+* all [ plug-ins](https://github.com/script-fu/script-fu.github.io/blob/main/plug-ins) can be downloaded here...  
   
-* There is no need to refresh plug-ins after editing the script.  
-
+  
 # Scripts - GIMP 2
 
 * Create a directory as a sandbox for new scripts. e.g /home/username/scripts/        
   Add that directory in Gimp as a scripts folder, then restart Gimp.
   *Gimp->Edit->Preferences->Folders->Scripts*     
-
-* all [scripts](https://github.com/script-fu/script-fu.github.io/blob/main/scripts) can be downloaded here...
-
-* Right click a file to download, Save Link As... ...Save in the scripts folder.
   
 * After editing and saving a script, refresh scripts in Gimp.
   *Filters->Script-Fu->Refresh Scripts*
   It's easier to set up a keyboard shortcut to refresh scripts.
-
+  
 * Keep the Error Console window open for debugging.
   *Gimp->Windows->Dockable Dialogues->Error Console*  
+  
+  * all [scripts](https://github.com/script-fu/script-fu.github.io/blob/main/scripts) can be downloaded here...
