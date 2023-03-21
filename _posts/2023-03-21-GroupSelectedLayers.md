@@ -6,9 +6,9 @@ Puts any selected layers in a pass-through group. Pass-through mode means
 the layers in the group are treated as a seperate image tree. Which is
 what I need for my work.
 
-To download [**layer-group.scm**](https://github.com/script-fu/script-fu.github.io/tree/main/plug-ins/layer-group) 
+To download [**layer-group.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/layer-group/layer-group.scm) 
   
-...follow the link, right click the plug-in, Save Link As...
+...follow the link, right click, Save As...
 
 *Puts the selected layers in a pass-through group*
 
