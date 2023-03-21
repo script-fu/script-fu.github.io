@@ -31,15 +31,15 @@ on the GitHub website.
 * Right click the page and “Save As” to download the file to your computer.
 * Remove any .txt extension that gets added by the OS
 * Save plug-ins in a folder named the same as the .scm file;
-* **e.g /plug-ins/plug-in-name/plug-in-name.scm.**
-* In Linux, right click the file, *properties->permissions->allow executing file as program*
+* *e.g /plug-ins/plug-in-name/plug-in-name.scm.*
+* **In Linux**, right click the file, *properties->permissions->allow executing file as program*
 * Restart Gimp to see the plug-in menu. Keyboard shortcut the plug-in if it's useful to your workflow.
 * all [ plug-ins](https://github.com/script-fu/script-fu.github.io/blob/main/plug-ins) can be downloaded here...  
   
   
 # Scripts - GIMP 2
 
-* Create a directory as a sandbox for new scripts. e.g /home/username/scripts/        
+* Create a directory as a sandbox for new scripts. *e.g /home/username/scripts/*        
   Add that directory in Gimp as a scripts folder, then restart Gimp.
   *Gimp->Edit->Preferences->Folders->Scripts*     
   
