@@ -1,5 +1,7 @@
 # Installation
 
+Good luck!
+
 * Create a directory as a sandbox for plug-ins. **e.g /home/username/plug-ins/**  
   Add that directory in Gimp as a plug-ins folder, then restart Gimp.
   *Gimp->Edit->Preferences->Folders->Plug-ins*
@@ -25,11 +27,11 @@ To download an individual file, first navigate to the file you want to download
 on the GitHub website.
   
 * Click the *filename.scm*
-* Click the “Raw” download button that appears, this will present the raw text.
+* Click the “Raw” button that appears, this will present the raw text.
 * Right click the page and “Save As” to download the file to your computer.
 * Remove any .txt extension that gets added by the OS
 * Save plug-ins in a folder named the same as the .scm file;
-  **e.g /plug-ins/plug-in-name/plug-in-name.scm.**
+* **e.g /plug-ins/plug-in-name/plug-in-name.scm.**
 * In Linux, right click the file, *properties->permissions->allow executing file as program*
 * Restart Gimp to see the plug-in menu. Keyboard shortcut the plug-in if it's useful to your workflow.
 * all [ plug-ins](https://github.com/script-fu/script-fu.github.io/blob/main/plug-ins) can be downloaded here...  
@@ -48,4 +50,4 @@ on the GitHub website.
 * Keep the Error Console window open for debugging.
   *Gimp->Windows->Dockable Dialogues->Error Console*  
   
-  * all [scripts](https://github.com/script-fu/script-fu.github.io/blob/main/scripts) can be downloaded here...
+* all [scripts](https://github.com/script-fu/script-fu.github.io/blob/main/scripts) can be downloaded here...
