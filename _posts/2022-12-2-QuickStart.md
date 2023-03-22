@@ -34,6 +34,7 @@ on the GitHub website.
 * *e.g /plug-ins/plug-in-name/plug-in-name.scm.*
 * **In Linux**, right click the file, *properties->permissions->allow executing file as program*
 * Restart Gimp to see the plug-in menu. Keyboard shortcut the plug-in if it's useful to your workflow.
+* Ctrl-f will repeat the plug-in using it's last values.
 * all [ plug-ins](https://github.com/script-fu/script-fu.github.io/blob/main/plug-ins) can be downloaded here...  
   
   

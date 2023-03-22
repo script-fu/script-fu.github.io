@@ -90,7 +90,7 @@ repeating the same kind of operations in the main script.
   (set! layer (car(gimp-layer-from-mask layer)))
  )
 
- (gimp-item-attach-parasite layer (list name 1 tagValue))
+ (gimp-item-attach-parasite layer (list name 0 tagValue))
  (gimp-item-set-color-tag layer colour)
  )
 )
