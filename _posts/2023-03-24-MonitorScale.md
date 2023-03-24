@@ -7,11 +7,11 @@ would appear on paper if it was printed out. For example if your monitor was at
 100 DPI, and you printed at 300 DPI, then the printed image would look a third
 the size it does on screen. Good for getting peek at the final scale.
 
-To download [**layer-group.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/layer-group/layer-group.scm) 
+To download [**layer-group.scm**](linkhere) 
   
 ...follow the link, right click, Save As...
 
-*Puts the selected layers in a pass-through group*
+*Creates a new image showing how big the printed image would look on paper*
 
 ```scheme
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
