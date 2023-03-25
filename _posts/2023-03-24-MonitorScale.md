@@ -1,4 +1,4 @@
-## Monitor Print Scale
+## Paper Scale
 
 # * Tested in Gimp 2.99.14 *
 
@@ -14,7 +14,7 @@ Otherwise ensure image is set to 100% zoom or press keyboard "1" to make it so.
 
 To download [**monitor-scale.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/monitor-scale/monitor-scale.scm)
   
-...follow the link, right click, Save as monitor-scale.scm, in a folder called monitor-scale, in a Gimp plug-ins location.  In Linux, set the file to be executabale.
+...follow the link, right click the page, Save as monitor-scale.scm, in a folder called monitor-scale, in a Gimp plug-ins location.  In Linux, set the file to be executable.
 
 
 *Creates a new image showing how big the printed image would look on paper*
