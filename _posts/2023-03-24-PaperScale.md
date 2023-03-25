@@ -5,8 +5,9 @@
 This plug-in creates temporary image that approximates how big the original
 would appear on paper if it was printed out. For example if your monitor was at
 100 DPI, and you printed at 300 DPI, then the printed image would look a third
-the size it does on screen. Good for getting peek at the final scale. 
-**The plug-in should appear at the bottom on the Image menu.**  
+the size it does on screen. Good for getting peek at the final scale.  
+  
+The plug-in should appear at the bottom of the Image menu.  
   
 Works best if the following preference is set 1:1  
 *Edit->Preferences->Image Windows->initial zoom ratio 1:1*  
