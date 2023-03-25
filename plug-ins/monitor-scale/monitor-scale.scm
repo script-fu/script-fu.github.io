@@ -6,10 +6,13 @@
 (define (script-fu-monitor-scale img drawables)
   (let*
     (
+      (placeOnPaper #t)
       (dpiX (car(gimp-image-get-resolution img))) 
       (dpiY (cadr(gimp-image-get-resolution img)))
       (scaleX (/ (car(gimp-get-monitor-resolution)) dpiX))
       (scaleY (/ (cadr(gimp-get-monitor-resolution)) dpiY))
+      (paperX (* scaleX (* 2480 (/ dpiX 300)))); A4 at 300DPI
+      (paperY (* scaleY (* 3508 (/ dpiY 300)))); A4 at 300DPI
       (dstImg 0)
       (origW (car (gimp-image-get-width img)))
       (width (* scaleX origW))
@@ -17,6 +20,7 @@
       (height (* scaleY origH))
     )
 
+    (gimp-context-push)
     (gimp-edit-copy-visible img)
     (set! dstImg (car(gimp-edit-paste-as-new-image)))
     (gimp-image-scale dstImg width height)
@@ -25,13 +29,21 @@
                                         (car(gimp-get-monitor-resolution))))
                                         ":  If printed at " 
                                         (number->string (trunc dpiX)) " DPI"
-                                        " and if the zoom is at 100% "
+                                        " and if the display zoom is at 100% "
                                         " the image should look this size on "
                                         " paper ***   "
                                 )
     )
+    (when placeOnPaper
+      (gimp-image-resize dstImg paperX paperY (/ (- paperX width) 2)
+                                            (/ (- paperY height) 4)
+      )
+      (gimp-context-set-background (list 225 225 225))
+      (gimp-image-flatten dstImg)
+    )
     (gimp-display-new dstImg)
     (gimp-image-clean-all dstImg)
+    (gimp-context-pop)
 
   )
 )
@@ -46,4 +58,4 @@
  "*"
  SF-ONE-DRAWABLE
 )
-(script-fu-menu-register "script-fu-monitor-scale" "<Image>/View")
+(script-fu-menu-register "script-fu-monitor-scale" "<Image>/Image")
