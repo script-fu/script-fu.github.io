@@ -1,5 +1,5 @@
 
-# Installation & License
+# Installation and License
 
 * A [guide](https://script-fu.github.io/2022/12/02/QuickStart.html) for installing Gimp 3 plugins and Gimp 2 scripts.  
   
