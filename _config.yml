@@ -24,7 +24,7 @@ theme: "minima"
 markdown: kramdown
 highlighter: rouge
 
-#rss: rss
+rss: rss
     
 plugins:
   - jekyll-feed
