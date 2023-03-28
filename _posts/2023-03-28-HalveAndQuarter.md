@@ -9,14 +9,15 @@ safety, avoiding accidental loss of the original scale.
 The plug-ins should appear in the Image menu.  
   
 
-To download [**half-size.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/half-size/half-size.scm)
+To download [**half-size.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/half-size/half-size.scm)  
 ...follow the link, right click the page, Save as half-size.scm, in a folder called half-size, in a Gimp plug-ins location.  In Linux, set the file to be executable.
-To download [**quarter-size.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/quarter-size/quarter-size.scm)
-...follow the link, right click the page, Save as quarter-size.scm, in a folder called quarter-size, in a Gimp plug-ins location.  In Linux, set the file to be executable.
-To download [**half-size-copy.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/half-size-copy/half-size.scm)
-...follow the link, right click the page, Save as half-size-copy.scm, in a folder called half-size-copy, in a Gimp plug-ins location.  In Linux, set the file to be executable.
-To download [**quarter-size-copy.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/quarter-size/quarter-size-copy.scm)
-...follow the link, right click the page, Save as quarter-size-copy.scm, in a folder called quarter-size-copy, in a Gimp plug-ins location.  In Linux, set the file to be executable.
+  
+To download [**quarter-size.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/quarter-size/quarter-size.scm)  
+  
+To download [**half-size-copy.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/half-size-copy/half-size.scm)  
+  
+To download [**quarter-size-copy.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/quarter-size/quarter-size-copy.scm)  
+
 
 
 ```scheme
