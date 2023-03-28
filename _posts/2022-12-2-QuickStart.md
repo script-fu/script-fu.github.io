@@ -54,4 +54,4 @@ on the GitHub website.
 * all [scripts](https://github.com/script-fu/script-fu.github.io/blob/main/scripts) can be downloaded here...  
   
   
-# [Script-Fu Commands Used](https://script-fu.github.io/2022/12/03/Commands-Used.html) used by the examples.
+# Script-Fu [Commands](https://script-fu.github.io/2022/12/03/Commands-Used.html) Used by the Plugins
