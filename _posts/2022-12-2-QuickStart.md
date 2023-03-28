@@ -52,3 +52,6 @@ on the GitHub website.
   *Gimp->Windows->Dockable Dialogues->Error Console*  
   
 * all [scripts](https://github.com/script-fu/script-fu.github.io/blob/main/scripts) can be downloaded here...
+
+
+* Script-Fu [commands](https://script-fu.github.io/2022/12/03/Commands-Used.html) used by the examples.
