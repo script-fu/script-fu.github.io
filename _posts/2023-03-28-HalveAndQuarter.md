@@ -224,7 +224,8 @@ To download [**quarter-size-copy.scm**](https://raw.githubusercontent.com/script
     (gimp-context-set-interpolation mode)
     (if (< dstW 1)(set! dstW 1))(if (< dstH 1)(set! dstH 1))
     (gimp-image-scale dstImg dstW dstH)
-    (gimp-image-set-file dstImg "half-size")
+    (set! safeName (string-append filePath brkTok fileNoExt "_hSizeFlat.xcf"))
+    (gimp-image-set-file dstImg safeName)
     (set! dstL (vector-ref (cadr(gimp-image-get-selected-layers dstImg))0))
     (gimp-item-set-name dstL "half-size-copy")
     (gimp-edit-copy-visible dstImg)
@@ -315,7 +316,8 @@ To download [**quarter-size-copy.scm**](https://raw.githubusercontent.com/script
     (gimp-context-set-interpolation mode)
     (if (< dstW 1)(set! dstW 1))(if (< dstH 1)(set! dstH 1))
     (gimp-image-scale dstImg dstW dstH)
-    (gimp-image-set-file dstImg "quarter-size")
+    (set! safeName (string-append filePath brkTok fileNoExt "_qSizeFlat.xcf"))
+    (gimp-image-set-file dstImg safeName)
     (set! dstL (vector-ref (cadr(gimp-image-get-selected-layers dstImg))0))
     (gimp-item-set-name dstL "quarter-size-copy")
     (gimp-edit-copy-visible dstImg)
@@ -374,5 +376,6 @@ To download [**quarter-size-copy.scm**](https://raw.githubusercontent.com/script
  SF-ONE-DRAWABLE
 )
 (script-fu-menu-register "script-fu-quarter-size-copy" "<Image>/Image")
+
 
 ```
