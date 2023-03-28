@@ -14,9 +14,9 @@ To download [**half-size.scm**](https://raw.githubusercontent.com/script-fu/scri
   
 To download [**quarter-size.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/quarter-size/quarter-size.scm)  
   
-To download [**half-size-copy.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/half-size-copy/half-size.scm)  
+To download [**half-size-copy.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/half-size-copy/half-size-copy.scm)  
   
-To download [**quarter-size-copy.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/quarter-size/quarter-size-copy.scm)  
+To download [**quarter-size-copy.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/quarter-size-copy/quarter-size-copy.scm)  
 
 
 
