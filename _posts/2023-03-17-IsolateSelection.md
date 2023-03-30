@@ -379,7 +379,7 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
   (let*
     (
       (taggedList 0)(taggedCount 0)(i 0)(layer 0)(parasites 0)
-      (visTag 0)(colTag 0)(modeTag 0)(opaTag 0)(visTag 0)
+      (visTag 0)(colTag 0)(modeTag 0)(opaTag 0)(visTag 0)(lstL 0)
     )
 
     (set! taggedList (findLayersTagged img layerList tag))
@@ -410,6 +410,24 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
             (if (> (car(gimp-layer-get-mask layer)) 0)
               (gimp-layer-set-show-mask layer 0)
             )
+        )
+        (set! i (+ i 1))
+      )
+    )
+    ; try and clean up a saved isolation...
+    (when (= taggedCount 0)
+      (set! lstL (layerScan img 0))
+      (while (< i (length lstL))
+        (set! layer (nth i lstL))
+        (set! colTag (car(gimp-item-get-color-tag layer)))
+        (set! visTag (car(gimp-item-get-visible layer)))
+        (when (and (= colTag 6) (= visTag 0))
+          (gimp-item-set-visible layer 1)
+          (gimp-item-set-color-tag layer 0)
+        )
+        (when (and (= colTag 2) (= visTag 1))
+          (gimp-item-set-visible layer 1)
+          (gimp-item-set-color-tag layer 0)
         )
         (set! i (+ i 1))
       )
@@ -521,4 +539,5 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
   SF-ONE-OR-MORE-DRAWABLE ;
 )
 (script-fu-menu-register "script-fu-exitIsolation" "<Image>/Layer")
+
 ```
