@@ -3,10 +3,11 @@
 (define (script-fu-exitIsolation img drawables) 
   (let*
     (
-      (layerList 0)
+      (layerList 0)(fileNme "")(fndP 0)
     )
 
     (gimp-image-undo-group-start img)
+    (set! fndP (get-parasite-on-image img "isofilename"))
 
     ; when the plugin is not locked via a text file
     (when (= (plugin-get-lock "exitIsolation") 0) 
@@ -16,6 +17,11 @@
       (revertLayer img layerList "isolated") 
       (revertLayer img layerList "hidden")
       (revertLayer img layerList "isoParent")
+      (when (= fndP 1)
+        (set! fileNme (caddar(gimp-image-get-parasite img "isofilename")))
+        (gimp-image-set-file img fileNme )
+        (gimp-image-detach-parasite img "isofilename")
+      )
       (plugin-set-lock "exitIsolation" 0) ; unlock the plugin
       (plugin-set-lock "isolateSelected" 0) ; unlock the isolate plugin
       (gimp-displays-flush)
@@ -23,6 +29,33 @@
 
     (gimp-image-undo-group-end img)
 
+  )
+)
+
+
+(define (get-parasite-on-image img tag)
+  (let*
+    (
+      (i 0)(param 0)(paramC 0)(paramLst 0)(pName "")(found 0)
+    )
+
+    (set! param (car (gimp-image-get-parasite-list img)))
+    (set! paramC (length param))
+    (set! paramLst (list->vector param))
+
+    (when (> paramC 0)
+      (while(< i paramC)
+        (set! pName (vector-ref paramLst i))
+        
+        (when (equal? tag pName)
+          (set! found 1)
+          (set! i paramC)
+        )
+      (set! i (+ i 1))
+      )
+    )
+
+    found
   )
 )
 

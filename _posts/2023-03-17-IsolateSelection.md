@@ -13,6 +13,12 @@ toggle between isolate and normal if you prefer. Just edit this line...
 To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/isolateSelected/isolateSelected.scm) and [**exitIsolation.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/exitIsolation/exitIsolation.scm)...
   
 ...follow the link, right click, Save As...
+  
+  
+NOTE: The file name is altered during isolation to avoid saving in an isolated state.
+      Use "Isolate Restore" or toggle back in "toggle mode" to restore the name.
+
+      
 
 *Two plug-ins, one to isolate and one to revert*
 
@@ -25,16 +31,26 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
       (toggleMode 0) ; 1 for the plugin to toggle between isolate and normal
       (layerList 0)(layerCount 0)(i 0)(j 0)(layer 0)(taggedList 0)(isolate 1)
       (allParents ())(parent 0)(pExists 0)(isoParentsList ())(thisParent 0)
+      (fileInfo (get-file-info img))(fileNme (vector-ref fileInfo 0))(fndP 0)
     )
-
-    (gimp-image-undo-group-start img)
+    (gimp-image-undo-freeze img)
+    ;(gimp-image-undo-group-start img)
 
     ; when the plugin is not locked via a text file
     (when (= (plugin-get-lock "isolateSelected") 0) 
       (plugin-set-lock "isolateSelected" 1) ; now lock it, in theory...
+      (plugin-set-lock "exitIsolation" 1)
+      (set! fndP (get-parasite-on-image img "isofilename"))
 
-      ;check for mask selected
-      (if (= toggleMode 1) (filterSelection drawables))
+      ;check for mask selected and revert filename
+      (when (= toggleMode 1)
+        (filterSelection drawables)
+        (when (= fndP 1)
+          (set! fileNme (caddar(gimp-image-get-parasite img "isofilename")))
+          (gimp-image-set-file img fileNme )
+          (gimp-image-detach-parasite img "isofilename")
+        )
+      )
 
       ; store all the layers and groups
       (set! layerList (layerScan img 0))
@@ -56,6 +72,12 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
       ; enter new isolated state for selected drawables
       (if (= toggleMode 0)(set! isolate 1))
       (when (= isolate 1)
+        (when (= fndP 0)
+          (gimp-image-set-file img 
+          " USE \"ISOLATE RESTORE\" OR TOGGLE ISOLATION OFF BEFORE SAVING   ")
+          (tag-image img "isofilename" fileNme)
+        )
+      
         (set! i 0)
         (while (< i (vector-length drawables))
           (set! layer (vector-ref drawables i))
@@ -97,11 +119,50 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
       )
 
       (plugin-set-lock "isolateSelected" 0) ; unlock the plugin
+      (plugin-set-lock "exitIsolation" 0)
       (gimp-displays-flush)
     )
 
-    (gimp-image-undo-group-end img)
+    ;(gimp-image-undo-group-end img)
+    (gimp-image-undo-thaw img)
     
+  )
+)
+
+
+(define (get-file-info img)
+  (let*
+    (
+      (fileInfo (vector "" "" "" ""))
+      (fileName "")
+      (fileBase "")
+      (fileNoExt "")
+      (filePath "")
+      (brkTok "/")
+    )
+    (if (equal? () (car (file-glob "/usr" 0)))(set! brkTok "\\")); windows OS
+
+    (when (> (car (gimp-image-id-is-valid img)) 0)
+      (when (not(equal? (car(gimp-image-get-file img)) ""))
+        (set! fileName (car(gimp-image-get-file img)))
+        (set! fileBase (car (reverse (strbreakup fileName brkTok))))
+        (set! fileNoExt (car (strbreakup fileBase ".")))
+        (set! filePath (unbreakupstr (reverse (cdr(reverse (strbreakup fileName
+                                                           brkTok)
+                                                  )
+                                              )
+                                     ) 
+                                     brkTok
+                       )
+        )
+        (vector-set! fileInfo 0 fileName)
+        (vector-set! fileInfo 1 fileBase)
+        (vector-set! fileInfo 2 fileNoExt)
+        (vector-set! fileInfo 3 filePath)
+      )
+    )
+
+    fileInfo
   )
 )
 
@@ -248,7 +309,7 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
   )
 )
 
-
+;static find layer tagged, uses supplied layer list
 (define (findLayersTagged img layerList tag)
   (let*
     (
@@ -331,6 +392,36 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
 )
 
 
+(define (tag-image img name tagV)
+  (gimp-image-attach-parasite img (list name 0 tagV))
+)
+
+
+(define (get-parasite-on-image img tag)
+  (let*
+    (
+      (i 0)(param 0)(paramC 0)(paramLst 0)(pName "")(found 0)
+    )
+
+    (set! param (car (gimp-image-get-parasite-list img)))
+    (set! paramC (length param))
+    (set! paramLst (list->vector param))
+
+    (when (> paramC 0)
+      (while(< i paramC)
+        (set! pName (vector-ref paramLst i))
+        
+        (when (equal? tag pName)
+          (set! found 1)
+          (set! i paramC)
+        )
+      (set! i (+ i 1))
+      )
+    )
+
+    found
+  )
+)
 (script-fu-register-filter "script-fu-isolateSelected"
   "Isolate" 
   "Isolates the selected layers" 
@@ -341,20 +432,21 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
   SF-ONE-OR-MORE-DRAWABLE ;
 )
 (script-fu-menu-register "script-fu-isolateSelected" "<Image>/Layer")
-
 ```
 
-*The second plug-in to restore the isolated layers*
+*The second plug-in to restore the isolated layers*  
+  
 ```scheme
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
 ;Under GNU GENERAL PUBLIC LICENSE Version 3
 (define (script-fu-exitIsolation img drawables) 
   (let*
     (
-      (layerList 0)
+      (layerList 0)(fileNme "")(fndP 0)
     )
 
     (gimp-image-undo-group-start img)
+    (set! fndP (get-parasite-on-image img "isofilename"))
 
     ; when the plugin is not locked via a text file
     (when (= (plugin-get-lock "exitIsolation") 0) 
@@ -364,6 +456,11 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
       (revertLayer img layerList "isolated") 
       (revertLayer img layerList "hidden")
       (revertLayer img layerList "isoParent")
+      (when (= fndP 1)
+        (set! fileNme (caddar(gimp-image-get-parasite img "isofilename")))
+        (gimp-image-set-file img fileNme )
+        (gimp-image-detach-parasite img "isofilename")
+      )
       (plugin-set-lock "exitIsolation" 0) ; unlock the plugin
       (plugin-set-lock "isolateSelected" 0) ; unlock the isolate plugin
       (gimp-displays-flush)
@@ -371,6 +468,33 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
 
     (gimp-image-undo-group-end img)
 
+  )
+)
+
+
+(define (get-parasite-on-image img tag)
+  (let*
+    (
+      (i 0)(param 0)(paramC 0)(paramLst 0)(pName "")(found 0)
+    )
+
+    (set! param (car (gimp-image-get-parasite-list img)))
+    (set! paramC (length param))
+    (set! paramLst (list->vector param))
+
+    (when (> paramC 0)
+      (while(< i paramC)
+        (set! pName (vector-ref paramLst i))
+        
+        (when (equal? tag pName)
+          (set! found 1)
+          (set! i paramC)
+        )
+      (set! i (+ i 1))
+      )
+    )
+
+    found
   )
 )
 
@@ -539,5 +663,6 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
   SF-ONE-OR-MORE-DRAWABLE ;
 )
 (script-fu-menu-register "script-fu-exitIsolation" "<Image>/Layer")
+
 
 ```

@@ -6,16 +6,26 @@
       (toggleMode 0) ; 1 for the plugin to toggle between isolate and normal
       (layerList 0)(layerCount 0)(i 0)(j 0)(layer 0)(taggedList 0)(isolate 1)
       (allParents ())(parent 0)(pExists 0)(isoParentsList ())(thisParent 0)
+      (fileInfo (get-file-info img))(fileNme (vector-ref fileInfo 0))(fndP 0)
     )
-
-    (gimp-image-undo-group-start img)
+    (gimp-image-undo-freeze img)
+    ;(gimp-image-undo-group-start img)
 
     ; when the plugin is not locked via a text file
     (when (= (plugin-get-lock "isolateSelected") 0) 
       (plugin-set-lock "isolateSelected" 1) ; now lock it, in theory...
+      (plugin-set-lock "exitIsolation" 1)
+      (set! fndP (get-parasite-on-image img "isofilename"))
 
-      ;check for mask selected
-      (if (= toggleMode 1) (filterSelection drawables))
+      ;check for mask selected and revert filename
+      (when (= toggleMode 1)
+        (filterSelection drawables)
+        (when (= fndP 1)
+          (set! fileNme (caddar(gimp-image-get-parasite img "isofilename")))
+          (gimp-image-set-file img fileNme )
+          (gimp-image-detach-parasite img "isofilename")
+        )
+      )
 
       ; store all the layers and groups
       (set! layerList (layerScan img 0))
@@ -37,6 +47,12 @@
       ; enter new isolated state for selected drawables
       (if (= toggleMode 0)(set! isolate 1))
       (when (= isolate 1)
+        (when (= fndP 0)
+          (gimp-image-set-file img 
+          " USE \"ISOLATE RESTORE\" OR TOGGLE ISOLATION OFF BEFORE SAVING   ")
+          (tag-image img "isofilename" fileNme)
+        )
+      
         (set! i 0)
         (while (< i (vector-length drawables))
           (set! layer (vector-ref drawables i))
@@ -78,11 +94,50 @@
       )
 
       (plugin-set-lock "isolateSelected" 0) ; unlock the plugin
+      (plugin-set-lock "exitIsolation" 0)
       (gimp-displays-flush)
     )
 
-    (gimp-image-undo-group-end img)
+    ;(gimp-image-undo-group-end img)
+    (gimp-image-undo-thaw img)
     
+  )
+)
+
+
+(define (get-file-info img)
+  (let*
+    (
+      (fileInfo (vector "" "" "" ""))
+      (fileName "")
+      (fileBase "")
+      (fileNoExt "")
+      (filePath "")
+      (brkTok "/")
+    )
+    (if (equal? () (car (file-glob "/usr" 0)))(set! brkTok "\\")); windows OS
+
+    (when (> (car (gimp-image-id-is-valid img)) 0)
+      (when (not(equal? (car(gimp-image-get-file img)) ""))
+        (set! fileName (car(gimp-image-get-file img)))
+        (set! fileBase (car (reverse (strbreakup fileName brkTok))))
+        (set! fileNoExt (car (strbreakup fileBase ".")))
+        (set! filePath (unbreakupstr (reverse (cdr(reverse (strbreakup fileName
+                                                           brkTok)
+                                                  )
+                                              )
+                                     ) 
+                                     brkTok
+                       )
+        )
+        (vector-set! fileInfo 0 fileName)
+        (vector-set! fileInfo 1 fileBase)
+        (vector-set! fileInfo 2 fileNoExt)
+        (vector-set! fileInfo 3 filePath)
+      )
+    )
+
+    fileInfo
   )
 )
 
@@ -115,11 +170,11 @@
     (set! modeTag (number->string modeTag))
     (set! opaTag (car(gimp-layer-get-opacity layer)))
     (set! opaTag (number->string opaTag))
-    (gimp-item-attach-parasite layer (list tag 1 "1"))
-    (gimp-item-attach-parasite layer (list "colTag" 1 colTag))
-    (gimp-item-attach-parasite layer (list "visTag" 1 visTag))
-    (gimp-item-attach-parasite layer (list "modeTag" 1 modeTag))
-    (gimp-item-attach-parasite layer (list "opaTag" 1 opaTag))
+    (gimp-item-attach-parasite layer (list tag 0 "1"))
+    (gimp-item-attach-parasite layer (list "colTag" 0 colTag))
+    (gimp-item-attach-parasite layer (list "visTag" 0 visTag))
+    (gimp-item-attach-parasite layer (list "modeTag" 0 modeTag))
+    (gimp-item-attach-parasite layer (list "opaTag" 0 opaTag))
     (if (> col -1) (gimp-item-set-color-tag layer col))
     (if (= isGroup 0) (gimp-layer-set-mode layer LAYER-MODE-NORMAL))
     (gimp-layer-set-opacity layer 100)
@@ -229,7 +284,7 @@
   )
 )
 
-
+;static find layer tagged, uses supplied layer list
 (define (findLayersTagged img layerList tag)
   (let*
     (
@@ -312,6 +367,36 @@
 )
 
 
+(define (tag-image img name tagV)
+  (gimp-image-attach-parasite img (list name 0 tagV))
+)
+
+
+(define (get-parasite-on-image img tag)
+  (let*
+    (
+      (i 0)(param 0)(paramC 0)(paramLst 0)(pName "")(found 0)
+    )
+
+    (set! param (car (gimp-image-get-parasite-list img)))
+    (set! paramC (length param))
+    (set! paramLst (list->vector param))
+
+    (when (> paramC 0)
+      (while(< i paramC)
+        (set! pName (vector-ref paramLst i))
+        
+        (when (equal? tag pName)
+          (set! found 1)
+          (set! i paramC)
+        )
+      (set! i (+ i 1))
+      )
+    )
+
+    found
+  )
+)
 (script-fu-register-filter "script-fu-isolateSelected"
   "Isolate" 
   "Isolates the selected layers" 
