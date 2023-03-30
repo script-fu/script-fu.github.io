@@ -24,8 +24,8 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
     (
       (tint (list 220 146 43)) ; default tint RGB
       (actL 0)(srcGrp 0)(srcL 0)(layerLst (layer-scan img 0))
-      (mxGrp (get-layers-tagged img layerLst "mixer"))
-      (update (vector-ref mxGrp 0))
+      (mxGrp (find-layer img "mixer"))
+      (update mxGrp)
     )
 
     (gimp-context-push)
@@ -38,7 +38,6 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
       (set! srcGrp (source-group img))
       (set! mxGrp (add-mix-grp img 0 0 "mixer" LAYER-MODE-PASS-THROUGH))
       (set! srcL (paste-copy img 0 img 0 mxGrp "! no edit !" 0 ))
-      (tag-layer srcL  "source copy" "42" 0)
       (gimp-item-set-lock-content srcL 1) 
       (gimp-item-set-expanded srcGrp 0)
       (gimp-item-set-visible srcGrp 0)
@@ -47,16 +46,12 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
 
     ; Or update a mixer
     (when (> update 0)
-      (set! mxGrp (vector-ref mxGrp 0))
       (gimp-item-set-visible mxGrp 0)
-      (set! srcGrp (vector-ref (get-layers-tagged img layerLst "source") 0))
-      (set! srcL (get-layers-tagged img layerLst "source copy"))
-      (set! srcL (vector-ref srcL 0 ))
+      (set! srcGrp (find-layer img "source" 0))
+      (set! srcL (find-layer img "! no edit !" ))
       (when (= srcL 0)
-        (set! srcL (paste-copy img 0 img 0 mxGrp "! no edit please !" 0 ))
-        (tag-layer srcL  "source copy" "42" 0)
+        (set! srcL (paste-copy img 0 img 0 mxGrp "! no edit !" 0 ))
       )
-      (set! srcGrp (vector-ref (get-layers-tagged img layerLst "source") 0)) 
       (gimp-item-set-lock-content srcL 0)
       (set! srcL (transfer-layer-preserve img srcGrp srcL))
       (gimp-item-set-lock-content srcL 1)
@@ -138,11 +133,9 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
     (when (> (car rootL) 1)
       (set! srcGrp (layer-group img (cadr rootL)))
       (gimp-item-set-name srcGrp "source")
-      (tag-layer srcGrp "source" "42" 0)
     )
     (when (= (car rootL) 1)
       (set! srcGrp (vector-ref (cadr rootL) 0))
-      (tag-layer srcGrp "source" "42" 0)
     )
     (gimp-item-set-visible srcGrp 1)
     srcGrp
@@ -186,7 +179,6 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
     (gimp-image-insert-layer img actL parent pos)
     (gimp-layer-set-mode actL mode)
     (gimp-item-set-name actL name)
-    (tag-layer actL name "42" 0)
     actL
   )
 )
@@ -203,11 +195,10 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
       (gimp-layer-set-opacity actL 0)
       (gimp-layer-set-mode actL mode)
       (gimp-layer-set-opacity actL 0)
-      (tag-layer actL name "42" 0)
     )
 
     (when (> update 0)
-      (set! actL (vector-ref (get-layers-tagged img layerLst name) 0))
+      (set! actL (find-layer img name) 0)
       (when (> actL 0)
         (gimp-item-set-lock-content actL 0)
         (set! actL (transfer-layer-preserve img srcL actL))
@@ -244,15 +235,6 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
 
     layerGrp
   )
-)
-
-
-(define (tag-layer layer name tagV col)
-  (if(= (car (gimp-item-id-is-layer-mask layer)) 1)
-    (set! layer (car(gimp-layer-from-mask layer)))
-  )
-  (gimp-item-attach-parasite layer (list name 0 tagV))
-  (gimp-item-set-color-tag layer col)
 )
 
 
@@ -414,42 +396,6 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
 )
 
 
-(define (get-layers-tagged img layerList tag)
-  (let*
-    (
-      (taggedList ())(parasiteCount 0)(layer 0)(param 0)(paramC 0)
-      (paramLst 0)(pName 0)(i 0)(j 0)(layerCount 0)
-    )
-
-    (set! layerList (list->vector layerList))
-    (set! layerCount (vector-length layerList))
-
-    (set! i 0)
-    (while (< i layerCount)
-      (set! layer (vector-ref layerList i))
-      (set! param (car (gimp-item-get-parasite-list layer)))
-      (set! paramC (length param))
-      (when (> paramC 0)
-        (set! paramLst (list->vector param))
-        (set! j 0)
-        (while(< j paramC)
-          (set! pName (vector-ref paramLst j))
-          (when (equal? pName tag)
-            (set! taggedList (append taggedList (list layer)))
-            (set! parasiteCount (+ parasiteCount 1))
-          )
-          (set! j (+ j 1))
-        )
-      )
-      (set! i (+ i 1))
-    )
-
-    (if (= (length taggedList) 0)(set! taggedList (append taggedList (list 0))))
-    (list->vector taggedList)
-  )
-)
-
-
 (define (transfer-layer-preserve img srcLayer dstL)
   (let*
     (
@@ -478,6 +424,7 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
  SF-ONE-DRAWABLE
 )
 (script-fu-menu-register "script-fu-adjustment-mixer" "<Image>/Layer")
+
 
 
 
