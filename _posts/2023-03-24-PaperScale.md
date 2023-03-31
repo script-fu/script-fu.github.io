@@ -81,7 +81,7 @@ To download [**paper-scale.scm**](https://raw.githubusercontent.com/script-fu/sc
  "copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
  "2023"
  "*"
- SF-ONE-DRAWABLE
+ SF-ONE-OR-MORE-DRAWABLE
 )
 (script-fu-menu-register "script-fu-paper-scale" "<Image>/Image")
 
