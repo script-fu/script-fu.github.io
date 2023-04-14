@@ -23,7 +23,7 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
   (let*
     (
       (tint (list 220 146 43)) ; default tint RGB
-      (actL 0)(srcGrp 0)(srcL 0)(layerLst (layer-scan img 0))
+      (actL 0)(srcGrp 0)(srcL 0)(layerLst (all-childrn img 0))
       (mxGrp (find-layer img "mixer"))
       (update mxGrp)
     )
@@ -187,7 +187,7 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
 (define (add-mix img srcL parent name mode update)
   (let*
     (
-      (actL 0)(layerLst (layer-scan img 0))
+      (actL 0)(layerLst (all-childrn img 0))
     )
 
     (when (= update 0)
@@ -346,7 +346,7 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
       (matchedLayer 0)(matchName 0)(i 0)(layerList ())
     )
 
-    (set! layerList (layer-scan img 0))
+    (set! layerList (all-childrn img 0))
     (set! layerList (list->vector layerList))
 
     (while (< i (vector-length layerList))
@@ -367,7 +367,7 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
 )
 
 
-(define (layer-scan img rootGrp)
+(define (all-childrn img rootGrp)
   (let*
     (
       (getChildren 0)(layerList 0)(i 0)(layer 0)(allLayerList ())
@@ -386,7 +386,7 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
       (set! layer (vector-ref layerList i))
       (set! allLayerList (append allLayerList (list layer)))
       (if (equal? (car (gimp-item-is-group layer)) 1)
-        (set! allLayerList (append allLayerList (layer-scan img layer)))
+        (set! allLayerList (append allLayerList (all-childrn img layer)))
       )
       (set! i (+ i 1))
     )

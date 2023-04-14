@@ -2,9 +2,11 @@
 
 # * Tested in Gimp 2.99.14 *
 
-A quartet of plugins that perform halving or quartering, either on the image or copying
-the result to a new image.  If it's on the image then it is also renamed for 
-safety, avoiding accidental loss of the original scale.
+Two plugins that perform a scale, either on the image with all it's layers,
+or copying all visible to a new image and scaling that. If it's on the image 
+then it's a scale operation that preserves all the positional relationships of 
+the layers and avoids any pixel movement artifacts. Preserve Scale is a 
+significantly slower scale than the current Gimp default.
   
 The plug-ins should appear in the Image menu.  
   
