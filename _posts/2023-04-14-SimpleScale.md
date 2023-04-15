@@ -5,7 +5,7 @@
 Copies all visible to a new image and scales that. Saves time when all you usually
 use scaling for is to make a half sized copy.
 
-The plug-ins should appear in the Image menu.  
+The plug-in should appear in the Image menu.  
   
 To download [**simple-scale.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/simple-scale/simple-scale.scm)  
 ...follow the link, right click the page, Save as simple-scale.scm, in a folder called simple-scale, in a Gimp plug-ins location.  In Linux, set the file to be executable.
