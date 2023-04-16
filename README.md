@@ -4,4 +4,4 @@ The procedure browser in Gimp is a great resource. This repository provides exam
 
 Plugins tested in Gimp 2.99.14, Scripts in version 2.10.30.
 
-Here is the [website](https://script-fu.github.io/) that describes these plugin in more detail.
+Here is the [website](https://script-fu.github.io/) that describes these plugins in more detail.
