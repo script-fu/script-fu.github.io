@@ -191,7 +191,11 @@
   (let*
     (
       (mskOn 0)(unlock 0)(allLcks 0)(placehL 0)(lckLst 0)(prxInfo 0)(prxImg 0)
-      (prxL 0)(prxLMsk 0)
+      (prxL 0)(prxLMsk 0)(actL 0)
+      (wdthL (car (gimp-drawable-get-width srcGrp)))
+      (hghtL (car (gimp-drawable-get-height srcGrp)))
+      (offX (car(gimp-drawable-get-offsets srcGrp)))
+      (offY (cadr(gimp-drawable-get-offsets srcGrp)))
     )
 
     (set! prxInfo (group-to-new-image img srcGrp))
@@ -209,7 +213,9 @@
     ; unlock everything and place the proxy in the src group folder
     (set! lckLst (set-and-store-all-locks img allLcks unlock))
     (set! placehL (reduce-group img srcGrp preFxL prxTag sDir saveNme))
-    (paste-copied-layer img placehL 100 LAYER-MODE-NORMAL 1)
+    (set! actL (paste-copied-layer img placehL 100 LAYER-MODE-NORMAL 1))
+    ;crop to extent of original group
+    (gimp-layer-resize actL wdthL hghtL (- 0 offX) (- 0 offY))
     (restore-all-locks lckLst)
     (set-lock-layer placehL 1 1 1 1)
     (gimp-item-set-color-tag srcGrp 2)
