@@ -4,10 +4,37 @@
 
 This plugin demonstrates how parasites currently work in Gimp. Parasites are
 useful for scripting in many ways. You can store data, tag layers or set variables.
+Typically I'd use a parasite like this;
+
+```scheme
+(gimp-item-attach-parasite layerID (list "name" mode "data as a string"))
+
+```
+
+You can see that a parasite is just a three element list. The name is used
+to identify, and the data can be stored as a string. Use functions like
+(number->string) (string->number) or (strbreakup) to encode or decode the data.
+
+The parasite is returned as a list wrapped in a list. ((list "name" 0 "data" )) 
+To retrieve data from the parasite use something like;
+
+```scheme
+(set! data (caddar(gimp-item-get-parasite layerID "parasite name")))
+```
+
+caddar is a scheme speak for unwrapping the list and grabbing the third item...
+
+(caar (parasite)) grabs the first item, the name.
+(cadar (parasite)) grabs the second item, the mode.
+(caddar (parasite)) grabs the third item, the data
+
+
 They have a couple of quirks at the moment, there's an error message thrown out:
 **"  GIMP Warning Can't undo Attach Parasite to Item  "**  if you try and undo
 a non-undoable attachment to a layer. It's harmless but annoying.
 Also, global parasites don't have an undoable mode of attachment.
+
+
   
   
 The plug-in should appear in a Fu-Plugin menu.  
