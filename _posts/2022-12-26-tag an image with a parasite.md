@@ -15,7 +15,7 @@ find it easily again. The tag is saved with the image as a parasite.
   (tagValue "42")
  )
 
- (gimp-image-attach-parasite img (list tag 1 tagValue))
+ (gimp-image-attach-parasite img (list tag 0 tagValue))
  (gimp-message (string-append " attached tag --> " tag))
  )
 )
