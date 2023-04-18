@@ -33,9 +33,9 @@ To retrieve data from the parasite use something like;
   
 caddar is a scheme speak for unwrapping the list and grabbing the third item...
   
-(caar (parasite)) grabs the first item, the name.
-(cadar (parasite)) grabs the second item, the mode.
-(caddar (parasite)) grabs the third item, the data
+(caar (parasite)) grabs the first item, the name.  
+(cadar (parasite)) grabs the second item, the mode.  
+(caddar (parasite)) grabs the third item, the data  
   
 They have a couple of quirks at the moment, there's an error message thrown out:
 **"  GIMP Warning Can't undo Attach Parasite to Item  "**  if you try and undo
