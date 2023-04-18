@@ -65,7 +65,7 @@ To download [**parasites.scm**](https://raw.githubusercontent.com/script-fu/scri
     (print-parasites img actL " layer parasite -> " 1 0 0)
 
     (gimp-message " \n * try undoing, and running the plug-in again :\n")
-    (gimp-message " \n * then save->quit->restart->load, and run the plug-in" )
+    (gimp-message " \n * then undo->save->quit->restart->load, run the plug-in")
 
     (gimp-image-undo-group-end img)
     (gimp-context-pop)
@@ -110,6 +110,7 @@ To download [**parasites.scm**](https://raw.githubusercontent.com/script-fu/scri
  SF-ONE-DRAWABLE
 )
 (script-fu-menu-register "script-fu-parasites" "<Image>/Fu-Plugin")
+
 
 
 ```
