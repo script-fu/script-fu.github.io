@@ -5,7 +5,7 @@
 This plugin demonstrates how parasites currently work in Gimp. Parasites are
 useful for scripting in many ways. You can store data, tag layers or set variables.
 They have a couple of quirks at the moment, there's an error message thrown out:
-*"  GIMP Warning Can't undo Attach Parasite to Item  "* if you try and undo
+**"  GIMP Warning Can't undo Attach Parasite to Item  "**  if you try and undo
 a non-undoable attachment to a layer. It's harmless but annoying.
 Also, global parasites don't have an undoable mode of attachment.
   
