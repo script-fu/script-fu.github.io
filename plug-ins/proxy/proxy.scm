@@ -2,12 +2,13 @@
 (define (script-fu-proxy img drwbles)
   (let*
     (
-      (i 0)(isPrx 0)(srcGrp 0)(actL 0)(prxF "")
+      (i 0)(isPrx 0)(srcGrp 0)(actL 0)(prxF "")(numDrw 0)
       (preFxL " Saved in -> ")
       (prxTag " ! Proxy ! ")
       (sDir "_proxySaves")
       (sveInfo "layerInfo")
       (prxGrps ())(prxDo 0)
+      (fileName (car(gimp-image-get-file img)))
       (mode INTERPOLATION-CUBIC) ; LINEAR ; CUBIC ; NOHALO ; LOHALO ; NONE
     )
 
@@ -18,13 +19,15 @@
       (gimp-context-set-interpolation mode)
       (gimp-selection-none img) 
       (gimp-image-freeze-layers img)
+      (gimp-progress-init "proxy process" -1)
 
       ; which items to process
       (set! drwbles (filter-selected img drwbles preFxL))
+      (set! numDrw (vector-length drwbles))
 
       ; save or restore proxy
-      (while (< i (vector-length drwbles))
-
+      (while (< i numDrw)
+        (message-progress i numDrw "proxy plugin progress")
         (set! srcGrp (vector-ref drwbles i))
         (set! isPrx (get-proxy srcGrp preFxL))
 
@@ -56,7 +59,8 @@
           (close-groups drwbles)
         )
       )
-
+      
+      (gimp-image-set-file img fileName)
       (gimp-image-thaw-layers img)
       (gimp-context-pop)
       (gimp-displays-flush)
@@ -356,17 +360,17 @@
         (set! scX (/ width wdthR))
         (set! scY (/ height hghtR))
         (set! scale 1)
-        (gimp-message
-          (string-append
-            " scale of image has changed since proxy was made "
-            " \n ratio :  ("
-            (number->string scX) ", "
-            (number->string scY) ")"
-          )
-        )
+        ; (gimp-message
+        ;   (string-append
+        ;     " scale changed since proxy was made "
+        ;     "  ratio :  ("
+        ;     (number->string (/ (trunc (* scX 100 )) 100)) ", "
+        ;     (number->string (/ (trunc (* scY 100 )) 100)) ")"
+        ;   )
+        ; )
       )
     )
-    
+    (/ (trunc (* 100 0.66565)) 100)
     (list->vector (list globR fileNme scale srcNme scX scY))
   )
 )
@@ -1099,7 +1103,7 @@
       (scWdth (car scAdj))(scHght (cadr scAdj))
       (adjLst 0)(lckLst 0)
     )
-    (gimp-message " * scaling proxy * ")
+    ;(gimp-message " * scaling proxy * ")
     ; the image shouldn't alter, math adjustments to layer framing
     (set! lckLst (set-and-store-all-locks img 0 0))
     (set! adjLst (layer-size-adjust img scWdth scHght))
@@ -1109,7 +1113,7 @@
     ;(set! lckLst (set-and-store-all-locks img 0 0))
     (layer-size-restore adjLst)
     (restore-all-locks lckLst)
-    (gimp-message " * finished scaling * ")
+    ;(gimp-message " * finished scaling * ")
   )
 )
 
@@ -1238,6 +1242,7 @@
     ; scale any layers that are not groups
     (set! allL (list->vector allL))
     (while (< i (vector-length allL))
+      ;(message-progress i (vector-length allL) "precise scale progress")
       (set! actL (vector-ref allL i))
       (set! skip 0)
       (set! actNme (short-layer-name actL 10))
@@ -1278,14 +1283,6 @@
         )
       )
 
-      (gimp-message
-        (string-append
-          " preparing -> " actNme
-                               " : "  (number->string (+ i 1)) " of "
-                                 (number->string (vector-length allL))
-        )
-      )
-
       ; this layers size and offsets make it the same as the image, skip it
       (when (and (= srcWdth wdthL) (= srcHght hghtL))
         (when (and (= offX 0) (= offY 0))
@@ -1322,6 +1319,7 @@
 
     (set! adjLst (list->vector adjLst))
     (while (< i (vector-length adjLst))
+      ;(message-progress i (vector-length adjLst) "completion progress")
       (set! actL (vector-ref adjLst (+ i 0)))
       (set! wdthL (vector-ref adjLst (+ i 1)))
       (set! hghtL (vector-ref adjLst (+ i 2)))
@@ -1364,7 +1362,7 @@
         )
       )
 
-      (gimp-message (string-append " completing -> " actNme))
+      ;(gimp-message (string-append " completing -> " actNme))
 
       (gimp-layer-resize actL wdthL hghtL adjOffX adjOffY)
       (set! i (+ i 7))
@@ -1692,6 +1690,21 @@
     )
 
     paraStrLst
+  )
+)
+
+
+(define (message-progress currAmt maxAmt message)
+  (let*
+    (
+      (prg 0)
+    )
+
+    (set! prg (* (/ 1 maxAmt) (+ currAmt 1)))
+    (set! prg (trunc (floor (* prg 100))))
+    (set! message (string-append " >>> " message " > "(number->string prg) "%"))
+    (gimp-message message)
+
   )
 )
 

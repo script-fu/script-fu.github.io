@@ -251,6 +251,21 @@
 )
 
 
+(define (message-progress currAmt maxAmt message)
+  (let*
+    (
+      (prg 0)
+    )
+
+    (set! prg (* (/ 1 maxAmt) (+ currAmt 1)))
+    (set! prg (trunc (floor (* prg 100))))
+    (set! message (string-append " >>> " message " > "(number->string prg) "%"))
+    (gimp-message message)
+
+  )
+)
+
+
 (define (layer-size-adjust img dstWdth dstHght)
   (let*
     (
@@ -268,6 +283,7 @@
     ; scale any layers that are not groups
     (set! allL (list->vector allL))
     (while (< i (vector-length allL))
+      (message-progress i (vector-length allL) "precise scale progress")
       (set! actL (vector-ref allL i))
       (set! skip 0)
       (set! actNme (short-layer-name actL 10))
@@ -308,14 +324,6 @@
         )
       )
 
-      (gimp-message
-        (string-append
-          " preparing -> " actNme
-                               " : "  (number->string (+ i 1)) " of "
-                                 (number->string (vector-length allL))
-        )
-      )
-
       ; this layers size and offsets make it the same as the image, skip it
       (when (and (= srcWdth wdthL) (= srcHght hghtL))
         (when (and (= offX 0) (= offY 0))
@@ -352,6 +360,7 @@
 
     (set! adjLst (list->vector adjLst))
     (while (< i (vector-length adjLst))
+      (message-progress i (vector-length adjLst) "completion progress")
       (set! actL (vector-ref adjLst (+ i 0)))
       (set! wdthL (vector-ref adjLst (+ i 1)))
       (set! hghtL (vector-ref adjLst (+ i 2)))
@@ -393,8 +402,6 @@
           )
         )
       )
-
-      (gimp-message (string-append " completing -> " actNme))
 
       (gimp-layer-resize actL wdthL hghtL adjOffX adjOffY)
       (set! i (+ i 7))
