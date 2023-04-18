@@ -11,11 +11,11 @@ Typically I'd use a parasite like this;
 
 ```
   
-the mode options appear to be:
-0 -> temporary and not undoable attachment
-1 -> persistent and not undoable attachment
-2 -> temporary and undoable attachment
-3 -> persistent and undoable attachment
+the mode options appear to be:  
+0 -> temporary and not undoable attachment  
+1 -> persistent and not undoable attachment  
+2 -> temporary and undoable attachment  
+3 -> persistent and undoable attachment  
   
 Temporary parasites are not saved with the file or vanish after the session.
 Persistent parasites are saved with the file or can be found after a restart.
