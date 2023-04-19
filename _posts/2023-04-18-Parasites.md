@@ -30,7 +30,7 @@ The parasite is returned as a list in a list. (list (list "name" 0 "data" )) To 
 (set! data (caddar(gimp-item-get-parasite layerID "parasite name")))
 ```
   
-caddar is a scheme speak for unwrapping the list and grabbing the third item...  
+caddar is a Scheme, the programming language Script-fu is based on, short-cut for unwrapping the list and grabbing the third item...  
   
 (caar (parasite)) grabs the first item, the name.  
 (cadar (parasite)) grabs the second item, the mode.  
