@@ -55,11 +55,13 @@ To download [**expand-collapse.scm**](https://raw.githubusercontent.com/script-f
 
         (while (< j (vector-length actGrps))
           (set! actG (vector-ref actGrps j))
+
           (if #f ; debug
             (gimp-message
               (string-append " group -> " (car (gimp-item-get-name actG)))
             )
           )
+
           (if (= expd 1)(gimp-item-set-expanded actG 0))
           (if (= expd 0)(gimp-item-set-expanded actG 1))
           (set! j (+ j 1))
@@ -86,9 +88,8 @@ To download [**expand-collapse.scm**](https://raw.githubusercontent.com/script-f
 
       (while (< j (length allParents))
         (set! parent (nth j allParents))
-          (when (and (member parent (vector->list drwbles)) 
+          (when (and (member parent (vector->list drwbles))
                 (car (gimp-item-is-group actL)) )
-            ;(set! j (length allParents))
             (set! found 1)
           )
       (set! j (+ j 1))
@@ -230,5 +231,6 @@ To download [**expand-collapse.scm**](https://raw.githubusercontent.com/script-f
  SF-ONE-OR-MORE-DRAWABLE
 )
 (script-fu-menu-register "script-fu-expand-collapse" "<Image>/Tools")
+
 
 ```
