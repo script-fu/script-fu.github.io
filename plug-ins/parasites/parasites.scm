@@ -24,16 +24,14 @@
     ; global
     (gimp-attach-parasite (list "temp-global-not-undoable : 0" 0 "0"))
     (gimp-attach-parasite (list "persist-global-not-undoable : 1" 1 "0"))
-    (gimp-attach-parasite (list "temp-global-undoable : 2" 2 "0"))
-    (gimp-attach-parasite (list "persist-global-undoable : 3" 3 "0"))
 
     ; image
     (gimp-image-attach-parasite img (list "temp-image-not-undoable : 0" 0 "0"))
-    (gimp-image-attach-parasite img (list "persist-image-not-undoable : 1" 1"0"))
+    (gimp-image-attach-parasite img (list "persist-image-not-undoable: 1" 1"0"))
     (gimp-image-attach-parasite img (list "temp-image-undoable : 2" 2 "0"))
     (gimp-image-attach-parasite img (list "persist-image-undoable : 3" 3 "0"))
 
-    ; layer
+    ;layer
     (gimp-item-attach-parasite actL (list "temp-layer-not-undoable : 0" 0 "0"))
     (gimp-item-attach-parasite actL (list "persist-layer-not-undoable : 1"1"0"))
     (gimp-item-attach-parasite actL (list "temp-layer-undoable : 2" 2 "0"))
@@ -45,7 +43,7 @@
     (print-parasites img actL " layer parasite -> " 1 0 0)
 
     (gimp-message " \n * try undoing, and running the plug-in again :\n")
-    (gimp-message " \n * then save->quit->restart->load, and run the plug-in" )
+    (gimp-message " \n * then undo->save->quit->restart->load, run the plug-in")
 
     (gimp-image-undo-group-end img)
     (gimp-context-pop)

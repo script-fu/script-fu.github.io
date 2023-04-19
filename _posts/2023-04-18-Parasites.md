@@ -78,12 +78,10 @@ To download [**parasites.scm**](https://raw.githubusercontent.com/script-fu/scri
     ; global
     (gimp-attach-parasite (list "temp-global-not-undoable : 0" 0 "0"))
     (gimp-attach-parasite (list "persist-global-not-undoable : 1" 1 "0"))
-    (gimp-attach-parasite (list "temp-global-undoable : 2" 2 "0"))
-    (gimp-attach-parasite (list "persist-global-undoable : 3" 3 "0"))
 
     ; image
     (gimp-image-attach-parasite img (list "temp-image-not-undoable : 0" 0 "0"))
-    (gimp-image-attach-parasite img (list "persist-image-not-undoable : 1" 1"0"))
+    (gimp-image-attach-parasite img (list "persist-image-not-undoable: 1" 1"0"))
     (gimp-image-attach-parasite img (list "temp-image-undoable : 2" 2 "0"))
     (gimp-image-attach-parasite img (list "persist-image-undoable : 3" 3 "0"))
 
