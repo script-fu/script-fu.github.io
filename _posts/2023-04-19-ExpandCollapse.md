@@ -200,26 +200,6 @@ To download [**expand-collapse.scm**](https://raw.githubusercontent.com/script-f
 )
 
 
-(define (remove-duplicates grpLst)
-  (let*
-    (
-      (i 0)(actGrp 0)(uniqGrps ())
-    )
-
-    (while (< i (vector-length grpLst))
-      (set! actGrp (vector-ref grpLst i))
-
-       
-      (when (not (member actGrp uniqGrps))
-         (set! uniqGrps (append uniqGrps (list actGrp)))
-       )
-      (set! i (+ i 1))
-    )
-
-  uniqGrps
-  )
-)
-
 
 (script-fu-register-filter "script-fu-expand-collapse"
  "Expand Group" 
@@ -231,6 +211,7 @@ To download [**expand-collapse.scm**](https://raw.githubusercontent.com/script-f
  SF-ONE-OR-MORE-DRAWABLE
 )
 (script-fu-menu-register "script-fu-expand-collapse" "<Image>/Tools")
+
 
 
 ```

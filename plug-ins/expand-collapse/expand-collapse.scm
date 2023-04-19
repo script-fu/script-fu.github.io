@@ -186,26 +186,6 @@
 )
 
 
-(define (remove-duplicates grpLst)
-  (let*
-    (
-      (i 0)(actGrp 0)(uniqGrps ())
-    )
-
-    (while (< i (vector-length grpLst))
-      (set! actGrp (vector-ref grpLst i))
-
-       
-      (when (not (member actGrp uniqGrps))
-         (set! uniqGrps (append uniqGrps (list actGrp)))
-       )
-      (set! i (+ i 1))
-    )
-
-  uniqGrps
-  )
-)
-
 
 (script-fu-register-filter "script-fu-expand-collapse"
  "Expand Group" 
