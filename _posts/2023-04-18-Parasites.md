@@ -2,8 +2,7 @@
 
 # * Tested in Gimp 2.99.14 *
 
-This plugin demonstrates how parasites currently work in Gimp. Parasites are  
-useful for scripting in many ways. You can store data, tag layers or set variables.  
+This plugin demonstrates how parasites currently work in Gimp. Parasites are useful for scripting in many ways. You can store data, tag layers or set variables.  
 Typically I'd use a parasite like this;  
   
 ```scheme
@@ -22,15 +21,13 @@ For global parasites, the modes are:
 1 -> persistent and not undoable attachment  
 
   
-Temporary parasites are not saved with the file. Image and layer persistent parasites  
-are saved with the file. Persistent global parasites are restored for each Gimp session.  
+Temporary parasites are not saved with the file. Image and layer persistent parasites are saved with the file. Persistent global parasites are restored for each Gimp session.  
   
-You can see that a parasite is just a three element list. The name is used  
-to identify, and the data can be stored as a string. Use functions like  
+You can see that a parasite is just a three element list. The name is used to identify, and the data can be stored as a string. Use functions like:  
 (number->string) (string->number) or (strbreakup) to encode or decode the data.  
   
 The parasite is returned as a list in a list. (list (list "name" 0 "data" ))  
-To retrieve data from the parasite use something like;
+To retrieve data from the parasite use;  
   
 ```scheme
 (set! data (caddar(gimp-item-get-parasite layerID "parasite name")))
