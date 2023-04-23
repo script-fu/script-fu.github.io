@@ -3,121 +3,113 @@
 (define (script-fu-exitIsolation img drawables) 
   (let*
     (
-      (layerList 0)(fileNme "")(fndP 0)
+      (lstL 0)(fileNme "")(fndP 0)
+      (types (list "isolated" "hidden" "isoParent" "hiddenChld" "isoChild"))
     )
 
     (gimp-image-undo-group-start img)
-    (set! fndP (get-parasite-on-image img "isofilename"))
 
     ; when the plugin is not locked via a text file
-    (when (= (plugin-get-lock "exitIsolation") 0) 
-      (plugin-set-lock "exitIsolation" 1) ; now lock it, in theory...
+    (when (= (plugin-get-lock "exitIsolation") 0)
+
+      (plugin-set-lock "exitIsolation" 1) ; now lock it
+      (plugin-set-lock "isolateSelected" 1)
+
       ; store all the layers and groups
-      (set! layerList (layerScan img 0))
-      (revertLayer img layerList "isolated") 
-      (revertLayer img layerList "hidden")
-      (revertLayer img layerList "isoParent")
-      (when (= fndP 1)
-        (set! fileNme (caddar(gimp-image-get-parasite img "isofilename")))
-        (gimp-image-set-file img fileNme )
-        (gimp-image-detach-parasite img "isofilename")
-      )
+      (set! lstL (all-childrn img 0))
+      (revert-layer img lstL types)
+
       (plugin-set-lock "exitIsolation" 0) ; unlock the plugin
       (plugin-set-lock "isolateSelected" 0) ; unlock the isolate plugin
       (gimp-displays-flush)
     )
 
+    (gimp-message " exit isolation ")
     (gimp-image-undo-group-end img)
 
   )
 )
 
 
-(define (get-parasite-on-image img tag)
+(define (revert-layer img lstL types)
   (let*
     (
-      (i 0)(param 0)(paramC 0)(paramLst 0)(pName "")(found 0)
+      (tagLst 0)(i 0)(actL 0)(t 0)(actT "")(isoP 0)
     )
 
-    (set! param (car (gimp-image-get-parasite-list img)))
-    (set! paramC (length param))
-    (set! paramLst (list->vector param))
+    ; isolatedParents are a special case for speed up reasons
+    (set! types (list->vector types))
+    (set! isoP (find-layers-tagged img lstL "isoParent"))
+    (set! isoP (remove-duplicates isoP))
+    (set-list-visibility isoP 0)
 
-    (when (> paramC 0)
-      (while(< i paramC)
-        (set! pName (vector-ref paramLst i))
-        
-        (when (equal? tag pName)
-          (set! found 1)
-          (set! i paramC)
+    ; restore every type apart from isoParent
+    (while (< t (vector-length types))
+      (set! actT (vector-ref types t))
+      (if #f (gimp-message actT)) ;debug
+      (set! tagLst (find-layers-tagged img lstL actT))
+      (set! tagLst (remove-duplicates (vector->list tagLst)))
+      (set! tagLst (list->vector tagLst))
+      (when (> (vector-length tagLst) 0)
+        (set! i 0)
+        (while (< i (vector-length tagLst))
+          (set! actL (vector-ref tagLst i))
+          (if (not(member actL isoP)) (restore-layer actL actT))
+          (set! i (+ i 1))
         )
-      (set! i (+ i 1))
+      )
+      (set! t (+ t 1))
+    )
+
+    ; final pass - restore isolatedParents
+    (if (list? isoP) (set! isoP (list->vector isoP)))
+    (when (> (vector-length isoP) 0)
+      (set! i 0)
+      (while (< i (vector-length isoP))
+        (set! actL (vector-ref isoP i))
+        (restore-layer actL "isoParent")
+        (set! i (+ i 1))
       )
     )
 
-    found
   )
 )
 
 
-(define (revertLayer img layerList tag)
+(define (restore-layer actL actT)
   (let*
     (
-      (taggedList 0)(taggedCount 0)(i 0)(layer 0)(parasites 0)
-      (visTag 0)(colTag 0)(modeTag 0)(opaTag 0)(visTag 0)(lstL 0)
+      (len (length (car(gimp-item-get-parasite-list actL))))
+      (colTag 0)(modeTag 0)(opaTag 0)(visTag 0)(dataStr "")
     )
 
-    (set! taggedList (findLayersTagged img layerList tag))
-    (set! taggedCount (vector-length taggedList))
-    (when (> taggedCount 0)
-      (set! i 0)
-      (while (< i taggedCount)
-        (set! layer (vector-ref taggedList i))
-        (set! parasites (length (car(gimp-item-get-parasite-list layer))))
-        (when (> parasites 0)
-            (set! visTag (caddar (gimp-item-get-parasite layer "visTag")))
-            (set! visTag (string->number visTag))
-            (set! colTag (caddar (gimp-item-get-parasite layer "colTag")))
-            (set! colTag (string->number colTag))
-            (set! modeTag (caddar (gimp-item-get-parasite layer "modeTag")))
-            (set! modeTag (string->number modeTag))
-            (set! opaTag (caddar (gimp-item-get-parasite layer "opaTag")))
-            (set! opaTag (string->number opaTag))
-            (gimp-item-set-visible layer visTag)
-            (gimp-item-set-color-tag layer colTag )
-            (gimp-layer-set-mode layer modeTag)
-            (gimp-layer-set-opacity layer opaTag)
-            (gimp-item-detach-parasite layer tag)
-            (gimp-item-detach-parasite layer "visTag")
-            (gimp-item-detach-parasite layer "colTag")
-            (gimp-item-detach-parasite layer "modTag")
-            (gimp-item-detach-parasite layer "opaTag") 
-            (if (> (car(gimp-layer-get-mask layer)) 0)
-              (gimp-layer-set-show-mask layer 0)
-            )
-        )
-        (set! i (+ i 1))
-      )
-    )
-    ; try and clean up a saved isolation...
-    (when (= taggedCount 0)
-      (set! lstL (layerScan img 0))
-      (while (< i (length lstL))
-        (set! layer (nth i lstL))
-        (set! colTag (car(gimp-item-get-color-tag layer)))
-        (set! visTag (car(gimp-item-get-visible layer)))
-        (when (and (= colTag 6) (= visTag 0))
-          (gimp-item-set-visible layer 1)
-          (gimp-item-set-color-tag layer 0)
-        )
-        (when (and (= colTag 2) (= visTag 1))
-          (gimp-item-set-visible layer 1)
-          (gimp-item-set-color-tag layer 0)
-        )
-        (set! i (+ i 1))
-      )
-    )
+    (when (> len 0)
+      ; retrieve stored layer data
+      (set! dataStr (caddar (gimp-item-get-parasite actL actT)))
+      (set! dataStr (strbreakup dataStr "_"))
+      (set! colTag (string->number (car dataStr)))
+      (set! visTag (string->number (cadr dataStr)))
+      (set! modeTag (string->number (caddr dataStr)))
+      (set! opaTag (string->number (cadddr dataStr)))
+      (gimp-item-set-color-tag actL colTag)
+      (gimp-layer-set-opacity actL opaTag)
 
+      ; special case
+      (when (equal? "isolated" actT)
+        (gimp-layer-set-mode actL modeTag)
+        (gimp-item-set-visible actL visTag)
+      )
+
+      ; special case
+      (when (equal? "isoParent" actT)
+        (gimp-item-set-visible actL visTag)
+      )
+
+      (gimp-item-detach-parasite actL actT)
+      (if (> (car(gimp-layer-get-mask actL)) 0)
+        (gimp-layer-set-show-mask actL 0)
+      )
+    )
   )
 )
 
@@ -137,6 +129,45 @@
 )
 
 
+(define (remove-duplicates grpLst)
+  (let*
+    (
+      (i 0)(actGrp 0)(uniqGrps ())
+    )
+    
+    (if (list? grpLst) (set! grpLst (list->vector grpLst)))
+    (while (< i (vector-length grpLst))
+      (set! actGrp (vector-ref grpLst i))
+      (when (not (member actGrp uniqGrps))
+         (set! uniqGrps (append uniqGrps (list actGrp)))
+       )
+      (set! i (+ i 1))
+    )
+
+  uniqGrps
+  )
+)
+
+
+(define (set-list-visibility lstL vis)
+  (let*
+    (
+      (vLst())(i 0)(actL 0)
+    )
+
+    (if (list? lstL) (set! lstL (list->vector lstL)))
+    (while (< i (vector-length lstL))
+      (set! actL (vector-ref lstL i))
+      (set! vLst (append vLst (list actL (car(gimp-item-get-visible actL)))))
+      (gimp-item-set-visible actL vis)
+      (set! i (+ i 1))
+    )
+
+    vLst
+  )
+)
+
+
 (define (plugin-set-lock plugin lock) 
   (let*
     (
@@ -150,58 +181,57 @@
 )
 
 
-(define (layerScan img rootFolder) ; recursive function
+(define (all-childrn img rootGrp) ; recursive
   (let*
     (
-      (getChildren 0)(layerList 0)(i 0)(layer 0)(allLayerList ())
+      (chldrn 0)(lstL 0)(i 0)(actL 0)(allL ())
     )
 
-    (if (= rootFolder 0)
-      (set! getChildren (gimp-image-get-layers img))
-      (if (equal? (car (gimp-item-is-group rootFolder)) 1)
-        (set! getChildren (gimp-item-get-children rootFolder))
-        (set! getChildren (list 1 (list->vector (list rootFolder))))
+    (if (= rootGrp 0)
+      (set! chldrn (gimp-image-get-layers img))
+      (if (equal? (car (gimp-item-is-group rootGrp)) 1)
+        (set! chldrn (gimp-item-get-children rootGrp))
+        (set! chldrn (list 1 (list->vector (list rootGrp))))
       )
     )
 
-    (set! layerList (cadr getChildren))
-    (while (< i (car getChildren))
-      (set! layer (vector-ref layerList i))
-      (set! allLayerList (append allLayerList (list layer)))
-      (if (equal? (car (gimp-item-is-group layer)) 1)
-        (set! allLayerList (append allLayerList (layerScan img layer)))
+    (set! lstL (cadr chldrn))
+    (while (< i (car chldrn))
+      (set! actL (vector-ref lstL i))
+      (set! allL (append allL (list actL)))
+      (if (equal? (car (gimp-item-is-group actL)) 1)
+        (set! allL (append allL (all-childrn img actL)))
       )
       (set! i (+ i 1))
     )
 
-    allLayerList
+    allL
   )
 )
 
 
-(define (findLayersTagged img layerList tag)
+(define (find-layers-tagged img lstL tag)
   (let*
     (
-      (taggedList ())(parasiteCount 0)(layer 0)(parameters 0)(paramCount 0)
-      (paramList 0)(pName 0)(i 0)(j 0)(layerCount 0)
+      (tgdLst ())(pCountr 0)(actL 0)(paras 0)(pCount 0)
+      (lstP 0)(pName 0)(i 0)(j 0)
     )
 
-    (set! layerList (list->vector layerList))
-    (set! layerCount (vector-length layerList))
+    (set! lstL (list->vector lstL))
 
     (set! i 0)
-    (while (< i layerCount)
-      (set! layer (vector-ref layerList i))
-      (set! parameters (car (gimp-item-get-parasite-list layer)))
-      (set! paramCount (length parameters))
-      (when (> paramCount 0)
-        (set! paramList (list->vector parameters))
+    (while (< i (vector-length lstL))
+      (set! actL (vector-ref lstL i))
+      (set! paras (car (gimp-item-get-parasite-list actL)))
+      (set! pCount (length paras))
+      (when (> pCount 0)
+        (set! lstP (list->vector paras))
         (set! j 0)
-        (while(< j paramCount)
-          (set! pName (vector-ref paramList j))
+        (while(< j pCount)
+          (set! pName (vector-ref lstP j))
           (when (equal? pName tag)
-            (set! taggedList (append taggedList (list layer)))
-            (set! parasiteCount (+ parasiteCount 1))
+            (set! tgdLst (append tgdLst (list actL)))
+            (set! pCountr (+ pCountr 1))
           )
           (set! j (+ j 1))
         )
@@ -209,18 +239,18 @@
       (set! i (+ i 1))
     )
 
-    (list->vector taggedList)
+    (list->vector tgdLst)
   )
 )
 
 
 (script-fu-register-filter "script-fu-exitIsolation"
-  "Isolate Restore" 
-  "Restores from isolation mode" 
+  "Isolate Exit" 
+  "Exit isolation mode" 
   "Mark Sweeney"
   "copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
   "2023"
   "*"
   SF-ONE-OR-MORE-DRAWABLE ;
 )
-(script-fu-menu-register "script-fu-exitIsolation" "<Image>/Layer")
+(script-fu-menu-register "script-fu-exitIsolation" "<Image>/Tools")
