@@ -6,7 +6,9 @@ Gimp 3 allows multilayer selection, which is a great boost for plug-ins.
 This plugin allows the user to isolate a selection of layers or groups.
 If the selection hasn't changed since it last ran, it toggles the isolation mode off again. 
 There's a second plugin, exit isolation that just exits the isolated state.  
-
+  
+The plug-ins should appear in the Tools menu.  
+  
 To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/isolateSelected/isolateSelected.scm) and [**exitIsolation.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/exitIsolation/exitIsolation.scm)...
   
 ...follow the link, right click, Save As...
