@@ -23,8 +23,7 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
       (types (list "isolated" "hidden" "hiddenChld" "isoChild"))
     )
 
-    ;(gimp-image-freeze-layers img)
-    (gimp-image-undo-disable img)
+     (gimp-image-undo-group-start img)
 
     ; when the plugin is not locked
     (when (= (plugin-get-lock "isolateSelected") 0)
@@ -34,9 +33,7 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
       ; if user selected a mask to isolate, show mask and switch mask to a layer
       (set! drwbles (show-mask drwbles isolated))
 
-      ; don't allow nested selections, get all the layers and groups
-      (set! drwbles (exclude-children img drwbles))
-      (gimp-image-set-selected-layers img (vector-length drwbles) drwbles)
+      ; get all the layers and groups
       (set! lstL (all-childrn img 0))
 
       ; existing isolation mode? has selection changed since last time?
@@ -73,8 +70,7 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
 
     )
 
-    (gimp-image-undo-enable img)
-    ;(gimp-image-thaw-layers img)
+    (gimp-image-undo-group-end img)
   )
 )
 
@@ -134,6 +130,14 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
     ; look through the selected layers
     (while (< i (vector-length drwbles))
       (set! actL (vector-ref drwbles i))
+
+      (if #f ;debug
+        (gimp-message
+          (string-append "selected ->  " (car(gimp-item-get-name actL))
+          )
+        )
+      )
+
       (iso-tag-layer actL "isolated")
       (set! isoLst (append isoLst (list actL)))
 
@@ -259,14 +263,39 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
   (let*
     (
       (visTag 0)(colTag 0)(modeTag 0)(opaTag 0)(visTag 0)(mde 3)(dataStr "")
+      (pLst 0)(marked "")(i 0)
+      (types (list "isolated" "hidden" "hiddenChld" "isoChild"))
     )
 
-    (set! colTag (number->string (car(gimp-item-get-color-tag actL ))))
-    (set! visTag (number->string (car(gimp-item-get-visible actL))))
-    (set! modeTag (number->string (car(gimp-layer-get-mode actL))))
-    (set! opaTag (number->string (car(gimp-layer-get-opacity actL))))
-    (set! dataStr (string-append colTag "_" visTag "_" modeTag "_" opaTag))
-    (gimp-item-attach-parasite actL (list tag mde dataStr))
+    (set! pLst (car(gimp-item-get-parasite-list actL)))
+    (when (> (length pLst) 0)
+      (if #f (gimp-message " existing parasites found on layer! " )) ;debug
+      (while (< i (length pLst))
+        (if (member (list-ref pLst i) types)(set! marked (list-ref pLst i)))
+        (set! i (+ i 1))
+      )
+    )
+
+    (when (not (equal? marked ""))
+      (if #f ;debug
+        (gimp-message
+          (string-append
+            " trying to tag as -> " tag
+            "\n but already tagged ->  " (car(gimp-item-get-name actL))
+            "\n as -> " marked
+          )
+        )
+      )
+    )
+
+    (when (equal? marked "")
+      (set! colTag (number->string (car(gimp-item-get-color-tag actL ))))
+      (set! visTag (number->string (car(gimp-item-get-visible actL))))
+      (set! modeTag (number->string (car(gimp-layer-get-mode actL))))
+      (set! opaTag (number->string (car(gimp-layer-get-opacity actL))))
+      (set! dataStr (string-append colTag "_" visTag "_" modeTag "_" opaTag))
+      (gimp-item-attach-parasite actL (list tag mde dataStr))
+    )
 
   )
 )
@@ -280,6 +309,7 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
     (if (list? allParents) (set! allParents (list->vector allParents)))
     (while (< i (vector-length allParents))
       (set! actP (vector-ref allParents i))
+
       (iso-tag-layer actP "isoParent")
       (set! i (+ i 1))
     )
@@ -575,6 +605,7 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
   )
 )
 
+
 (script-fu-register-filter "script-fu-isolateSelected"
   "Isolate" 
   "Isolates the selected layers" 
@@ -585,14 +616,16 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
   SF-ONE-OR-MORE-DRAWABLE ;
 )
 (script-fu-menu-register "script-fu-isolateSelected" "<Image>/Tools")
+
 ```
   
 *a second plug-in to exit the isolated state*  
   
 ```scheme
+
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
 ;Under GNU GENERAL PUBLIC LICENSE Version 3
-(define (script-fu-exitIsolation img drawables) 
+(define (script-fu-exitIsolation img)
   (let*
     (
       (lstL 0)(fileNme "")(fndP 0)
@@ -836,14 +869,14 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
 )
 
 
-(script-fu-register-filter "script-fu-exitIsolation"
+(script-fu-register "script-fu-exitIsolation"
   "Isolate Exit" 
   "Exit isolation mode" 
   "Mark Sweeney"
   "copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
   "2023"
   "*"
-  SF-ONE-OR-MORE-DRAWABLE ;
+  SF-IMAGE       "Image"             0
 )
 (script-fu-menu-register "script-fu-exitIsolation" "<Image>/Tools")
 

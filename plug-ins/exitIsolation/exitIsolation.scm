@@ -1,6 +1,6 @@
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
 ;Under GNU GENERAL PUBLIC LICENSE Version 3
-(define (script-fu-exitIsolation img drawables) 
+(define (script-fu-exitIsolation img)
   (let*
     (
       (lstL 0)(fileNme "")(fndP 0)
@@ -244,13 +244,13 @@
 )
 
 
-(script-fu-register-filter "script-fu-exitIsolation"
+(script-fu-register "script-fu-exitIsolation"
   "Isolate Exit" 
   "Exit isolation mode" 
   "Mark Sweeney"
   "copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
   "2023"
   "*"
-  SF-ONE-OR-MORE-DRAWABLE ;
+  SF-IMAGE       "Image"             0
 )
 (script-fu-menu-register "script-fu-exitIsolation" "<Image>/Tools")

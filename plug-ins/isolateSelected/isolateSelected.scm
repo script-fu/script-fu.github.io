@@ -7,8 +7,7 @@
       (types (list "isolated" "hidden" "hiddenChld" "isoChild"))
     )
 
-    ;(gimp-image-freeze-layers img)
-    (gimp-image-undo-disable img)
+     (gimp-image-undo-group-start img)
 
     ; when the plugin is not locked
     (when (= (plugin-get-lock "isolateSelected") 0)
@@ -18,9 +17,7 @@
       ; if user selected a mask to isolate, show mask and switch mask to a layer
       (set! drwbles (show-mask drwbles isolated))
 
-      ; don't allow nested selections, get all the layers and groups
-      (set! drwbles (exclude-children img drwbles))
-      (gimp-image-set-selected-layers img (vector-length drwbles) drwbles)
+      ; get all the layers and groups
       (set! lstL (all-childrn img 0))
 
       ; existing isolation mode? has selection changed since last time?
@@ -57,8 +54,7 @@
 
     )
 
-    (gimp-image-undo-enable img)
-    ;(gimp-image-thaw-layers img)
+    (gimp-image-undo-group-end img)
   )
 )
 
@@ -118,6 +114,14 @@
     ; look through the selected layers
     (while (< i (vector-length drwbles))
       (set! actL (vector-ref drwbles i))
+
+      (if #f ;debug
+        (gimp-message
+          (string-append "selected ->  " (car(gimp-item-get-name actL))
+          )
+        )
+      )
+
       (iso-tag-layer actL "isolated")
       (set! isoLst (append isoLst (list actL)))
 
@@ -243,14 +247,39 @@
   (let*
     (
       (visTag 0)(colTag 0)(modeTag 0)(opaTag 0)(visTag 0)(mde 3)(dataStr "")
+      (pLst 0)(marked "")(i 0)
+      (types (list "isolated" "hidden" "hiddenChld" "isoChild"))
     )
 
-    (set! colTag (number->string (car(gimp-item-get-color-tag actL ))))
-    (set! visTag (number->string (car(gimp-item-get-visible actL))))
-    (set! modeTag (number->string (car(gimp-layer-get-mode actL))))
-    (set! opaTag (number->string (car(gimp-layer-get-opacity actL))))
-    (set! dataStr (string-append colTag "_" visTag "_" modeTag "_" opaTag))
-    (gimp-item-attach-parasite actL (list tag mde dataStr))
+    (set! pLst (car(gimp-item-get-parasite-list actL)))
+    (when (> (length pLst) 0)
+      (if #f (gimp-message " existing parasites found on layer! " )) ;debug
+      (while (< i (length pLst))
+        (if (member (list-ref pLst i) types)(set! marked (list-ref pLst i)))
+        (set! i (+ i 1))
+      )
+    )
+
+    (when (not (equal? marked ""))
+      (if #f ;debug
+        (gimp-message
+          (string-append
+            " trying to tag as -> " tag
+            "\n but already tagged ->  " (car(gimp-item-get-name actL))
+            "\n as -> " marked
+          )
+        )
+      )
+    )
+
+    (when (equal? marked "")
+      (set! colTag (number->string (car(gimp-item-get-color-tag actL ))))
+      (set! visTag (number->string (car(gimp-item-get-visible actL))))
+      (set! modeTag (number->string (car(gimp-layer-get-mode actL))))
+      (set! opaTag (number->string (car(gimp-layer-get-opacity actL))))
+      (set! dataStr (string-append colTag "_" visTag "_" modeTag "_" opaTag))
+      (gimp-item-attach-parasite actL (list tag mde dataStr))
+    )
 
   )
 )
@@ -264,6 +293,7 @@
     (if (list? allParents) (set! allParents (list->vector allParents)))
     (while (< i (vector-length allParents))
       (set! actP (vector-ref allParents i))
+
       (iso-tag-layer actP "isoParent")
       (set! i (+ i 1))
     )
@@ -558,6 +588,7 @@
   drwbles
   )
 )
+
 
 (script-fu-register-filter "script-fu-isolateSelected"
   "Isolate" 
