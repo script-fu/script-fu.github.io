@@ -8,8 +8,8 @@ The plug-in should appear in the Tools menu.
   
 To download [**expand-collapse.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/expand-collapse/expand-collapse.scm)  
 ...follow the link, right click the page, Save as expand-collapse.scm, in a folder called expand-collapse, in a Gimp plug-ins location.  In Linux, set the file to be executable.
-  
-
+   
+   
 
 ```scheme
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
