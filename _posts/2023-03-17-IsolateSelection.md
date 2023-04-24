@@ -10,8 +10,8 @@ There's a second plugin, exit isolation that just exits the isolated state.
 The plug-ins should appear in the Tools menu.  
   
 To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/isolateSelected/isolateSelected.scm) and [**exitIsolation.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/exitIsolation/exitIsolation.scm)...
-  
-...follow the link, right click, Save As...
+...follow the link, right click the page, Save as isolateSelected.scm, in a folder called isolateSelected, in a Gimp plug-ins location.  In Linux, set the file to be executable.
+
   
 ```scheme
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
