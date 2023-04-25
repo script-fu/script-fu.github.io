@@ -47,7 +47,6 @@
       (set! i (+ i 1))
     )
 
-    (usleep 50000000)
   )
 )
 
@@ -98,9 +97,11 @@
     (while (< i (- (vector-length actGrpLst) 1))
       (set! actG (vector-ref actGrpLst i))
 
-      (if #f ; debug
+      (if #t ; debug
         (gimp-message
-          (string-append " testing group -> " (car (gimp-item-get-name actG)))
+          (string-append " testing group -> "
+                         (car (gimp-item-get-name actG)))
+                         " set expand to ->  " (number->string (- state 1))
         )
       )
 
