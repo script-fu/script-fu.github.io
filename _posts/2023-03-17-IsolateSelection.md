@@ -809,25 +809,26 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
 (define (all-childrn img rootGrp) ; recursive
   (let*
     (
-      (chldrn 0)(lstL 0)(i 0)(actL 0)(allL ())
+      (chldrn ())(lstL 0)(i 0)(actL 0)(allL ())
     )
 
     (if (= rootGrp 0)
       (set! chldrn (gimp-image-get-layers img))
-      (if (equal? (car (gimp-item-is-group rootGrp)) 1)
-        (set! chldrn (gimp-item-get-children rootGrp))
-        (set! chldrn (list 1 (list->vector (list rootGrp))))
-      )
+        (if (equal? (car (gimp-item-is-group rootGrp)) 1)
+          (set! chldrn (gimp-item-get-children rootGrp))
+        )
     )
 
-    (set! lstL (cadr chldrn))
-    (while (< i (car chldrn))
-      (set! actL (vector-ref lstL i))
-      (set! allL (append allL (list actL)))
-      (if (equal? (car (gimp-item-is-group actL)) 1)
-        (set! allL (append allL (all-childrn img actL)))
+    (when (not (null? chldrn))
+      (set! lstL (cadr chldrn))
+      (while (< i (car chldrn))
+        (set! actL (vector-ref lstL i))
+        (set! allL (append allL (list actL)))
+        (if (equal? (car (gimp-item-is-group actL)) 1)
+          (set! allL (append allL (all-childrn img actL)))
+        )
+        (set! i (+ i 1))
       )
-      (set! i (+ i 1))
     )
 
     allL

@@ -3,7 +3,7 @@
   (let*
     (
       (tint (list 220 146 43)) ; default tint RGB
-      (actL 0)(srcGrp 0)(srcL 0)(layerLst (layer-scan img 0))
+      (actL 0)(srcGrp 0)(srcL 0)(layerLst (all-childrn img 0))
       (mxGrp (find-layer img "mixer"))
       (update mxGrp)
     )
@@ -167,7 +167,7 @@
 (define (add-mix img srcL parent name mode update)
   (let*
     (
-      (actL 0)(layerLst (layer-scan img 0))
+      (actL 0)(layerLst (all-childrn img 0))
     )
 
     (when (= update 0)
@@ -326,7 +326,7 @@
       (matchedLayer 0)(matchName 0)(i 0)(layerList ())
     )
 
-    (set! layerList (layer-scan img 0))
+    (set! layerList (all-childrn img 0))
     (set! layerList (list->vector layerList))
 
     (while (< i (vector-length layerList))
@@ -347,31 +347,32 @@
 )
 
 
-(define (layer-scan img rootGrp)
+(define (all-childrn img rootGrp) ; recursive
   (let*
     (
-      (getChildren 0)(layerList 0)(i 0)(layer 0)(allLayerList ())
+      (chldrn ())(lstL 0)(i 0)(actL 0)(allL ())
     )
 
     (if (= rootGrp 0)
-      (set! getChildren (gimp-image-get-layers img))
-      (if (equal? (car (gimp-item-is-group rootGrp)) 1)
-        (set! getChildren (gimp-item-get-children rootGrp))
-        (set! getChildren (list 1 (list->vector (list rootGrp))))
+      (set! chldrn (gimp-image-get-layers img))
+        (if (equal? (car (gimp-item-is-group rootGrp)) 1)
+          (set! chldrn (gimp-item-get-children rootGrp))
+        )
+    )
+
+    (when (not (null? chldrn))
+      (set! lstL (cadr chldrn))
+      (while (< i (car chldrn))
+        (set! actL (vector-ref lstL i))
+        (set! allL (append allL (list actL)))
+        (if (equal? (car (gimp-item-is-group actL)) 1)
+          (set! allL (append allL (all-childrn img actL)))
+        )
+        (set! i (+ i 1))
       )
     )
 
-    (set! layerList (cadr getChildren))
-    (while (< i (car getChildren))
-      (set! layer (vector-ref layerList i))
-      (set! allLayerList (append allLayerList (list layer)))
-      (if (equal? (car (gimp-item-is-group layer)) 1)
-        (set! allLayerList (append allLayerList (layer-scan img layer)))
-      )
-      (set! i (+ i 1))
-    )
-
-    allLayerList
+    allL
   )
 )
 

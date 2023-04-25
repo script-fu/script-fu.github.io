@@ -20,7 +20,7 @@ To download [**layer-parasites.scm**](https://raw.githubusercontent.com/script-f
   (let*
     (
       (len "")(id 0)(i 0)(aStr "")(nme "")(para "")(actL 0)(j 0)(pV 0)(pN "")
-      (para 0)(grp 0)(fileN (car(gimp-image-get-file img)))(len 0)
+      (para 0)(grp 0)(len 0)
     )
 
     (if (list? lst )(set! lst (list->vector lst)))
@@ -91,6 +91,7 @@ To download [**layer-parasites.scm**](https://raw.githubusercontent.com/script-f
  SF-ONE-OR-MORE-DRAWABLE
 )
 (script-fu-menu-register "script-fu-layer-parasites" "<Image>/Tools")
+
 
 
 ```

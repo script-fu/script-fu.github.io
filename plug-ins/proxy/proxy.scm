@@ -457,11 +457,35 @@
   (let*
     (
     (allGrp (get-sub-groups img actL))
-    (grpTru 0)
     )
+
     ;add an initial group
-    (if (> actL 0)(set! grpTru (car (gimp-item-is-group actL))))
-    (if (= grpTru 1)(set! allGrp (append allGrp (list actL))))
+    (when (> actL 0)
+      (when (= (car (gimp-item-is-group actL)) 1)
+        (if #f ;debug
+          (gimp-message
+            (string-append " initial group ->  "
+                            (car(gimp-item-get-name actL))
+                          "\n number of sub groups -> " 
+                          (number->string (length allGrp))
+            )
+          )
+        )
+        (if (> (length allGrp) 1)(set! allGrp (reverse allGrp)))
+        (set! allGrp (append allGrp (list actL)))
+        (set! allGrp (reverse allGrp))
+        (if (null? allGrp) (set! allGrp (list actL)))
+      )
+    )
+    
+    (if #f ;debug
+      (gimp-message 
+        (string-append " returning group length ->  "
+                        (number->string (length allGrp))
+        )
+      )
+    )
+
     allGrp
   )
 )
@@ -471,31 +495,52 @@
   (let*
     (
       (chldrn 0)(lstL 0)(i 0)(allL ())(allGrp ())
-      (grpTru 0)
-      
+      (grpTru 0)(actC 0)
     )
-    
+
     (if (> actL 0)(set! grpTru (car (gimp-item-is-group actL))))
+    (if (= grpTru 1)(set! chldrn (gimp-item-get-children actL)))
     (if (= actL 0)(set! chldrn (gimp-image-get-layers img)))
 
-    (when (> actL 0)
-      (if (= grpTru 1)(set! chldrn (gimp-item-get-children actL)))
-      (if (= grpTru 0)(set! chldrn (list 1 (list->vector (list actL)))))
-    )
+    (when (= grpTru 1)
+      (set! lstL (cadr chldrn))
+      (while (< i (car chldrn))
+        (set! actC (vector-ref lstL i))
 
-    (set! lstL (cadr chldrn))
-    (while (< i (car chldrn))
-      (set! actL (vector-ref lstL i))
-      (when (equal? (car (gimp-item-is-group actL)) 1)
-        (set! allGrp (append allGrp (list actL)))
-        (set! allGrp (append allGrp (get-sub-groups img actL)))
+        (if #f ;debug
+          (gimp-message
+            (string-append
+              " group ->  "(car(gimp-item-get-name actL))
+              "\n child ->  "(car(gimp-item-get-name actC))
+            )
+          )
+        )
+
+        (when (equal? (car (gimp-item-is-group actC)) 1)
+          (if #f (gimp-message " child was a group "))
+          (set! allGrp (append allGrp (list actC)))
+          (set! allGrp (append allGrp (get-sub-groups img actC)))
+        )
+
+        (set! i (+ i 1))
       )
-      (set! i (+ i 1))
+
+
+      (when (= (car chldrn) 0) ;debug
+        (if #f
+          (gimp-message 
+            (string-append " an empty group ->  "
+                          (car(gimp-item-get-name actL))
+            )
+          )
+        )
+      )
     )
 
     allGrp
   )
 )
+
 
 
 (define (load-layer-info fileNme)
@@ -1034,28 +1079,29 @@
 )
 
 
-(define (all-childrn img rootGrp) ; recursive function
+(define (all-childrn img rootGrp) ; recursive
   (let*
     (
-      (chldrn 0)(lstL 0)(i 0)(actL 0)(allL ())
+      (chldrn ())(lstL 0)(i 0)(actL 0)(allL ())
     )
 
     (if (= rootGrp 0)
       (set! chldrn (gimp-image-get-layers img))
-      (if (equal? (car (gimp-item-is-group rootGrp)) 1)
-        (set! chldrn (gimp-item-get-children rootGrp))
-        (set! chldrn (list 1 (list->vector (list rootGrp))))
-      )
+        (if (equal? (car (gimp-item-is-group rootGrp)) 1)
+          (set! chldrn (gimp-item-get-children rootGrp))
+        )
     )
 
-    (set! lstL (cadr chldrn))
-    (while (< i (car chldrn))
-      (set! actL (vector-ref lstL i))
-      (set! allL (append allL (list actL)))
-      (if (equal? (car (gimp-item-is-group actL)) 1)
-        (set! allL (append allL (all-childrn img actL)))
+    (when (not (null? chldrn))
+      (set! lstL (cadr chldrn))
+      (while (< i (car chldrn))
+        (set! actL (vector-ref lstL i))
+        (set! allL (append allL (list actL)))
+        (if (equal? (car (gimp-item-is-group actL)) 1)
+          (set! allL (append allL (all-childrn img actL)))
+        )
+        (set! i (+ i 1))
       )
-      (set! i (+ i 1))
     )
 
     allL

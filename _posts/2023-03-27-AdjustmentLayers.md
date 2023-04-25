@@ -367,31 +367,32 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
 )
 
 
-(define (all-childrn img rootGrp)
+(define (all-childrn img rootGrp) ; recursive
   (let*
     (
-      (getChildren 0)(layerList 0)(i 0)(layer 0)(allLayerList ())
+      (chldrn ())(lstL 0)(i 0)(actL 0)(allL ())
     )
 
     (if (= rootGrp 0)
-      (set! getChildren (gimp-image-get-layers img))
-      (if (equal? (car (gimp-item-is-group rootGrp)) 1)
-        (set! getChildren (gimp-item-get-children rootGrp))
-        (set! getChildren (list 1 (list->vector (list rootGrp))))
+      (set! chldrn (gimp-image-get-layers img))
+        (if (equal? (car (gimp-item-is-group rootGrp)) 1)
+          (set! chldrn (gimp-item-get-children rootGrp))
+        )
+    )
+
+    (when (not (null? chldrn))
+      (set! lstL (cadr chldrn))
+      (while (< i (car chldrn))
+        (set! actL (vector-ref lstL i))
+        (set! allL (append allL (list actL)))
+        (if (equal? (car (gimp-item-is-group actL)) 1)
+          (set! allL (append allL (all-childrn img actL)))
+        )
+        (set! i (+ i 1))
       )
     )
 
-    (set! layerList (cadr getChildren))
-    (while (< i (car getChildren))
-      (set! layer (vector-ref layerList i))
-      (set! allLayerList (append allLayerList (list layer)))
-      (if (equal? (car (gimp-item-is-group layer)) 1)
-        (set! allLayerList (append allLayerList (all-childrn img layer)))
-      )
-      (set! i (+ i 1))
-    )
-
-    allLayerList
+    allL
   )
 )
 

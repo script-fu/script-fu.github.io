@@ -1,7 +1,7 @@
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
     ; detach global persistant with these commands for a clean start after use
-    ; (gimp-detach-parasite "persist-global-undoable : 3")
-    ; (gimp-detach-parasite "persist-global-not-undoable : 1")
+    ;(gimp-detach-parasite "persist-global-undoable : 3")
+    ;(gimp-detach-parasite "persist-global-not-undoable : 1")
 
 
 (define (script-fu-parasites img drawables)
