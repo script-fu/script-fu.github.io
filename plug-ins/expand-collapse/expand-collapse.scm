@@ -97,7 +97,7 @@
     (while (< i (- (vector-length actGrpLst) 1))
       (set! actG (vector-ref actGrpLst i))
 
-      (if #t ; debug
+      (if #f ; debug
         (gimp-message
           (string-append " testing group -> "
                          (car (gimp-item-get-name actG)))
