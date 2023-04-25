@@ -422,9 +422,10 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
  "copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
  "2023"
  "*"
- SF-ONE-DRAWABLE
+ SF-ONE-OR-MORE-DRAWABLE
 )
 (script-fu-menu-register "script-fu-adjustment-mixer" "<Image>/Layer")
+
 
 
 

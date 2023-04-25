@@ -635,7 +635,7 @@
 (define (get-sub-groups img actL) ; recursive function
   (let*
     (
-      (chldrn 0)(lstL 0)(i 0)(allL ())(allGrp ())
+      (chldrn (list 0 #()))(lstL 0)(i 0)(allL ())(allGrp ())
       (grpTru 0)(actC 0)
     )
 
@@ -643,7 +643,7 @@
     (if (= grpTru 1)(set! chldrn (gimp-item-get-children actL)))
     (if (= actL 0)(set! chldrn (gimp-image-get-layers img)))
 
-    (when (= grpTru 1)
+    (when (> (car chldrn) 0)
       (set! lstL (cadr chldrn))
       (while (< i (car chldrn))
         (set! actC (vector-ref lstL i))
