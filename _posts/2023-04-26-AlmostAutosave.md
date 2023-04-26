@@ -2,10 +2,10 @@
 
 # * Tested in Gimp 2.99.14 *
   
-Incrementally autosaves any images that have changed in the current session.  
-You have to activate it **every** session, it _never_ deletes files, and _never_ saves over the open files.  
+Incrementally autosaves any images that have changed in the current session. You have to activate it **every** session, it _never_ deletes files, and _never_ saves over the open files.  
 An image is created to show it's on, close it if you like, it still saves. It makes a storage folder relative to "home" for an easy clean up.  
-Use the additional plugin **Almost Autosave Off** to disable.
+  
+Use the additional plugin **Almost Autosave Off** to disable.  
   
 This plugin has been designed to work with the [Proxy](https://script-fu.github.io/2023/04/15/Proxy.html) plug-in. That plug-in can dramatically reduce the file size and the save time.  
 Which makes autosaving less intrusive.  
