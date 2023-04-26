@@ -6,8 +6,7 @@ Incrementally autosaves any images that have changed in the current session. You
   
 Use the additional plugin **Almost Autosave Off** to disable.  
   
-This plugin has been designed to work with the [Proxy](https://script-fu.github.io/2023/04/15/Proxy.html) plug-in. That plug-in can dramatically reduce the file size and the save time.  
-Which makes autosaving less intrusive.  
+This plugin has been designed to work with the [Proxy](https://script-fu.github.io/2023/04/15/Proxy.html) plug-in. That plug-in can dramatically reduce the file size and the save time. Which makes autosaving less intrusive.  
   
 
 The plug-ins should appear in the File menu.  
