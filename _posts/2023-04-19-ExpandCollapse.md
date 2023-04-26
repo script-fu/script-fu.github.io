@@ -4,7 +4,7 @@
 
 A simple tool that smartly expands or collapses nested groups. Detects the how it should behave depending on the groups content. Finds the average expanded state of a groups sub-groups, and conforms all groups to that. Once the sub-groups are aligned it toggles the expanded state of the sub groups whilst keeping the top group open. Works best when connected to a keyboard shortcut.
   
-The plug-in should appear in the Tools menu.  
+The plug-in should appear in the "Layer/Stack" menu.  
   
 To download [**expand-collapse.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/expand-collapse/expand-collapse.scm)  
 ...follow the link, right click the page, Save as expand-collapse.scm, in a folder called expand-collapse, in a Gimp plug-ins location.  In Linux, set the file to be executable.
@@ -366,7 +366,7 @@ To download [**expand-collapse.scm**](https://raw.githubusercontent.com/script-f
  "*"
  SF-ONE-OR-MORE-DRAWABLE
 )
-(script-fu-menu-register "script-fu-expand-collapse" "<Image>/Tools")
+(script-fu-menu-register "script-fu-expand-collapse" "<Image>/Layer/Stack")
 
 
 ```

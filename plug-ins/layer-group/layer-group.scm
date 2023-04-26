@@ -90,4 +90,4 @@
  "*"
  SF-ONE-OR-MORE-DRAWABLE
 )
-(script-fu-menu-register "script-fu-layer-group" "<Image>/Tools")
+(script-fu-menu-register "script-fu-layer-group" "<Image>/Layer/Stack")

@@ -404,4 +404,4 @@
  "*"
  SF-ONE-OR-MORE-DRAWABLE
 )
-(script-fu-menu-register "script-fu-adjustment-mixer" "<Image>/Layer")
+(script-fu-menu-register "script-fu-adjustment-mixer" "<Image>/Image")

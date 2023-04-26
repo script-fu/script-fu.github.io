@@ -75,4 +75,4 @@
  "*"
  SF-ONE-OR-MORE-DRAWABLE
 )
-(script-fu-menu-register "script-fu-layer-parasites" "<Image>/Tools")
+(script-fu-menu-register "script-fu-layer-parasites" "<Image>/Layer")

@@ -7,7 +7,7 @@ with the original via the opacity sliders.  Change the original image and run ag
 to update the mixer.  Delete any layers you don't need and the mixer will still 
 update, switch visibility back on the source group to see the original.
   
-The plug-in should appear in the Layer menu.  
+The plug-in should appear in the Image menu.  
   
 
 To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/adjustment-mixer/adjustment-mixer.scm)
@@ -424,7 +424,7 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
  "*"
  SF-ONE-OR-MORE-DRAWABLE
 )
-(script-fu-menu-register "script-fu-adjustment-mixer" "<Image>/Layer")
+(script-fu-menu-register "script-fu-adjustment-mixer" "<Image>/Image)
 
 
 

@@ -119,4 +119,4 @@
  "*"
  SF-ONE-OR-MORE-DRAWABLE
 )
-(script-fu-menu-register "script-fu-collapse-all" "<Image>/Tools")
+(script-fu-menu-register "script-fu-collapse-all" "<Image>/Layer/Stack")
