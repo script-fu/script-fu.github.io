@@ -2,8 +2,7 @@
 
 # * Tested in Gimp 2.99.14 *
   
-Incrementally autosaves any images that have changed in the current session. You have to activate it **every** session, it _never_ deletes files, and _never_ saves over the open files.  
-An image is created to show it's on, close it if you like, it still saves. It makes a storage folder relative to "home" for an easy clean up.  
+Incrementally autosaves any images that have changed in the current session. You have to activate it **every** session, it _never_ deletes files, and _never_ saves over the open files. An image is created to show it's on, close it if you like, it still saves. It makes a storage folder relative to "home" for an easy clean up.  
   
 Use the additional plugin **Almost Autosave Off** to disable.  
   
