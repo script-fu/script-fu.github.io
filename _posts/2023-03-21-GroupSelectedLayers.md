@@ -5,7 +5,7 @@
 This plug-in puts any selected layers in a pass-through group. Change the default group mode by editing the plug-in script in a text editor. Makes grouping easier and more
 intuitive to me at least.  
   
-The plug-in should appear in the "Layer/Stack" menu.  
+The plug-in should appear in the "Layer" menu.  
   
 To download [**layer-group.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/layer-group/layer-group.scm)  
 ...follow the link, right click the page, Save as layer-group.scm, in a folder called layer-group, in a Gimp plug-ins location.  In Linux, set the file to be executable.
@@ -105,6 +105,6 @@ To download [**layer-group.scm**](https://raw.githubusercontent.com/script-fu/sc
  "*"
  SF-ONE-OR-MORE-DRAWABLE
 )
-(script-fu-menu-register "script-fu-layer-group" "<Image>/Layer/Stack")
+(script-fu-menu-register "script-fu-layer-group" "<Image>/Layer")
 
 ```

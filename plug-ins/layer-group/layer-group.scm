@@ -82,7 +82,7 @@
 
 
 (script-fu-register-filter "script-fu-layer-group"
- "Group" 
+ "Group Layers" 
  "Puts the selected layers in a pass-through group" 
  "Mark Sweeney"
  "copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
@@ -90,4 +90,4 @@
  "*"
  SF-ONE-OR-MORE-DRAWABLE
 )
-(script-fu-menu-register "script-fu-layer-group" "<Image>/Layer/Stack")
+(script-fu-menu-register "script-fu-layer-group" "<Image>/Layer")
