@@ -12,7 +12,6 @@ To download [**layer-parasites.scm**](https://raw.githubusercontent.com/script-f
    
 
 ```scheme
-
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
 ; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
 
@@ -36,19 +35,22 @@ To download [**layer-parasites.scm**](https://raw.githubusercontent.com/script-f
       (set! para (car (gimp-item-get-parasite-list actL)))
       (set! len (length para))
       (set! aStr (string-append aStr " item id : " id " : " nme ))
-      (if (= grp 1) (set! aStr (string-append aStr " is a group \n"))
-        (set! aStr (string-append aStr " \n"))
-      )
-      (if (= len 0)(set! aStr (string-append aStr " has no parasites \n\n")))
+      ; (if (= grp 1) (set! aStr (string-append aStr " is a group "))
+      ;   (set! aStr (string-append aStr " \n"))
+      ; )
+      (if (= len 0)(set! aStr (string-append aStr ", has no parasites ")))
+      (if (> len 0)(set! aStr (string-append aStr ", has parasites ")))
 
       (while (< j len)
         (set! pN (list-ref para j))
         (set! pV (get-item-parasite-string actL pN))
-        (set! aStr (string-append aStr " has parasite : "pN" : "pV"\n"))
-        (if (= j (- len 1))(set! aStr (string-append aStr "\n")))
+        (set! aStr (string-append aStr "\n  : " pN " : " pV))
+        
         (set! j (+ j 1))
       )
-
+      (if (> len 0)(set! aStr (string-append aStr "\n\n"))
+        (set! aStr (string-append aStr "\n"))
+      )
       (set! i (+ i 1))
     )
 
@@ -91,7 +93,5 @@ To download [**layer-parasites.scm**](https://raw.githubusercontent.com/script-f
  SF-ONE-OR-MORE-DRAWABLE
 )
 (script-fu-menu-register "script-fu-layer-parasites" "<Image>/Layer")
-
-
 
 ```
