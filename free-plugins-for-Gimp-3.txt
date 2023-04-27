@@ -1,5 +1,5 @@
-Here are some free plugins I made for  Gimp 3. Designed to help me in illustration production.
-Thanks for all the free software  people, long live Linux and Gimp! 
+Here are some free plugins I made for  Gimp 3. Designed to help me in illustration production.  
+Thanks for all the free software people, long live Linux and Gimp!  
 
 https://script-fu.github.io/  
   
@@ -26,5 +26,4 @@ https://script-fu.github.io/
 **Image Parasites**  -  Prints a list of all images and attached parasites  
 **Remove Image Parasites**  - Removes any attached parasites on an image
   
-Also available, **procedures.scm**, a list of custom Script-Fu procedures.  
-  
+Also available, **procedures.scm**, a list of custom Script-Fu procedures. 
