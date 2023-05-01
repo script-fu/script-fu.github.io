@@ -16,7 +16,7 @@ To download [**procedures.scm**](https://raw.githubusercontent.com/script-fu/scr
 (plugin-set-lock plugin lock)  
   
   
-                           * Image Procedures *                                
+                                * Image Procedures *                                
 
 (new-image-with-precision width height type precision)  
 (offset-origin img)  
@@ -26,7 +26,7 @@ To download [**procedures.scm**](https://raw.githubusercontent.com/script-fu/scr
 (percent-to-resolution scaleX scaleY width height)  
   
   
-                           * Layer Procedures *                                
+                               * Layer Procedures *                                
 
 (mask-to-layer img srcM dstImg dstL dstP name)  
 (transfer-mask-to-mask srcImg srcM dstImg dstM)  
@@ -70,7 +70,7 @@ To download [**procedures.scm**](https://raw.githubusercontent.com/script-fu/scr
 (restore-layer-attributes actL actLAttr)  
  
 
-                        * Parasite Procedures *                                
+                            * Parasite Procedures *                                
 
 (tag-layer actL name mode tagV col)  
 (tag-image img name mode tagV)  
@@ -85,7 +85,7 @@ To download [**procedures.scm**](https://raw.githubusercontent.com/script-fu/scr
 (get-image-parasite-string img paraNme)  
  
 
-                       * Filter Lists Procedures *                             
+                           * Filter Lists Procedures *                             
 
 (only-groups drwbls)  
 (remove-duplicates grpLst)  
@@ -96,13 +96,13 @@ To download [**procedures.scm**](https://raw.githubusercontent.com/script-fu/scr
 (add-to-bucket vectVect bucket n)  
 
 
-                       * Print Lists Procedures *        
+                           * Print Lists Procedures *        
                                              
 (print-vector-bucket-list lst)  
 (print-layer-id-name lstL)  
  
 
-                            * Misc Procedures *      
+                                * Misc Procedures *      
 
 (number-lists-match lstA lstB)  
 (bubble-up lst)  
@@ -113,8 +113,8 @@ To download [**procedures.scm**](https://raw.githubusercontent.com/script-fu/scr
 (curve-3-value img actL x1 y1 x2 y2 x3 y3)  
 (curve-2-value img actL x1 y1 x2 y2)  
 (vector-append vect v)  
-  
-  
+   
+   
 
 
 
