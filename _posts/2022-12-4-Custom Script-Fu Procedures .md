@@ -1,6 +1,125 @@
 # Custom Script-Fu Procedures  
   
-Here's a list of the custom procedures I've made to help build scripts quickly.  
+Here's a list of the custom procedures I've made to help build scripts quickly.    
+
+To download [**procedures.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/procedures/procedures.scm)  
+...follow the link, right click the page, Save as procedures.scm, just a library, not a plugin.
+  
+                                * File Procedures *   
+                    
+(make-dir-path path)  
+(vector-export img )  
+(vector-import img numV)  
+(get-image-file-info img)  
+(file-jpg-save img fileName quality)  
+(plugin-get-lock plugin)  
+(plugin-set-lock plugin lock)  
+  
+  
+                           * Image Procedures *                                
+
+(new-image-with-precision width height type precision)  
+(offset-origin img)  
+(image-exists findName)  
+(find-and-remove-image findName)  
+(present-first-display)  
+(percent-to-resolution scaleX scaleY width height)  
+  
+  
+                           * Layer Procedures *                                
+
+(mask-to-layer img srcM dstImg dstL dstP name)  
+(transfer-mask-to-mask srcImg srcM dstImg dstM)  
+(short-layer-name actL length)  
+(merge-down-keep-upper-mask img upperL lowerL)  
+(get-layers img actL)  
+(set-list-visibility lstL vis)  
+(get-all-groups img actL)  
+(get-sub-groups img actL)  
+(find-layer img name)  
+(set-and-store-layer-locks actL lock)  
+(restore-layer-locks actL lckLst)  
+(get-layer-locks img rootGrp)  
+(transfer-all-locks img dstGrp lckLst)  
+(all-childrn img rootGrp)  
+(group-to-image srcImg actG dstImg parent)  
+(layer-to-image srcImg srcL dstImg prnt pos)  
+(close-groups grpLst)  
+(duplicate-layer img srcL name opac mode vis)  
+(basic-duplicate-layer img srcL name)  
+(layer-group img drwbls)  
+(get-layer-info img actL)  
+(get-active-layer img)  
+(layer-to-new-image img actL)  
+(copy-to-new-layer img srcL dstImg dstL dstP name crop)  
+(transfer-layer-to-channel img srcL dstChn)  
+(fill-layer actL red green blue)  
+(add-layer img actP pos name mode opa col)  
+(add-mask actL type)  
+(mask-box-crop img lstL expand)  
+(set-and-store-all-locks img rootGrp lock)  
+(restore-all-locks lckLst)  
+(set-lock-layer actL lckCon lckPos lckVis lckAlp)  
+(apply-s-curve img actL)  
+(apply-bright-curve img actL)  
+(get-all-parents img actL)  
+(remove-layers img lstL)  
+(reorder-item img actL parent pos)  
+(root-group img grpLst)  
+(store-layer-attributes img actL)  
+(restore-layer-attributes actL actLAttr)  
+ 
+
+                        * Parasite Procedures *                                
+
+(tag-layer actL name mode tagV col)  
+(tag-image img name mode tagV)  
+(print-layer-parasites lst)  
+(get-layer-parasite-string actL paraNme)  
+(remove-layer-parasites img lst)  
+(store-layer-parasites actL)  
+(restore-layer-parasites actL paraStrLst)  
+(get-global-parasite-string paraNme)  
+(get-layers-tagged img lstL tag)  
+(get-images-tagged tag)  
+(get-image-parasite-string img paraNme)  
+ 
+
+                       * Filter Lists Procedures *                             
+
+(only-groups drwbls)  
+(remove-duplicates grpLst)  
+(remove-invalid-items itemsLst)  
+(exclude-children img lstL)  
+(all-parents-of-list lst)  
+(layer-list-into-parent-group-buckets lst)  
+(add-to-bucket vectVect bucket n)  
+
+
+                       * Print Lists Procedures *        
+                                             
+(print-vector-bucket-list lst)  
+(print-layer-id-name lstL)  
+ 
+
+                            * Misc Procedures *      
+
+(number-lists-match lstA lstB)  
+(bubble-up lst)  
+(bubble-sort len lst)  
+(message-progress currAmt maxAmt message)  
+(random-range minV maxV)  
+(curve-4-value img actL x1 y1 x2 y2 x3 y3 x4 y4)  
+(curve-3-value img actL x1 y1 x2 y2 x3 y3)  
+(curve-2-value img actL x1 y1 x2 y2)  
+(vector-append vect v)  
+  
+  
+
+
+
+
+
 
 
 ```scheme
