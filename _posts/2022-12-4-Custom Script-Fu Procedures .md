@@ -1,5 +1,5 @@
 # Custom Script-Fu Procedures  
-  
+# * Tested in Gimp 2.99.14 *  
 Here's a list of the custom procedures I've made to help build scripts quickly.    
 
 To download [**procedures.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/procedures/procedures.scm)  
