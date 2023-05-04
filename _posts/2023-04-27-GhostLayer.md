@@ -2,7 +2,7 @@
 
 # * Tested in Gimp 2.99.14 *
   
-A little timesaver to set up a pencil layer for inking.
+A little time-saver to set up a pencil layer for inking.
 The plug-in should appear in the Layer menu.  
   
 To download [**ghostLayer.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/ghostLayer/ghostLayer.scm)  
