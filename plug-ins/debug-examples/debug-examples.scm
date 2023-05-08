@@ -103,10 +103,7 @@
 )
 
 
-(define (here x)
-  (if debug (gimp-message (string-append " >>> " (number->string x) " <<< ")))
-)
-
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
 (define debug #t) ; print all debug information
 (define info #t)  ; print information
 
