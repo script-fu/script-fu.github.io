@@ -111,15 +111,11 @@
       (rootL (gimp-image-get-layers img))
       (srcGrp 0)
     )
-    (when (> (car rootL) 1)
-      (set! srcGrp (layer-group img (cadr rootL)))
-      (gimp-item-set-name srcGrp "source")
-    )
-    (when (= (car rootL) 1)
-      (set! srcGrp (vector-ref (cadr rootL) 0))
-      (gimp-item-set-name srcGrp "source")
-    )
+
+    (set! srcGrp (layer-group img (cadr rootL)))
+    (gimp-item-set-name srcGrp "source")
     (gimp-item-set-visible srcGrp 1)
+
     srcGrp
   )
 )
