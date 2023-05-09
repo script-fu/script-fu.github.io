@@ -2,7 +2,7 @@
 (define (script-fu-debug-examples)
   (let*
     (
-    (msg "")(i 0)
+      (msg "")(i 0)
     )
 
     (here 1)
@@ -87,7 +87,7 @@
       )
     )
 
-    (here 5)
+    (here 5.1)
 
     (while (< i 10)
       (set! info (number->string i))
@@ -97,15 +97,29 @@
 
     (if info (gimp-message msg))
 
-    (here 5.1)
+    (if info
+      (gimp-message
+        (string-append
+        " finally, you may want to stop a script if a condition is met "
+        " a procedure defined in this plugin (err msg) does that"
+        )
+      )
+    )
+
+    (if (not falseFlag) (err " the logic was faulty "))
+
+    (here 5.2)
 
   )
 )
 
 
+; debug and error macro
+(define (err msg)(gimp-message(string-append " >>> " msg " <<<"))↑read-warning↑)
 (define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
 (define debug #t) ; print all debug information
 (define info #t)  ; print information
+(define falseFlag  #f) ; 
 
 (script-fu-register "script-fu-debug-examples"
  "Debug Examples"
