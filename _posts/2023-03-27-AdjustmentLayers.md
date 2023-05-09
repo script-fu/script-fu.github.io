@@ -48,6 +48,7 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
     (when (> update 0)
       (gimp-item-set-visible mxGrp 0)
       (set! srcGrp (find-layer img "source" 0))
+      (if (= srcGrp 0)(err "no 'source' group found"))
       (set! srcL (find-layer img "! no edit !" ))
       (when (= srcL 0)
         (set! srcL (paste-copy img 0 img 0 mxGrp "! no edit !" 0 ))
@@ -136,6 +137,7 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
     )
     (when (= (car rootL) 1)
       (set! srcGrp (vector-ref (cadr rootL) 0))
+      (gimp-item-set-name srcGrp "source")
     )
     (gimp-item-set-visible srcGrp 1)
     srcGrp
@@ -414,6 +416,8 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
   )
 )
 
+(define (err msg)(gimp-message(string-append " >>> " msg " <<<"))↑read-warning↑)
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
 
 (script-fu-register-filter "script-fu-adjustment-mixer"
  "Adjustment Mixer" 
@@ -424,10 +428,6 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
  "*"
  SF-ONE-OR-MORE-DRAWABLE
 )
-(script-fu-menu-register "script-fu-adjustment-mixer" "<Image>/Image)
-
-
-
-
+(script-fu-menu-register "script-fu-adjustment-mixer" "<Image>/Image")
 
 ```
