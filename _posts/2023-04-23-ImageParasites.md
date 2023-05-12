@@ -1,6 +1,6 @@
 ## Image Parasites
 
-# * Tested in Gimp 2.99.14 *
+# * Tested in GIMP 2.99.14 *
 
 This plug-in prints out a list of all open images and any attached parasites.
   

@@ -1,6 +1,6 @@
 ## Select All Layers
 
-# * Tested in Gimp 2.99.14 *
+# * Tested in GIMP 2.99.14 *
 
 This selects all the layers in the stack, useful if you want to apply another plugin to every layer. For example, you might select every layer, and then use the "Layer Parasites" plugin to find out what parasites are attached.
   

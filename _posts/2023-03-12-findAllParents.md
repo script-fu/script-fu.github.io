@@ -1,6 +1,6 @@
 ## Find All The Parents
 
-# * Tested in Gimp 2.99.14 *
+# * Tested in GIMP 2.99.14 *
 
 This isn't a plug-in, just an example of how to find all those parents.
 

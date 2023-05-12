@@ -1,6 +1,6 @@
 ## Adjustment Layers
 
-# * Tested in Gimp 2.99.14 *
+# * Tested in GIMP 2.99.14 *
 
 This plug-in creates a mixer with prebaked adjustments. Control the amount mixed 
 with the original via the opacity sliders.  Change the original image and run again

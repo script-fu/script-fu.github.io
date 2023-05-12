@@ -1,6 +1,6 @@
 ## Get Image Filename Information
 
-# * Tested in Gimp 2.99.14 *
+# * Tested in GIMP 2.99.14 *
 
 A demonstration plugin that shows how you can find an image file's name and path.
   

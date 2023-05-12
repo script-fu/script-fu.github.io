@@ -1,6 +1,6 @@
 ## Parasites
 
-# * Tested in Gimp 2.99.14 *
+# * Tested in GIMP 2.99.14 *
 
 This plugin demonstrates how parasites currently work in Gimp. Parasites are useful for scripting in many ways. You can store data, tag layers or set variables. Typically I'd use a parasite like this;  
   

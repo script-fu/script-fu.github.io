@@ -1,6 +1,6 @@
 ## Locking a Plug-in
 
-# * Tested in Gimp 2.99.14 *
+# * Tested in GIMP 2.99.14 *
 
 Gimp allows a plug-in to be run multiple times on an image at the same time.
 Which, in certain cases, can lead to problems. There is a workaround that

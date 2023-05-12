@@ -1,6 +1,6 @@
 ## Layer ID 
 
-# * Tested in Gimp 2.99.14 *
+# * Tested in GIMP 2.99.14 *
 
 Prints the layer ID of every selected layer in a list.
 

@@ -1,6 +1,6 @@
 ## Ghost Layer
 
-# * Tested in Gimp 2.99.14 *
+# * Tested in GIMP 2.99.14 *
   
 A little time-saver to set up a pencil layer for inking.
 The plug-in should appear in the Layer menu.  

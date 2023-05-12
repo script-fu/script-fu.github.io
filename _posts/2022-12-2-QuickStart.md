@@ -38,20 +38,4 @@ on the GitHub website.
 * all [ plug-ins](https://github.com/script-fu/script-fu.github.io/blob/main/plug-ins) can be downloaded here...  
   
   
-# Scripts - GIMP 2
-
-* Create a directory as a sandbox for new scripts. *e.g /home/username/scripts/*        
-  Add that directory in Gimp as a scripts folder, then restart Gimp.
-  *Gimp->Edit->Preferences->Folders->Scripts*     
-  
-* After editing and saving a script, refresh scripts in Gimp.
-  *Filters->Script-Fu->Refresh Scripts*
-  It's easier to set up a keyboard shortcut to refresh scripts.
-  
-* Keep the Error Console window open for debugging.
-  *Gimp->Windows->Dockable Dialogues->Error Console*  
-  
-* all [scripts](https://github.com/script-fu/script-fu.github.io/blob/main/scripts) can be downloaded here...  
-  
-  
 # Script-Fu [Commands](https://script-fu.github.io/2022/12/03/Commands-Used.html) Used by the Plugins

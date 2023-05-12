@@ -1,6 +1,6 @@
 ## Simple Scale
 
-# * Tested in Gimp 2.99.14 *
+# * Tested in GIMP 2.99.14 *
 
 Copies all visible to a new image and scales that. Saves time when all you usually
 use scaling for is to make a half sized copy.

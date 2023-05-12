@@ -1,6 +1,6 @@
 ## Crop Layers to Masks
 
-# * Tested in Gimp 2.99.14 *
+# * Tested in GIMP 2.99.14 *
 
 Crops a selection of layers to their mask content, with a safe border option.
 

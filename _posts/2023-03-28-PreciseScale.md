@@ -1,6 +1,6 @@
 ## Precise Scale
 
-# * Tested in Gimp 2.99.14 *
+# * Tested in GIMP 2.99.14 *
 
 A scale transform that preserves all the positional relationships of the layers 
 and avoids any pixel movement artifacts. Preserve Scale is a slower scale than the 

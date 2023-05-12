@@ -1,6 +1,6 @@
 ## Remove Layer Parasites
 
-# * Tested in Gimp 2.99.14 *
+# * Tested in GIMP 2.99.14 *
 
 This plug-in removes any parasites on the selected layers and prints out a list of the selected layers and removed parasites.
   

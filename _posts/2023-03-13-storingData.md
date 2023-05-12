@@ -1,6 +1,6 @@
 ## Storing Data
 
-# * Tested in Gimp 2.99.14 *
+# * Tested in GIMP 2.99.14 *
 
 When you need to store and retrieve data, write it to a file.
 

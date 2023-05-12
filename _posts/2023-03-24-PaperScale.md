@@ -1,6 +1,6 @@
 ## Paper Scale
 
-# * Tested in Gimp 2.99.14 *
+# * Tested in GIMP 2.99.14 *
 
 This plug-in creates temporary image that approximates how big the original
 would appear on paper if it was printed out. For example if your monitor was at

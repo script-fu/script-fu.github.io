@@ -1,6 +1,6 @@
 ## Group Selected Layers
 
-# * Tested in Gimp 2.99.14 *
+# * Tested in GIMP 2.99.14 *
 
 This plug-in puts any selected layers in a pass-through group. Change the default group mode by editing the plug-in script in a text editor. Makes grouping easier and more
 intuitive to me at least.  
