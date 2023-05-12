@@ -1,5 +1,5 @@
 
-; Tested in Gimp 2.99.14
+; Tested in GIMP 2.99.14
 ; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
 ; last updated April 2023
 

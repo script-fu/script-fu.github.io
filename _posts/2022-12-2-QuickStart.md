@@ -4,7 +4,7 @@
 
 * Create a directory as a sandbox for plug-ins. **e.g /home/username/plug-ins/**  
   Add that directory in GIMP as a plug-ins folder, then restartGIMP .
-  *Gimp->Edit->Preferences->Folders->Plug-ins*
+  *GIMP->Edit->Preferences->Folders->Plug-ins*
 
 
 ## Windows OS Settings
