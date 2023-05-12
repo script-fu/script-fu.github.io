@@ -1,15 +1,15 @@
 # Installation
 
-Good luck!
+# Good luck!
 
 * Create a directory as a sandbox for plug-ins. **e.g /home/username/plug-ins/**  
   Add that directory in GIMP as a plug-ins folder, then restartGIMP .
   *Gimp->Edit->Preferences->Folders->Plug-ins*
 
 
-# Windows OS
+## Windows OS Settings
 
-When you download a plug-in or script from github it does this as a raw text file.
+When you download a plug-in or script from Github it does this as a raw text file.
 So a *plugin.scm* can become *plugin.scm.txt*.  This will cause an install fail.
 To avoid this, make Windows show file extentions.
   
@@ -21,7 +21,7 @@ After you have completed these steps, file extensions will be visible for all
 files on your computer.
   
   
-# GIMP 3 Plug-ins
+## Install Plug-ins
   
 To download an individual file, first navigate to the file you want to download 
 on the GitHub website.
