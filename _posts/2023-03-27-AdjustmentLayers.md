@@ -12,7 +12,7 @@ The plug-in should appear in the Image menu.
 
 To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/adjustment-mixer/adjustment-mixer.scm)
   
-...follow the link, right click the page, Save as adjustment-mixer.scm, in a folder called adjustment-mixer, in a Gimp plug-ins location.  In Linux, set the file to be executable.
+...follow the link, right click the page, Save as adjustment-mixer.scm, in a folder called adjustment-mixer, in a GIMP plug-ins location.  In Linux, set the file to be executable.
 
 
 *Creates a layer tree structure that allows mixing of adjusted copies*

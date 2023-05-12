@@ -7,7 +7,7 @@ A demonstration plugin that shows how you can find an image file's name and path
 The plug-in should appear in a Fu-Plugin menu.  
   
 To download [**get-image-file-info.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/get-image-file-info/get-image-file-info.scm)  
-...follow the link, right click the page, Save as get-image-file-info.scm, in a folder called get-image-file-info, in a Gimp plug-ins location.  In Linux, set the file to be executable.
+...follow the link, right click the page, Save as get-image-file-info.scm, in a folder called get-image-file-info, in a GIMP plug-ins location.  In Linux, set the file to be executable.
    
    
 

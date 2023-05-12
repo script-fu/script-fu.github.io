@@ -4,13 +4,13 @@
 
 A scale transform that preserves all the positional relationships of the layers 
 and avoids any pixel movement artifacts. Preserve Scale is a slower scale than the 
-current Gimp default.
+current GIMP default.
   
 The plug-in should appear in the Image menu.  
   
 
 To download [**precise-scale.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/precise-scale/precise-scale.scm)  
-...follow the link, right click the page, Save as precise-scale.scm, in a folder called precise-scale, in a Gimp plug-ins location.  In Linux, set the file to be executable.
+...follow the link, right click the page, Save as precise-scale.scm, in a folder called precise-scale, in a GIMP plug-ins location.  In Linux, set the file to be executable.
 
 
 ```scheme

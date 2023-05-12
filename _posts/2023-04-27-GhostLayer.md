@@ -6,7 +6,7 @@ A little time-saver to set up a pencil layer for inking.
 The plug-in should appear in the Layer menu.  
   
 To download [**ghostLayer.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/ghostLayer/ghostLayer.scm)  
-...follow the link, right click the page, Save as ghostLayer.scm, in a folder called ghostLayer, in a Gimp plug-ins location.  
+...follow the link, right click the page, Save as ghostLayer.scm, in a folder called ghostLayer, in a GIMP plug-ins location.  
 In Linux, set the file to be executable.
    
 

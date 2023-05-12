@@ -7,7 +7,7 @@ Prints the layer ID of every selected layer in a list.
 The plug-in should appear in the "Layer" menu.  
   
 To download [**layer-name-id.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/layer-name-id/layer-name-id.scm)  
-...follow the link, right click the page, Save as layer-name-id.scm, in a folder called layer-name-id, in a Gimp plug-ins location.  In Linux, set the file to be executable.
+...follow the link, right click the page, Save as layer-name-id.scm, in a folder called layer-name-id, in a GIMP plug-ins location.  In Linux, set the file to be executable.
    
    
 

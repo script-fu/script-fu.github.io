@@ -15,7 +15,7 @@ Otherwise ensure image is set to 100% zoom or press keyboard "1" to make it so.
 
 To download [**paper-scale.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/paper-scale/paper-scale.scm)
   
-...follow the link, right click the page, Save as paper-scale.scm, in a folder called paper-scale, in a Gimp plug-ins location.  In Linux, set the file to be executable.
+...follow the link, right click the page, Save as paper-scale.scm, in a folder called paper-scale, in a GIMP plug-ins location.  In Linux, set the file to be executable.
 
 
 *Creates a new image showing how big the printed image would look on paper*

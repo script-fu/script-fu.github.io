@@ -7,7 +7,7 @@ A simple tool that smartly expands or collapses nested groups. Detects the how i
 The plug-in should appear in the "Layer/Stack" menu.  
   
 To download [**expand-collapse.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/expand-collapse/expand-collapse.scm)  
-...follow the link, right click the page, Save as expand-collapse.scm, in a folder called expand-collapse, in a Gimp plug-ins location.  In Linux, set the file to be executable.
+...follow the link, right click the page, Save as expand-collapse.scm, in a folder called expand-collapse, in a GIMP plug-ins location.  In Linux, set the file to be executable.
    
    
 

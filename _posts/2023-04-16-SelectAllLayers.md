@@ -7,7 +7,7 @@ This selects all the layers in the stack, useful if you want to apply another pl
 The plug-in should appear in the Layer menu.  
   
 To download [**select-all-layers.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/select-all-layers/select-all-layers.scm)  
-...follow the link, right click the page, Save as select-all-layers.scm, in a folder called select-all-layers, in a Gimp plug-ins location.  In Linux, set the file to be executable.
+...follow the link, right click the page, Save as select-all-layers.scm, in a folder called select-all-layers, in a GIMP plug-ins location.  In Linux, set the file to be executable.
    
    
 

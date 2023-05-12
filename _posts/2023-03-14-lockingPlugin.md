@@ -2,7 +2,7 @@
 
 # * Tested in GIMP 2.99.14 *
 
-Gimp allows a plug-in to be run multiple times on an image at the same time.
+GIMP allows a plug-in to be run multiple times on an image at the same time.
 Which, in certain cases, can lead to problems. There is a workaround that
 mitigates the issue. Wrap the plug-in a test condition, and only proceed
 if that condition evaluated positively. I found the best test condition to be

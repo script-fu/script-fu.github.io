@@ -7,7 +7,7 @@ This plug-in prints out a list of the selected layers and any attached parasites
 The plug-in should appear in the Layer menu.  
   
 To download [**layer-parasites.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/layer-parasites/layer-parasites.scm)  
-...follow the link, right click the page, Save as layer-parasites.scm, in a folder called layer-parasites, in a Gimp plug-ins location.  In Linux, set the file to be executable.
+...follow the link, right click the page, Save as layer-parasites.scm, in a folder called layer-parasites, in a GIMP plug-ins location.  In Linux, set the file to be executable.
    
    
 

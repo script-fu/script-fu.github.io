@@ -1,6 +1,6 @@
 # Commands Used  
   
-Open Gimp and navigate to the Procedure Browser.    **Help->Procedure Browser**  
+Open GIMP and navigate to the Procedure Browser.    **Help->Procedure Browser**  
 It's home to the full descriptions and expected parameters of the following commands:
   
 # Sorted by Frequency of Use  

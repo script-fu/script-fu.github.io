@@ -12,11 +12,11 @@ This plugin has been designed to work with the [Proxy](https://script-fu.github.
 The plug-ins should appear in the File menu.  
   
 To download [**almost-autosave.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/almost-autosave/almost-autosave.scm)  
-...follow the link, right click the page, Save as almost-autosave.scm, in a folder called almost-autosave, in a Gimp plug-ins location.  
+...follow the link, right click the page, Save as almost-autosave.scm, in a folder called almost-autosave, in a GIMP plug-ins location.  
 In Linux, set the file to be executable.
    
 To download [**almost-autosave-off.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/almost-autosave-off/almost-autosave-off.scm)  
-...follow the link, right click the page, Save as almost-autosave-off.scm, in a folder called almost-autosave-off, in a Gimp plug-ins location.  
+...follow the link, right click the page, Save as almost-autosave-off.scm, in a folder called almost-autosave-off, in a GIMP plug-ins location.  
 In Linux, set the file to be executable.  
   
 

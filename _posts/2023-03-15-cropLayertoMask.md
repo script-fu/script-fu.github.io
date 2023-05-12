@@ -7,7 +7,7 @@ Crops a selection of layers to their mask content, with a safe border option.
 The plug-in should appear in the "Layer" menu.  
   
 To download [**crop-layer-to-mask.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/crop-layer-to-mask/crop-layer-to-mask.scm)  
-...follow the link, right click the page, Save as crop-layer-to-mask.scm, in a folder called crop-layer-to-mask, in a Gimp plug-ins location.  In Linux, set the file to be executable.
+...follow the link, right click the page, Save as crop-layer-to-mask.scm, in a folder called crop-layer-to-mask, in a GIMP plug-ins location.  In Linux, set the file to be executable.
    
    
 

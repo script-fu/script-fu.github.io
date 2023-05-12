@@ -2,7 +2,7 @@
 
 # * Tested in GIMP 2.99.14 *
 
-This plugin demonstrates how parasites currently work in Gimp. Parasites are useful for scripting in many ways. You can store data, tag layers or set variables. Typically I'd use a parasite like this;  
+This plugin demonstrates how parasites currently work inGIMP . Parasites are useful for scripting in many ways. You can store data, tag layers or set variables. Typically I'd use a parasite like this;  
   
 ```scheme
 (gimp-item-attach-parasite layerID (list "name" mode "data as a string"))
@@ -20,7 +20,7 @@ For global parasites, the modes are:
 1 -> persistent and not undoable attachment  
 
   
-Temporary parasites are not saved with the file. Image and layer persistent parasites are saved with the file. Persistent global parasites are restored for each Gimp session.  
+Temporary parasites are not saved with the file. Image and layer persistent parasites are saved with the file. Persistent global parasites are restored for each GIMP session.  
   
 You can see that a parasite is just a three element list. The name is used to identify, and the data can be stored as a string. Use functions like; (number->string) (string->number) or (strbreakup) to encode or decode the data.  
   
@@ -41,7 +41,7 @@ caddar is a Scheme, the programming language Script-fu is based on, short-cut fo
 The plug-in should appear in a Fu-Plugin menu.  
   
 To download [**parasites.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/parasites/parasites.scm)  
-...follow the link, right click the page, Save as parasites.scm, in a folder called parasites, in a Gimp plug-ins location.  In Linux, set the file to be executable.
+...follow the link, right click the page, Save as parasites.scm, in a folder called parasites, in a GIMP plug-ins location.  In Linux, set the file to be executable.
   
 
 

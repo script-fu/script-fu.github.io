@@ -7,7 +7,7 @@ This plug-in removes any parasites on the selected layers and prints out a list 
 The plug-in should appear in the Layer menu.  
   
 To download [**remove-layer-parasites.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/remove-layer-parasites/remove-layer-parasites.scm)  
-...follow the link, right click the page, Save as remove-layer-parasites.scm, in a folder called remove-layer-parasites, in a Gimp plug-ins location.  In Linux, set the file to be executable.
+...follow the link, right click the page, Save as remove-layer-parasites.scm, in a folder called remove-layer-parasites, in a GIMP plug-ins location.  In Linux, set the file to be executable.
    
    
 

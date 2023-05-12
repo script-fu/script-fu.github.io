@@ -7,7 +7,7 @@ This plug-in prints out a list of all open images and any attached parasites.
 The plug-in should appear in the Image menu.  
   
 To download [**image-parasites.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/image-parasites/image-parasites.scm)  
-...follow the link, right click the page, Save as image-parasites.scm, in a folder called image-parasites, in a Gimp plug-ins location.  In Linux, set the file to be executable.
+...follow the link, right click the page, Save as image-parasites.scm, in a folder called image-parasites, in a GIMP plug-ins location.  In Linux, set the file to be executable.
    
    
 

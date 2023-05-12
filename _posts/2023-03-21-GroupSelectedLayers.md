@@ -8,7 +8,7 @@ intuitive to me at least.
 The plug-in should appear in the "Layer" menu.  
   
 To download [**layer-group.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/layer-group/layer-group.scm)  
-...follow the link, right click the page, Save as layer-group.scm, in a folder called layer-group, in a Gimp plug-ins location.  In Linux, set the file to be executable.
+...follow the link, right click the page, Save as layer-group.scm, in a folder called layer-group, in a GIMP plug-ins location.  In Linux, set the file to be executable.
   
 *Puts the selected layers in a new group*  
 
