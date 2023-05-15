@@ -469,10 +469,18 @@ To download [**procedures.scm**](https://raw.githubusercontent.com/script-fu/scr
 (define (transfer-mask-to-mask srcImg srcM dstImg dstM)
   (let*
     (
-      (srcL (car(gimp-layer-from-mask srcM)))
-      (offX (car(gimp-drawable-get-offsets srcL )))
-      (offY (cadr(gimp-drawable-get-offsets srcL )))
+      (srcL 0)
+      (offX 0)
+      (offY 0)
     )
+
+    (if (= (car (gimp-item-id-is-layer-mask srcM)) 1)
+      (set! srcL (car(gimp-layer-from-mask srcM)))
+        (set! srcL srcM)
+    )
+
+    (set! offX (car(gimp-drawable-get-offsets srcL )))
+    (set! offY (cadr(gimp-drawable-get-offsets srcL )))
 
     (gimp-selection-none srcImg)
     (gimp-edit-copy 1 (vector srcM))
@@ -482,6 +490,7 @@ To download [**procedures.scm**](https://raw.githubusercontent.com/script-fu/scr
 
     (set! dstM (vector-ref (cadr(gimp-image-get-selected-layers dstImg))0))
     (set! dstM (car(gimp-layer-get-mask dstM)))
+
     dstM
   )
 )
@@ -697,7 +706,7 @@ To download [**procedures.scm**](https://raw.githubusercontent.com/script-fu/scr
     )
 
     (set! lstL (all-childrn img 0))
-    (if (list? lst )(set! lst (list->vector lst)))
+    (if (list? lstL )(set! lstL (list->vector lstL)))
 
     (while (< i (vector-length lstL))
       (set! matchNme (car(gimp-item-get-name (vector-ref lstL i))))
@@ -2240,6 +2249,14 @@ To download [**procedures.scm**](https://raw.githubusercontent.com/script-fu/scr
     (set! vect tmpV)
   )
 )
+
+
+; debug and error tools
+(define (err msg)(gimp-message(string-append " >>> " msg " <<<"))↑read-warning↑)
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+(define debug #t) ; print all debug information
+(define info #t)  ; print information
+
 ```
 
 
