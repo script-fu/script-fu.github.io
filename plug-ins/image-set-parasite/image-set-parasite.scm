@@ -14,7 +14,7 @@
 
 
 (define (tag-image img name mode tagV)
-  (gimp-image-attach-parasite img (list name 0 tagV))
+  (gimp-image-attach-parasite img (list name mode tagV))
 )
 
 
