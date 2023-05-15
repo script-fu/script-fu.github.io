@@ -1,9 +1,9 @@
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
-(define (script-fu-remove-layer-parasites img lst)
+(define (script-fu-layer-remove-parasites img lst allP actP)
   (let*
     (
       (len "")(id 0)(i 0)(aStr "")(nme "")(para "")(actL 0)(j 0)(pV 0)(pN "")
-      (para 0)(grp 0)(len 0)
+      (para 0)(grp 0)(len 0)(det #f)
     )
 
     (if (list? lst )(set! lst (list->vector lst)))
@@ -19,24 +19,39 @@
       (set! para (car (gimp-item-get-parasite-list actL)))
       (set! len (length para))
       (set! aStr (string-append aStr " item id : " id " : " nme ))
-      (if (= grp 1) (set! aStr (string-append aStr " is a group \n"))
-        (set! aStr (string-append aStr " \n"))
-      )
+      (if (= grp 1) (set! aStr (string-append aStr " is a group ")))
+
       (if (= len 0)(set! aStr (string-append aStr " has no parasites \n\n")))
 
       (while (< j len)
         (set! pN (list-ref para j))
         (set! pV (get-item-parasite-string actL pN))
-        (set! aStr (string-append aStr " removing parasite : "pN" : "pV"\n"))
+
+        ; remove all?
+        (when (= allP 1)
+          (if debug (gimp-message (string-append " detatching parasite: " pN)))
+          (gimp-item-detach-parasite actL pN)
+          (set! aStr (string-append aStr "\n removed : " pN ))
+          (set! det #t)
+        )
+
+        ; remove specified?
+        (when (and (= allP 0) (equal? actP pN))
+          (if debug (gimp-message (string-append " found the parasite: " pN )))
+          (gimp-item-detach-parasite actL pN)
+          (set! aStr (string-append aStr "\n removed : " pN ))
+          (set! det #t)
+        )
+
         (if (= j (- len 1))(set! aStr (string-append aStr "\n")))
-        (gimp-item-detach-parasite actL pN)
         (set! j (+ j 1))
       )
 
       (set! i (+ i 1))
     )
 
-    (gimp-message aStr)
+    (if det (gimp-message aStr))
+    (if (not det) (gimp-message " no parasites detatched "))
 
     aStr
   )
@@ -53,7 +68,6 @@
     (while (< i (vector-length para))
       (set! actP (vector-ref para i))
       (when (equal? actP paraNme)
-        (if #f (gimp-message " found the parasite "))
         (set! fndV (caddar(gimp-item-get-parasite actL actP)))
         (set! i (vector-length para))
       )
@@ -64,8 +78,12 @@
   )
 )
 
+(define (err msg)(gimp-message(string-append " >>> " msg " <<<"))↑read-warning↑)
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+(define debug #f) ; print all debug information
+(define info #t)  ; print information
 
-(script-fu-register-filter "script-fu-remove-layer-parasites"
+(script-fu-register-filter "script-fu-layer-remove-parasites"
  "Layer Remove Parasites"
  "Removes all parasites from the selected layers"
  "Mark Sweeney"
@@ -73,5 +91,7 @@
  "2023"
  "*"
  SF-ONE-OR-MORE-DRAWABLE
+ SF-TOGGLE     "All Parasites"             TRUE
+ SF-STRING     "Specific Parasite"   "name"
 )
-(script-fu-menu-register "script-fu-remove-layer-parasites" "<Image>/Layer")
+(script-fu-menu-register "script-fu-layer-remove-parasites" "<Image>/Layer/Tag")

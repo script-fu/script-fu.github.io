@@ -77,4 +77,4 @@
  "*"
  SF-ONE-OR-MORE-DRAWABLE
 )
-(script-fu-menu-register "script-fu-image-parasites" "<Image>/Image")
+(script-fu-menu-register "script-fu-image-parasites" "<Image>/Image/Tag")

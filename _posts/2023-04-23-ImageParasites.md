@@ -4,7 +4,7 @@
 
 This plug-in prints out a list of all open images and any attached parasites.
   
-The plug-in should appear in the Image menu.  
+The plug-in should appear in the Image/Tag menu.  
   
 To download [**image-parasites.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/image-parasites/image-parasites.scm)  
 ...follow the link, right click the page, Save as image-parasites.scm, in a folder called image-parasites, in a GIMP plug-ins location.  In Linux, set the file to be executable.
@@ -91,7 +91,6 @@ To download [**image-parasites.scm**](https://raw.githubusercontent.com/script-f
  "*"
  SF-ONE-OR-MORE-DRAWABLE
 )
-(script-fu-menu-register "script-fu-image-parasites" "<Image>/Image")
-
+(script-fu-menu-register "script-fu-image-parasites" "<Image>/Image/Tag")
 
 ```

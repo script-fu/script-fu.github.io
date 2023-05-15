@@ -1,24 +1,23 @@
-## Remove Layer Parasites
+## Layer Remove Parasites
 
 # * Tested in GIMP 2.99.14 *
 
-This plug-in removes any parasites on the selected layers and prints out a list of the selected layers and removed parasites.
+This plug-in removes all parasites, or a specific parasite, on the selected layers and prints out a list of the selected layers and removed parasites.
   
-The plug-in should appear in the Layer menu.  
+The plug-in should appear in the Layer/Tag menu.  
   
-To download [**remove-layer-parasites.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/remove-layer-parasites/remove-layer-parasites.scm)  
-...follow the link, right click the page, Save as remove-layer-parasites.scm, in a folder called remove-layer-parasites, in a GIMP plug-ins location.  In Linux, set the file to be executable.
+To download [**layer-remove-parasites.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/layer-remove-parasites/layer-remove-parasites.scm)  
+...follow the link, right click the page, Save as layer-remove-parasites.scm, in a folder called remove-layer-parasites, in a GIMP plug-ins location.  In Linux, set the file to be executable.
    
    
 
 ```scheme
-
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
-(define (script-fu-remove-layer-parasites img lst)
+(define (script-fu-layer-remove-parasites img lst allP actP)
   (let*
     (
       (len "")(id 0)(i 0)(aStr "")(nme "")(para "")(actL 0)(j 0)(pV 0)(pN "")
-      (para 0)(grp 0)(len 0)
+      (para 0)(grp 0)(len 0)(det #f)
     )
 
     (if (list? lst )(set! lst (list->vector lst)))
@@ -34,24 +33,39 @@ To download [**remove-layer-parasites.scm**](https://raw.githubusercontent.com/s
       (set! para (car (gimp-item-get-parasite-list actL)))
       (set! len (length para))
       (set! aStr (string-append aStr " item id : " id " : " nme ))
-      (if (= grp 1) (set! aStr (string-append aStr " is a group \n"))
-        (set! aStr (string-append aStr " \n"))
-      )
+      (if (= grp 1) (set! aStr (string-append aStr " is a group ")))
+
       (if (= len 0)(set! aStr (string-append aStr " has no parasites \n\n")))
 
       (while (< j len)
         (set! pN (list-ref para j))
         (set! pV (get-item-parasite-string actL pN))
-        (set! aStr (string-append aStr " removing parasite : "pN" : "pV"\n"))
+
+        ; remove all?
+        (when (= allP 1)
+          (if debug (gimp-message (string-append " detatching parasite: " pN)))
+          (gimp-item-detach-parasite actL pN)
+          (set! aStr (string-append aStr "\n removed : " pN ))
+          (set! det #t)
+        )
+
+        ; remove specified?
+        (when (and (= allP 0) (equal? actP pN))
+          (if debug (gimp-message (string-append " found the parasite: " pN )))
+          (gimp-item-detach-parasite actL pN)
+          (set! aStr (string-append aStr "\n removed : " pN ))
+          (set! det #t)
+        )
+
         (if (= j (- len 1))(set! aStr (string-append aStr "\n")))
-        (gimp-item-detach-parasite actL pN)
         (set! j (+ j 1))
       )
 
       (set! i (+ i 1))
     )
 
-    (gimp-message aStr)
+    (if det (gimp-message aStr))
+    (if (not det) (gimp-message " no parasites detatched "))
 
     aStr
   )
@@ -68,7 +82,6 @@ To download [**remove-layer-parasites.scm**](https://raw.githubusercontent.com/s
     (while (< i (vector-length para))
       (set! actP (vector-ref para i))
       (when (equal? actP paraNme)
-        (if #f (gimp-message " found the parasite "))
         (set! fndV (caddar(gimp-item-get-parasite actL actP)))
         (set! i (vector-length para))
       )
@@ -79,8 +92,12 @@ To download [**remove-layer-parasites.scm**](https://raw.githubusercontent.com/s
   )
 )
 
+(define (err msg)(gimp-message(string-append " >>> " msg " <<<"))↑read-warning↑)
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+(define debug #f) ; print all debug information
+(define info #t)  ; print information
 
-(script-fu-register-filter "script-fu-remove-layer-parasites"
+(script-fu-register-filter "script-fu-layer-remove-parasites"
  "Layer Remove Parasites"
  "Removes all parasites from the selected layers"
  "Mark Sweeney"
@@ -88,7 +105,9 @@ To download [**remove-layer-parasites.scm**](https://raw.githubusercontent.com/s
  "2023"
  "*"
  SF-ONE-OR-MORE-DRAWABLE
+ SF-TOGGLE     "All Parasites"             TRUE
+ SF-STRING     "Specific Parasite"   "name"
 )
-(script-fu-menu-register "script-fu-remove-layer-parasites" "<Image>/Layer")
+(script-fu-menu-register "script-fu-layer-remove-parasites" "<Image>/Layer/Tag")
 
 ```
