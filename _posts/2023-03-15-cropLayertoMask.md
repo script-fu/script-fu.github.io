@@ -71,7 +71,7 @@ To download [**crop-layer-to-mask.scm**](https://raw.githubusercontent.com/scrip
   "Crop Layer to Mask"
   "Crops layers to the mask area, with a border" 
   "Mark Sweeney"
-  "copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
+  "Under GNU GENERAL PUBLIC LICENSE Version 3"
   "2023"
   "*"
   SF-ONE-OR-MORE-DRAWABLE

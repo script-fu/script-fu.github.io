@@ -101,7 +101,7 @@ In Linux, set the file to be executable.
   "Ghost Layer"
   "Turns a layer into a underlay ghost, puts a blank multiply layer on top" 
   "Mark Sweeney"
-  "copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
+  "Under GNU GENERAL PUBLIC LICENSE Version 3"
   "2023"
   "*"
   SF-ONE-DRAWABLE

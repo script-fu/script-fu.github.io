@@ -1,6 +1,6 @@
 # Free Script-Fu Plugins Made For GIMP 3
 
-Designed to help me in illustration production. Thanks for all the free software devs!
+These plugins are to help me make illustrations in GIMP, I hope they can help you make your own tools. Thanks for all the free software devs!
 
 [GNU GENERAL PUBLIC LICENSE Version 3](https://github.com/script-fu/script-fu.github.io/blob/main/LICENSE)
 

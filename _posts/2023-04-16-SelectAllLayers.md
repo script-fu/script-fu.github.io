@@ -89,7 +89,7 @@ To download [**select-all-layers.scm**](https://raw.githubusercontent.com/script
  "Select All Layers"
  "Selects all the layers in the stack"
  "Mark Sweeney"
- "copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
+ "Under GNU GENERAL PUBLIC LICENSE Version 3"
  "2023"
  "*"
  SF-ONE-OR-MORE-DRAWABLE

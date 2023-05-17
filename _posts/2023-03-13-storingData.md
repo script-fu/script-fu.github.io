@@ -141,7 +141,7 @@ When you need to store and retrieve data, write it to a file.
   "dataFile" 
   "example plugin that writes dataFiles to the home directory" 
   "Mark Sweeney"
-  "copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
+  "Under GNU GENERAL PUBLIC LICENSE Version 3"
   "2023"
   "*"
   SF-ONE-DRAWABLE

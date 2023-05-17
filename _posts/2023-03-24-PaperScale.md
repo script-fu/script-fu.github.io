@@ -78,7 +78,7 @@ To download [**paper-scale.scm**](https://raw.githubusercontent.com/script-fu/sc
  "Paper Scale" 
  "Creates a new image showing how big the printed image would look on paper"
  "Mark Sweeney"
- "copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
+ "Under GNU GENERAL PUBLIC LICENSE Version 3"
  "2023"
  "*"
  SF-ONE-OR-MORE-DRAWABLE

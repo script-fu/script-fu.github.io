@@ -340,7 +340,7 @@ In Linux, set the file to be executable.
  "Almost Autosave" 
  "saves all open files incrementally, if the content has changed" 
  "Mark Sweeney"
- "copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
+ "Under GNU GENERAL PUBLIC LICENSE Version 3"
  "2023"
  ""
 )
@@ -394,7 +394,7 @@ In Linux, set the file to be executable.
  "Almost Autosave Off "
  "turns off autosave"
  "Mark Sweeney"
- "copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
+ "Under GNU GENERAL PUBLIC LICENSE Version 3"
  "2023"
  ""
 )

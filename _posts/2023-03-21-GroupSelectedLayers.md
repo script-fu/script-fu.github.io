@@ -100,7 +100,7 @@ To download [**layer-group.scm**](https://raw.githubusercontent.com/script-fu/sc
  "Group" 
  "Puts the selected layers in a pass-through group" 
  "Mark Sweeney"
- "copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
+ "Under GNU GENERAL PUBLIC LICENSE Version 3"
  "2023"
  "*"
  SF-ONE-OR-MORE-DRAWABLE

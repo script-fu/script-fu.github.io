@@ -95,7 +95,7 @@ To download [**image-remove-parasites.scm**](https://raw.githubusercontent.com/s
  "Image Remove Parasites" 
  "Removes attached parasites from active image"
  "Mark Sweeney"
- "copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
+ "Under GNU GENERAL PUBLIC LICENSE Version 3"
  "2023"
  "*"
  SF-ONE-OR-MORE-DRAWABLE

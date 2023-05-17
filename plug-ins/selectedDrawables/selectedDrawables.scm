@@ -24,7 +24,7 @@
   "selectedDrawables" 
   "how to access the selected drawables with a filter plugin" 
   "Mark Sweeney"
-  "copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
+  "Under GNU GENERAL PUBLIC LICENSE Version 3"
   "2023"
   "*"
   ;SF-ONE-DRAWABLE ;  limit the plug-in to a single selected drawable

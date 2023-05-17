@@ -120,7 +120,7 @@ To download [**simple-scale.scm**](https://raw.githubusercontent.com/script-fu/s
  "Simple Scale"
  "Creates a scaled copy of all visible in a new image"
  "Mark Sweeney"
- "copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
+ "Under GNU GENERAL PUBLIC LICENSE Version 3"
  "2023"
  "*"
  SF-ONE-OR-MORE-DRAWABLE
