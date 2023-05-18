@@ -49,6 +49,7 @@
     (gimp-image-set-selected-layers img 1 (vector newLayer)) 
     (gimp-displays-flush)
     (gimp-context-pop)
+    (gimp-selection-none img)
     
   )
 )

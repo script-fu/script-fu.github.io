@@ -195,11 +195,13 @@
   (let*
     (
       (mskOn 0)(unlock 0)(allLcks 0)(placehL 0)(lckLst 0)(prxInfo 0)(prxImg 0)
-      (prxL 0)(prxLMsk 0)(actL 0)
+      (prxL 0)(prxLMsk 0)(actL 0)(tmpL 0)(mde 28)(whte (list 255 255 255))
       (wdthL (car (gimp-drawable-get-width srcGrp)))
       (hghtL (car (gimp-drawable-get-height srcGrp)))
       (offX (car(gimp-drawable-get-offsets srcGrp)))
       (offY (cadr(gimp-drawable-get-offsets srcGrp)))
+      (inkImg (get-image-parasite img "ink"))
+
     )
 
     (set! prxInfo (group-to-new-image img srcGrp))
@@ -211,13 +213,26 @@
     (set! mskOn (car (gimp-layer-get-apply-mask prxL)))
     (if (> prxLMsk 0) (gimp-layer-set-apply-mask prxL 0))
     (gimp-selection-none prxImg)
+
+    ; groups set up with multiply mode rather than normal mode need a background
+    (when inkImg
+      (gimp-message " working on a multiply mode group ")
+      (set! tmpL (add-layer prxImg prxL 0 "temp" mde 100 whte))
+      (gimp-image-lower-item-to-bottom prxImg tmpL)
+    )
+
     (gimp-edit-copy-visible prxImg)
+
+    ; remove the temporary white background for an ink image
+    (if inkImg (gimp-image-remove-layer prxImg tmpL))
+
     (if (> prxLMsk 0) (gimp-layer-set-apply-mask prxL mskOn))
 
     ; unlock everything and place the proxy in the src group folder
     (set! lckLst (set-and-store-all-locks img allLcks unlock))
     (set! placehL (reduce-group img srcGrp preFxL prxTag sDir saveNme))
-    (set! actL (paste-copied-layer img placehL 100 LAYER-MODE-NORMAL 1))
+    (if inkImg (set! mde LAYER-MODE-MULTIPLY))
+    (set! actL (paste-copied-layer img placehL 100 mde 1))
     ;crop to extent of original group
     (gimp-layer-resize actL wdthL hghtL (- 0 offX) (- 0 offY))
     (restore-all-locks lckLst)
@@ -225,6 +240,51 @@
     (gimp-item-set-color-tag srcGrp 2)
 
     prxImg
+  )
+)
+
+
+(define (add-layer img actP pos name mode opa col)
+  (let*
+    (
+      (actL 0)
+      (wdth  (car (gimp-image-get-width img)))
+      (hght (car (gimp-image-get-height img)))
+      (typ RGBA-IMAGE)
+    )
+
+    (set! actL (car (gimp-layer-new img wdth hght typ name opa mode)))
+    (gimp-image-insert-layer img actL actP pos)
+
+    (gimp-context-push)
+    (gimp-context-set-opacity 100)
+    (gimp-context-set-paint-mode LAYER-MODE-NORMAL)
+    (gimp-context-set-foreground col)
+    (gimp-drawable-fill actL 0)
+    (gimp-context-pop)
+
+    actL
+  )
+)
+
+
+(define (get-image-parasite img paraNme)
+  (let*
+    (
+      (i 0)(actP 0)(fnd #f)
+      (para (list->vector (car(gimp-image-get-parasite-list img))))
+    )
+
+    (while (< i (vector-length para))
+      (set! actP (vector-ref para i))
+      (when (equal? actP paraNme)
+        (set! fnd #t)
+        (set! i (vector-length para))
+      )
+      (set! i (+ i 1))
+    )
+
+  fnd
   )
 )
 
@@ -380,9 +440,8 @@
   (let*
     (
       (chldrn 0)(lstL 0)(i 0)(actL 0)(placehL)(placehLNme "")
-      (srcNme (car(gimp-item-get-name srcGrp)))(mode LAYER-MODE-NORMAL)
+      (srcNme (car(gimp-item-get-name srcGrp)))(mde LAYER-MODE-NORMAL)
     )
-
 
     ; find children in group before adding placeholder to group
     (set! chldrn (gimp-item-get-children srcGrp))
@@ -390,7 +449,7 @@
 
     ; add placeholder
     (set! placehLNme (string-append preFxL saveNme))
-    (set! placehL (add-image-size-layer img srcGrp 0 placehLNme mode))
+    (set! placehL (add-image-size-layer img srcGrp 0 placehLNme mde))
     (gimp-item-set-name srcGrp (string-append prxTag srcNme))
 
     ; remove group children
@@ -462,7 +521,7 @@
     ;add an initial group
     (when (> actL 0)
       (when (= (car (gimp-item-is-group actL)) 1)
-        (if #f ;debug
+        (if debug
           (gimp-message
             (string-append " initial group ->  "
                             (car(gimp-item-get-name actL))
@@ -478,7 +537,7 @@
       )
     )
     
-    (if #f ;debug
+    (if debug
       (gimp-message 
         (string-append " returning group length ->  "
                         (number->string (length allGrp))
@@ -507,7 +566,7 @@
       (while (< i (car chldrn))
         (set! actC (vector-ref lstL i))
 
-        (if #f ;debug
+        (if debug
           (gimp-message
             (string-append
               " group ->  "(car(gimp-item-get-name actL))
@@ -517,7 +576,7 @@
         )
 
         (when (equal? (car (gimp-item-is-group actC)) 1)
-          (if #f (gimp-message " child was a group "))
+          (if debug (gimp-message " child was a group "))
           (set! allGrp (append allGrp (list actC)))
           (set! allGrp (append allGrp (get-sub-groups img actC)))
         )
@@ -527,7 +586,7 @@
 
 
       (when (= (car chldrn) 0) ;debug
-        (if #f
+        (if debug
           (gimp-message 
             (string-append " an empty group ->  "
                           (car(gimp-item-get-name actL))
@@ -683,7 +742,6 @@
     )
 
     (gimp-context-pop)
-
     (list dstImg actL (car(gimp-layer-get-mask actL)))
   )
 )
@@ -1193,7 +1251,7 @@
       (set! p (/ n q))
       (set! r (ceiling p))
       (set! f (- r p ))
-      (when #f
+      (when debug
         (gimp-message 
           (string-append message
                           " : number -> " (number->string n)
@@ -1203,7 +1261,7 @@
       )
     )
 
-    (when #f
+    (when debug
       (gimp-message 
         (string-append message
                         ": start number -> " (number->string initN)
@@ -1261,7 +1319,7 @@
       (set! actNme (short-layer-name actL 10))
       (set! offXPos #t)
       (set! offYPos #t)
-      (if #f (gimp-message (string-append " adjusting layer -> " actNme)))
+      (if debug (gimp-message (string-append " adjusting layer -> " actNme)))
 
       ; get layer sizes and offsets
       (set! wdthL (car (gimp-drawable-get-width actL)))
@@ -1280,7 +1338,7 @@
       (set! yScP (find-nearest-multiple " yScP " (abs offY) scY -1))
       (if (> yScP 0)(if (not offYPos)(set! yScP (* -1 yScP))))
 
-      (when #f ; debug
+      (when debug
         (gimp-message
           (string-append
           " adjusting layer -> " actNme
@@ -1299,7 +1357,7 @@
       ; this layers size and offsets make it the same as the image, skip it
       (when (and (= srcWdth wdthL) (= srcHght hghtL))
         (when (and (= offX 0) (= offY 0))
-          (if #f (gimp-message "skip layer, matches image size and position"))
+          (if debug (gimp-message "skipping, matches image size and position"))
           (set! skip 1)
         )
       )
@@ -1311,7 +1369,7 @@
         (set! adjLst (append adjLst (list adjL wdthL hghtL offX offY scX scY)))
       )
 
-      (if #f (gimp-message (string-append " adjusted layer -> " actNme)))
+      (if debug (gimp-message (string-append " adjusted layer -> " actNme)))
       (set! i (+ i 1))
     )
 
@@ -1361,7 +1419,7 @@
       (set! adjOffX (- adjOffX offX))
       (set! adjOffY (- adjOffY offY))
 
-      (when #f ; debug
+      (when debug
         (gimp-message
           (string-append
           " cropping layer -> " actNme
@@ -1477,7 +1535,7 @@
     (set! adjWdth (find-nearest-multiple " width " adjWdth scX 1))
     (set! adjHght (find-nearest-multiple " height " adjHght scY 1))
 
-    (when #f ; debug
+    (when debug
       (gimp-message
         (string-append
           " increasing layer size -> (" (number->string adjWdth) ", "
@@ -1733,3 +1791,9 @@
 
 )
 (script-fu-menu-register "script-fu-proxy" "<Image>/Layer")
+
+; debug and error tools
+(define (err msg)(gimp-message(string-append " >>> " msg " <<<"))↑read-warning↑)
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+(define debug #t) ; print all debug information
+(define info #t)  ; print information

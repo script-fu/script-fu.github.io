@@ -2,7 +2,7 @@
 (define (script-fu-layer-group img drwbles)
   (let*
     (
-      (mde LAYER-MODE-NORMAL) ; LAYER-MODE-NORMAL ; LAYER-MODE-MULTIPLY
+      (mde LAYER-MODE-PASS-THROUGH) ; LAYER-MODE-NORMAL ; LAYER-MODE-MULTIPLY
       (nme "groupName")
 
       (drwbles (exclude-children img drwbles))
