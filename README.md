@@ -4,6 +4,8 @@ These plugins are to help me make illustrations in GIMP, I hope they can help yo
 
 [GNU GENERAL PUBLIC LICENSE Version 3](https://github.com/script-fu/script-fu.github.io/blob/main/LICENSE)
 
+## [Script-Fu Website](https://script-fu.github.io/)
+
 **AlmostAutosave** - Incrementally  autosaves any open and changed files  
 **Proxy** - Saves  layer groups to storage, adds a proxy, reduces file complexity, increases speed.  
 **Isolate Selected Layers** - Isolates layer stack selections for better visibility  
@@ -29,5 +31,5 @@ These plugins are to help me make illustrations in GIMP, I hope they can help yo
   
 Also available, **procedures.scm**, a list of custom Script-Fu procedures. 
 
-# [Script-Fu Website](https://script-fu.github.io/) 
+
 
