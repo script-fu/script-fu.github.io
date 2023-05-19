@@ -1,5 +1,5 @@
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
-(define (script-fu-newlayerFromSelection img drwbls name col mde mskB mskW)
+(define (script-fu-newlayerFromSelection img drwbls name mde mskB mskW)
   (let*
     (
       (msk 0)(pVec 0)(pos 0)(actP 0)(actL (vector-ref drwbls 0))(wdth 0)(hgt 0)
@@ -30,13 +30,14 @@
     (set! actL (car(gimp-layer-new img wdth hgt RGBA-IMAGE name 100 mde)))
 
     (gimp-layer-set-offsets actL (vector-ref pVec 1) (vector-ref pVec 2))
-    (gimp-context-set-background col)
+    (gimp-context-set-background (list 128 128 128))
     (gimp-image-insert-layer img actL actP pos)
     (gimp-drawable-edit-fill actL FILL-BACKGROUND)
-    (add-mask actL msk)
+    (if (or (= mskB 1) (= mskW 1))
+      (gimp-layer-set-edit-mask actL (add-mask actL msk))
+    )
     (gimp-image-set-selected-layers img 1 (vector actL))
     (gimp-selection-none img)
-
     (gimp-image-undo-group-end img)
     (gimp-displays-flush)
     (gimp-context-pop)
@@ -71,7 +72,6 @@
   "*"
   SF-ONE-DRAWABLE
   SF-STRING     "name"   "newLayer"
-  SF-COLOR      "fill colour"   "white"
   SF-TOGGLE     "multiply"             1
   SF-TOGGLE     "add black mask"             1
   SF-TOGGLE     "add white mask"             0
