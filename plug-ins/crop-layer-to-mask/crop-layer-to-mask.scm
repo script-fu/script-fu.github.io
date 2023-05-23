@@ -1,56 +1,53 @@
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
-(define (script-fu-crop-layer-to-mask img lstL expand)
-(let*
+(define (script-fu-crop-layer-to-mask img drwbls expand)
+  (let*
     (
-      (actL 0)(pnts 0)(mskSel 0)(wdthL 0)(hghtL 0)(offX 0)(offY 0)(i 0)
-      (crpW 0)(crpH 0)(actMsk 0)
+      (actL 0)(pnts 0)(mskSel 0)(wdth 0)(hgt 0)(offX 0)(offY 0)(i 0)(drwMsk 0)
     )
 
-    (gimp-image-undo-group-start img)
     (gimp-context-push)
-    (if (list? lstL) (set! lstL (list->vector lstL)))
-    (while (< i (vector-length lstL))
-      (set! actL (vector-ref lstL i))
-      
+    (gimp-image-undo-group-start img)
+
+    (while (< i (vector-length drwbls))
+      (set! actL (vector-ref drwbls i))
+
       (if (= (car (gimp-item-id-is-layer-mask actL)) 1)
         (set! actL (car(gimp-layer-from-mask actL)))
       )
-      
-      (set! actMsk (car (gimp-layer-get-mask actL)))
-      
-      (when (> actMsk 0)
-        (set! offX (car (gimp-drawable-get-offsets actL)))
-        (set! offY (car (cdr (gimp-drawable-get-offsets actL))))
-        (set! wdthL (car (gimp-drawable-get-width actL)))
-        (set! hghtL (car (gimp-drawable-get-height actL)))
-        (set! mskSel (gimp-image-select-item img CHANNEL-OP-REPLACE actMsk))
-        
-        (set! pnts (make-vector 4 'double))
-        (vector-set! pnts 0 (car(cdr(gimp-selection-bounds img))))
-        (vector-set! pnts 1 (car(cddr(gimp-selection-bounds img))))
-        (vector-set! pnts 2 (car(cdddr(gimp-selection-bounds img))))
-        (vector-set! pnts 3 (car(cddr(cddr(gimp-selection-bounds img)))))
 
+      (set! drwMsk (car (gimp-layer-get-mask actL)))
+
+      (when (> drwMsk 0)
+        (set! offX (car (gimp-drawable-get-offsets actL)))
+        (set! offY (cadr (gimp-drawable-get-offsets actL)))
+        (set! wdth (car (gimp-drawable-get-width actL)))
+        (set! hgt (car (gimp-drawable-get-height actL)))
+        (set! mskSel (gimp-image-select-item img CHANNEL-OP-REPLACE drwMsk))
+
+        (set! pnts (list->vector(cdr (gimp-selection-bounds img))))
         (vector-set! pnts 0 (- (vector-ref pnts 0) expand))
         (vector-set! pnts 1 (- (vector-ref pnts 1) expand))
         (vector-set! pnts 2 (+ (vector-ref pnts 2) expand))
         (vector-set! pnts 3 (+ (vector-ref pnts 3) expand))
 
-        (set! crpW (- (vector-ref pnts 2) (vector-ref pnts 0)))
-        (set! crpH (- (vector-ref pnts 3) (vector-ref pnts 1)))
+        (set! wdth (- (vector-ref pnts 2) (vector-ref pnts 0)))
+        (set! hgt (- (vector-ref pnts 3) (vector-ref pnts 1)))
         (set! offX (- offX (vector-ref pnts 0)))
         (set! offY (- offY (vector-ref pnts 1)))
 
-        (gimp-layer-resize actL crpW crpH offX offY)
+        (gimp-layer-resize actL wdth hgt offX offY)
       )
+
       (set! i (+ i 1))
     )
+
     (gimp-selection-none img)
-    (gimp-context-pop)
+    (gimp-context-push)
     (gimp-image-undo-group-end img)
 
   )
 )
+
 
 (script-fu-register-filter "script-fu-crop-layer-to-mask"
   "Crop Layer to Mask"
