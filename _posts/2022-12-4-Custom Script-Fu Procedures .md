@@ -118,6 +118,7 @@ To download [**procedures.scm**](https://raw.githubusercontent.com/script-fu/scr
 
 ```scheme
 
+
 ; Tested in GIMP 2.99.14
 ; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
 ; last updated April 2023
@@ -1200,6 +1201,17 @@ To download [**procedures.scm**](https://raw.githubusercontent.com/script-fu/scr
 )
 
 
+; fills a layer with a color list
+(define (fill-layer-list actL col)
+  (gimp-context-push)
+  (gimp-context-set-opacity 100)
+  (gimp-context-set-paint-mode LAYER-MODE-NORMAL)
+  (gimp-context-set-foreground col)
+  (gimp-drawable-fill actL 0)
+  (gimp-context-pop)
+)
+
+
 ; adds a new RGBA layer to an image, inserts, names and fills with a color
 ; (img, parent, pos, name, mode, opacity, color (list (0-255)(0-255)(0-255))
 ; blend modes ...LAYER-MODE-NORMAL LAYER-MODE-MULTIPLY LAYER-MODE-ADDITION...
@@ -1256,55 +1268,49 @@ To download [**procedures.scm**](https://raw.githubusercontent.com/script-fu/scr
 
 ; crops layer list to the mask area, plus a safe border
 ; (image, list of layers, border width)
-(define (mask-box-crop img lstL expand)
-(let*
+(define (mask-box-crop img drwbls expand)
+  (let*
     (
-      (actL 0)(pnts 0)(mskSel 0)(wdthL 0)(hghtL 0)(offX 0)(offY 0)(i 0)
-      (crpW 0)(crpH 0)(actMsk 0)
+      (actL 0)(pnts 0)(mskSel 0)(wdth 0)(hgt 0)(offX 0)(offY 0)(i 0)(drwMsk 0)
     )
 
-    (gimp-image-undo-group-start img)
     (gimp-context-push)
-    (if (list? lstL) (set! lstL (list->vector lstL)))
-    (while (< i (vector-length lstL))
-      (set! actL (vector-ref lstL i))
-      
+
+    (while (< i (vector-length drwbls))
+      (set! actL (vector-ref drwbls i))
+
       (if (= (car (gimp-item-id-is-layer-mask actL)) 1)
         (set! actL (car(gimp-layer-from-mask actL)))
       )
-      
-      (set! actMsk (car (gimp-layer-get-mask actL)))
-      
-      (when (> actMsk 0)
-        (set! offX (car (gimp-drawable-get-offsets actL)))
-        (set! offY (car (cdr (gimp-drawable-get-offsets actL))))
-        (set! wdthL (car (gimp-drawable-get-width actL)))
-        (set! hghtL (car (gimp-drawable-get-height actL)))
-        (set! mskSel (gimp-image-select-item img CHANNEL-OP-REPLACE actMsk))
-        
-        (set! pnts (make-vector 4 'double))
-        (vector-set! pnts 0 (car(cdr(gimp-selection-bounds img))))
-        (vector-set! pnts 1 (car(cddr(gimp-selection-bounds img))))
-        (vector-set! pnts 2 (car(cdddr(gimp-selection-bounds img))))
-        (vector-set! pnts 3 (car(cddr(cddr(gimp-selection-bounds img)))))
 
+      (set! drwMsk (car (gimp-layer-get-mask actL)))
+
+      (when (> drwMsk 0)
+        (set! offX (car (gimp-drawable-get-offsets actL)))
+        (set! offY (cadr (gimp-drawable-get-offsets actL)))
+        (set! wdth (car (gimp-drawable-get-width actL)))
+        (set! hgt (car (gimp-drawable-get-height actL)))
+        (set! mskSel (gimp-image-select-item img CHANNEL-OP-REPLACE drwMsk))
+
+        (set! pnts (list->vector(cdr (gimp-selection-bounds img))))
         (vector-set! pnts 0 (- (vector-ref pnts 0) expand))
         (vector-set! pnts 1 (- (vector-ref pnts 1) expand))
         (vector-set! pnts 2 (+ (vector-ref pnts 2) expand))
         (vector-set! pnts 3 (+ (vector-ref pnts 3) expand))
 
-        (set! crpW (- (vector-ref pnts 2) (vector-ref pnts 0)))
-        (set! crpH (- (vector-ref pnts 3) (vector-ref pnts 1)))
+        (set! wdth (- (vector-ref pnts 2) (vector-ref pnts 0)))
+        (set! hgt (- (vector-ref pnts 3) (vector-ref pnts 1)))
         (set! offX (- offX (vector-ref pnts 0)))
         (set! offY (- offY (vector-ref pnts 1)))
 
-        (gimp-layer-resize actL crpW crpH offX offY)
+        (gimp-layer-resize actL wdth hgt offX offY)
       )
+
       (set! i (+ i 1))
     )
+
     (gimp-selection-none img)
-    (gimp-context-pop)
-    (gimp-image-undo-group-end img)
+    (gimp-context-push)
 
   )
 )
@@ -1848,7 +1854,50 @@ To download [**procedures.scm**](https://raw.githubusercontent.com/script-fu/scr
 )
 
 
+; returns #t or #f if parasite is on a specified image
+; (image id, parasite name)
+(define (get-image-parasite img paraNme)
+  (let*
+    (
+      (i 0)(actP 0)(fnd #f)
+      (para (list->vector (car(gimp-image-get-parasite-list img))))
+    )
 
+    (while (< i (vector-length para))
+      (set! actP (vector-ref para i))
+      (when (equal? actP paraNme)
+        (set! fnd #t)
+        (set! i (vector-length para))
+      )
+      (set! i (+ i 1))
+    )
+
+  fnd
+  )
+)
+
+
+; returns #t or #f if parasite is on a specified layer
+; (layer id, parasite name)
+(define (get-layer-parasite actL paraNme)
+  (let*
+    (
+      (i 0)(actP 0)(fnd #f)
+      (para (list->vector (car(gimp-item-get-parasite-list actL))))
+    )
+
+    (while (< i (vector-length para))
+      (set! actP (vector-ref para i))
+      (when (equal? actP paraNme)
+        (set! fnd #t)
+        (set! i (vector-length para))
+      )
+      (set! i (+ i 1))
+    )
+
+  fnd
+  )
+)
 ;                       * Filter Lists Procedures *                             
 
 ; filters a vector list of drawables, returns a vector list of only the groups
@@ -2096,6 +2145,20 @@ To download [**procedures.scm**](https://raw.githubusercontent.com/script-fu/scr
 )
 
 
+(define (print-RGB msg lst)
+  (let*
+    (
+      (red 0)(grn 0)(blu 0)
+    )
+    
+    (if (list? lst) (set! lst (list->vector lst)))
+    (set! red (number->string (vector-ref lst 0)))
+    (set! grn (number->string (vector-ref lst 1)))
+    (set! blu (number->string (vector-ref lst 2)))
+    (gimp-message (string-append msg " RGB : " red ", " grn ", " blu))
+
+  )
+)
 
 ;                            * Misc Procedures *                                
 
@@ -2115,6 +2178,38 @@ To download [**procedures.scm**](https://raw.githubusercontent.com/script-fu/scr
 (define (bubble-sort len lst)
   (cond ((= len 1) (bubble-up lst))
     (else (bubble-sort (- len 1) (bubble-up lst)))
+  )
+)
+
+
+(define (get-pixel-color img actL px py)
+  (let*
+    (
+      (offX 0)(offY 0)(col 0)(debug #f)
+    )
+
+    ; take into account layer offset
+    (set! offX (+ (car (gimp-drawable-get-offsets actL)) px))
+    (set! offY (+ (cadr (gimp-drawable-get-offsets actL)) py))
+    (set! col (car (gimp-image-pick-color img 1 (vector actL) offX offY 0 0 1)))
+
+    (if debug
+      (gimp-message
+        (string-append
+          " colour picking "
+          "\n sample layer is " (car (gimp-item-get-name actL))
+          "\n image ID is " (number->string img)
+          "\n sample offset is : ("(number->string px) ", " 
+                                   (number->string py) ")"
+          "\n sample point is : (" (number->string offX) ", "
+                                   (number->string offY) ")"
+        )
+      )
+    )
+
+    (if debug (print-RGB "freshly picked" col))
+
+    col
   )
 )
 
@@ -2256,6 +2351,8 @@ To download [**procedures.scm**](https://raw.githubusercontent.com/script-fu/scr
 (define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
 (define debug #t) ; print all debug information
 (define info #t)  ; print information
+(define (boolean->string bool) (if bool "#t" "#f"))
+
 
 ```
 

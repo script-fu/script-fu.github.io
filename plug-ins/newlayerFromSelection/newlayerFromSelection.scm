@@ -30,9 +30,9 @@
     (set! actL (car(gimp-layer-new img wdth hgt RGBA-IMAGE name 100 mde)))
 
     (gimp-layer-set-offsets actL (vector-ref pVec 1) (vector-ref pVec 2))
-    (gimp-context-set-background (list 128 128 128))
+    ;(gimp-context-set-foreground (list 128 128 128))
     (gimp-image-insert-layer img actL actP pos)
-    (gimp-drawable-edit-fill actL FILL-BACKGROUND)
+    (gimp-drawable-edit-fill actL FILL-FOREGROUND)
     (if (or (= mskB 1) (= mskW 1))
       (gimp-layer-set-edit-mask actL (add-mask actL msk))
     )
