@@ -3,29 +3,35 @@
   (let*
     (
       (tint (list 220 146 43)) ; default tint RGB
-      (actL 0)(srcGrp 0)(srcL 0)(layerLst (all-childrn img 0))
-      (mxGrp (find-layer img "mixer"))
-      (update mxGrp)
+      (actL 0)(srcL 0)(layerLst (all-childrn img 0))
+      (mxGrp (get-layers-tagged img layerLst "mixer"))
+      (srcGrp (get-layers-tagged img layerLst "mixersource"))
+      (isMxr (vector-length mxGrp))
+      (isSrc (vector-length srcGrp))
     )
-
+    
     (gimp-context-push)
     (gimp-image-undo-group-start img)
     (gimp-selection-none img)
 
-    ; initial set up
-    (when (= update 0)
+    ; initial set up, look for an existing source group, mixer may be deleted
+    (when (= isMxr 0)
       (resolve-name-conflicts img)
-      (set! srcGrp (source-group img))
+      (if (= isSrc 0)(set! srcGrp (source-group img))
+        (set! srcGrp (vector-ref srcGrp 0))
+      )
       (set! mxGrp (add-mix-grp img 0 0 "mixer" LAYER-MODE-PASS-THROUGH))
       (set! srcL (paste-copy img 0 img 0 mxGrp "! no edit !" 0 ))
       (gimp-item-set-lock-content srcL 1) 
       (gimp-item-set-expanded srcGrp 0)
       (gimp-item-set-visible srcGrp 0)
       (gimp-image-lower-item img mxGrp)
+      (tag-layer mxGrp "mixer" 3 "mixer" 0)
     )
 
-    ; Or update a mixer
-    (when (> update 0)
+    ; Or update a mixer if one was found
+    (when (> isMxr 0)
+      (set! mxGrp (vector-ref mxGrp 0))
       (gimp-item-set-visible mxGrp 0)
       (set! srcGrp (find-layer img "source" 0))
       (if (= srcGrp 0)(err "no 'source' group found"))
@@ -43,43 +49,43 @@
     )
 
     ; add some adjustment layers
-    (set! actL (add-mix img srcL mxGrp "bright" LAYER-MODE-LIGHTEN-ONLY update))
+    (set! actL (add-mix img srcL mxGrp "bright" LAYER-MODE-LIGHTEN-ONLY isMxr))
     (when (> actL 0)
       (apply-lighten-curve img actL)
       (gimp-item-set-lock-content actL 1)
     )
 
-    (set! actL (add-mix img srcL mxGrp "contrast" LAYER-MODE-NORMAL update))
+    (set! actL (add-mix img srcL mxGrp "contrast" LAYER-MODE-NORMAL isMxr))
     (when (> actL 0)
       (gimp-drawable-brightness-contrast actL 0 0.1)
       (gimp-item-set-lock-content actL 1)
     )
 
-    (set! actL (add-mix img srcL mxGrp "s-curve" LAYER-MODE-NORMAL update))
+    (set! actL (add-mix img srcL mxGrp "s-curve" LAYER-MODE-NORMAL isMxr))
     (when (> actL 0)
       (apply-s-curve img actL)
       (gimp-item-set-lock-content actL 1)
     )
 
-    (set! actL (add-mix img srcL mxGrp "dodge" LAYER-MODE-DODGE update))
+    (set! actL (add-mix img srcL mxGrp "dodge" LAYER-MODE-DODGE isMxr))
     (when (> actL 0)
       (curve-2-value img actL 0 0 255 128)
       (gimp-item-set-lock-content actL 1)
     )
 
-    (set! actL (add-mix img srcL mxGrp "burn" LAYER-MODE-BURN update))
+    (set! actL (add-mix img srcL mxGrp "burn" LAYER-MODE-BURN isMxr))
     (when (> actL 0)
       (curve-2-value img actL 0 128 255 255)
       (gimp-item-set-lock-content actL 1)
     )
 
-    (set! actL (add-mix img srcL mxGrp "b&w" LAYER-MODE-LCH-CHROMA update))
+    (set! actL (add-mix img srcL mxGrp "b&w" LAYER-MODE-LCH-CHROMA isMxr))
     (when (> actL 0)
       (gimp-drawable-desaturate actL DESATURATE-AVERAGE)
       (gimp-item-set-lock-content actL 1)
     )
 
-    (set! actL (add-mix img srcL mxGrp "chroma" LAYER-MODE-NORMAL update))
+    (set! actL (add-mix img srcL mxGrp "chroma" LAYER-MODE-NORMAL isMxr))
     (when (> actL 0)
       (gimp-drawable-hue-saturation actL 0 0 0 100 100)
       (gimp-item-set-lock-content actL 1)
@@ -88,8 +94,8 @@
     ; more adjustment layers here, possible to extend
 
     ; tint layer is a special intial creation case
-    (when (= update 0)
-      (set! actL(add-mix img srcL mxGrp "tint" LAYER-MODE-LCH-COLOR update))
+    (when (= isMxr 0)
+      (set! actL(add-mix img srcL mxGrp "tint" LAYER-MODE-LCH-COLOR isMxr))
       (when (> actL 0)
         (gimp-context-set-foreground tint)
         (gimp-context-set-opacity 100)
@@ -392,8 +398,41 @@
   )
 )
 
-(define (err msg)(gimp-message(string-append " >>> " msg " <<<"))↑read-warning↑)
-(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+
+(define (tag-layer actL name mode tagV col)
+  (if(= (car (gimp-item-id-is-layer-mask actL)) 1)
+    (set! actL (car(gimp-layer-from-mask actL)))
+  )
+  (gimp-item-attach-parasite actL (list name mode tagV))
+  (gimp-item-set-color-tag actL col)
+)
+
+
+(define (get-layers-tagged img lstL tag)
+  (let*
+    (
+      (tLst ())(actL 0)(paraLst 0)(pNme 0)(i 0)(j 0)
+    )
+
+    (if (list? lstL) (set! lstL (list->vector lstL)))
+    (while (< i (vector-length lstL))
+      (set! actL (vector-ref lstL i))
+      (set! paraLst (list->vector (car (gimp-item-get-parasite-list actL))))
+      (when (> (vector-length paraLst) 0)
+        (set! j 0)
+        (while(< j (vector-length paraLst))
+          (set! pNme (vector-ref paraLst j))
+          (if (equal? pNme tag)(set! tLst (append tLst (list actL))))
+          (set! j (+ j 1))
+        )
+      )
+      (set! i (+ i 1))
+    )
+
+    (list->vector tLst)
+  )
+)
+
 
 (script-fu-register-filter "script-fu-adjustment-mixer"
  "Adjustment Mixer" 
@@ -405,3 +444,11 @@
  SF-ONE-OR-MORE-DRAWABLE
 )
 (script-fu-menu-register "script-fu-adjustment-mixer" "<Image>/Image")
+
+
+; debug and error tools
+(define (err msg)(gimp-message(string-append " >>> " msg " <<<"))↑read-warning↑)
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+(define debug #t) ; print all debug information
+(define info #t)  ; print information
+(define (boolean->string bool) (if bool "#t" "#f"))
