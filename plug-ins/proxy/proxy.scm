@@ -1735,7 +1735,7 @@
     (while (< i (length paraStrLst))
       (set! paraName (vector-ref (list->vector paraStrLst) i))
       (set! paraVal (vector-ref (list->vector paraStrLst) (+ i 2)))
-      (gimp-item-attach-parasite actL (list paraName 0 paraVal))
+      (gimp-item-attach-parasite actL (list paraName 3 paraVal))
       (set! i (+ i 3))
     )
 

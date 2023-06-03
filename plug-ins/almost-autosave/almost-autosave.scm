@@ -15,7 +15,7 @@
     (
 
       ; *** tweak these numbers for user preference ***
-      (timeDelay 10) ; minutes between autosaves
+      (timeDelay 15) ; minutes between autosaves
       (increments 6) ; number of incremental saves
       (save-location "Autosaved"); will be saved in "home/Autosaved/"
       (quiet 0) ; set to 1 to stop any repeating saving messages
