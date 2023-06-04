@@ -92,7 +92,7 @@ To download [**layer-remove-parasites.scm**](https://raw.githubusercontent.com/s
   )
 )
 
-(define (err msg)(gimp-message(string-append " >>> " msg " <<<"))↑read-warning↑)
+(define (err msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
 (define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
 (define debug #f) ; print all debug information
 (define info #t)  ; print information

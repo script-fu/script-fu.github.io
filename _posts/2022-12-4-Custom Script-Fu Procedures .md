@@ -2347,7 +2347,7 @@ To download [**procedures.scm**](https://raw.githubusercontent.com/script-fu/scr
 
 
 ; debug and error tools
-(define (err msg)(gimp-message(string-append " >>> " msg " <<<"))↑read-warning↑)
+(define (err msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
 (define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
 (define debug #t) ; print all debug information
 (define info #t)  ; print information
