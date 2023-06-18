@@ -21,7 +21,7 @@
         (set! srcGrp (vector-ref srcGrp 0))
       )
       (set! mxGrp (add-mix-grp img 0 0 "mixer" LAYER-MODE-PASS-THROUGH))
-      (set! srcL (paste-copy img 0 img 0 mxGrp "! no edit !" 0 ))
+      (set! srcL (paste-copy img srcGrp img 0 mxGrp "! no edit !"))
       (gimp-item-set-lock-content srcL 1) 
       (gimp-item-set-expanded srcGrp 0)
       (gimp-item-set-visible srcGrp 0)
@@ -37,10 +37,10 @@
       (if (= srcGrp 0)(err "no 'source' group found"))
       (set! srcL (find-layer img "! no edit !" ))
       (when (= srcL 0)
-        (set! srcL (paste-copy img 0 img 0 mxGrp "! no edit !" 0 ))
+        (set! srcL (paste-copy img srcGrp img 0 mxGrp "! no edit !"))
       )
       (gimp-item-set-lock-content srcL 0)
-      (set! srcL (transfer-layer-preserve img srcGrp srcL))
+      (set! srcL (replace-layer-content img srcGrp srcL))
       (gimp-item-set-lock-content srcL 1)
       (gimp-item-set-visible mxGrp 1)
       (gimp-item-set-visible srcGrp 0)
@@ -103,7 +103,8 @@
         (gimp-drawable-fill actL FILL-FOREGROUND)
       )
     )
-
+    
+    (gimp-message " finished adjustment mixer ")
     (gimp-displays-flush)
     (gimp-image-undo-group-end img)
     (gimp-context-pop)
@@ -175,7 +176,7 @@
     )
 
     (when (= update 0)
-      (set! actL (paste-copy img srcL img actL parent name 0))
+      (set! actL (paste-copy img srcL img 0 parent name))
       (gimp-layer-set-opacity actL 0)
       (gimp-layer-set-mode actL mode)
       (gimp-layer-set-opacity actL 0)
@@ -185,7 +186,7 @@
       (set! actL (find-layer img name) 0)
       (when (> actL 0)
         (gimp-item-set-lock-content actL 0)
-        (set! actL (transfer-layer-preserve img srcL actL))
+        (set! actL (replace-layer-content img srcL actL))
       )
     )
 
@@ -275,50 +276,42 @@
 )
 
 
-(define (paste-copy img srcL dstImg dstL dstP name crop)
+(define (paste-copy img srcL dstImg dstL dstP name)
   (let*
     (
-    (actL 0)(cur-width 0)(cur-height 0)(dstExst dstL)
+    (actL 0)(cur-width 0)(cur-height 0)(dstExst dstL)(offX 0)(offY 0)
     )
 
-    (when (= srcL 0)
-      (gimp-edit-copy-visible img)
-      (set! cur-width (car (gimp-image-get-width img)))
-      (set! cur-height (car (gimp-image-get-height img)))
-    )
+    ; make a copy of the source group
+    (gimp-edit-copy 1 (vector srcL))
+    (set! cur-width (car (gimp-drawable-get-width srcL)))
+    (set! cur-height (car (gimp-drawable-get-height srcL)))
+    (set! offX (car (gimp-drawable-get-offsets srcL)))
+    (set! offY (cadr (gimp-drawable-get-offsets srcL)))
 
-    ; get size and ID of first drawable
-    (when (> srcL 0)
-      (gimp-edit-copy 1 (vector srcL))
-      (set! cur-width (car (gimp-drawable-get-width srcL)))
-      (set! cur-height (car (gimp-drawable-get-height srcL)))
+    ;add a new destination layer
+    (set! dstL (car (gimp-layer-new dstImg
+                                    cur-width
+                                    cur-height
+                                    RGBA-IMAGE
+                                    "dstL"
+                                    100
+                                    LAYER-MODE-NORMAL
+                      )
+                )
     )
+    (gimp-image-insert-layer dstImg dstL dstP 0)
+    (gimp-layer-set-offsets dstL offX offY)
 
-    ;add a new destination layer if needed
-    (when (= dstExst 0)
-      (set! dstL (car (gimp-layer-new dstImg
-                                      cur-width
-                                      cur-height
-                                      RGBA-IMAGE
-                                      "dstL"
-                                      100
-                                      LAYER-MODE-NORMAL
-                       )
-                  )
-      )
-      (gimp-image-insert-layer dstImg dstL dstP 0)
-    )
-
+    ; paste onto the destination layer
     (set! actL (vector-ref (cadr(gimp-edit-paste dstL 1)) 0 ))
-    
-    ; floating selection to new layer or anchor to temporary layer?
-    (if (= dstExst 1)(gimp-floating-sel-to-layer actL)
-      (gimp-floating-sel-anchor actL)
-    )
 
+    ; anchor to temporary layer and resize to image
+    (gimp-floating-sel-anchor actL)
     (set! actL (vector-ref (cadr(gimp-image-get-selected-layers dstImg))0))
+    (gimp-layer-resize-to-image-size actL)
     (gimp-item-set-name actL name)
-    (if (= crop 1)(gimp-layer-resize-to-image-size actL))
+
     actL
   )
 )
@@ -381,20 +374,29 @@
 )
 
 
-(define (transfer-layer-preserve img srcLayer dstL)
+(define (replace-layer-content img srcL dstL)
   (let*
     (
       (actL 0)(name 0)
+      (offX (car (gimp-drawable-get-offsets srcL)))
+      (offY (cadr (gimp-drawable-get-offsets srcL)))
     )
 
     (set! name (car (gimp-item-get-name dstL)))
-    (gimp-edit-copy 1 (vector srcLayer))
+    (gimp-drawable-edit-clear dstL)
+
+    (gimp-selection-none img)
+    (gimp-edit-copy 1 (vector srcL))
     (set! actL (vector-ref (cadr(gimp-edit-paste dstL 1)) 0 ))
+    (gimp-selection-none img)
+    (gimp-layer-set-offsets actL offX offY)
+
     (gimp-floating-sel-anchor actL)
     (set! actL (vector-ref (cadr(gimp-image-get-selected-layers img))0))
     (gimp-item-set-name actL name)
-    actL
+    (gimp-layer-resize-to-image-size actL)
 
+    actL
   )
 )
 

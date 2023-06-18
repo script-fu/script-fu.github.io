@@ -10,6 +10,7 @@ These plugins are to help me make illustrations in GIMP, I hope they can help yo
 **Proxy** - Saves  layer groups to storage, adds a proxy, reduces file complexity, increases speed.  
 **Isolate Selected Layers** - Isolates layer stack selections for better visibility  
 **Adjustment Layers** - Apply a repeatable set of tweaks to an image  
+**Mask Mode** - Protects layers when painting masks, makes the mask always active.  
 
 **Paper Scale** - Shows what the active image would look like if printed out on A4  
 **Precise Scale** - Scales an image with offset layers, without layer movement  
@@ -17,7 +18,8 @@ These plugins are to help me make illustrations in GIMP, I hope they can help yo
   
 **Collapse All Groups** - Layer stack utility  
 **Expand or Collapse Groups** - Layer stack utility  
-  
+
+**Ghost Layer** - A little time-saver to set up a pencil layer for inking  
 **Select All Layers** - Selects every layer in the stack  
 **Group Selected Layers** - Puts any selected layers in one group  
 **Layer ID** - Prints a list of selected layers and ids  
