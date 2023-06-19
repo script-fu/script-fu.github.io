@@ -1195,6 +1195,51 @@
   )
 )
 
+
+; creates a list of all layers and color tag index and then sets the color index
+; (source image, color tag value 0-8 )
+; returns a list of the layers and old tag col, (layer ID, index color)
+(define (set-and-store-all-layer-colors img col)
+  (let*
+    (
+      (i 0)(lstL ())(actL 0)(colLst())(colT 0)
+    )
+
+    (set! lstL (all-childrn img 0))
+    (set! lstL (list->vector lstL))
+    (while (< i (vector-length lstL))
+      (set! actL (vector-ref lstL i))
+      (set! colT (car(gimp-item-get-color-tag actL)))
+      (set! colLst (append colLst (list actL colT)))
+      (gimp-item-set-color-tag actL col)
+      (set! i (+ i 1))
+    )
+
+    colLst
+  )
+)
+
+; restores layers and color tags from a stored list
+(define (restore-all-layer-colors colLst)
+  (let*
+    (
+      (actL 0)(i 0)(exst 0)
+    )
+
+    (if (list? colLst) (set! colLst (list->vector colLst)))
+    (while (< i (vector-length colLst))
+      (set! actL (vector-ref colLst i))
+      (set! exst (car (gimp-item-id-is-valid actL)))
+      (when (= exst 1)
+        (gimp-item-set-color-tag actL (vector-ref colLst (+ i 1)))
+      )
+      (set! i (+ i 2))
+    )
+
+  )
+)
+
+
 ; creates a list of layers and their locks and then sets all the locks on/off
 ; (source image, group/0, lock value 0/1 ) set group to zero for all layers
 ; returns a list of what the layers locks used to be
