@@ -1,17 +1,47 @@
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
-(define (script-fu-simple-scale img drawables scaleX scaleY pix pX pY)
+(define (script-fu-simple-scale img drawables scaleX scaleY pix pX pY crop)
   (let*
     (
-      (width (car (gimp-image-get-width img)))
-      (height (car (gimp-image-get-height img)))
+      (width 0)(height 0)(brkTok "/")(cropMsk 0)(cropBx 0)(opac 0)
       (dstImg 0)(dstL 0)(fileInfo (get-file-info img))(safeName "")
       (fileNoExt (vector-ref fileInfo 2))(ScAdj 0)
       (filePath (vector-ref fileInfo 3))(fileBase (vector-ref fileInfo 1))
-      (brkTok "/")
       (mode INTERPOLATION-CUBIC) ; LINEAR ; CUBIC ; NOHALO ; LOHALO ; NONE
     )
 
     (if (equal? () (car (file-glob "/usr" 0)))(set! brkTok "\\")); windows OS
+
+    (gimp-context-push)
+
+    ; look for a cropping layer and create a selection from its mask
+    (set! cropBx (car(gimp-image-get-layer-by-name img "crop")))
+    (if (> cropBx 0 ) (set! cropMsk (car(gimp-layer-get-mask cropBx))))
+
+    (when (and (< cropMsk 0 ) (= crop 1))
+      (gimp-message "make a masked layer that frames the image called \"crop\"")
+    )
+
+    (when (> cropMsk 0 )
+      (when (> crop 0)
+        (gimp-image-select-item img CHANNEL-OP-REPLACE cropMsk)
+        (gimp-selection-invert img )
+      )
+      (when (= crop 0)
+        (set! opac (car (gimp-layer-get-opacity cropBx)))
+        (gimp-layer-set-opacity cropBx 0)
+      )
+    )
+
+    ; copy visible in selected area
+    (gimp-edit-copy-visible img)
+
+    ; restore opacity if crop box was ignored
+    (if (> opac 0) (gimp-layer-set-opacity cropBx opac))
+    (gimp-selection-none img )
+
+    (set! dstImg (car (gimp-edit-paste-as-new-image)))
+    (set! width (car (gimp-image-get-width dstImg)))
+    (set! height (car (gimp-image-get-height dstImg)))
 
     ; adjust scale factors for rounded-up resolution
     (set! ScAdj (percent-to-resolution scaleX scaleY width height))
@@ -19,9 +49,6 @@
     (set! height (cadr ScAdj))
     (if (> pix 0)(set! width pX))(if (> pix 0)(set! height pY))
 
-    (gimp-context-push)
-    (gimp-edit-copy-visible img)
-    (set! dstImg (car (gimp-edit-paste-as-new-image)))
     (gimp-context-set-interpolation mode)
     (if (< width 1)(set! width 1))(if (< height 1)(set! height))
     (gimp-image-scale dstImg width height)
@@ -114,5 +141,13 @@
  SF-TOGGLE     "By Pixel"             FALSE
  SF-ADJUSTMENT "Pixel Width" (list 512 1 10000 1 10 0 SF-SPINNER)
  SF-ADJUSTMENT "Pixel Height" (list 512 1 10000 1 10 0 SF-SPINNER)
+ SF-TOGGLE     "Use Crop Layer"             TRUE
 )
 (script-fu-menu-register "script-fu-simple-scale" "<Image>/Image")
+
+; debug and error tools
+(define (err msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+(define debug #t) ; print all debug information
+(define info #t)  ; print information
+(define (boolean->string bool) (if bool "#t" "#f"))
