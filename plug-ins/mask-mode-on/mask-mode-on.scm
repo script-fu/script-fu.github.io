@@ -42,7 +42,7 @@
         (usleep (* 60 (* timeDelay 1000000)))
       ); mask mode loop
 
-      (restore-all-layer-colors colLst)
+      (restore-all-layer-colors img colLst)
 
       (if info
         (if(= (mask-mode-match-pid "mask-mode-pid" mmPID) 0)
@@ -123,6 +123,7 @@
       (i 0)(lstL ())(actL 0)(colLst())(colT 0)
     )
 
+    (gimp-image-undo-group-start img)
     (set! lstL (all-childrn img 0))
     (set! lstL (list->vector lstL))
     (while (< i (vector-length lstL))
@@ -132,18 +133,21 @@
       (gimp-item-set-color-tag actL col)
       (set! i (+ i 1))
     )
+    (gimp-image-undo-group-end img)
 
     colLst
   )
 )
 
 
-(define (restore-all-layer-colors colLst)
+(define (restore-all-layer-colors img colLst)
   (let*
     (
       (actL 0)(i 0)(exst 0)
     )
 
+    ; ignore these steps in the undo stack
+    (gimp-image-undo-freeze img)
     (if (list? colLst) (set! colLst (list->vector colLst)))
     (while (< i (vector-length colLst))
       (set! actL (vector-ref colLst i))
@@ -153,6 +157,7 @@
       )
       (set! i (+ i 2))
     )
+    (gimp-image-undo-thaw img)
 
   )
 )
