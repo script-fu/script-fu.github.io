@@ -54,8 +54,10 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
     (when (> isMxr 0)
       (set! mxGrp (vector-ref mxGrp 0))
       (gimp-item-set-visible mxGrp 0)
-      (set! srcGrp (vector-ref srcGrp 0))
-      (if (= srcGrp 0)(set! srcGrp (find-layer img "source" 0)))
+
+      ; deal with a possible untagged source group from older mixed files
+      (if (> isSrc 0) (set! srcGrp (vector-ref srcGrp 0)))
+      (if (= isSrc 0)(set! srcGrp (find-layer img "source" 0)))
       (if (= srcGrp 0)(err "no 'source' group found"))
 
       (set! srcL (find-layer img "! no edit !" ))
