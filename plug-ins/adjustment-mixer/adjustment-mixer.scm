@@ -5,7 +5,7 @@
       (tint (list 220 146 43)) ; default tint RGB
       (actL 0)(srcL 0)(layerLst (all-childrn img 0))
       (mxGrp (get-layers-tagged img layerLst "mixer"))
-      (srcGrp (get-layers-tagged img layerLst "mixersource"))
+      (srcGrp (get-layers-tagged img layerLst "sourceGrp"))
       (isMxr (vector-length mxGrp))
       (isSrc (vector-length srcGrp))
     )
@@ -25,20 +25,26 @@
       (gimp-item-set-lock-content srcL 1) 
       (gimp-item-set-expanded srcGrp 0)
       (gimp-item-set-visible srcGrp 0)
-      (gimp-image-lower-item img mxGrp)
+      (gimp-image-lower-item-to-bottom img mxGrp)
       (tag-layer mxGrp "mixer" 3 "mixer" 0)
+      (tag-layer srcGrp "sourceGrp" 3 "sourceGrp" 0)
     )
 
     ; Or update a mixer if one was found
     (when (> isMxr 0)
       (set! mxGrp (vector-ref mxGrp 0))
       (gimp-item-set-visible mxGrp 0)
-      (set! srcGrp (find-layer img "source" 0))
+      (set! srcGrp (vector-ref srcGrp 0))
+      (if (= srcGrp 0)(set! srcGrp (find-layer img "source" 0)))
       (if (= srcGrp 0)(err "no 'source' group found"))
+
       (set! srcL (find-layer img "! no edit !" ))
+
       (when (= srcL 0)
         (set! srcL (paste-copy img srcGrp img 0 mxGrp "! no edit !"))
+        (gimp-image-lower-item-to-bottom img srcL)
       )
+
       (gimp-item-set-lock-content srcL 0)
       (set! srcL (replace-layer-content img srcGrp srcL))
       (gimp-item-set-lock-content srcL 1)
@@ -276,7 +282,7 @@
 )
 
 
-(define (paste-copy img srcL dstImg dstL dstP name)
+(define (paste-copy img srcL dstImg dstL dstP name) 
   (let*
     (
     (actL 0)(cur-width 0)(cur-height 0)(dstExst dstL)(offX 0)(offY 0)
