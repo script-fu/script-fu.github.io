@@ -1,4 +1,7 @@
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
+
+(define debug #f)
+
 (define (script-fu-collapse-all img drwbls)
   (let*
     (
@@ -22,6 +25,28 @@
 )
 
 
+(script-fu-register-filter "script-fu-collapse-all"
+ "Collapse All Groups"
+ "Collapses all groups for a tidy stack"
+ "Mark Sweeney"
+ "Under GNU GENERAL PUBLIC LICENSE Version 3"
+ "2023"
+ "*"
+ SF-ONE-OR-MORE-DRAWABLE
+)
+(script-fu-menu-register "script-fu-collapse-all" "<Image>/Layer/Stack")
+
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
+
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+
+
+; finds only the groups and not the layers in all the image or inside a group
+; (source image, source group/all image) set last parameter to 0 for all image
+; returns a list of all the groups found including the given group
 (define (get-all-groups img actL)
   (let*
     (
@@ -60,6 +85,10 @@
 )
 
 
+; also used by (get-all-groups)
+; finds only the groups and not the layers in all the image or inside a group
+; (source image, source group/all image) set last parameter to 0 for all image
+; returns a list of all the groups found not including the given group
 (define (get-sub-groups img actL) ; recursive function
   (let*
     (
@@ -110,13 +139,3 @@
   )
 )
 
-(script-fu-register-filter "script-fu-collapse-all"
- "Collapse All Groups"
- "Collapses all groups for a tidy stack"
- "Mark Sweeney"
- "Under GNU GENERAL PUBLIC LICENSE Version 3"
- "2023"
- "*"
- SF-ONE-OR-MORE-DRAWABLE
-)
-(script-fu-menu-register "script-fu-collapse-all" "<Image>/Layer/Stack")

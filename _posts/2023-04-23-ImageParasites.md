@@ -10,10 +10,9 @@ To download [**image-parasites.scm**](https://raw.githubusercontent.com/script-f
 ...follow the link, right click the page, Save as image-parasites.scm, in a folder called image-parasites, in a GIMP plug-ins location.  In Linux, set the file to be executable.
    
    
-
+<!-- include-plugin "image-parasites" -->
 ```scheme
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
-; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
 
 (define (script-fu-image-parasites img lst)
   (let*
@@ -59,7 +58,27 @@ To download [**image-parasites.scm**](https://raw.githubusercontent.com/script-f
   )
 )
 
+(script-fu-register-filter "script-fu-image-parasites"
+ "Image Parasites" 
+ "Prints out a list of all open images and attached parasites"
+ "Mark Sweeney"
+ "Under GNU GENERAL PUBLIC LICENSE Version 3"
+ "2023"
+ "*"
+ SF-ONE-OR-MORE-DRAWABLE
+)
+(script-fu-menu-register "script-fu-image-parasites" "<Image>/Image/Tag")
 
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
+
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+
+
+; returns the value string of a parasite on a specified image
+; (image id, parasite name)
 (define (get-image-parasite-string img paraNme)
   (let*
     (
@@ -80,17 +99,5 @@ To download [**image-parasites.scm**](https://raw.githubusercontent.com/script-f
   fndV
   )
 )
-
-
-(script-fu-register-filter "script-fu-image-parasites"
- "Image Parasites" 
- "Prints out a list of all open images and attached parasites"
- "Mark Sweeney"
- "Under GNU GENERAL PUBLIC LICENSE Version 3"
- "2023"
- "*"
- SF-ONE-OR-MORE-DRAWABLE
-)
-(script-fu-menu-register "script-fu-image-parasites" "<Image>/Image/Tag")
 
 ```

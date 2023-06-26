@@ -8,6 +8,7 @@ by using a new type of script-fu register, *script-fu-register-filter*
   
 *In this example I've used that new method to access the selected drawables*
 
+<!-- include-plugin "selectedDrawables" -->
 ```scheme
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
 (define (script-fu-selectedDrawables image drawables) 

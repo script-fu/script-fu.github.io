@@ -1,8 +1,6 @@
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
-    ; detach global persistant with these commands for a clean start after use
-    ;(gimp-detach-parasite "persist-global-undoable : 3")
-    ;(gimp-detach-parasite "persist-global-not-undoable : 1")
 
+(define debug #f)
 
 (define (script-fu-parasites img drawables)
   (let*
@@ -31,7 +29,7 @@
     (gimp-image-attach-parasite img (list "temp-image-undoable : 2" 2 "0"))
     (gimp-image-attach-parasite img (list "persist-image-undoable : 3" 3 "0"))
 
-    ;layer
+    ; layer
     (gimp-item-attach-parasite actL (list "temp-layer-not-undoable : 0" 0 "0"))
     (gimp-item-attach-parasite actL (list "persist-layer-not-undoable : 1"1"0"))
     (gimp-item-attach-parasite actL (list "temp-layer-undoable : 2" 2 "0"))
@@ -88,3 +86,10 @@
  SF-ONE-DRAWABLE
 )
 (script-fu-menu-register "script-fu-parasites" "<Image>/Fu-Plugin")
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
+
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+

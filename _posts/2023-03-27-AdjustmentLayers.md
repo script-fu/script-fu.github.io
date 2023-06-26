@@ -17,8 +17,12 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
 
 *Creates a layer tree structure that allows mixing of adjusted copies*
 
+<!-- include-plugin "adjustment-mixer" -->
 ```scheme
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
+
+(define debug #f)
+
 (define (script-fu-adjustment-mixer img drawables)
   (let*
     (
@@ -41,7 +45,7 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
         (set! srcGrp (vector-ref srcGrp 0))
       )
       (set! mxGrp (add-mix-grp img 0 0 "mixer" LAYER-MODE-PASS-THROUGH))
-      (set! srcL (paste-copy img srcGrp img 0 mxGrp "! no edit !"))
+      (set! srcL (paste-copy img srcGrp img mxGrp "! no edit !"))
       (gimp-item-set-lock-content srcL 1) 
       (gimp-item-set-expanded srcGrp 0)
       (gimp-item-set-visible srcGrp 0)
@@ -58,12 +62,12 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
       ; deal with a possible untagged source group from older mixed files
       (if (> isSrc 0) (set! srcGrp (vector-ref srcGrp 0)))
       (if (= isSrc 0)(set! srcGrp (find-layer img "source" 0)))
-      (if (= srcGrp 0)(err "no 'source' group found"))
+      (if (= srcGrp 0)(exit "no 'source' group found"))
 
       (set! srcL (find-layer img "! no edit !" ))
 
       (when (= srcL 0)
-        (set! srcL (paste-copy img srcGrp img 0 mxGrp "! no edit !"))
+        (set! srcL (paste-copy img srcGrp img mxGrp "! no edit !"))
         (gimp-image-lower-item-to-bottom img srcL)
       )
 
@@ -200,11 +204,11 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
 (define (add-mix img srcL parent name mode update)
   (let*
     (
-      (actL 0)(layerLst (all-childrn img 0))
+      (actL 0)
     )
 
     (when (= update 0)
-      (set! actL (paste-copy img srcL img 0 parent name))
+      (set! actL (paste-copy img srcL img parent name))
       (gimp-layer-set-opacity actL 0)
       (gimp-layer-set-mode actL mode)
       (gimp-layer-set-opacity actL 0)
@@ -223,34 +227,6 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
 )
 
 
-(define (layer-group img drawables)
-  (let*
-    (
-      (drawable (vector-ref drawables 0))
-      (numDraw (vector-length drawables))
-      (parent (car (gimp-item-get-parent drawable)))
-      (pos (car (gimp-image-get-item-position img drawable)))
-      (layerGrp 0)(i (- numDraw 1))
-    )
-
-    (gimp-image-undo-group-start img)
-    (set! layerGrp (car (gimp-layer-group-new img)))
-    (gimp-image-insert-layer img layerGrp parent pos)
-    (gimp-item-set-name layerGrp "group")
-    (gimp-layer-set-mode layerGrp LAYER-MODE-PASS-THROUGH)
-
-    (while (> i -1)
-      (set! drawable (vector-ref drawables i))
-      (gimp-image-reorder-item img drawable layerGrp 0)
-      (set! i (- i 1))
-    )
-    (gimp-image-undo-group-end img)
-
-    layerGrp
-  )
-)
-
-
 (define (apply-s-curve img actL)
   (curve-4-value img actL 0 0 44 32 174 220 255 255)
 )
@@ -262,6 +238,62 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
 )
 
 
+(script-fu-register-filter "script-fu-adjustment-mixer"
+ "Adjustment Mixer" 
+ "Creates a layer tree structure that allows mixing of adjusted copies"
+ "Mark Sweeney"
+ "Under GNU GENERAL PUBLIC LICENSE Version 3"
+ "2023"
+ "*"
+ SF-ONE-OR-MORE-DRAWABLE
+)
+(script-fu-menu-register "script-fu-adjustment-mixer" "<Image>/Image")
+
+
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
+
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+
+
+; puts a list of layers in a group based on the stack pos of the first element
+; (source image, list/vector of layers)
+; returns the new group id
+(define (layer-group img drwbls)
+ (let*
+    (
+      (mde LAYER-MODE-NORMAL) ; LAYER-MODE-NORMAL ; LAYER-MODE-MULTIPLY
+      (nme "groupNme")
+      (numDraw 0)(actL 0)(parent 0)(i 0)(pos 0)(grp 0)
+    )
+    
+    (if (list? drwbls) (set! drwbls (list->vector drwbls)))
+    (set! numDraw (vector-length drwbls))
+    (set! actL (vector-ref drwbls 0))
+    (set! parent (car (gimp-item-get-parent actL)))
+    (set! pos (car (gimp-image-get-item-position img actL)))
+    (set! i (- numDraw 1))
+    (set! grp (car (gimp-layer-group-new img)))
+    (gimp-image-insert-layer img grp parent pos)
+    (gimp-item-set-name grp nme)
+    (gimp-layer-set-mode grp mde)
+
+    (while (> i -1)
+      (set! actL (vector-ref drwbls i))
+      (gimp-image-reorder-item img actL grp 0)
+      (set! i (- i 1))
+    )
+
+    grp
+
+  )
+)
+
+
+; apply a 4 value curve to a layer with specified points
+; (image, layer id, curve point (x,y), (x,y), (x,y), (x,y))
 (define (curve-4-value img actL x1 y1 x2 y2 x3 y3 x4 y4)
   (let*
     (
@@ -285,6 +317,9 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
 )
 
 
+
+; apply a 2 value curve to a layer with specified points
+; (image, layer id, curve point (x,y), (x,y))
 (define (curve-2-value img actL x1 y1 x2 y2)
   (let*
     (
@@ -304,10 +339,13 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
 )
 
 
-(define (paste-copy img srcL dstImg dstL dstP name) 
+; creates an image size copy of a layer or folder
+; (src img, src layer/folder, dst img, dst layer/0, parent for copy, name)
+; returns the new layer id
+(define (paste-copy img srcL dstImg dstP name)
   (let*
     (
-    (actL 0)(cur-width 0)(cur-height 0)(dstExst dstL)(offX 0)(offY 0)
+    (actL 0)(cur-width 0)(cur-height 0)(dstL 0)(offX 0)(offY 0)
     )
 
     ; make a copy of the source group
@@ -345,33 +383,32 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
 )
 
 
+; finds a layer in an image by name
+; (source image, "name")
+; returns the layer id or 0
 (define (find-layer img name)
   (let*
     (
-      (matchedLayer 0)(matchName 0)(i 0)(layerList ())
+      (foundID (car(gimp-image-get-layer-by-name img name)))
     )
 
-    (set! layerList (all-childrn img 0))
-    (set! layerList (list->vector layerList))
-
-    (while (< i (vector-length layerList))
-      (set! matchName (car(gimp-item-get-name (vector-ref layerList i))))
-      (when (equal? name matchName)
-        (set! matchedLayer (vector-ref layerList i))
-        (set! i (vector-length layerList))
-        ; (gimp-message (string-append " found layer -> " name " : ID = "
-        ;                               (number->string matchedLayer)
-        ;               )
-        ; )
-      )
-      (set! i (+ i 1))
+  (if debug
+    (if (> foundID 0)
+    (gimp-message (string-append " found layer -> " name))
+      (gimp-message (string-append " not found layer -> " name " ! "))
     )
+  )
 
-    matchedLayer
+  (if (< foundID 0) (set! foundID 0))
+
+  foundID
   )
 )
 
 
+
+; returns all the children of an image or a group as a list
+; (source image, source group) set group to zero for all children of the image
 (define (all-childrn img rootGrp) ; recursive
   (let*
     (
@@ -402,33 +439,14 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
 )
 
 
-(define (replace-layer-content img srcL dstL)
-  (let*
-    (
-      (actL 0)(name 0)
-      (offX (car (gimp-drawable-get-offsets srcL)))
-      (offY (cadr (gimp-drawable-get-offsets srcL)))
-    )
-
-    (set! name (car (gimp-item-get-name dstL)))
-    (gimp-drawable-edit-clear dstL)
-
-    (gimp-selection-none img)
-    (gimp-edit-copy 1 (vector srcL))
-    (set! actL (vector-ref (cadr(gimp-edit-paste dstL 1)) 0 ))
-    (gimp-selection-none img)
-    (gimp-layer-set-offsets actL offX offY)
-
-    (gimp-floating-sel-anchor actL)
-    (set! actL (vector-ref (cadr(gimp-image-get-selected-layers img))0))
-    (gimp-item-set-name actL name)
-    (gimp-layer-resize-to-image-size actL)
-
-    actL
-  )
-)
-
-
+; tags a layer with a parasite and an optional layer colour
+; (layer id, "parasite name", attach mode, "value string", layer color)
+; modes:
+; 0 -> temporary and not undoable attachment
+; 1 -> persistent and not undoable attachment
+; 2 -> temporary and undoable attachment
+; 3 -> persistent and undoable attachment
+; color (0-8) (none, blue, green, yellow, orange, brown, red, violet, grey)
 (define (tag-layer actL name mode tagV col)
   (if(= (car (gimp-item-id-is-layer-mask actL)) 1)
     (set! actL (car(gimp-layer-from-mask actL)))
@@ -438,6 +456,9 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
 )
 
 
+
+; given a list of layers it returns a list of those layers with a parasite "tag"
+; (source image, list of layers, "tag/parasite name")
 (define (get-layers-tagged img lstL tag)
   (let*
     (
@@ -464,22 +485,31 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
 )
 
 
-(script-fu-register-filter "script-fu-adjustment-mixer"
- "Adjustment Mixer" 
- "Creates a layer tree structure that allows mixing of adjusted copies"
- "Mark Sweeney"
- "Under GNU GENERAL PUBLIC LICENSE Version 3"
- "2023"
- "*"
- SF-ONE-OR-MORE-DRAWABLE
+; replaces, source to destination layer in the same image, crops to image size
+(define (replace-layer-content img srcL dstL)
+  (let*
+    (
+      (actL 0)(name 0)
+      (offX (car (gimp-drawable-get-offsets srcL)))
+      (offY (cadr (gimp-drawable-get-offsets srcL)))
+    )
+
+    (set! name (car (gimp-item-get-name dstL)))
+    (gimp-drawable-edit-clear dstL)
+
+    (gimp-selection-none img)
+    (gimp-edit-copy 1 (vector srcL))
+    (set! actL (vector-ref (cadr(gimp-edit-paste dstL 1)) 0 ))
+    (gimp-selection-none img)
+    (gimp-layer-set-offsets actL offX offY)
+
+    (gimp-floating-sel-anchor actL)
+    (set! actL (vector-ref (cadr(gimp-image-get-selected-layers img))0))
+    (gimp-item-set-name actL name)
+    (gimp-layer-resize-to-image-size actL)
+
+    actL
+  )
 )
-(script-fu-menu-register "script-fu-adjustment-mixer" "<Image>/Image")
 
-
-; debug and error tools
-(define (err msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
-(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
-(define debug #t) ; print all debug information
-(define info #t)  ; print information
-(define (boolean->string bool) (if bool "#t" "#f"))
 ```

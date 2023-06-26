@@ -1,5 +1,6 @@
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
-; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
+
+(define debug #f)
 
 (define (script-fu-vectors)
   (let*
@@ -53,7 +54,25 @@
   )
 )
 
+(script-fu-register"script-fu-vectors"
+ "vectors" 
+ "Demonstrating use of vectors" 
+ "Mark Sweeney"
+ "Under GNU GENERAL PUBLIC LICENSE Version 3"
+ "2023"
+ ""
+)
+(script-fu-menu-register "script-fu-vectors" "<Image>/Fu-Plugin")
 
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
+
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+
+
+; prints a vector as a single string
 (define (print-vector-list vect)
   (let* ((i 0) (lstr "")(actV 0))
 
@@ -70,6 +89,9 @@
 )
 
 
+; adds a new value to the end of a vector
+; (vector, value)
+; returns the new vector
 (define (vector-append vect v)
   (let*
     (
@@ -86,17 +108,6 @@
     )
 
     (set! vect tmpV)
-
   )
 )
 
-
-(script-fu-register"script-fu-vectors"
- "vectors" 
- "Demonstrating use of vectors" 
- "Mark Sweeney"
- "Under GNU GENERAL PUBLIC LICENSE Version 3"
- "2023"
- ""
-)
-(script-fu-menu-register "script-fu-vectors" "<Image>/Fu-Plugin")

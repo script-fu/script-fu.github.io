@@ -1,5 +1,52 @@
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
+
+(define debug #f)
+
 (define (script-fu-get-image-file-info img drwbls)
+  (let*
+    (
+      (fNme "")(fBse "")(fwEx "")(fPth "")(strL "")(fileInfo 0)
+    )
+
+    (set! fileInfo (get-image-file-info img))
+    (set! fNme (vector-ref fileInfo 0))
+    (set! fBse (vector-ref fileInfo 1))
+    (set! fwEx (vector-ref fileInfo 2))
+    (set! fPth (vector-ref fileInfo 3))
+
+    (set! strL (string-append " file name -> " fNme "\n file base -> " fBse
+                              "\n name no extension-> " fwEx 
+                              "\n file path -> " fPth
+                )
+    )
+
+    (gimp-message strL)
+  )
+)
+
+
+(script-fu-register-filter "script-fu-get-image-file-info"
+ "Get Image File Info"
+ "Prints out file name information, demonstration plug-in"
+ "Mark Sweeney"
+ "Under GNU GENERAL PUBLIC LICENSE Version 3"
+ "2023"
+ "*"
+ SF-ONE-OR-MORE-DRAWABLE
+)
+(script-fu-menu-register "script-fu-get-image-file-info" "<Image>/Fu-Plugin")
+
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
+
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+
+
+; finds the full file name, base name, stripped name, and path of a given image
+; returns a vector list ("/here/myfile.xcf" "myfile.xcf" "myfile" "/here")
+(define (get-image-file-info img)
   (let*
     (
       (fNme "")(fBse "")(fwEx "")(fPth "")(brkTok "/")(usr "")(strL "")
@@ -25,25 +72,7 @@
       )
     )
 
-    (set! strL (string-append " file name -> " fNme "\n file base -> " fBse
-                              "\n name no extension-> " fwEx 
-                              "\n file path -> " fPth
-                )
-    )
-    (gimp-message strL)
-
     (vector fNme fBse fwEx fPth)
   )
 )
 
-
-(script-fu-register-filter "script-fu-get-image-file-info"
- "Get Image File Info"
- "Prints out file name information, demonstration plug-in"
- "Mark Sweeney"
- "Under GNU GENERAL PUBLIC LICENSE Version 3"
- "2023"
- "*"
- SF-ONE-OR-MORE-DRAWABLE
-)
-(script-fu-menu-register "script-fu-get-image-file-info" "<Image>/Fu-Plugin")

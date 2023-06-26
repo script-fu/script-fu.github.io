@@ -1,5 +1,8 @@
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
-(define (script-fu-newlayerFromSelection img drwbls name mde mskB mskW)
+
+(define debug #f)
+
+(define (script-fu-new-layer-from-selection img drwbls name mde mskB mskW)
   (let*
     (
       (msk 0)(pVec 0)(pos 0)(actP 0)(actL (vector-ref drwbls 0))(wdth 0)(hgt 0)
@@ -45,7 +48,38 @@
   )
 )
 
+(script-fu-register-filter "script-fu-new-layer-from-selection"
+  "Layer From Selection" 
+  "creates a new layer from the selection area size"
+  "Mark Sweeney"
+  "Under GNU GENERAL PUBLIC LICENSE Version 3"
+  "2023"
+  "*"
+  SF-ONE-DRAWABLE
+  SF-STRING     "name"   "newLayer"
+  SF-TOGGLE     "multiply"             1
+  SF-TOGGLE     "add black mask"             1
+  SF-TOGGLE     "add white mask"             0
+)
+(script-fu-menu-register "script-fu-new-layer-from-selection" "<Image>/Layer")
 
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
+
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+
+
+; adds a mask to a layer of a given type;
+; ADD-MASK-WHITE
+; ADD-MASK-BLACK
+; ADD-MASK-ALPHA
+; ADD-MASK-ALPHA-TRANSFER
+; ADD-MASK-SELECTION
+; ADD-MASK-COPY
+; ADD-MASK-CHANNEL
+; returns the mask id
 (define (add-mask actL type)
   (let*
     (
@@ -62,18 +96,3 @@
   )
 )
 
-
-(script-fu-register-filter "script-fu-newlayerFromSelection"
-  "Layer From Selection" 
-  "creates a new layer from the selection area size"
-  "Mark Sweeney"
-  "Under GNU GENERAL PUBLIC LICENSE Version 3"
-  "2023"
-  "*"
-  SF-ONE-DRAWABLE
-  SF-STRING     "name"   "newLayer"
-  SF-TOGGLE     "multiply"             1
-  SF-TOGGLE     "add black mask"             1
-  SF-TOGGLE     "add white mask"             0
-)
-(script-fu-menu-register "script-fu-newlayerFromSelection" "<Image>/Layer")

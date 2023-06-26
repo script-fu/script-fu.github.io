@@ -1,7 +1,6 @@
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
 ; Under GNU GENERAL PUBLIC LICENSE Version 3"
 ; Use additional plugin "Mask Mode Off" to disable.
-; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
 
 
 (define (script-fu-mask-mode-on img)
@@ -34,7 +33,7 @@
             )
           )
         )
-
+    
         (set! actL (vector-ref (cadr(gimp-image-get-selected-layers img)) 0))
         (set! msk (car (gimp-layer-get-mask actL)))
         (if (> msk 0)(gimp-layer-set-edit-mask actL 1))
@@ -44,7 +43,7 @@
 
       (restore-all-layer-colors img colLst)
 
-      (if info
+      (if debug
         (if(= (mask-mode-match-pid "mask-mode-pid" mmPID) 0)
           (gimp-message" mask-mode is now off ")
         )
@@ -116,53 +115,29 @@
   )
 )
 
+(define debug #f)
 
-(define (set-and-store-all-layer-colors img col)
-  (let*
-    (
-      (i 0)(lstL ())(actL 0)(colLst())(colT 0)
-    )
-
-    (gimp-image-undo-group-start img)
-    (set! lstL (all-childrn img 0))
-    (set! lstL (list->vector lstL))
-    (while (< i (vector-length lstL))
-      (set! actL (vector-ref lstL i))
-      (set! colT (car(gimp-item-get-color-tag actL)))
-      (set! colLst (append colLst (list actL colT)))
-      (gimp-item-set-color-tag actL col)
-      (set! i (+ i 1))
-    )
-    (gimp-image-undo-group-end img)
-
-    colLst
-  )
+(script-fu-register "script-fu-mask-mode-on"
+ "Mask Mode On" 
+ "Forces the active layers mask to be active"
+ "Mark Sweeney"
+ "Under GNU GENERAL PUBLIC LICENSE Version 3"
+ "2023"
+ "*"
+ SF-IMAGE "Image" 0
 )
+(script-fu-menu-register "script-fu-mask-mode-on" "<Image>/Tools")
+
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
+
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
 
 
-(define (restore-all-layer-colors img colLst)
-  (let*
-    (
-      (actL 0)(i 0)(exst 0)
-    )
-
-    ; ignore these steps in the undo stack
-    (gimp-image-undo-freeze img)
-    (if (list? colLst) (set! colLst (list->vector colLst)))
-    (while (< i (vector-length colLst))
-      (set! actL (vector-ref colLst i))
-      (set! exst (car (gimp-item-id-is-valid actL)))
-      (when (= exst 1)
-        (gimp-item-set-color-tag actL (vector-ref colLst (+ i 1)))
-      )
-      (set! i (+ i 2))
-    )
-    (gimp-image-undo-thaw img)
-
-  )
-)
-
-
+; returns all the children of an image or a group as a list
+; (source image, source group) set group to zero for all children of the image
 (define (all-childrn img rootGrp) ; recursive
   (let*
     (
@@ -193,20 +168,52 @@
 )
 
 
-(script-fu-register "script-fu-mask-mode-on"
- "Mask Mode On" 
- "Forces the active layers mask to be active"
- "Mark Sweeney"
- "Under GNU GENERAL PUBLIC LICENSE Version 3"
- "2023"
- "*"
- SF-IMAGE "Image" 0
-)
-(script-fu-menu-register "script-fu-mask-mode-on" "<Image>/Tools")
+; creates a list of all layers and color tag index and then sets the color index
+; (source image, color tag value 0-8 )
+; returns a list of the layers and old tag col, (layer ID, index color)
+(define (set-and-store-all-layer-colors img col)
+  (let*
+    (
+      (i 0)(lstL ())(actL 0)(colLst())(colT 0)
+    )
 
-; debug and error tools
-(define (err msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
-(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
-(define debug #f)  ; print information
-(define info #t)  ; print information
-(define (boolean->string bool) (if bool "#t" "#f"))
+    (gimp-image-undo-group-start img)
+    (set! lstL (all-childrn img 0))
+    (set! lstL (list->vector lstL))
+    (while (< i (vector-length lstL))
+      (set! actL (vector-ref lstL i))
+      (set! colT (car(gimp-item-get-color-tag actL)))
+      (set! colLst (append colLst (list actL colT)))
+      (gimp-item-set-color-tag actL col)
+      (set! i (+ i 1))
+    )
+    (gimp-image-undo-group-end img)
+
+    colLst
+  )
+)
+
+
+
+(define (restore-all-layer-colors img colLst)
+  (let*
+    (
+      (actL 0)(i 0)(exst 0)
+    )
+
+    ; ignore these steps in the undo stack
+    (gimp-image-undo-freeze img)
+    (if (list? colLst) (set! colLst (list->vector colLst)))
+    (while (< i (vector-length colLst))
+      (set! actL (vector-ref colLst i))
+      (set! exst (car (gimp-item-id-is-valid actL)))
+      (when (= exst 1)
+        (gimp-item-set-color-tag actL (vector-ref colLst (+ i 1)))
+      )
+      (set! i (+ i 2))
+    )
+    (gimp-image-undo-thaw img)
+
+  )
+)
+

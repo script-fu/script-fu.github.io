@@ -1,4 +1,5 @@
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
+
 (define (script-fu-proxy-restore-all img drwbles)
   (let*
     (
@@ -8,6 +9,63 @@
 
     (script-fu-proxy 1 img (vector-length prxGrps) prxGrps)
 
+  )
+)
+
+(define debug #f)
+
+(script-fu-register-filter "script-fu-proxy-restore-all"
+ "Proxy Restore All"
+ "Restores all proxies from disk"
+ "Mark Sweeney"
+ "Under GNU GENERAL PUBLIC LICENSE Version 3"
+ "2023"
+ "*"
+ SF-ONE-OR-MORE-DRAWABLE
+
+)
+(script-fu-menu-register "script-fu-proxy-restore-all" "<Image>/Layer")
+
+
+
+
+
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
+
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+
+
+; returns all the children of an image or a group as a list
+; (source image, source group) set group to zero for all children of the image
+(define (all-childrn img rootGrp) ; recursive
+  (let*
+    (
+      (chldrn ())(lstL 0)(i 0)(actL 0)(allL ())
+    )
+
+    (if (= rootGrp 0)
+      (set! chldrn (gimp-image-get-layers img))
+        (if (equal? (car (gimp-item-is-group rootGrp)) 1)
+          (set! chldrn (gimp-item-get-children rootGrp))
+        )
+    )
+
+    (when (not (null? chldrn))
+      (set! lstL (cadr chldrn))
+      (while (< i (car chldrn))
+        (set! actL (vector-ref lstL i))
+        (set! allL (append allL (list actL)))
+        (if (equal? (car (gimp-item-is-group actL)) 1)
+          (set! allL (append allL (all-childrn img actL)))
+        )
+        (set! i (+ i 1))
+      )
+    )
+
+    allL
   )
 )
 
@@ -61,50 +119,5 @@
 )
 
 
-(define (all-childrn img rootGrp) ; recursive
-  (let*
-    (
-      (chldrn ())(lstL 0)(i 0)(actL 0)(allL ())
-    )
-
-    (if (= rootGrp 0)
-      (set! chldrn (gimp-image-get-layers img))
-        (if (equal? (car (gimp-item-is-group rootGrp)) 1)
-          (set! chldrn (gimp-item-get-children rootGrp))
-        )
-    )
-
-    (when (not (null? chldrn))
-      (set! lstL (cadr chldrn))
-      (while (< i (car chldrn))
-        (set! actL (vector-ref lstL i))
-        (set! allL (append allL (list actL)))
-        (if (equal? (car (gimp-item-is-group actL)) 1)
-          (set! allL (append allL (all-childrn img actL)))
-        )
-        (set! i (+ i 1))
-      )
-    )
-
-    allL
-  )
-)
 
 
-(script-fu-register-filter "script-fu-proxy-restore-all"
- "Proxy Restore All"
- "Restores all proxies from disk"
- "Mark Sweeney"
- "Under GNU GENERAL PUBLIC LICENSE Version 3"
- "2023"
- "*"
- SF-ONE-OR-MORE-DRAWABLE
-
-)
-(script-fu-menu-register "script-fu-proxy-restore-all" "<Image>/Layer")
-
-; debug and error tools
-(define (err msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
-(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
-(define debug #t) ; print all debug information
-(define info #t)  ; print information

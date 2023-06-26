@@ -9,7 +9,7 @@ The plug-in should appear in the Image/Tag menu.
 To download [**image-remove-parasites.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/image-remove-parasites/image-remove-parasites.scm)  
 ...follow the link, right click the page, Save as image-remove-parasites.scm, in a folder called image-remove-parasites, in a GIMP plug-ins location.  In Linux, set the file to be executable.
    
-   
+<!-- include-plugin "image-remove-parasites" -->
 ```scheme
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
 ; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
@@ -66,30 +66,7 @@ To download [**image-remove-parasites.scm**](https://raw.githubusercontent.com/s
 )
 
 
-(define (get-image-parasite-string img paraNme)
-  (let*
-    (
-      (i 0)(actP 0)(fndV "")
-      (para (list->vector (car(gimp-image-get-parasite-list img))))
-    )
-
-    (while (< i (vector-length para))
-      (set! actP (vector-ref para i))
-      (when (equal? actP paraNme)
-        (set! fndV (caddar(gimp-image-get-parasite img actP)))
-        (set! i (vector-length para))
-      )
-      (set! i (+ i 1))
-    )
-
-  fndV
-  )
-)
-
-(define (err msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
-(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
-(define debug #f) ; print all debug information
-(define info #t)  ; print information
+(define debug #f)
 
 (script-fu-register-filter "script-fu-image-remove-parasites"
  "Image Remove Parasites" 
@@ -103,5 +80,36 @@ To download [**image-remove-parasites.scm**](https://raw.githubusercontent.com/s
  SF-STRING     "Specific Parasite"   "ink"
 )
 (script-fu-menu-register "script-fu-image-remove-parasites" "<Image>/Image/Tag")
+
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
+
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+
+
+; returns the value string of a parasite on a specified image
+; (image id, parasite name)
+(define (get-image-parasite-string img paraNme)
+  (let*
+    (
+      (i 0)(actP 0)(fndV "")
+      (para (list->vector (car(gimp-image-get-parasite-list img))))
+    )
+
+    (while (< i (vector-length para))
+      (set! actP (vector-ref para i))
+      (when (equal? actP paraNme)
+        (if #f (gimp-message " found the parasite "))
+        (set! fndV (caddar(gimp-image-get-parasite img actP)))
+        (set! i (vector-length para))
+      )
+      (set! i (+ i 1))
+    )
+
+  fndV
+  )
+)
 
 ```

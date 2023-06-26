@@ -6,6 +6,7 @@ When you need to store and retrieve data, write it to a file.
 
 *Example that demonstrates data storage in Script-fu*
 
+<!-- include-plugin "dataFile" -->
 ```scheme
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
 (define (script-fu-dataFile img drawables dataFile) 
@@ -148,5 +149,4 @@ When you need to store and retrieve data, write it to a file.
   SF-STRING     "filename"   "mydata"
 )
 (script-fu-menu-register "script-fu-dataFile" "<Image>/Fu-Plugin")
-
 ```

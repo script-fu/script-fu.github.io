@@ -1,5 +1,7 @@
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
-; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
+
+
+(define debug #f)
 
 (define (script-fu-layer-parasites img lst)
   (let*
@@ -44,28 +46,6 @@
 )
 
 
-(define (get-item-parasite-string actL paraNme)
-  (let*
-    (
-      (i 0)(actP 0)(fndV "")
-      (para (list->vector (car(gimp-item-get-parasite-list actL))))
-    )
-
-    (while (< i (vector-length para))
-      (set! actP (vector-ref para i))
-      (when (equal? actP paraNme)
-        (if #f (gimp-message " found the parasite "))
-        (set! fndV (caddar(gimp-item-get-parasite actL actP)))
-        (set! i (vector-length para))
-      )
-      (set! i (+ i 1))
-    )
-
-  fndV
-  )
-)
-
-
 (script-fu-register-filter "script-fu-layer-parasites"
  "Layer Parasites" 
  "Prints out a list of the selected layers and attached parasites"
@@ -76,3 +56,34 @@
  SF-ONE-OR-MORE-DRAWABLE
 )
 (script-fu-menu-register "script-fu-layer-parasites" "<Image>/Layer/Tag")
+
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
+
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+
+
+; returns the value string of a parasite on a specified layer
+; (layer id, parasite name)
+(define (get-item-parasite-string actL paraNme)
+  (let*
+    (
+      (i 0)(actP 0)(fndV "")
+      (para (list->vector (car(gimp-item-get-parasite-list actL))))
+    )
+
+    (while (< i (vector-length para))
+      (set! actP (vector-ref para i))
+      (when (equal? actP paraNme)
+        (set! fndV (caddar(gimp-item-get-parasite actL actP)))
+        (set! i (vector-length para))
+      )
+      (set! i (+ i 1))
+    )
+
+  fndV
+  )
+)
+

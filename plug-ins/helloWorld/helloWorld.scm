@@ -1,17 +1,19 @@
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
 (define (script-fu-helloWorld ) 
- (let*
- (
- (i 0)
- )
- (gimp-context-set-foreground (list 0 0 0))
- (while (< i 30)
-  (gimp-message "hello world")
-  (usleep 1000000)
-  (set! i (+ i 1))
- )
+  (let*
+   (
+    (i 0)
+   )
 
-)
+  (gimp-context-set-foreground (list 0 0 0))
+
+  (while (< i 30)
+    (gimp-message "hello world")
+    (usleep 1000000)
+    (set! i (+ i 1))
+  )
+
+  )
 )
 
 (script-fu-register "script-fu-helloWorld"

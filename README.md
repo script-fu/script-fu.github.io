@@ -31,7 +31,7 @@ These plugins are to help me make illustrations in GIMP, I hope they can help yo
 **Image Parasites**  -  Prints a list of all images and attached parasites  
 **Remove Image Parasites**  - Removes any attached parasites on an image
   
-Also available, **procedures.scm**, a list of custom Script-Fu procedures. 
+Also available, a directory of custom Script-Fu functions, in the procedures directory.
 
 
 

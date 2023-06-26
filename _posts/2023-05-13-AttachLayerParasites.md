@@ -7,14 +7,9 @@ This plug-in adds a parasite to the selected layers, a useful way to allow anoth
 To download [**layer-set-parasite.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/layer-set-parasite/layer-set-parasite.scm)  
 ...follow the link, right click the page, Save as layer-set-parasite.scm, in a folder called layer-set-parasite, in a GIMP plug-ins location.  In Linux, set the file to be executable.
    
-   
+<!-- include-plugin "layer-set-parasite" -->
 ```scheme
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
-; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
-; 0 -> temporary and not undoable attachment
-; 1 -> persistent and not undoable attachment
-; 2 -> temporary and undoable attachment
-; 3 -> persistent and undoable attachment
 
 (define (script-fu-layer-set-parasite img lst name mode tagV col)
   (let*
@@ -34,16 +29,6 @@ To download [**layer-set-parasite.scm**](https://raw.githubusercontent.com/scrip
   )
 )
 
-
-(define (tag-layer actL name mode tagV col)
-  (if(= (car (gimp-item-id-is-layer-mask actL)) 1)
-    (set! actL (car(gimp-layer-from-mask actL)))
-  )
-  (gimp-item-attach-parasite actL (list name mode tagV))
-  (gimp-item-set-color-tag actL col)
-)
-
-
 (script-fu-register-filter "script-fu-layer-set-parasite"
  "Layer Add Parasite" 
  "Attaches a specific parasite to the selected layers"
@@ -59,5 +44,30 @@ To download [**layer-set-parasite.scm**](https://raw.githubusercontent.com/scrip
 )
 (script-fu-menu-register "script-fu-layer-set-parasite" "<Image>/Layer/Tag")
 
-;SF-ADJUSTMENT "label" '(value, lower, upper, step_inc, page_inc, digits, type)
+
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
+
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+
+
+; tags a layer with a parasite and an optional layer colour
+; (layer id, "parasite name", attach mode, "value string", layer color)
+; modes:
+; 0 -> temporary and not undoable attachment
+; 1 -> persistent and not undoable attachment
+; 2 -> temporary and undoable attachment
+; 3 -> persistent and undoable attachment
+; color (0-8) (none, blue, green, yellow, orange, brown, red, violet, grey)
+(define (tag-layer actL name mode tagV col)
+  (if(= (car (gimp-item-id-is-layer-mask actL)) 1)
+    (set! actL (car(gimp-layer-from-mask actL)))
+  )
+  (gimp-item-attach-parasite actL (list name mode tagV))
+  (gimp-item-set-color-tag actL col)
+)
+
+
 ```

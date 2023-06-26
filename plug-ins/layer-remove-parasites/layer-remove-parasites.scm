@@ -1,4 +1,6 @@
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
+
+
 (define (script-fu-layer-remove-parasites img lst allP actP)
   (let*
     (
@@ -57,7 +59,31 @@
   )
 )
 
+(define debug #f)
 
+(script-fu-register-filter "script-fu-layer-remove-parasites"
+ "Layer Remove Parasites"
+ "Removes all parasites from the selected layers"
+ "Mark Sweeney"
+ "Under GNU GENERAL PUBLIC LICENSE Version 3"
+ "2023"
+ "*"
+ SF-ONE-OR-MORE-DRAWABLE
+ SF-TOGGLE     "All Parasites"             TRUE
+ SF-STRING     "Specific Parasite"   "name"
+)
+(script-fu-menu-register "script-fu-layer-remove-parasites" "<Image>/Layer/Tag")
+
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
+
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+
+
+; returns the value string of a parasite on a specified layer
+; (layer id, parasite name)
 (define (get-item-parasite-string actL paraNme)
   (let*
     (
@@ -78,20 +104,3 @@
   )
 )
 
-(define (err msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
-(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
-(define debug #f) ; print all debug information
-(define info #t)  ; print information
-
-(script-fu-register-filter "script-fu-layer-remove-parasites"
- "Layer Remove Parasites"
- "Removes all parasites from the selected layers"
- "Mark Sweeney"
- "Under GNU GENERAL PUBLIC LICENSE Version 3"
- "2023"
- "*"
- SF-ONE-OR-MORE-DRAWABLE
- SF-TOGGLE     "All Parasites"             TRUE
- SF-STRING     "Specific Parasite"   "name"
-)
-(script-fu-menu-register "script-fu-layer-remove-parasites" "<Image>/Layer/Tag")

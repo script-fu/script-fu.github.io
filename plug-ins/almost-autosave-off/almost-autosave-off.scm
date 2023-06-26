@@ -1,5 +1,7 @@
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
-; Under GNU GENERAL PUBLIC LICENSE Version 3"
+
+(define debug #f)
+
 (define (script-fu-almost-autosave-off)
   (let*
     (
@@ -13,7 +15,7 @@
       ; found the display ID parasite to remove the indicator image
       (when (equal? actP dspID)
         (set! fID(string->number (caddar(gimp-get-parasite actP))))
-        (if #f ;debug
+        (if debug
           (gimp-message
             (string-append
               "removing display ID -> " (number->string fID)
@@ -26,7 +28,7 @@
 
       ; found the autosave process id parasite
       (when (equal? actP PID)
-        (if #f (gimp-message (string-append "removing PID -> " actP)))
+        (if debug (gimp-message (string-append "removing PID -> " actP)))
         (gimp-detach-parasite actP)
       )
 
@@ -48,3 +50,11 @@
  ""
 )
 (script-fu-menu-register "script-fu-almost-autosave-off" "<Image>/File")
+
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
+
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+

@@ -10,10 +10,12 @@ To download [**layer-parasites.scm**](https://raw.githubusercontent.com/script-f
 ...follow the link, right click the page, Save as layer-parasites.scm, in a folder called layer-parasites, in a GIMP plug-ins location.  In Linux, set the file to be executable.
    
    
-
+<!-- include-plugin "layer-parasites" -->
 ```scheme
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
-; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
+
+
+(define debug #f)
 
 (define (script-fu-layer-parasites img lst)
   (let*
@@ -35,50 +37,25 @@ To download [**layer-parasites.scm**](https://raw.githubusercontent.com/script-f
       (set! para (car (gimp-item-get-parasite-list actL)))
       (set! len (length para))
       (set! aStr (string-append aStr " item id : " id " : " nme ))
-      ; (if (= grp 1) (set! aStr (string-append aStr " is a group "))
-      ;   (set! aStr (string-append aStr " \n"))
-      ; )
-      (if (= len 0)(set! aStr (string-append aStr ", has no parasites ")))
-      (if (> len 0)(set! aStr (string-append aStr ", has parasites ")))
+      (if (= grp 1) (set! aStr (string-append aStr " is a group \n"))
+        (set! aStr (string-append aStr " \n"))
+      )
+      (if (= len 0)(set! aStr (string-append aStr " has no parasites \n\n")))
 
       (while (< j len)
         (set! pN (list-ref para j))
         (set! pV (get-item-parasite-string actL pN))
-        (set! aStr (string-append aStr "\n  : " pN " : " pV))
-        
+        (set! aStr (string-append aStr " has parasite : "pN" : "pV"\n"))
+        (if (= j (- len 1))(set! aStr (string-append aStr "\n")))
         (set! j (+ j 1))
       )
-      (if (> len 0)(set! aStr (string-append aStr "\n\n"))
-        (set! aStr (string-append aStr "\n"))
-      )
+
       (set! i (+ i 1))
     )
 
     (gimp-message aStr)
 
     aStr
-  )
-)
-
-
-(define (get-item-parasite-string actL paraNme)
-  (let*
-    (
-      (i 0)(actP 0)(fndV "")
-      (para (list->vector (car(gimp-item-get-parasite-list actL))))
-    )
-
-    (while (< i (vector-length para))
-      (set! actP (vector-ref para i))
-      (when (equal? actP paraNme)
-        (if #f (gimp-message " found the parasite "))
-        (set! fndV (caddar(gimp-item-get-parasite actL actP)))
-        (set! i (vector-length para))
-      )
-      (set! i (+ i 1))
-    )
-
-  fndV
   )
 )
 
@@ -93,5 +70,35 @@ To download [**layer-parasites.scm**](https://raw.githubusercontent.com/script-f
  SF-ONE-OR-MORE-DRAWABLE
 )
 (script-fu-menu-register "script-fu-layer-parasites" "<Image>/Layer/Tag")
+
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
+
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+
+
+; returns the value string of a parasite on a specified layer
+; (layer id, parasite name)
+(define (get-item-parasite-string actL paraNme)
+  (let*
+    (
+      (i 0)(actP 0)(fndV "")
+      (para (list->vector (car(gimp-item-get-parasite-list actL))))
+    )
+
+    (while (< i (vector-length para))
+      (set! actP (vector-ref para i))
+      (when (equal? actP paraNme)
+        (set! fndV (caddar(gimp-item-get-parasite actL actP)))
+        (set! i (vector-length para))
+      )
+      (set! i (+ i 1))
+    )
+
+  fndV
+  )
+)
 
 ```

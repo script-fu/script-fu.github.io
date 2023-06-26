@@ -12,12 +12,14 @@ To download [**layer-group.scm**](https://raw.githubusercontent.com/script-fu/sc
   
 *Puts the selected layers in a new group*  
 
+<!-- include-plugin "layer-group" -->
 ```scheme
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
+
 (define (script-fu-layer-group img drwbles)
   (let*
     (
-      (mde LAYER-MODE-NORMAL) ; LAYER-MODE-NORMAL ; LAYER-MODE-MULTIPLY
+      (mde LAYER-MODE-PASS-THROUGH) ; LAYER-MODE-NORMAL ; LAYER-MODE-MULTIPLY
       (nme "groupName")
 
       (drwbles (exclude-children img drwbles))
@@ -44,29 +46,54 @@ To download [**layer-group.scm**](https://raw.githubusercontent.com/script-fu/sc
   )
 )
 
+(define debug #f)
 
-(define (exclude-children img drwbles)
+(script-fu-register-filter "script-fu-layer-group"
+ "Group Layers" 
+ "Puts the selected layers in a pass-through group" 
+ "Mark Sweeney"
+ "Under GNU GENERAL PUBLIC LICENSE Version 3"
+ "2023"
+ "*"
+ SF-ONE-OR-MORE-DRAWABLE
+)
+(script-fu-menu-register "script-fu-layer-group" "<Image>/Layer")
+
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
+
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+
+
+; filters out children from a list of layers
+; returns the top levels groups, or layers that are in the root and in the list
+(define (exclude-children img lstL)
   (let*
     (
     (i 0)(actL 0)(excLst())(parent 0)(allParents 0)(j 0)(found 0)
     )
 
-    (while (< i (vector-length drwbles))
-      (set! actL (vector-ref drwbles i))
+    (if (list? lstL) (set! lstL (list->vector lstL)))
+    (while (< i (vector-length lstL))
+      (set! actL (vector-ref lstL i))
       (set! j 0)
       (set! found 0)
       (set! allParents (get-all-parents img actL))
 
       (while (< j (length allParents))
         (set! parent (nth j allParents))
-          (when (and (member parent (vector->list drwbles)) 
+          (when (and (member parent (vector->list lstL))
                 (car (gimp-item-is-group actL)) )
             (set! found 1)
           )
       (set! j (+ j 1))
       )
 
-      (if (= found 0)(set! excLst (append excLst (list actL))))
+      (when (= found 0)
+        (set! excLst (append excLst (list actL)))
+      )
 
       (set! i (+ i 1))
     )
@@ -76,13 +103,13 @@ To download [**layer-group.scm**](https://raw.githubusercontent.com/script-fu/sc
 )
 
 
-(define (get-all-parents img drawable)
+(define (get-all-parents img actL)
   (let*
     (
       (parent 0)(allParents ())(i 0)
     )
 
-    (set! parent (car(gimp-item-get-parent drawable)))
+    (set! parent (car(gimp-item-get-parent actL)))
 
     (when (> parent 0)
       (while (> parent 0)
@@ -95,16 +122,5 @@ To download [**layer-group.scm**](https://raw.githubusercontent.com/script-fu/sc
   )
 )
 
-
-(script-fu-register-filter "script-fu-layer-group"
- "Group" 
- "Puts the selected layers in a pass-through group" 
- "Mark Sweeney"
- "Under GNU GENERAL PUBLIC LICENSE Version 3"
- "2023"
- "*"
- SF-ONE-OR-MORE-DRAWABLE
-)
-(script-fu-menu-register "script-fu-layer-group" "<Image>/Layer")
 
 ```

@@ -3,6 +3,8 @@
 ; Edit->Preferences->Image Windows->initial zoom ratio 1:1
 ; Otherwise ensure image is set to 100% zoom, keyboard "1"
 
+(define debug #f)
+
 (define (script-fu-paper-scale img drawables)
   (let*
     (
@@ -23,17 +25,12 @@
     (gimp-context-push)
     (gimp-edit-copy-visible img)
     (set! dstImg (car(gimp-edit-paste-as-new-image)))
+    ()
     (gimp-image-scale dstImg width height)
-    (gimp-image-set-file dstImg (string-append "*** Display DPI is "
-                                        (number->string (trunc 
-                                        (car(gimp-get-monitor-resolution))))
-                                        ":  If printed at " 
-                                        (number->string (trunc dpiX)) " DPI"
-                                        " and if the display zoom is at 100% "
-                                        " the image should look this size on "
-                                        " paper ***   "
-                                )
-    )
+    (here 1)
+    (here dstImg)
+
+    (here 2)
     (when placeOnPaper
       (gimp-image-resize dstImg paperX paperY (/ (- paperX width) 2)
                                             (/ (- paperY height) 4)
@@ -44,6 +41,18 @@
     (set! dstL (vector-ref (cadr(gimp-image-get-selected-layers dstImg))0))
     (gimp-item-set-name dstL "paper-scaled")
     (gimp-display-new dstImg)
+
+    (gimp-image-set-file dstImg (string-append "*** Display DPI is "
+                                        (number->string (trunc 
+                                        (car(gimp-get-monitor-resolution))))
+                                        ":  If printed at " 
+                                        (number->string (trunc dpiX)) " DPI"
+                                        " and if the display zoom is at 100% "
+                                        " the image should look this size on "
+                                        " paper ***   " ".xcf"
+                                )
+    )
+
     (gimp-image-clean-all dstImg)
     (gimp-context-pop)
 
@@ -61,3 +70,11 @@
  SF-ONE-OR-MORE-DRAWABLE
 )
 (script-fu-menu-register "script-fu-paper-scale" "<Image>/Image")
+
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
+
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+

@@ -10,6 +10,7 @@ based on reading a file system data file, maybe there's a better way?
 
 *Example that demonstrates locking a plug-in with a data file test*
 
+<!-- include-plugin "pluginLock" -->
 ```scheme
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
 (define (script-fu-pluginLock img drawables) 
@@ -68,6 +69,4 @@ based on reading a file system data file, maybe there's a better way?
   SF-ONE-DRAWABLE
 )
 (script-fu-menu-register "script-fu-pluginLock" "<Image>/Fu-Plugin")
-
-
 ```

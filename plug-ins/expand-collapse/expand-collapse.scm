@@ -1,5 +1,6 @@
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
-; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3"
+
+(define debug #f)
 
 (define (script-fu-expand-collapse img drwbles)
   (let*
@@ -31,7 +32,7 @@
       ; find the average expanded state the group list
       (set! expd (get-average-expanded-state actGrpLst))
 
-      (if #f ; debug
+      (if debug
         (gimp-message
           (string-append
             " top group -> " (car (gimp-item-get-name topGrp))
@@ -51,6 +52,26 @@
 )
 
 
+(script-fu-register-filter "script-fu-expand-collapse"
+ "Expand Group" 
+ "Recursively expands or collapses the selection" 
+ "Mark Sweeney"
+ "Under GNU GENERAL PUBLIC LICENSE Version 3"
+ "2023"
+ "*"
+ SF-ONE-OR-MORE-DRAWABLE
+)
+(script-fu-menu-register "script-fu-expand-collapse" "<Image>/Layer/Stack")
+
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
+
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+
+
+; given a list of groups, it finds the average expanded state
 (define (get-average-expanded-state grpLst)
  (let*
     (
@@ -73,7 +94,7 @@
     (if (< average 0.5)(set! expand 1))
     (if (= average 0)(set! expand 0))
     (if (= average 1)(set! expand 1))
-    (if #f ; debug
+    (if debug
       (gimp-message
         (string-append
           " average expanded state -> " (number->string average)
@@ -88,6 +109,7 @@
 )
 
 
+; expands or collapses a list of groups
 (define (expand-collapse-branch actGrpLst state)
   (let*
     (
@@ -97,7 +119,7 @@
     (while (< i (- (vector-length actGrpLst) 1))
       (set! actG (vector-ref actGrpLst i))
 
-      (if #f ; debug
+      (if debug
         (gimp-message
           (string-append " testing group -> "
                          (car (gimp-item-get-name actG)))
@@ -118,6 +140,7 @@
 )
 
 
+;returns a list of groups representing the stack structure
 (define (get-branches img drwbles)
   (let*
     (
@@ -147,6 +170,7 @@
 )
 
 
+; are there any grandchildren in a list of layers and folders, returns 1 / 0
 (define (grandchildren lst)
   (let*
     (
@@ -181,21 +205,24 @@
 )
 
 
-(define (exclude-children img drwbles)
+; filters out children from a list of layers
+; returns the top levels groups, or layers that are in the root and in the list
+(define (exclude-children img lstL)
   (let*
     (
     (i 0)(actL 0)(excLst())(parent 0)(allParents 0)(j 0)(found 0)
     )
 
-    (while (< i (vector-length drwbles))
-      (set! actL (vector-ref drwbles i))
+    (if (list? lstL) (set! lstL (list->vector lstL)))
+    (while (< i (vector-length lstL))
+      (set! actL (vector-ref lstL i))
       (set! j 0)
       (set! found 0)
       (set! allParents (get-all-parents img actL))
 
       (while (< j (length allParents))
         (set! parent (nth j allParents))
-          (when (and (member parent (vector->list drwbles))
+          (when (and (member parent (vector->list lstL))
                 (car (gimp-item-is-group actL)) )
             (set! found 1)
           )
@@ -214,13 +241,13 @@
 )
 
 
-(define (get-all-parents img drawable)
+(define (get-all-parents img actL)
   (let*
     (
       (parent 0)(allParents ())(i 0)
     )
 
-    (set! parent (car(gimp-item-get-parent drawable)))
+    (set! parent (car(gimp-item-get-parent actL)))
 
     (when (> parent 0)
       (while (> parent 0)
@@ -234,14 +261,16 @@
 )
 
 
-(define (only-groups drwbles)
+
+; filters a vector list of drawables, returns a vector list of only the groups
+(define (only-groups drwbls)
   (let*
     (
       (i 0)(actL 0)(grpLst())
     )
 
-    (while (< i (vector-length drwbles))
-      (set! actL (vector-ref drwbles i))
+    (while (< i (vector-length drwbls))
+      (set! actL (vector-ref drwbls i))
       (when (= (car (gimp-item-is-group actL)) 1)
         (if (= (car (gimp-item-id-is-layer-mask actL)) 1)
           (set! actL (car(gimp-layer-from-mask actL)))
@@ -256,6 +285,9 @@
 )
 
 
+; finds only the groups and not the layers in all the image or inside a group
+; (source image, source group/all image) set last parameter to 0 for all image
+; returns a list of all the groups found including the given group
 (define (get-all-groups img actL)
   (let*
     (
@@ -294,6 +326,10 @@
 )
 
 
+; also used by (get-all-groups)
+; finds only the groups and not the layers in all the image or inside a group
+; (source image, source group/all image) set last parameter to 0 for all image
+; returns a list of all the groups found not including the given group
 (define (get-sub-groups img actL) ; recursive function
   (let*
     (
@@ -344,14 +380,3 @@
   )
 )
 
-
-(script-fu-register-filter "script-fu-expand-collapse"
- "Expand Group" 
- "Recursively expands or collapses the selection" 
- "Mark Sweeney"
- "Under GNU GENERAL PUBLIC LICENSE Version 3"
- "2023"
- "*"
- SF-ONE-OR-MORE-DRAWABLE
-)
-(script-fu-menu-register "script-fu-expand-collapse" "<Image>/Layer/Stack")

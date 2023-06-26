@@ -1,4 +1,7 @@
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
+
+(define debug #f)
+
 (define (script-fu-ghostLayer img drawables) 
   (let*
     (
@@ -33,11 +36,34 @@
   )
 )
 
+(script-fu-register-filter "script-fu-ghostLayer"
+  "Ghost Layer"
+  "Turns a layer into a underlay ghost, puts a blank multiply layer on top" 
+  "Mark Sweeney"
+  "Under GNU GENERAL PUBLIC LICENSE Version 3"
+  "2023"
+  "*"
+  SF-ONE-DRAWABLE
+)
+(script-fu-menu-register "script-fu-ghostLayer" "<Image>/Layer")
 
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
+
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+
+
+; duplicates a layer and assigns specific attributes
+; (source image, source layer, new layer name, opacity, mode, visibility)
+; returns the new layer id
 (define (duplicate-layer img srcL name opac mode vis)
   (let*
     (
-      (actL 0)(parent 0)(pos 0)
+      (actL 0)
+      (parent 0)
+      (pos 0)
     )
 
     (set! parent (car (gimp-item-get-parent srcL)))
@@ -54,11 +80,14 @@
 )
 
 
+; puts a list of layers in a group based on the stack pos of the first element
+; (source image, list/vector of layers)
+; returns the new group id
 (define (layer-group img drwbls)
  (let*
     (
       (mde LAYER-MODE-NORMAL) ; LAYER-MODE-NORMAL ; LAYER-MODE-MULTIPLY
-      (nme "ghost")
+      (nme "groupNme")
       (numDraw 0)(actL 0)(parent 0)(i 0)(pos 0)(grp 0)
     )
     
@@ -72,7 +101,6 @@
     (gimp-image-insert-layer img grp parent pos)
     (gimp-item-set-name grp nme)
     (gimp-layer-set-mode grp mde)
-    
 
     (while (> i -1)
       (set! actL (vector-ref drwbls i))
@@ -85,13 +113,3 @@
   )
 )
 
-(script-fu-register-filter "script-fu-ghostLayer"
-  "Ghost Layer"
-  "Turns a layer into a underlay ghost, puts a blank multiply layer on top" 
-  "Mark Sweeney"
-  "Under GNU GENERAL PUBLIC LICENSE Version 3"
-  "2023"
-  "*"
-  SF-ONE-DRAWABLE
-)
-(script-fu-menu-register "script-fu-ghostLayer" "<Image>/Layer")

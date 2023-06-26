@@ -4,9 +4,8 @@
 
 This plugin demonstrates how parasites currently work inGIMP . Parasites are useful for scripting in many ways. You can store data, tag layers or set variables. Typically I'd use a parasite like this;  
   
-```scheme
+```scm
 (gimp-item-attach-parasite layerID (list "name" mode "data as a string"))
-
 ```
   
 Mode option for layers and images are:  
@@ -26,7 +25,7 @@ You can see that a parasite is just a three element list. The name is used to id
   
 The parasite is returned as a list in a list. (list (list "name" 0 "data" )) To retrieve data from the parasite use;  
   
-```scheme
+```scm
 (set! data (caddar(gimp-item-get-parasite layerID "parasite name")))
 ```
   
@@ -44,13 +43,11 @@ To download [**parasites.scm**](https://raw.githubusercontent.com/script-fu/scri
 ...follow the link, right click the page, Save as parasites.scm, in a folder called parasites, in a GIMP plug-ins location.  In Linux, set the file to be executable.
   
 
-
+<!-- include-plugin "parasites" -->
 ```scheme
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
-    ; detach global persistant with these commands for a clean start after use
-    ; (gimp-detach-parasite "persist-global-undoable : 3")
-    ; (gimp-detach-parasite "persist-global-not-undoable : 1")
 
+(define debug #f)
 
 (define (script-fu-parasites img drawables)
   (let*
@@ -136,7 +133,11 @@ To download [**parasites.scm**](https://raw.githubusercontent.com/script-fu/scri
  SF-ONE-DRAWABLE
 )
 (script-fu-menu-register "script-fu-parasites" "<Image>/Fu-Plugin")
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
 
-
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
 
 ```

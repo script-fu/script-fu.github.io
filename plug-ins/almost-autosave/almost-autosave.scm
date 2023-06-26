@@ -1,4 +1,5 @@
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
+
 ; Under GNU GENERAL PUBLIC LICENSE Version 3"
 ; Incrementally autosaves any images that have changed in the current session
 ; *Almost* because you have to activate it *every* session
@@ -9,6 +10,7 @@
 ; Use additional plugin "Almost Autosave Off" to disable.
 ; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
 
+(define debug #f)
 
 (define (script-fu-almost-autosave)
   (let*
@@ -41,7 +43,7 @@
         (proxy-active-test) ; pause, if there is a Proxy plugin process running
         (set! imgLst (gimp-get-images))
 
-        (when #f ;debug
+        (when debug
           (set! iDsp (get-global-parasite "autosave-display"))
           (set! pIDf (autosave-match-pid "autosave-pid" asPID))
           (gimp-message
@@ -72,7 +74,7 @@
 
       ); autosaving loop
 
-      (if #f ;debug
+      (if debug
         (if(= (autosave-match-pid "autosave-pid" asPID) 0)
           (gimp-message" autosave is now off ")
         )
@@ -88,7 +90,7 @@
 
   (when (not (equal? () (car (file-glob "proxy" 0))))
     (when (equal? "proxy" (caar (file-glob "proxy" 0)))
-      (if #f (gimp-message " found proxy plugin ")) ; debug
+      (if debug (gimp-message " found proxy plugin ")) ; debug
       (while (= (plugin-get-lock "proxy") 1)
         (gimp-message " auto-save paused until Proxy plugin completes ")
         (usleep (* 60 (* 1 300000)))
@@ -132,27 +134,6 @@
 )
 
 
-(define (make-dir-path path)
-   (let*
-    (
-      (brkP "")(i 2)(pDepth 0)(dirMake "")
-    )
-
-    (set! brkP (strbreakup path "/"))
-    (set! pDepth  (length brkP))
-    (set! dirMake (list-ref brkP 1)) ; skip empty element
-    (dir-make dirMake) ; make root
-
-    (while (< i pDepth)
-      (set! dirMake (string-append dirMake "/" (list-ref brkP i)))     
-      (set! i (+ i 1))
-      (dir-make dirMake) ; make tree
-    )
-
-  )
-)
-
-
 (define (autosave-on indOn)
    (let*
     (
@@ -166,7 +147,7 @@
 
       ; create a global parasite to record the indicator display ID
       (gimp-attach-parasite (list "autosave-display" 0 dispID))
-      (if #f (gimp-message (string-append " saving display ID -> " dispID)))
+      (if debug (gimp-message (string-append " saving display ID -> " dispID)))
     )
 
     ; create a global parasite to record the autosave process ID
@@ -184,7 +165,7 @@
 (define (draw-indicator)
   (let*
     (
-      (indNme "autosave-on")(mde LAYER-MODE-NORMAL)
+      (indNme "autosave-on.xcf")(mde LAYER-MODE-NORMAL)
       (imgOn (car (gimp-image-new 64 64 RGB )))(dispID 0)
       (actL (car (gimp-layer-new imgOn 64 64 RGBA-IMAGE indNme 100 mde)))
       (indC '(120 150 95)); RGB colour of indicator
@@ -234,28 +215,6 @@
 )
 
 
-(define (get-global-parasite paraNme)
-  (let*
-    (
-      (i 0)(actP 0)(fndVal 0)
-      (para (list->vector (car(gimp-get-parasite-list))))
-    )
-
-    (while (< i (vector-length para))
-      (set! actP (vector-ref para i))
-      (when (equal? actP paraNme)
-        (if #f (gimp-message "found the global parasite"))
-        (set! fndVal (string->number (caddar(gimp-get-parasite actP))))
-        (set! i (vector-length para))
-      )
-      (set! i (+ i 1))
-    )
-
-  fndVal
-  )
-)
-
-
 (define (autosave-match-pid findNme PID)
   (let*
     (
@@ -278,6 +237,71 @@
 )
 
 
+(script-fu-register "script-fu-almost-autosave"
+ "Almost Autosave" 
+ "saves all open files incrementally, if the content has changed" 
+ "Mark Sweeney"
+ "Under GNU GENERAL PUBLIC LICENSE Version 3"
+ "2023"
+ ""
+)
+(script-fu-menu-register "script-fu-almost-autosave" "<Image>/File")
+
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
+
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+
+
+; makes a directory in the "home" directory with a string "/path/like/this"
+; in WindowsOS relative to "C:\Users\username"  keep using "/" to denote path
+(define (make-dir-path path)
+   (let*
+    (
+      (brkP 0)(i 2)(pDepth 0)(dirMake "")
+    )
+
+    (set! brkP (strbreakup path "/"))
+    (set! pDepth  (length brkP))
+    (set! dirMake (list-ref brkP 1)) ; skip empty element
+    (dir-make dirMake) ; make root
+
+    (while (< i pDepth)
+      (set! dirMake (string-append dirMake "/" (list-ref brkP i)))     
+      (set! i (+ i 1))
+      (dir-make dirMake) ; make tree
+    )
+
+  )
+)
+
+
+; returns the given global parasites value string as a number, or 0
+(define (get-global-parasite paraNme)
+  (let*
+    (
+      (i 0)(actP 0)(fndVal 0)
+      (para (list->vector (car(gimp-get-parasite-list))))
+    )
+
+    (while (< i (vector-length para))
+      (set! actP (vector-ref para i))
+      (when (equal? actP paraNme)
+        (if #f (gimp-message "found the global parasite"))
+        (set! fndVal (string->number (caddar(gimp-get-parasite actP))))
+        (set! i (vector-length para))
+      )
+      (set! i (+ i 1))
+    )
+
+  fndVal
+  )
+)
+
+
+; scans through possible display id's and brings the first it finds to the fore
 (define (present-first-display)
   (let*
     (
@@ -297,7 +321,9 @@
 )
 
 
-(define (plugin-get-lock plugin)
+; looks for a "plugin" file on disk and reads the first line
+; returns the first line. used to see if a plugin is already active/locked
+(define (plugin-get-lock plugin) 
   (let*
     (
       (input (open-input-file plugin))
@@ -311,13 +337,3 @@
   )
 )
 
-
-(script-fu-register "script-fu-almost-autosave"
- "Almost Autosave" 
- "saves all open files incrementally, if the content has changed" 
- "Mark Sweeney"
- "Under GNU GENERAL PUBLIC LICENSE Version 3"
- "2023"
- ""
-)
-(script-fu-menu-register "script-fu-almost-autosave" "<Image>/File")

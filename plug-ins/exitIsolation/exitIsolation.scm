@@ -1,6 +1,9 @@
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
+
+(define debug #f)
+
 ;Under GNU GENERAL PUBLIC LICENSE Version 3
-(define (script-fu-exitIsolation img)
+(define (script-fu-exitIsolation img drwbles)
   (let*
     (
       (lstL 0)(fileNme "")(fndP 0)
@@ -30,7 +33,167 @@
   )
 )
 
+(script-fu-register-filter "script-fu-exitIsolation"
+  "Isolate Exit" 
+  "Exit isolation mode" 
+  "Mark Sweeney"
+  "Under GNU GENERAL PUBLIC LICENSE Version 3"
+  "2023"
+  "*"
+  SF-ONE-OR-MORE-DRAWABLE ;
+)
+(script-fu-menu-register "script-fu-exitIsolation" "<Image>/Tools")
 
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
+
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+
+
+; creates a "plugin" file on disk and writes the first line, lock (0/1)
+(define (plugin-set-lock plugin lock)
+  (let*
+    (
+      (output (open-output-file plugin))
+    )
+
+    (display lock output)
+    (close-output-port output)
+
+  )
+)
+
+
+
+
+; looks for a "plugin" file on disk and reads the first line
+; returns the first line. used to see if a plugin is already active/locked
+(define (plugin-get-lock plugin) 
+  (let*
+    (
+      (input (open-input-file plugin))
+      (lockValue 0)
+    )
+
+    (if input (set! lockValue (read input)))
+    (if input (close-input-port input))
+
+    lockValue
+  )
+)
+
+
+; filters a list, removing duplicates, returns a new list
+(define (remove-duplicates grpLst)
+  (let*
+    (
+      (i 0)(actGrp 0)(uniqGrps ())
+    )
+    
+    (if (list? grpLst) (set! grpLst (list->vector grpLst)))
+    (while (< i (vector-length grpLst))
+      (set! actGrp (vector-ref grpLst i))
+      (when (not (member actGrp uniqGrps))
+         (set! uniqGrps (append uniqGrps (list actGrp)))
+       )
+      (set! i (+ i 1))
+    )
+
+  uniqGrps
+  )
+)
+
+
+; sets the visibility state of a layer list
+(define (set-list-visibility lstL vis)
+  (let*
+    (
+      (vLst())(i 0)(actL 0)
+    )
+
+    (if (list? lstL) (set! lstL (list->vector lstL)))
+    (while (< i (vector-length lstL))
+      (set! actL (vector-ref lstL i))
+      (set! vLst (append vLst (list actL (car(gimp-item-get-visible actL)))))
+      (gimp-item-set-visible actL vis)
+      (set! i (+ i 1))
+    )
+
+    vLst
+  )
+)
+
+
+; returns all the children of an image or a group as a list
+; (source image, source group) set group to zero for all children of the image
+(define (all-childrn img rootGrp) ; recursive
+  (let*
+    (
+      (chldrn ())(lstL 0)(i 0)(actL 0)(allL ())
+    )
+
+    (if (= rootGrp 0)
+      (set! chldrn (gimp-image-get-layers img))
+        (if (equal? (car (gimp-item-is-group rootGrp)) 1)
+          (set! chldrn (gimp-item-get-children rootGrp))
+        )
+    )
+
+    (when (not (null? chldrn))
+      (set! lstL (cadr chldrn))
+      (while (< i (car chldrn))
+        (set! actL (vector-ref lstL i))
+        (set! allL (append allL (list actL)))
+        (if (equal? (car (gimp-item-is-group actL)) 1)
+          (set! allL (append allL (all-childrn img actL)))
+        )
+        (set! i (+ i 1))
+      )
+    )
+
+    allL
+  )
+)
+
+
+; given a list of layers and a "parasite" name it returns those layers with it
+(define (find-layers-tagged img lstL tag)
+  (let*
+    (
+      (tgdLst ())(pCountr 0)(actL 0)(paras 0)(pCount 0)
+      (lstP 0)(pName 0)(i 0)(j 0)
+    )
+
+    (set! lstL (list->vector lstL))
+
+    (set! i 0)
+    (while (< i (vector-length lstL))
+      (set! actL (vector-ref lstL i))
+      (set! paras (car (gimp-item-get-parasite-list actL)))
+      (set! pCount (length paras))
+      (when (> pCount 0)
+        (set! lstP (list->vector paras))
+        (set! j 0)
+        (while(< j pCount)
+          (set! pName (vector-ref lstP j))
+          (when (equal? pName tag)
+            (set! tgdLst (append tgdLst (list actL)))
+            (set! pCountr (+ pCountr 1))
+          )
+          (set! j (+ j 1))
+        )
+      )
+      (set! i (+ i 1))
+    )
+
+    (list->vector tgdLst)
+  )
+)
+
+
+; part of isolate selected
 (define (revert-layer img lstL types)
   (let*
     (
@@ -76,6 +239,7 @@
 )
 
 
+; part of isolate selected
 (define (restore-layer actL actT)
   (let*
     (
@@ -114,144 +278,3 @@
 )
 
 
-(define (plugin-get-lock plugin) 
-  (let*
-    (
-      (input (open-input-file plugin))
-      (lockValue 0)
-    )
-
-    (if input (set! lockValue (read input)))
-    (if input (close-input-port input))
-
-    lockValue
-  )
-)
-
-
-(define (remove-duplicates grpLst)
-  (let*
-    (
-      (i 0)(actGrp 0)(uniqGrps ())
-    )
-    
-    (if (list? grpLst) (set! grpLst (list->vector grpLst)))
-    (while (< i (vector-length grpLst))
-      (set! actGrp (vector-ref grpLst i))
-      (when (not (member actGrp uniqGrps))
-         (set! uniqGrps (append uniqGrps (list actGrp)))
-       )
-      (set! i (+ i 1))
-    )
-
-  uniqGrps
-  )
-)
-
-
-(define (set-list-visibility lstL vis)
-  (let*
-    (
-      (vLst())(i 0)(actL 0)
-    )
-
-    (if (list? lstL) (set! lstL (list->vector lstL)))
-    (while (< i (vector-length lstL))
-      (set! actL (vector-ref lstL i))
-      (set! vLst (append vLst (list actL (car(gimp-item-get-visible actL)))))
-      (gimp-item-set-visible actL vis)
-      (set! i (+ i 1))
-    )
-
-    vLst
-  )
-)
-
-
-(define (plugin-set-lock plugin lock) 
-  (let*
-    (
-      (output (open-output-file plugin))
-    )
-
-    (display lock output)
-    (close-output-port output)
-
-  )
-)
-
-
-(define (all-childrn img rootGrp) ; recursive
-  (let*
-    (
-      (chldrn ())(lstL 0)(i 0)(actL 0)(allL ())
-    )
-
-    (if (= rootGrp 0)
-      (set! chldrn (gimp-image-get-layers img))
-        (if (equal? (car (gimp-item-is-group rootGrp)) 1)
-          (set! chldrn (gimp-item-get-children rootGrp))
-        )
-    )
-
-    (when (not (null? chldrn))
-      (set! lstL (cadr chldrn))
-      (while (< i (car chldrn))
-        (set! actL (vector-ref lstL i))
-        (set! allL (append allL (list actL)))
-        (if (equal? (car (gimp-item-is-group actL)) 1)
-          (set! allL (append allL (all-childrn img actL)))
-        )
-        (set! i (+ i 1))
-      )
-    )
-
-    allL
-  )
-)
-
-
-(define (find-layers-tagged img lstL tag)
-  (let*
-    (
-      (tgdLst ())(pCountr 0)(actL 0)(paras 0)(pCount 0)
-      (lstP 0)(pName 0)(i 0)(j 0)
-    )
-
-    (set! lstL (list->vector lstL))
-
-    (set! i 0)
-    (while (< i (vector-length lstL))
-      (set! actL (vector-ref lstL i))
-      (set! paras (car (gimp-item-get-parasite-list actL)))
-      (set! pCount (length paras))
-      (when (> pCount 0)
-        (set! lstP (list->vector paras))
-        (set! j 0)
-        (while(< j pCount)
-          (set! pName (vector-ref lstP j))
-          (when (equal? pName tag)
-            (set! tgdLst (append tgdLst (list actL)))
-            (set! pCountr (+ pCountr 1))
-          )
-          (set! j (+ j 1))
-        )
-      )
-      (set! i (+ i 1))
-    )
-
-    (list->vector tgdLst)
-  )
-)
-
-
-(script-fu-register "script-fu-exitIsolation"
-  "Isolate Exit" 
-  "Exit isolation mode" 
-  "Mark Sweeney"
-  "Under GNU GENERAL PUBLIC LICENSE Version 3"
-  "2023"
-  "*"
-  SF-IMAGE       "Image"             0
-)
-(script-fu-menu-register "script-fu-exitIsolation" "<Image>/Tools")

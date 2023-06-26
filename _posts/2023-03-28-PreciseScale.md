@@ -12,13 +12,16 @@ The plug-in should appear in the Image menu.
 To download [**precise-scale.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/precise-scale/precise-scale.scm)  
 ...follow the link, right click the page, Save as precise-scale.scm, in a folder called precise-scale, in a GIMP plug-ins location.  In Linux, set the file to be executable.
 
-
+<!-- include-plugin "precise-scale" -->
 ```scheme
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
+
+(define debug #f)
+
 (define (script-fu-precise-scale img drawables scaleX scaleY pix pX pY)
   (let*
     (
-      (fileInfo (get-file-info img))(safeName "")
+      (fileInfo (get-image-file-info img))(safeName "")
       (width (car (gimp-image-get-width img)))
       (height (car (gimp-image-get-height img)))
       (scAdj (percent-to-resolution scaleX scaleY width height))
@@ -68,6 +71,32 @@ To download [**precise-scale.scm**](https://raw.githubusercontent.com/script-fu/
 )
 
 
+(script-fu-register-filter "script-fu-precise-scale"
+ "Precise Scale"
+ "Scales multi-layer images without layer pixel movement"
+ "Mark Sweeney"
+ "Under GNU GENERAL PUBLIC LICENSE Version 3"
+ "2023"
+ "*"
+ SF-ONE-OR-MORE-DRAWABLE
+ SF-ADJUSTMENT "Scale X %" (list 50 1 10000 1 10 0 SF-SPINNER)
+ SF-ADJUSTMENT "Scale Y %" (list 50 1 10000 1 10 0 SF-SPINNER)
+ SF-TOGGLE     "By Pixel"             FALSE
+ SF-ADJUSTMENT "Pixel Width" (list 512 1 10000 1 10 0 SF-SPINNER)
+ SF-ADJUSTMENT "Pixel Height" (list 512 1 10000 1 10 0 SF-SPINNER)
+)
+(script-fu-menu-register "script-fu-precise-scale" "<Image>/Image")
+
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
+
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+
+
+; returns all the children of an image or a group as a list
+; (source image, source group) set group to zero for all children of the image
 (define (all-childrn img rootGrp) ; recursive
   (let*
     (
@@ -98,13 +127,14 @@ To download [**precise-scale.scm**](https://raw.githubusercontent.com/script-fu/
 )
 
 
+; restores layer and lock states stored in a list
 (define (restore-all-locks lckLst)
   (let*
     (
       (actL 0)(lckPos 0)(lckAlp 0)(lckCnt 0)(lckVis 0)(i 0)(exst 0)
     )
 
-    (set! lckLst (list->vector lckLst))
+    (if (list? lckLst) (set! lckLst (list->vector lckLst)))
     (while (< i (vector-length lckLst))
       (set! actL (vector-ref lckLst i))
       (set! exst (car (gimp-item-id-is-valid actL)))
@@ -121,6 +151,9 @@ To download [**precise-scale.scm**](https://raw.githubusercontent.com/script-fu/
 )
 
 
+; creates a list of layers and their locks and then sets all the locks on/off
+; (source image, group/0, lock value 0/1 ) set group to zero for all layers
+; returns a list of what the layers locks used to be
 (define (set-and-store-all-locks img rootGrp lock)
   (let*
     (
@@ -161,14 +194,15 @@ To download [**precise-scale.scm**](https://raw.githubusercontent.com/script-fu/
 )
 
 
-(define (restore-layer-locks lckLst)
+; sets a layers locks to the values found in a given list
+(define (restore-layer-locks actL lckLst)
   (let*
     (
-      (actL 0)(lckPos 0)(lckAlp 0)(lckCnt 0)(lckVis 0)
+      (lckPos 0)(lckAlp 0)(lckCnt 0)(lckVis 0)
     )
 
     (set! lckLst (list->vector lckLst))
-    (set! actL (vector-ref lckLst 0))
+    (if (= actL 0)(set! actL (vector-ref lckLst 0)))
     (gimp-item-set-lock-content actL (vector-ref lckLst 1))
     (gimp-item-set-lock-position actL (vector-ref lckLst 2))
     (gimp-item-set-lock-visibility actL (vector-ref lckLst 3))
@@ -178,6 +212,8 @@ To download [**precise-scale.scm**](https://raw.githubusercontent.com/script-fu/
 )
 
 
+; sets a layers locks and returns a list of what they were before the set
+; (layer id, lock value)
 (define (set-and-store-layer-locks actL lock)
   (let*
     (
@@ -199,6 +235,7 @@ To download [**precise-scale.scm**](https://raw.githubusercontent.com/script-fu/
 )
 
 
+; calculation useful to layer size scaling
 (define (find-nearest-multiple message n multiplier dir)
   (let*
     (
@@ -223,7 +260,7 @@ To download [**precise-scale.scm**](https://raw.githubusercontent.com/script-fu/
       (set! p (/ n q))
       (set! r (ceiling p))
       (set! f (- r p ))
-      (when #f
+      (when debug
         (gimp-message 
           (string-append message
                           " : number -> " (number->string n)
@@ -233,7 +270,7 @@ To download [**precise-scale.scm**](https://raw.githubusercontent.com/script-fu/
       )
     )
 
-    (when #f
+    (when debug
       (gimp-message 
         (string-append message
                         ": start number -> " (number->string initN)
@@ -254,6 +291,9 @@ To download [**precise-scale.scm**](https://raw.githubusercontent.com/script-fu/
 )
 
 
+
+; given a 1-100 scale, and the current dimensions, it returns the new size
+; (1-100, 1-100, current width, current height)
 (define (percent-to-resolution scaleX scaleY width height)
   (let*
     (
@@ -268,6 +308,8 @@ To download [**precise-scale.scm**](https://raw.githubusercontent.com/script-fu/
 )
 
 
+
+; prints a progress message (current amount, maximum amount, prefix "message")
 (define (message-progress currAmt maxAmt message)
   (let*
     (
@@ -283,151 +325,7 @@ To download [**precise-scale.scm**](https://raw.githubusercontent.com/script-fu/
 )
 
 
-(define (layer-size-adjust img dstWdth dstHght)
-  (let*
-    (
-      (allL 0)(i 0)(offX 0)(offY 0)(actL 0)(xScP 0)(yScP 0)(skip 0)(fixLst ())
-      (wdthL 0)(hghtL 0)(offYPos #t)(offXPos #t)(actNme "")(adjLst ())(adjL 0)
-      (srcWdth (car (gimp-image-get-width img)))(all 0)
-      (srcHght (car (gimp-image-get-height img)))
-      (scX (/ dstWdth srcWdth))
-      (scY (/ dstHght srcHght))
-    )
-
-    (set! allL (get-layers img all))
-    (set! fixLst (group-mask-protect img)) ; protect group masks from deletion
-
-    ; scale any layers that are not groups
-    (set! allL (list->vector allL))
-    (while (< i (vector-length allL))
-      (message-progress i (vector-length allL) "precise scale progress")
-      (set! actL (vector-ref allL i))
-      (set! skip 0)
-      (set! actNme (short-layer-name actL 10))
-      (set! offXPos #t)
-      (set! offYPos #t)
-      (if #f (gimp-message (string-append " adjusting layer -> " actNme)))
-
-      ; get layer sizes and offsets
-      (set! wdthL (car (gimp-drawable-get-width actL)))
-      (set! hghtL (car (gimp-drawable-get-height actL)))
-      (set! offX (car(gimp-drawable-get-offsets actL)))
-      (set! offY (cadr(gimp-drawable-get-offsets actL)))
-      
-      (if (< offX 0) (set! offXPos #f))
-      (if (< offY 0) (set! offYPos #f))
-
-      ; find a new local origin for the layer that is a close multiple
-      ; of the scale applied, offsets are then scaled close to integer values
-      (set! xScP (find-nearest-multiple " xScP " (abs offX) scX -1))
-      (if (> xScP 0)(if (not offXPos) (set! xScP(* -1 xScP))))
-
-      (set! yScP (find-nearest-multiple " yScP " (abs offY) scY -1))
-      (if (> yScP 0)(if (not offYPos)(set! yScP (* -1 yScP))))
-
-      (when #f ; debug
-        (gimp-message
-          (string-append
-          " adjusting layer -> " actNme
-          "\n scX scY -> " (number->string scX)
-          ", " (number->string scY)
-          "\n wdthL hghtL -> " (number->string wdthL)
-          ", " (number->string hghtL)
-          "\n offX offY -> " (number->string offX)
-          ", " (number->string offY)
-          "\n xOrig yScP -> (" (number->string xScP)
-          ", " (number->string yScP) ")"
-          )
-        )
-      )
-
-      ; this layers size and offsets make it the same as the image, skip it
-      (when (and (= srcWdth wdthL) (= srcHght hghtL))
-        (when (and (= offX 0) (= offY 0))
-          (if #f (gimp-message "skip layer, matches image size and position"))
-          (set! skip 1)
-        )
-      )
-
-      ; reframe the layer by merging to a new layer with friendly dimensions
-      (when (= skip 0)
-        (set! adjL (layer-reframe img actL xScP yScP scX scY))
-
-        (set! adjLst (append adjLst (list adjL wdthL hghtL offX offY scX scY)))
-      )
-
-      (if #f (gimp-message (string-append " adjusted layer -> " actNme)))
-      (set! i (+ i 1))
-    )
-
-    (if (> (length fixLst) 0)(remove-layers img fixLst))
-
-    adjLst
-  )
-)
-
-
-(define (layer-size-restore adjLst)
-  (let*
-    (
-      (actNme 0)(i 0)(offX 0)(offY 0)(actL 0)(xScP 0)(yScP 0)(skip 0)(fixLst ())
-      (wdthL 0)(hghtL 0)(offYPos #t)(offXPos #t)(actNme "")
-      (adjOffX 0)(adjOffY 0)(scX 0)(scY 0)(buffer 8)
-    )
-
-    (set! adjLst (list->vector adjLst))
-    (while (< i (vector-length adjLst))
-      (message-progress i (vector-length adjLst) "completion progress")
-      (set! actL (vector-ref adjLst (+ i 0)))
-      (set! wdthL (vector-ref adjLst (+ i 1)))
-      (set! hghtL (vector-ref adjLst (+ i 2)))
-      (set! offX (vector-ref adjLst (+ i 3)))
-      (set! offY (vector-ref adjLst (+ i 4)))
-      (set! scX (vector-ref adjLst (+ i 5)))
-      (set! scY (vector-ref adjLst (+ i 6)))
-      (set! actNme (short-layer-name actL 10))
-
-      (set! adjOffX (car(gimp-drawable-get-offsets actL)))
-      (set! adjOffY (cadr(gimp-drawable-get-offsets actL)))
-
-      ; scaled sizes with an additional buffer
-      (set! wdthL (ceiling (* wdthL scX)))
-      (set! hghtL (ceiling (* hghtL scY)))
-      (set! wdthL (+ wdthL buffer))
-      (set! hghtL (+ hghtL buffer))
-
-      ; scaled offsets with an additional buffer
-      (set! offX (ceiling (* offX scX)))
-      (set! offY (ceiling (* offY scY)))
-      (set! offX (- offX (/ buffer 2)))
-      (set! offY (- offY (/ buffer 2)))
-
-      ; old - new offsets
-      (set! adjOffX (- adjOffX offX))
-      (set! adjOffY (- adjOffY offY))
-
-      (when #f ; debug
-        (gimp-message
-          (string-append
-          " cropping layer -> " actNme
-          "\n scX scY -> " (number->string scX)
-          ", " (number->string scY)
-          "\n wdthL hghtL -> " (number->string wdthL)
-          ", " (number->string hghtL)
-          "\n adjOffX adjOffY -> " (number->string adjOffX)
-          ", " (number->string adjOffY)
-          )
-        )
-      )
-
-      (gimp-layer-resize actL wdthL hghtL adjOffX adjOffY)
-      (set! i (+ i 7))
-    )
-
-  )
-)
-
-
+; trims the given string to a new character length and returns it
 (define (short-layer-name actL length)
   (let*
     (
@@ -443,105 +341,9 @@ To download [**precise-scale.scm**](https://raw.githubusercontent.com/script-fu/
 )
 
 
-(define (remove-layers img lstL)
-  (let*
-    (
-      (i 0)
-    )
-
-    (set! lstL (list->vector lstL))
-    (while (< i (vector-length lstL))
-      (gimp-image-remove-layer img (vector-ref lstL i))
-      (set! i (+ i 1))
-    )
-
-  )
-)
-
-
-(define (group-mask-protect img)
-  (let*
-    (
-      (grpLst 0)(i 0)(grpWidth 0)(grpHeight 0)(grpMskFxL 0)(actG 0)(fixLst ())
-      (offX 0)(offY)
-    )
-
-    (set! grpLst (get-all-groups img 0))
-    (set! grpLst (list->vector grpLst))
-    (while (< i (vector-length grpLst))
-      (set! actG (vector-ref grpLst i))
-
-      ; add a new layer to protect the mask
-      (when (> (car (gimp-layer-get-mask actG)) 0)
-        (set! offX (car(gimp-drawable-get-offsets actG)))
-        (set! offY (cadr(gimp-drawable-get-offsets actG)))
-        (set! grpWidth (car (gimp-drawable-get-width actG)))
-        (set! grpHeight (car (gimp-drawable-get-height actG)))
-        (set! grpMskFxL (car (gimp-layer-new img grpWidth 
-                                                grpHeight
-                                                RGBA-IMAGE 
-                                                "groupMaskFix"
-                                                0
-                                                LAYER-MODE-NORMAL
-                                )
-                        )
-        )
-
-        (gimp-image-insert-layer img grpMskFxL actG 0)
-        (gimp-layer-set-offsets grpMskFxL offX offY)
-        (set! fixLst (append fixLst (list grpMskFxL)))
-      )
-
-      (set! i (+ i 1))
-    )
-
-    fixLst
-  )
-)
-
-
-(define (layer-reframe img actL xScP yScP scX scY)
-  (let*
-    (
-      (parent (car (gimp-item-get-parent actL)))(unlock 0)(lckLst 0)
-      (pos (car (gimp-image-get-item-position img actL)))
-      (dstL 0)(paraStrLst 0)(buffer 32)(adjWdth 0)(adjHght 0)(actLAttr 0)
-      (wdthL (car (gimp-drawable-get-width actL)))
-      (hghtL (car (gimp-drawable-get-height actL)))
-      (offX (car(gimp-drawable-get-offsets actL)))
-      (offY (cadr(gimp-drawable-get-offsets actL)))
-    )
-
-    (set! lckLst (set-and-store-layer-locks actL unlock))
-
-    ; reframe layer size to scale precisely at a given scale
-    (set! adjWdth (+ buffer (+ wdthL (abs (- offX xScP)))))
-    (set! adjHght (+ buffer (+ hghtL (abs (- offY yScP)))))
-    (set! adjWdth (find-nearest-multiple " width " adjWdth scX 1))
-    (set! adjHght (find-nearest-multiple " height " adjHght scY 1))
-
-    (when #f ; debug
-      (gimp-message
-        (string-append
-          " increasing layer size -> (" (number->string adjWdth) ", "
-                                        (number->string adjHght) ")"
-          "\n original layer size -> (" (number->string wdthL) ", "
-                                        (number->string hghtL) ")"
-        )
-      )
-    )
-
-    ; add an alpha and then resize the layer to new size and offsets
-    (if (= (car(gimp-drawable-has-alpha actL)) 0)(gimp-layer-add-alpha actL))
-    (gimp-layer-resize actL adjWdth adjHght (- offX xScP) (- offY yScP))
-
-    (restore-layer-locks lckLst)
-
-    actL
-  )
-)
-
-
+; finds only the layers and not the groups in all the image or inside a group
+; (source image, source group/all image) set last parameter to 0 for all image
+; returns a list of all the layers found
 (define (get-layers img actL) ; recursive function
   (let*
     (
@@ -573,43 +375,42 @@ To download [**precise-scale.scm**](https://raw.githubusercontent.com/script-fu/
 )
 
 
-(define (get-file-info img)
+; finds the full file name, base name, stripped name, and path of a given image
+; returns a vector list ("/here/myfile.xcf" "myfile.xcf" "myfile" "/here")
+(define (get-image-file-info img)
   (let*
     (
-      (fileInfo (vector "" "" "" ""))
-      (fileName "")
-      (fileBase "")
-      (fileNoExt "")
-      (filePath "")
-      (brkTok "/")
+      (fNme "")(fBse "")(fwEx "")(fPth "")(brkTok "/")(usr "")(strL "")
     )
+
     (if (equal? () (car (file-glob "/usr" 0)))(set! brkTok "\\")); windows OS
+    (if (equal? "/" brkTok)(set! usr(getenv"HOME"))(set! usr(getenv"HOMEPATH")))
 
     (when (> (car (gimp-image-id-is-valid img)) 0)
       (when (not(equal? (car(gimp-image-get-file img)) ""))
-        (set! fileName (car(gimp-image-get-file img)))
-        (set! fileBase (car (reverse (strbreakup fileName brkTok))))
-        (set! fileNoExt (car (strbreakup fileBase ".")))
-        (set! filePath (unbreakupstr (reverse (cdr(reverse (strbreakup fileName
-                                                           brkTok)
-                                                  )
-                                              )
-                                     ) 
-                                     brkTok
-                       )
-        )
-        (vector-set! fileInfo 0 fileName)
-        (vector-set! fileInfo 1 fileBase)
-        (vector-set! fileInfo 2 fileNoExt)
-        (vector-set! fileInfo 3 filePath)
+        (set! fNme (car(gimp-image-get-file img)))
+        (set! fBse (car (reverse (strbreakup fNme brkTok))))
+        (set! fwEx (car (strbreakup fBse ".")))
+        (set! fPth (reverse (cdr(reverse (strbreakup fNme brkTok)))))
+        (set! fPth (unbreakupstr fPth brkTok))
+      )
+
+      (when (equal? (car(gimp-image-get-file img)) "")
+        (set! fNme (string-append usr brkTok "Untitled.xcf"))
+        (set! fBse (car (reverse (strbreakup fNme brkTok))))
+        (set! fwEx (car (strbreakup fBse ".")))
+        (set! fPth usr)
       )
     )
 
-    fileInfo
+    (vector fNme fBse fwEx fPth)
   )
 )
 
 
+; finds only the groups and not the layers in all the image or inside a group
+; (source image, source group/all image) set last parameter to 0 for all image
+; returns a list of all the groups found including the given group
 (define (get-all-groups img actL)
   (let*
     (
@@ -648,6 +449,10 @@ To download [**precise-scale.scm**](https://raw.githubusercontent.com/script-fu/
 )
 
 
+; also used by (get-all-groups)
+; finds only the groups and not the layers in all the image or inside a group
+; (source image, source group/all image) set last parameter to 0 for all image
+; returns a list of all the groups found not including the given group
 (define (get-sub-groups img actL) ; recursive function
   (let*
     (
@@ -699,23 +504,292 @@ To download [**precise-scale.scm**](https://raw.githubusercontent.com/script-fu/
 )
 
 
+; finds only the layers and not the groups in all the image or inside a group
+; (source image, source group/all image) set last parameter to 0 for all image
+; returns a list of all the layers found
+(define (get-layers img actL) ; recursive function
+  (let*
+    (
+      (chldrn 0)(lstL 0)(i 0)(allL ())
+    )
 
+    (if (= actL 0)
+      (set! chldrn (gimp-image-get-layers img))
+      (if (equal? (car (gimp-item-is-group actL)) 1)
+        (set! chldrn (gimp-item-get-children actL))
+        (set! chldrn (list 1 (list->vector (list actL))))
+      )
+    )
 
-(script-fu-register-filter "script-fu-precise-scale"
- "Precise Scale"
- "Scales multi-layer images without layer pixel movement"
- "Mark Sweeney"
- "Under GNU GENERAL PUBLIC LICENSE Version 3"
- "2023"
- "*"
- SF-ONE-OR-MORE-DRAWABLE
- SF-ADJUSTMENT "Scale X %" (list 50 1 10000 1 10 0 SF-SPINNER)
- SF-ADJUSTMENT "Scale Y %" (list 50 1 10000 1 10 0 SF-SPINNER)
- SF-TOGGLE     "By Pixel"             FALSE
- SF-ADJUSTMENT "Pixel Width" (list 512 1 10000 1 10 0 SF-SPINNER)
- SF-ADJUSTMENT "Pixel Height" (list 512 1 10000 1 10 0 SF-SPINNER)
+    (set! lstL (cadr chldrn))
+    (while (< i (car chldrn))
+      (set! actL (vector-ref lstL i))
+      (when (equal? (car (gimp-item-is-group actL)) 0)
+        (set! allL (append allL (list actL)))
+      )
+      (when (equal? (car (gimp-item-is-group actL)) 1)
+        (set! allL (append allL (get-layers img actL)))
+      )
+      (set! i (+ i 1))
+    )
+
+    allL
+  )
 )
-(script-fu-menu-register "script-fu-precise-scale" "<Image>/Image")
 
+
+; part of precise scaling
+(define (layer-reframe img actL xScP yScP scX scY)
+  (let*
+    (
+      (parent (car (gimp-item-get-parent actL)))(unlock 0)(lckLst 0)
+      (pos (car (gimp-image-get-item-position img actL)))
+      (dstL 0)(paraStrLst 0)(buffer 32)(adjWdth 0)(adjHght 0)(actLAttr 0)
+      (wdthL (car (gimp-drawable-get-width actL)))
+      (hghtL (car (gimp-drawable-get-height actL)))
+      (offX (car(gimp-drawable-get-offsets actL)))
+      (offY (cadr(gimp-drawable-get-offsets actL)))
+    )
+
+    (set! lckLst (set-and-store-layer-locks actL unlock))
+
+    ; reframe layer size to scale precisely at a given scale
+    (set! adjWdth (+ buffer (+ wdthL (abs (- offX xScP)))))
+    (set! adjHght (+ buffer (+ hghtL (abs (- offY yScP)))))
+    (set! adjWdth (find-nearest-multiple " width " adjWdth scX 1))
+    (set! adjHght (find-nearest-multiple " height " adjHght scY 1))
+
+    (when debug
+      (gimp-message
+        (string-append
+          " increasing layer size -> (" (number->string adjWdth) ", "
+                                        (number->string adjHght) ")"
+          "\n original layer size -> (" (number->string wdthL) ", "
+                                        (number->string hghtL) ")"
+        )
+      )
+    )
+
+    ; add an alpha and then resize the layer to new size and offsets
+    (if (= (car(gimp-drawable-has-alpha actL)) 0)(gimp-layer-add-alpha actL))
+    (gimp-layer-resize actL adjWdth adjHght (- offX xScP) (- offY yScP))
+
+    (restore-layer-locks actL lckLst)
+
+    actL
+  )
+)
+
+
+
+; part of precise scaling
+(define (group-mask-protect img)
+  (let*
+    (
+      (grpLst 0)(i 0)(grpWidth 0)(grpHeight 0)(grpMskFxL 0)(actG 0)(fixLst ())
+      (offX 0)(offY)
+    )
+
+    (set! grpLst (get-all-groups img 0))
+    (set! grpLst (list->vector grpLst))
+    (while (< i (vector-length grpLst))
+      (set! actG (vector-ref grpLst i))
+
+      ; add a new layer to protect the mask
+      (when (> (car (gimp-layer-get-mask actG)) 0)
+        (set! offX (car(gimp-drawable-get-offsets actG)))
+        (set! offY (cadr(gimp-drawable-get-offsets actG)))
+        (set! grpWidth (car (gimp-drawable-get-width actG)))
+        (set! grpHeight (car (gimp-drawable-get-height actG)))
+        (set! grpMskFxL (car (gimp-layer-new img grpWidth 
+                                                grpHeight
+                                                RGBA-IMAGE 
+                                                "groupMaskFix"
+                                                0
+                                                LAYER-MODE-NORMAL
+                                )
+                        )
+        )
+
+        (gimp-image-insert-layer img grpMskFxL actG 0)
+        (gimp-layer-set-offsets grpMskFxL offX offY)
+        (set! fixLst (append fixLst (list grpMskFxL)))
+      )
+
+      (set! i (+ i 1))
+    )
+
+    fixLst
+  )
+)
+
+
+; part of precise scaling
+(define (layer-size-restore adjLst)
+  (let*
+    (
+      (actNme 0)(i 0)(offX 0)(offY 0)(actL 0)(xScP 0)(yScP 0)(skip 0)(fixLst ())
+      (wdthL 0)(hghtL 0)(offYPos #t)(offXPos #t)(actNme "")
+      (adjOffX 0)(adjOffY 0)(scX 0)(scY 0)(buffer 8)
+    )
+
+    (set! adjLst (list->vector adjLst))
+    (while (< i (vector-length adjLst))
+      (message-progress i (vector-length adjLst) "completion progress")
+      (set! actL (vector-ref adjLst (+ i 0)))
+      (set! wdthL (vector-ref adjLst (+ i 1)))
+      (set! hghtL (vector-ref adjLst (+ i 2)))
+      (set! offX (vector-ref adjLst (+ i 3)))
+      (set! offY (vector-ref adjLst (+ i 4)))
+      (set! scX (vector-ref adjLst (+ i 5)))
+      (set! scY (vector-ref adjLst (+ i 6)))
+      (set! actNme (short-layer-name actL 10))
+
+      (set! adjOffX (car(gimp-drawable-get-offsets actL)))
+      (set! adjOffY (cadr(gimp-drawable-get-offsets actL)))
+
+      ; scaled sizes with an additional buffer
+      (set! wdthL (ceiling (* wdthL scX)))
+      (set! hghtL (ceiling (* hghtL scY)))
+      (set! wdthL (+ wdthL buffer))
+      (set! hghtL (+ hghtL buffer))
+
+      ; scaled offsets with an additional buffer
+      (set! offX (ceiling (* offX scX)))
+      (set! offY (ceiling (* offY scY)))
+      (set! offX (- offX (/ buffer 2)))
+      (set! offY (- offY (/ buffer 2)))
+
+      ; old - new offsets
+      (set! adjOffX (- adjOffX offX))
+      (set! adjOffY (- adjOffY offY))
+
+      (when debug
+        (gimp-message
+          (string-append
+          " cropping layer -> " actNme
+          "\n scX scY -> " (number->string scX)
+          ", " (number->string scY)
+          "\n wdthL hghtL -> " (number->string wdthL)
+          ", " (number->string hghtL)
+          "\n adjOffX adjOffY -> " (number->string adjOffX)
+          ", " (number->string adjOffY)
+          )
+        )
+      )
+
+      (gimp-layer-resize actL wdthL hghtL adjOffX adjOffY)
+      (set! i (+ i 7))
+    )
+
+  )
+)
+
+
+
+; part of precise scaling
+(define (layer-size-adjust img dstWdth dstHght)
+  (let*
+    (
+      (allL 0)(i 0)(offX 0)(offY 0)(actL 0)(xScP 0)(yScP 0)(skip 0)(fixLst ())
+      (wdthL 0)(hghtL 0)(offYPos #t)(offXPos #t)(actNme "")(adjLst ())(adjL 0)
+      (srcWdth (car (gimp-image-get-width img)))(all 0)
+      (srcHght (car (gimp-image-get-height img)))
+      (scX (/ dstWdth srcWdth))
+      (scY (/ dstHght srcHght))
+    )
+
+    (set! allL (get-layers img all))
+    (set! fixLst (group-mask-protect img)) ; protect group masks from deletion
+
+    ; scale any layers that are not groups
+    (set! allL (list->vector allL))
+    (while (< i (vector-length allL))
+      (message-progress i (vector-length allL) "precise scale progress")
+      (set! actL (vector-ref allL i))
+      (set! skip 0)
+      (set! actNme (short-layer-name actL 10))
+      (set! offXPos #t)
+      (set! offYPos #t)
+      (if debug (gimp-message (string-append " adjusting layer -> " actNme)))
+
+      ; get layer sizes and offsets
+      (set! wdthL (car (gimp-drawable-get-width actL)))
+      (set! hghtL (car (gimp-drawable-get-height actL)))
+      (set! offX (car(gimp-drawable-get-offsets actL)))
+      (set! offY (cadr(gimp-drawable-get-offsets actL)))
+      
+      (if (< offX 0) (set! offXPos #f))
+      (if (< offY 0) (set! offYPos #f))
+
+      ; find a new local origin for the layer that is a close multiple
+      ; of the scale applied, offsets are then scaled close to integer values
+      (set! xScP (find-nearest-multiple " xScP " (abs offX) scX -1))
+      (if (> xScP 0)(if (not offXPos) (set! xScP(* -1 xScP))))
+
+      (set! yScP (find-nearest-multiple " yScP " (abs offY) scY -1))
+      (if (> yScP 0)(if (not offYPos)(set! yScP (* -1 yScP))))
+
+      (when debug
+        (gimp-message
+          (string-append
+          " adjusting layer -> " actNme
+          "\n scX scY -> " (number->string scX)
+          ", " (number->string scY)
+          "\n wdthL hghtL -> " (number->string wdthL)
+          ", " (number->string hghtL)
+          "\n offX offY -> " (number->string offX)
+          ", " (number->string offY)
+          "\n xOrig yScP -> (" (number->string xScP)
+          ", " (number->string yScP) ")"
+          )
+        )
+      )
+
+      ; this layers size and offsets make it the same as the image, skip it
+      (when (and (= srcWdth wdthL) (= srcHght hghtL))
+        (when (and (= offX 0) (= offY 0))
+          (if debug (gimp-message "skip layer, matches image size and position"))
+          (set! skip 1)
+        )
+      )
+
+      ; reframe the layer by merging to a new layer with friendly dimensions
+      (when (= skip 0)
+        (set! adjL (layer-reframe img actL xScP yScP scX scY))
+
+        (set! adjLst (append adjLst (list adjL wdthL hghtL offX offY scX scY)))
+      )
+
+      (if debug (gimp-message (string-append " adjusted layer -> " actNme)))
+      (set! i (+ i 1))
+    )
+
+    (if (> (length fixLst) 0)(remove-layers img fixLst))
+
+    adjLst
+  )
+)
+
+
+; removes a list of layers from an image
+; (source image, list of layers)
+(define (remove-layers img lstL)
+  (let*
+    (
+      (i 0)(actL 0)
+    )
+
+    (if (list? lstL)(set! lstL (list->vector lstL)))
+    (while (< i (vector-length lstL))
+      (set! actL (vector-ref lstL i))
+      (if (= (car (gimp-item-id-is-valid actL)) 1)
+        (gimp-image-remove-layer img actL)
+      )
+      (set! i (+ i 1))
+    )
+
+  )
+)
 
 ```

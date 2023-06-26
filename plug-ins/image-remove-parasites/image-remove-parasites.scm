@@ -53,30 +53,7 @@
 )
 
 
-(define (get-image-parasite-string img paraNme)
-  (let*
-    (
-      (i 0)(actP 0)(fndV "")
-      (para (list->vector (car(gimp-image-get-parasite-list img))))
-    )
-
-    (while (< i (vector-length para))
-      (set! actP (vector-ref para i))
-      (when (equal? actP paraNme)
-        (set! fndV (caddar(gimp-image-get-parasite img actP)))
-        (set! i (vector-length para))
-      )
-      (set! i (+ i 1))
-    )
-
-  fndV
-  )
-)
-
-(define (err msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
-(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
-(define debug #f) ; print all debug information
-(define info #t)  ; print information
+(define debug #f)
 
 (script-fu-register-filter "script-fu-image-remove-parasites"
  "Image Remove Parasites" 
@@ -90,3 +67,35 @@
  SF-STRING     "Specific Parasite"   "ink"
 )
 (script-fu-menu-register "script-fu-image-remove-parasites" "<Image>/Image/Tag")
+
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
+
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+
+
+; returns the value string of a parasite on a specified image
+; (image id, parasite name)
+(define (get-image-parasite-string img paraNme)
+  (let*
+    (
+      (i 0)(actP 0)(fndV "")
+      (para (list->vector (car(gimp-image-get-parasite-list img))))
+    )
+
+    (while (< i (vector-length para))
+      (set! actP (vector-ref para i))
+      (when (equal? actP paraNme)
+        (if #f (gimp-message " found the parasite "))
+        (set! fndV (caddar(gimp-image-get-parasite img actP)))
+        (set! i (vector-length para))
+      )
+      (set! i (+ i 1))
+    )
+
+  fndV
+  )
+)
+

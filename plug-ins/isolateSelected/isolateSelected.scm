@@ -1,4 +1,7 @@
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
+
+(define debug #f)
+
 ;Under GNU GENERAL PUBLIC LICENSE Version 3
 (define (script-fu-isolateSelected img drwbles)
   (let*
@@ -160,89 +163,6 @@
 )
 
 
-(define (revert-layer img lstL types)
-  (let*
-    (
-      (tagLst 0)(i 0)(actL 0)(t 0)(actT "")(isoP 0)
-    )
-
-    ; isolatedParents are a special case for speed up reasons
-    (set! types (list->vector types))
-    (set! isoP (find-layers-tagged img lstL "isoParent"))
-    (set! isoP (remove-duplicates isoP))
-    (set-list-visibility isoP 0)
-
-    ; restore every type apart from isoParent
-    (while (< t (vector-length types))
-      (set! actT (vector-ref types t))
-      (if #f (gimp-message actT)) ;debug
-      (set! tagLst (find-layers-tagged img lstL actT))
-      (set! tagLst (remove-duplicates (vector->list tagLst)))
-      (set! tagLst (list->vector tagLst))
-      (when (> (vector-length tagLst) 0)
-        (set! i 0)
-        (while (< i (vector-length tagLst))
-          (set! actL (vector-ref tagLst i))
-          (if (not(member actL isoP)) (restore-layer actL actT))
-          (set! i (+ i 1))
-        )
-      )
-      (set! t (+ t 1))
-    )
-
-    ; final pass - restore isolatedParents
-    (if (list? isoP) (set! isoP (list->vector isoP)))
-    (when (> (vector-length isoP) 0)
-      (set! i 0)
-      (while (< i (vector-length isoP))
-        (set! actL (vector-ref isoP i))
-        (restore-layer actL "isoParent")
-        (set! i (+ i 1))
-      )
-    )
-
-  )
-)
-
-
-(define (restore-layer actL actT)
-  (let*
-    (
-      (len (length (car(gimp-item-get-parasite-list actL))))
-      (colTag 0)(modeTag 0)(opaTag 0)(visTag 0)(dataStr "")
-    )
-
-    (when (> len 0)
-      ; retrieve stored layer data
-      (set! dataStr (caddar (gimp-item-get-parasite actL actT)))
-      (set! dataStr (strbreakup dataStr "_"))
-      (set! colTag (string->number (car dataStr)))
-      (set! visTag (string->number (cadr dataStr)))
-      (set! modeTag (string->number (caddr dataStr)))
-      (set! opaTag (string->number (cadddr dataStr)))
-      (gimp-item-set-color-tag actL colTag)
-      (gimp-layer-set-opacity actL opaTag)
-
-      ; special case
-      (when (equal? "isolated" actT)
-        (gimp-layer-set-mode actL modeTag)
-        (gimp-item-set-visible actL visTag)
-      )
-
-      ; special case
-      (when (equal? "isoParent" actT)
-        (gimp-item-set-visible actL visTag)
-      )
-
-      (gimp-item-detach-parasite actL actT)
-      (if (> (car(gimp-layer-get-mask actL)) 0)
-        (gimp-layer-set-show-mask actL 0)
-      )
-    )
-  )
-)
-
-
 (define (iso-tag-layer actL tag)
   (let*
     (
@@ -302,6 +222,44 @@
 )
 
 
+(define (colorChldrn img actL name col)
+  (let*
+    (
+      (chldrn (all-childrn img actL))(i 0)(actC 0)
+    )
+
+    (set! chldrn (list->vector chldrn))
+    (while (< i (vector-length chldrn))
+      (set! actC (vector-ref chldrn i))
+      (iso-tag-layer actC name)
+      (gimp-item-set-color-tag actC col)
+      (set! i (+ i 1))
+    )
+
+  )
+)
+
+
+(script-fu-register-filter "script-fu-isolateSelected"
+  "Isolate" 
+  "Isolates the selected layers" 
+  "Mark Sweeney"
+  "Under GNU GENERAL PUBLIC LICENSE Version 3"
+  "2023"
+  "*"
+  SF-ONE-OR-MORE-DRAWABLE ;
+)
+(script-fu-menu-register "script-fu-isolateSelected" "<Image>/Tools")
+
+; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
+
+; utility functions
+(define (boolean->string bool) (if bool "#t" "#f"))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
+
+
+; filters a list, removing duplicates, returns a new list
 (define (remove-duplicates grpLst)
   (let*
     (
@@ -322,6 +280,7 @@
 )
 
 
+; sets the visibility state of a layer list
 (define (set-list-visibility lstL vis)
   (let*
     (
@@ -341,24 +300,24 @@
 )
 
 
-(define (colorChldrn img actL name col)
+; creates a "plugin" file on disk and writes the first line, lock (0/1)
+(define (plugin-set-lock plugin lock)
   (let*
     (
-      (chldrn (all-childrn img actL))(i 0)(actC 0)
+      (output (open-output-file plugin))
     )
 
-    (set! chldrn (list->vector chldrn))
-    (while (< i (vector-length chldrn))
-      (set! actC (vector-ref chldrn i))
-      (iso-tag-layer actC name)
-      (gimp-item-set-color-tag actC col)
-      (set! i (+ i 1))
-    )
+    (display lock output)
+    (close-output-port output)
 
   )
 )
 
 
+
+
+; looks for a "plugin" file on disk and reads the first line
+; returns the first line. used to see if a plugin is already active/locked
 (define (plugin-get-lock plugin) 
   (let*
     (
@@ -374,19 +333,8 @@
 )
 
 
-(define (plugin-set-lock plugin lock) 
-  (let*
-    (
-      (output (open-output-file plugin))
-    )
-
-    (display lock output)
-    (close-output-port output)
-
-  )
-)
-
-
+; returns all the children of an image or a group as a list
+; (source image, source group) set group to zero for all children of the image
 (define (all-childrn img rootGrp) ; recursive
   (let*
     (
@@ -417,6 +365,7 @@
 )
 
 
+; given a list of layers and a "parasite" name it returns those layers with it
 (define (find-layers-tagged img lstL tag)
   (let*
     (
@@ -424,7 +373,7 @@
       (lstP 0)(pName 0)(i 0)(j 0)
     )
 
-    (if (list? lstL) (set! lstL (list->vector lstL)))
+    (set! lstL (list->vector lstL))
 
     (set! i 0)
     (while (< i (vector-length lstL))
@@ -451,13 +400,14 @@
 )
 
 
-(define (find-parasite-on-layer drawable tag)
+; does the layer have a specific parasite
+(define (find-parasite-on-layer actL tag)
   (let*
     (
       (i 0)(paras 0)(pCount 0)(lstP 0)(pName "")(found 0)
     )
 
-    (set! paras (car (gimp-item-get-parasite-list drawable)))
+    (set! paras (car (gimp-item-get-parasite-list actL)))
     (set! pCount (length paras))
     (set! lstP (list->vector paras))
 
@@ -478,6 +428,8 @@
 )
 
 
+; compares two lists of numbers and tests for a perfect match
+; returns 1 or 0
 (define (number-lists-match lstA lstB)
   (let
     (
@@ -495,11 +447,15 @@
       )
     )
 
-    match
+  match
   )
 )
 
 
+; bubble sorting from;
+; https://stackoverflow.com/users/2860713/avery-poole
+; https://stackoverflow.com/users/201359/%c3%93scar-l%c3%b3pez
+; thanks!
 (define (bubble-up lst)
   (if (null? (cdr lst))
     lst
@@ -509,8 +465,6 @@
      )
   )
 )
-
-
 (define (bubble-sort len lst)
   (cond ((= len 1) (bubble-up lst))
     (else (bubble-sort (- len 1) (bubble-up lst)))
@@ -518,21 +472,24 @@
 )
 
 
-(define (exclude-children img drwbles)
+; filters out children from a list of layers
+; returns the top levels groups, or layers that are in the root and in the list
+(define (exclude-children img lstL)
   (let*
     (
     (i 0)(actL 0)(excLst())(parent 0)(allParents 0)(j 0)(found 0)
     )
 
-    (while (< i (vector-length drwbles))
-      (set! actL (vector-ref drwbles i))
+    (if (list? lstL) (set! lstL (list->vector lstL)))
+    (while (< i (vector-length lstL))
+      (set! actL (vector-ref lstL i))
       (set! j 0)
       (set! found 0)
       (set! allParents (get-all-parents img actL))
 
       (while (< j (length allParents))
         (set! parent (nth j allParents))
-          (when (and (member parent (vector->list drwbles)) 
+          (when (and (member parent (vector->list lstL))
                 (car (gimp-item-is-group actL)) )
             (set! found 1)
           )
@@ -551,13 +508,13 @@
 )
 
 
-(define (get-all-parents img drawable)
+(define (get-all-parents img actL)
   (let*
     (
       (parent 0)(allParents ())(i 0)
     )
 
-    (set! parent (car(gimp-item-get-parent drawable)))
+    (set! parent (car(gimp-item-get-parent actL)))
 
     (when (> parent 0)
       (while (> parent 0)
@@ -571,6 +528,8 @@
 )
 
 
+
+; first layer in a given list is set to show it's mask
 (define (show-mask drwbles isolated)
   (let*
     (
@@ -580,7 +539,7 @@
 
     ; if it's a mask and the only item selected, switch to layer, show the mask
     (when (and (= size 1) (= (car (gimp-item-id-is-layer-mask actL )) 1))
-      (if #f (gimp-message " only a mask selected "))
+      (if debug (gimp-message " only a mask selected "))
       (vector-set! drwbles 0 (car(gimp-layer-from-mask actL)))
       (gimp-layer-set-show-mask (vector-ref drwbles 0) show)
     )
@@ -590,13 +549,89 @@
 )
 
 
-(script-fu-register-filter "script-fu-isolateSelected"
-  "Isolate" 
-  "Isolates the selected layers" 
-  "Mark Sweeney"
-  "Under GNU GENERAL PUBLIC LICENSE Version 3"
-  "2023"
-  "*"
-  SF-ONE-OR-MORE-DRAWABLE ;
+
+; part of isolate selected
+(define (revert-layer img lstL types)
+  (let*
+    (
+      (tagLst 0)(i 0)(actL 0)(t 0)(actT "")(isoP 0)
+    )
+
+    ; isolatedParents are a special case for speed up reasons
+    (set! types (list->vector types))
+    (set! isoP (find-layers-tagged img lstL "isoParent"))
+    (set! isoP (remove-duplicates isoP))
+    (set-list-visibility isoP 0)
+
+    ; restore every type apart from isoParent
+    (while (< t (vector-length types))
+      (set! actT (vector-ref types t))
+      (if #f (gimp-message actT)) ;debug
+      (set! tagLst (find-layers-tagged img lstL actT))
+      (set! tagLst (remove-duplicates (vector->list tagLst)))
+      (set! tagLst (list->vector tagLst))
+      (when (> (vector-length tagLst) 0)
+        (set! i 0)
+        (while (< i (vector-length tagLst))
+          (set! actL (vector-ref tagLst i))
+          (if (not(member actL isoP)) (restore-layer actL actT))
+          (set! i (+ i 1))
+        )
+      )
+      (set! t (+ t 1))
+    )
+
+    ; final pass - restore isolatedParents
+    (if (list? isoP) (set! isoP (list->vector isoP)))
+    (when (> (vector-length isoP) 0)
+      (set! i 0)
+      (while (< i (vector-length isoP))
+        (set! actL (vector-ref isoP i))
+        (restore-layer actL "isoParent")
+        (set! i (+ i 1))
+      )
+    )
+
+  )
 )
-(script-fu-menu-register "script-fu-isolateSelected" "<Image>/Tools")
+
+
+; part of isolate selected
+(define (restore-layer actL actT)
+  (let*
+    (
+      (len (length (car(gimp-item-get-parasite-list actL))))
+      (colTag 0)(modeTag 0)(opaTag 0)(visTag 0)(dataStr "")
+    )
+
+    (when (> len 0)
+      ; retrieve stored layer data
+      (set! dataStr (caddar (gimp-item-get-parasite actL actT)))
+      (set! dataStr (strbreakup dataStr "_"))
+      (set! colTag (string->number (car dataStr)))
+      (set! visTag (string->number (cadr dataStr)))
+      (set! modeTag (string->number (caddr dataStr)))
+      (set! opaTag (string->number (cadddr dataStr)))
+      (gimp-item-set-color-tag actL colTag)
+      (gimp-layer-set-opacity actL opaTag)
+
+      ; special case
+      (when (equal? "isolated" actT)
+        (gimp-layer-set-mode actL modeTag)
+        (gimp-item-set-visible actL visTag)
+      )
+
+      ; special case
+      (when (equal? "isoParent" actT)
+        (gimp-item-set-visible actL visTag)
+      )
+
+      (gimp-item-detach-parasite actL actT)
+      (if (> (car(gimp-layer-get-mask actL)) 0)
+        (gimp-layer-set-show-mask actL 0)
+      )
+    )
+  )
+)
+
+

@@ -101,12 +101,12 @@
       (gimp-message
         (string-append
         " finally, you may want to stop a script if a condition is met "
-        " a procedure defined in this plugin (err msg) does that"
+        " a procedure defined in this plugin (exit msg) does that"
         )
       )
     )
 
-    (if (not falseFlag) (err " the logic was faulty "))
+    (if (not falseFlag) (exit " the logic was faulty "))
 
     (here 5.2)
 
@@ -115,7 +115,7 @@
 
 
 ; debug and error macro
-(define (err msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
 (define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
 (define debug #t) ; print all debug information
 (define info #t)  ; print information

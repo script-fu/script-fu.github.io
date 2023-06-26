@@ -1,17 +1,17 @@
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
 (define (script-fu-helloAgain ) 
- (let*
- (
- (i 0)
- )
- 
- (while (< i 30)
-  (gimp-message "hello again")
-  (usleep 1000000)
-  (set! i (+ i 1))
- )
+  (let*
+    (
+      (i 0)
+    )
+  
+  (while (< i 30)
+    (gimp-message "hello again")
+    (usleep 1000000)
+    (set! i (+ i 1))
+  )
 
-)
+  )
 )
 
 (script-fu-register "script-fu-helloAgain"
