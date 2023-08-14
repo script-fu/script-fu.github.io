@@ -1,5 +1,7 @@
 
-## A Filter Plugin Example
+## Plugin Examples - Getting Started
+
+The bare essentials of a Script-Fu plugin for GIMP 3 are described below.
 
 ```scheme
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
@@ -91,7 +93,8 @@ The same plugin can be given made more concise with shorter variable names.  Whi
 (define (script-fu-basic-plugin img selV)
   (let*
     (
-      (msg " hello world ")(retV 42))
+      (msg " hello world ")(retV 42)
+    )
 
     (gimp-message msg)
 
