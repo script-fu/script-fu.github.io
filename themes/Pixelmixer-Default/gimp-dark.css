@@ -1,0 +1,24 @@
+/* Order is important, color -> layout -> image */
+
+/* Import from the 'Default Dark' theme */
+@import url("./color-definitions-dark.css");
+@import url("./stylesheets/color.css");
+
+/* Import from the 'Default adjustments' */
+@import url("./adjustments/adjust-color-dark.css");
+
+/* Import from the 'Default' theme */
+@import url("./stylesheets/layout.css");
+@import url("./stylesheets/round.css");
+@import url("./stylesheets/font.css");
+
+
+
+
+
+
+
+
+
+
+

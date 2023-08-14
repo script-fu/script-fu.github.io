@@ -1,0 +1,155 @@
+/*
+* @ THEME ADJUSTMENTS GO IN HERE
+*/
+
+
+/* All Images, Usually on a Button */
+image,
+toolbutton image,
+button image,
+tab image {
+  color:         @og-dark-color;
+  background-color: transparent;
+  opacity:                  0.8;
+}
+
+/* Inactive, image on button */
+button:not(:checked) image,
+tab:not(:checked)    image {
+  color:    @og-dark-high-color;
+  background-color: transparent;
+}
+
+/* Hover, image on button */
+button:not(:checked):hover image,
+tab:not(:checked):hover    image {
+  color: @og-dark-color;
+}
+
+/* Clicked, image on button */
+button:active:hover image,
+tab:active:hover    image {
+  color: @og-black-color;
+}
+
+/* Active, ON state, image on button */
+button:checked image,
+tab:checked    image {
+  color: @og-dark-low-color;
+}
+
+/* Hover Checked button, image has highest contrast */
+button:checked:hover image,
+tab:checked:hover    image {
+  color: @og-black-color;
+}
+
+/* User can enter data, color is border color on spinbuttons, font otherwise */
+entry {
+  background-color: @mid-higher-color;
+}
+
+/* Focus, user can enter data, color has no effect on spinbuttons */
+entry:focus {
+  background-color: @mid-high-color;
+}
+
+/* Highlighting the selected text */
+entry selection {
+  background-color: @shade-low-color;
+}
+
+/* Menu bar, odd double header needed */
+menubar :backdrop,
+headerbar:backdrop,
+headerbar :backdrop {
+  background-color: @mid-low-color;
+}
+
+/* Min, Max and Close */
+headerbar button :backdrop {
+  background-color: transparent;
+}
+
+/* Title bar, active document name */
+headerbar .title:backdrop {
+  color: @mid-higher-color;
+}
+
+/* Labels */
+menubar label:backdrop {
+  color: @mid-higher-color;
+}
+
+/* That horizontal dividing line between menu sections */
+menu separator {
+  background-color: @mid-high-color;
+  border-color:          @mid-color;
+  background-image:            none;
+}
+
+/* That horizontal dividing line between menu sections */
+combobox menu separator {
+  background-color: @mid-high-color;
+  border-color:          @mid-color;
+  background-image:            none;
+}
+
+/* Canvas, mid gray */
+GimpDisplayShell {
+  background-color: @mid-color;
+  color: @shade-high-color;
+}
+
+/* Trough */
+dialog scale contents trough {
+  background-color: @mid-high-color;
+  border-color:   @shade-high-color;
+}
+
+/* Slider handle */
+scale slider {
+  background-color: @shade-higher-color;
+  border-color:        @shade-low-color;
+}
+
+/* Trough */
+scale contents trough {
+  background-color: @mid-higher-color;
+  border-color:     @shade-high-color;
+}
+
+/* Markings on switch FG / BG */
+GimpFgBgEditor {
+  color: @og-dark-color;
+}
+
+scale slider:hover {
+  background-color: @og-dark-high-color;
+}
+
+/* Slider handle active color */
+scale slider:active {
+  background-color: @og-dark-low-color;
+}
+
+/* Dim down a unselected tabs label */
+GimpDock header tab label,
+dialog header tab {
+  color: @og-dark-higher-color;
+}
+
+/* Catch the expander arrow on a toolbutton */
+toolitemgroup *{
+  color: @og-dark-color;
+}
+
+/*** Separators ***/
+
+paned.horizontal > separator {
+  background-image: url("../assets/separators/separator-handle-dark.svg");
+}
+
+paned.vertical > separator {
+  background-image: url("../assets/separators/separator-handle-v-dark.svg");
+}

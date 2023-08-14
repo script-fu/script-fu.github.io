@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="15.999769"
+   height="16.00012"
+   viewBox="0 0 4.2332721 4.2333653"
+   version="1.1"
+   id="svg1829"
+   inkscape:version="1.3-beta (12614ed929, 2023-05-28)"
+   sodipodi:docname="radio-checked.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs1823" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="79.062504"
+     inkscape:cx="7.9810273"
+     inkscape:cy="7.9999996"
+     inkscape:document-units="mm"
+     inkscape:current-layer="radio-checked"
+     showgrid="true"
+     units="px"
+     inkscape:window-width="2807"
+     inkscape:window-height="1556"
+     inkscape:window-x="509"
+     inkscape:window-y="156"
+     inkscape:window-maximized="0"
+     inkscape:snap-bbox="true"
+     inkscape:snap-nodes="false"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2374"
+       originx="-0.00011614813"
+       originy="0.00011467426"
+       spacingy="1"
+       spacingx="1"
+       units="px"
+       visible="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata1826">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-3.0730858e-5,-292.76662)">
+    <g
+       transform="matrix(0.26458333,0,0,0.26458333,-30.691666,292.67082)"
+       style="display:inline;opacity:1"
+       id="radio-checked"
+       inkscape:label="#g11094">
+      <g
+         transform="translate(19.004264)"
+         inkscape:label="#g10975"
+         id="radio-unchecked-2"
+         style="display:inline">
+        <g
+           id="g10964-6">
+          <g
+             inkscape:label="#g15805"
+             transform="matrix(0.93617253,0,0,0.93566004,-96.78315,-244.76084)"
+             id="radio-unchecked2-0"
+             style="display:inline">
+            <g
+               style="display:inline;opacity:0.06;fill:#000000;fill-opacity:1"
+               id="g7025-09-0"
+               transform="translate(0,1.0687628)">
+              <g
+                 transform="matrix(0.5089163,0,0,0.51739823,181.7932,197.56426)"
+                 id="g5489-2-9-3-2-6"
+                 style="display:inline;fill:#000000;fill-opacity:1">
+                <g
+                   id="g5428-8-1-7-5-4"
+                   style="fill:#b3b3b3;fill-opacity:1" />
+              </g>
+            </g>
+            <rect
+               y="261.97873"
+               x="206.99057"
+               height="17.100227"
+               width="17.090866"
+               id="rect14348-4-8"
+               style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:none;stroke:none;stroke-width:2;marker:none;enable-background:accumulate" />
+          </g>
+        </g>
+      </g>
+      <rect
+         rx="4.9738417"
+         y="3.3855424"
+         x="119.02338"
+         height="9.9532804"
+         width="9.9532804"
+         id="use15101-5-7"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#2f2f2f;fill-opacity:1;stroke:none;stroke-width:5.19659;marker:none;enable-background:accumulate"
+         ry="4.9766402"
+         inkscape:label="use15101-5-7" />
+    </g>
+  </g>
+</svg>

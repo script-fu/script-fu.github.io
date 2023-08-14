@@ -1,0 +1,41 @@
+/*
+* @ THEME ADJUSTMENTS GO IN HERE
+*/
+
+
+/* Hover, checked button, has even higher contrast */
+button:checked:hover,
+GimpDock header tab:checked:hover,
+dialog header tab:checked:hover {
+  background-color: @light-low-color;
+  border-color:  @light-higher-color;
+}
+
+/* Checked tab- on, higher contrast */
+GimpDock header tab:checked,
+dialog header tab:checked {
+  background-color: @mid-highest-color;
+  border-color:   @fg-bright-low-color;
+}
+
+/* Clicked, highest contrast */
+toolbutton button:active:hover,
+toolbutton button:checked:active:hover {
+  background-color: @light-high-color;
+  border-color:      @fg-bright-color;
+}
+/* Hover, checked button, has even higher contrast */
+toolbutton button:checked:hover {
+  border-color: @light-higher-color;
+}
+
+/* Checked button - on, higher contrast */
+toolbutton button:checked {
+  border-color:  @fg-bright-low-color;
+}
+
+/* Hover effect */
+paned.horizontal > separator:hover,
+paned.vertical > separator:hover {
+  border-color: @mid-low-color;
+}

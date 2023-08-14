@@ -1,0 +1,49 @@
+/*
+* @ THEME ADJUSTMENTS GO IN HERE
+*/
+
+paned.horizontal > separator {
+  background-image: url("../assets/separators/separator-handle-dark.svg");
+}
+
+paned.vertical > separator {
+  background-image: url("../assets/separators/separator-handle-v-dark.svg");
+}
+
+
+/* Entry for 'filter' */
+GimpDock widget box box > entry {
+  background-image: url("../assets/cellview/cellview.png");
+}
+
+/* Cellview, external view of combobox */
+cellview {
+  background-image: url("../assets/cellview/cellview.png");
+}
+
+/* Focus, progress bar */
+GimpSpinScale progress:focus {
+  background-image: url("../assets/cellview/cellview.png");
+} 
+
+/* Toolbutton and Action button texture */
+toolbutton button,
+buttonbox button {
+  background-image: url("../assets/toolbutton/toolbutton.png");
+}
+
+/* Hopefully, just button bar buttons */
+GimpDock notebook widget box > box > button {
+  background-image: url("../assets/toolbutton/toolbutton.png");
+}
+
+/* FG/BG panel */
+flowbox {
+  background-image: url("../assets/flowbox/flowbox.png");
+}
+
+/* Hover effect */
+paned.horizontal > separator:hover,
+paned.vertical > separator:hover {
+  border-color: @mid-low-hover-color;
+}

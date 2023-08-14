@@ -1,0 +1,31 @@
+/* Operating System Theme  */
+
+/*** Some specific coloring ***/
+
+/* Gives the sliders a themed color */
+GimpSpinScale entry progress {
+  background-color: @theme_selected_bg_color;
+}
+
+/* Dotted line boxes to indicate a layer option */
+GimpDock treeview .toggle-icon:not(.visible):hover {
+  border:            dotted 2px;
+  border-color: @theme_bg_color;
+}
+
+/* Selected and hover */
+GimpDock treeview .toggle-icon:not(.visible):selected:hover {
+  border:            dotted 2px;
+  border-color: @theme_bg_color;
+}
+
+/************************** Inherited from GIMP 2 **************************/
+
+*{
+  /* Toolbutton icon size boost if icon size not overridden */
+  -GimpToolPalette-tool-icon-size: large-toolbar;
+
+  /* Gets rid of a 1 pixel gap around dialogs */
+  -GtkDialog-content-area-border: 0;
+}
+

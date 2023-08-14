@@ -1,0 +1,106 @@
+
+/*
+ * @ Author: Mark Sweeney @pixelmixer
+ * @ Created: 2023-07-22
+ * @ Description: 'Roundness' assignments for GIMP 3.0
+ * @ Under GNU GENERAL PUBLIC LICENSE Version 3" 
+*/
+
+
+/* CIRCULAR */
+radio,
+radiobutton,
+GimpDock treeview .toggle-icon:not(.visible):hover,
+GimpDock treeview .toggle-icon:not(.visible):selected:hover,
+headerbar button {
+  border-radius: 100%;
+}
+
+
+/* ROUNDED */
+entry,
+button,
+spinbutton button,
+progressbar trough,
+GimpFileDialog treeview,
+filechooser separator,
+GimpDock treeview.view entry,
+menu,
+menuitem .background,
+menu background,
+:not(GimpDock) window,
+window.background menu,
+window menu,
+menu separator,
+menubar > menuitem,
+menu menuitem,
+window popover,
+combobox cellview,
+combobox window,
+combobox menu separator,
+combobox menuitem cellview,
+GimpOverlayDialog.background,
+decoration,
+GimpSpinScale button,
+GimpSpinScale progress,
+scale contents trough,
+scale highlight,
+scale indicator,
+scale slider,
+flowbox,
+flowboxchild,
+progressbar progress,
+toolbutton window menuitem image,
+tooltip.background,
+tooltip background,
+tooltip box image {
+  border-radius: 0.5rem;
+}
+
+
+/* LESS ROUNDED */
+GimpSpinScale progress,
+GimpSpinScale progress:focus,
+spinbutton entry,
+spinbutton entry selection,
+GimpFileDialog filechooser revealer stack button,
+GimpFileDialog placessidebar button,
+GimpSpinScale entry,
+popover button,
+GimpColorHistory button,
+#gimp-color-tag-box button {
+  border-radius: 0.25rem;
+}
+
+/* EVEN LESS ROUNDED */
+check,
+GimpDock tab,
+GimpDock header button,
+dialog tab,
+GimpSpinScale progress,
+GimpSpinScale progress:focus {
+  border-radius: 0.12rem;
+}
+
+/* SQUARE */
+treeview header button,
+separator,
+GimpDock treeview.view,
+GimpDisplayShell grid > button,
+GimpDisplayShell grid > button.flat,
+GimpDisplayShell grid > widget,
+GimpFileDialog treeview.view,
+GimpFileDialog treeview header button,
+GimpFileDialog treeview widget header button,
+GimpFileDialog filechooser paned separator,
+dialog treeview.view :selected,
+dialog treeview.view:not(:selected):hover,
+dialog treeview.view :selected,
+dialog treeview.view:not(:selected):hover {
+  border-radius: 0rem;
+}
+
+
+
+
+

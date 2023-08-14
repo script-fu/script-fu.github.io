@@ -1,0 +1,399 @@
+/*
+ * @ Author: Mark Sweeney @pixelmixer
+ * @ Created: 2023-07-22
+ * @ Description: Default GUI font assignments for GIMP 3.0
+ * @ Under GNU GENERAL PUBLIC LICENSE Version 3" 
+*/
+
+/*
+* @ BUTTONS
+* @ COLOR SELECTOR
+* @ DIALOG
+* @ DOCKABLES
+* @ FILE DIALOG
+* @ FILTER DIALOG
+* @ IMAGE BAR
+* @ LAYER STACK
+* @ MENU
+* @ OVERLAY
+* @ PANELS
+* @ POPOVER
+* @ RULER
+* @ SCROLLBARS
+* @ SLIDERS
+* @ STATUS BAR
+* @ TEXT EDITOR
+* @ TOOLBOX
+* @ TOOLTIPS
+*/
+
+/* Extra small      0.75rem */
+/* Small size       0.95rem */
+/* Normal size      1.0rem */
+/* Large size       1.05rem */
+/* Extra Large size 1.1rem */
+
+/* Scaling for font size is usually found in the OS Accessibilty settings.
+   Scale your fonts system wide using those settings before changing these.
+   GIMP inherits those settings. The standard DPI settings are:
+
+   100% (96 DPI)
+   125% (120 DPI)
+   150% (144 DPI)
+
+   Finally, uncomment and tweak the number below to fit your setup and eyes */
+
+/*  *{-gtk-dpi: 210;}  */
+
+
+/* Default for all fonts  */
+*{
+  font-size:     1.0rem;
+  font-weight:   normal;
+  font-style:    normal;
+  text-shadow:     none;
+  text-decoration: none;
+}
+
+
+/************************** BUTTONS **************************/
+
+/* All labels, usually near a button*/
+label {
+  font-size:   1.0rem;
+  font-weight: normal;
+  font-style:  normal;
+  text-shadow:   none;
+}
+
+label:disabled {
+  font-style: normal;
+}
+
+/* User input box */
+entry {
+  font-size:   1.0rem;
+  font-weight: normal;
+  font-style:  normal;
+}
+
+/* Text pop up box for filtering tags */
+widget {
+  font-size:   1.0rem;
+  font-weight: normal;
+  font-style:  normal;
+}
+
+/* Numerical user input */
+spinbutton {
+  font-size:   1.0rem;
+  font-weight: normal;
+  font-style:  normal;
+}
+
+
+
+
+/************************** DOCKABLES **************************/
+
+/* Labels on grid of checkboxes in the mapping matrix */
+GimpDock stack box grid label {
+  font-size: 0.95rem;
+}
+
+/* Labels At Top of a Dockable And in pop up layer menu*/
+GimpDock stack widget box label {
+  font-size: 0.95rem;
+}
+
+/* Override the above for right click layer menu */
+GimpDock stack widget menu label {
+  font-size: 1rem;
+}
+
+/* Labels on a tab */
+GimpDock tab label {
+  font-size: 0.75rem;
+  font-weight: normal;
+}
+
+
+
+
+/************************** FILE DIALOG **************************/
+
+/* Help, Reset, Cancel, OK */
+.dialog-action-box button label {
+  font-size: 1.05rem;
+}
+
+/* Entry for saved name */
+GimpFileDialog entry {
+  font-weight: normal;
+  font-size:  1.05rem;
+}
+
+/* Each box label in the OS places list */
+GimpFileDialog row revealer widget label {
+  font-size: 1.0rem;
+}
+
+/* list of files */
+GimpFileDialog treeview  {
+  font-style: normal;
+  font-size:  1.0rem;
+}
+
+/* Name, location, size...Labels */
+GimpFileDialog header {
+  font-size: 1.0rem;
+}
+
+/* Path buttons */
+GimpFileDialog revealer widget > button label {
+  font-size: 1.05rem;
+}
+
+
+
+
+/************************** FILTER DIALOG **************************/
+
+/* Name of filter */
+GimpToolDialog box frame box label {
+  font-size: 0.95rem;
+}
+
+/* Name of document in a filter dialog*/
+GimpToolDialog box frame box label:last-child {
+  font-size: 1.05rem;
+}
+
+/* Name of document in a filter dialog*/
+GimpToolDialog expander title {
+  font-size: 0.95rem;
+}
+
+
+
+
+
+/************************** LAYER STACK AND TREE ITEMS ***********************/
+
+/* History, Layers and other Lists of Items */
+GimpDock treeview {
+  font-weight: normal;
+  font-style:  normal;
+}
+
+/* Layer naming */
+GimpDock treeview entry {
+  font-weight: normal;
+}
+
+
+/*** Indicate Where a Dragged Layer Would Be Dropped ***/
+
+/* In the item */
+GimpDock treeview :drop(active) {
+  font-weight: normal;
+}
+
+/* How many items are selected, when icons are small it stops twitching at 0.5*/
+GimpDock treeview.view header label,
+GimpDock treeview.view header label selection {
+  font-size:  0.75rem;
+  font-weight: bolder;
+  font-style:  normal;
+}
+
+
+
+
+/************************** MENU **************************/
+
+/* Expanding sections have a title */
+title label {
+  font-size:   1.0rem;
+  font-weight:   bold;
+  font-style:  normal;
+}
+
+
+/*** Combobox Dropdown Menu ***/
+
+/* External cell, usually the 'Mode" of the blend */
+cellview {
+  font-style:  normal;
+  font-size:  0.95rem;
+  font-weight:  normal
+}
+
+
+/* Inside the combobox labels */
+combobox menuitem cellview {
+  font-size:     1rem;
+  font-style:  normal;
+  font-weight: normal;
+}
+
+
+/*** Top Menu Bar, File, Edit... ***/
+
+/* Document title box, padding for min, max and close app */
+headerbar .title {
+  font-size: 1.05rem;
+}
+
+/* Menu bar labels */
+menuitem label {
+  font-size: 1.1rem;
+}
+
+/* Drop down menu labels */
+menu menuitem label {
+  font-size: 1.05rem;
+}
+
+/* Hover */
+menu menuitem:hover label {
+  font-weight: normal;
+}
+
+/* Not hovering */
+menu menuitem:not(:hover) label {
+  font-weight: normal;
+}
+
+/* Shortcut key */
+menu menuitem label:last-child {
+  font-weight: 300;
+}
+
+/* Shortcut key override in GimpDocks */
+GimpDock menu menuitem label:last-child {
+  font-weight: normal;
+}
+
+
+
+/************************** OVERLAY DIALOG **************************/
+
+/* Base label state */
+GimpOverlayDialog label {
+  font-size: 1.05em;
+}
+
+/* Entry for saved name */
+GimpOverlayDialog entry {
+  font-weight: bolder;
+  font-size: 1.05rem
+}
+
+
+
+
+/************************** DIALOG **************************/
+
+/* Rows of locations */
+dialog viewport row label {
+  font-size: 1.05rem
+}
+
+/* The tree of options to view */
+dialog treeview {
+  font-size: 1.05rem
+}
+
+/* Locations path */
+dialog .dim-label {
+  font-size: 1.0rem
+}
+
+
+
+
+/************************** RULER **************************/
+
+GimpRuler {
+  font-size: 1.0rem;
+}
+
+
+
+
+/************************** SLIDERS **************************/
+
+/* Slider container, slider overlayed font, no padding option */
+GimpSpinScale {
+  font-size:   0.95rem;
+  font-weight:  normal;
+  font-style:   normal;
+}
+
+GimpSpinScale:focus {
+  font-size:  0.95rem;
+  font-weight: normal;
+}
+
+
+
+
+/************************** STATUS BAR **************************/
+
+statusbar label {
+  font-size: 1.05rem;
+}
+
+/* Zoom box on status bar */
+statusbar entry.combo {
+  font-size: 1.05rem;
+  font-weight: bold;
+
+}
+
+statusbar entry:focus {
+  font-size: 1.05rem;
+  font-weight: bold;
+}
+
+/* progress bar */
+progressbar text {
+  font-size: 1.05rem;
+  font-weight: bold;
+}
+
+/* Units */
+statusbar combobox cellview {
+  font-size: 0.95rem;
+  font-weight: bold;
+}
+
+/* Units inside menu */
+statusbar combobox menuitem cellview {
+  font-size:  0.95rem;
+  font-weight: normal;
+}
+
+
+
+/************************** TEXT EDITOR TOOL  **************************/
+
+/* Entry for font name */
+GimpTextStyleEditor entry {
+  font-size: 1.0rem;
+}
+
+/* Text editor */
+textview.view text {
+  font-size: 1.0rem;
+}
+
+
+
+
+/************************** TOOLTIPS **************************/
+
+tooltip box label {
+  font-size: 1.0rem;
+}

@@ -1,0 +1,32 @@
+/* Order is important, color -> layout -> image */
+
+/* Import from 'Default' theme */
+@import url("../Pixelmixer-Default/color-definitions.css");
+
+/* Import from 'Default' theme */
+@import url("../Pixelmixer-Default/stylesheets/color.css");
+
+/* Import from 'My Theme */
+@import url("./adjustments/adjust-color.css");
+
+/* Import from the 'Default' theme */
+@import url("../Pixelmixer-Default/stylesheets/layout.css");
+
+/* Import from 'My Theme */
+@import url("./adjustments/adjust-layout.css");
+
+/* Import from the 'Default' theme */
+@import url("../Pixelmixer-Default/stylesheets/round.css");
+
+/* Import from 'My Theme */
+@import url("./adjustments/adjust-round.css");
+
+/* Import from the 'Default' theme */
+@import url("../Pixelmixer-Default/stylesheets/font.css");
+
+
+
+
+
+
+

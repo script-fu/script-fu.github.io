@@ -1,0 +1,43 @@
+/*
+* @ THEME ADJUSTMENTS GO IN HERE
+*/
+
+/* Buttons, - +, overrides */
+spinbutton        button,
+dialog spinbutton button,
+GimpSpinScale     button {
+  border-left: none;
+  border-color: @shade-higher-color;
+}
+
+/* Hover, overrides */
+spinbutton        button:not(:checked):hover,
+dialog spinbutton button:not(:checked):hover,
+GimpSpinScale     button:not(:checked):hover {
+  border-left: none;
+}
+
+/* Focus, overrides */
+spinbutton        button:focus,
+dialog spinbutton button:focus,
+GimpSpinScale     button:focus {
+  border-left: none;
+}
+
+/* Focus and Hover */
+spinbutton        button:focus:hover,
+dialog spinbutton button:focus:hover,
+GimpSpinScale     button:focus:hover {
+  border-left: none;
+}
+
+/* Holding down */
+spinbutton        button:active,
+dialog spinbutton button:active,
+GimpSpinScale     button:active {
+  border-left: none;
+}
+
+spinbutton entry {
+  border-color: @shade-higher-color;
+}

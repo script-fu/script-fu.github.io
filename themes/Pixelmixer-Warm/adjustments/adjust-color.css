@@ -1,0 +1,106 @@
+/*
+* @ THEME ADJUSTMENTS GO IN HERE
+*/
+
+/* Canvas, mid gray */
+GimpDisplayShell,
+header tabs,
+statusbar border {
+  background-color: @canvas-color;
+}
+
+/* Slider trough */
+GimpSpinScale entry {
+  background-color: @warm-shade-color;
+}
+
+/* Focus, trough */
+GimpSpinScale entry:focus {
+  background-color: @warm-shade-color;
+}
+
+/* Slider progress/amount bar and margins */
+GimpSpinScale progress {
+  background-color: @warm-low-color;
+}
+
+/* Focus, progress bar */
+ GimpSpinScale progress:focus {
+  background-color: @warm-color;
+} 
+
+check {
+  background-color:   transparent;
+  border-color: @shade-high-color;
+  -gtk-icon-source: url("../assets/checkbox/checkbox-unchecked.svg");
+}
+
+check:disabled {
+  background-color: transparent;
+  border-color: @disabled-color;
+}
+
+check:checked {
+  -gtk-icon-source: url("../assets/checkbox/checkbox-checked.svg");
+}
+
+check:checked:disabled {
+  background-color: transparent;
+  border-color: @disabled-color;
+  -gtk-icon-source: url("../assets/checkbox/checkbox-checked-disabled.svg");
+}
+
+radio:disabled {
+  background-color: transparent;
+  border-color: @disabled-color;
+}
+
+radio:checked:disabled {
+  background-color: transparent;
+  border-color: @disabled-color;
+}
+
+radio {
+  background-color:   transparent;
+  border-color: @shade-high-color;
+  -gtk-icon-source: url("../assets/radiobutton/radio-unchecked.svg");
+}
+
+radio:checked {
+  -gtk-icon-source: url("../assets/radiobutton/radio-checked.svg");
+}
+
+/* Checked button - on, higher contrast */
+toolbutton button:checked {
+  background-color:   @warm-color;
+  border-color: @warm-light-color;
+  background-image: url("../assets/toolbutton/toolbutton-checked.png");
+}
+
+/* Hover, checked button, has even higher contrast */
+toolbutton button:checked:hover {
+  background-color:  @warm-hover-color;
+  border-color: @warm-light-high-color;
+}
+
+/* Clicked, and Hover highest contrast */
+toolbutton button:active:hover,
+toolbutton button:checked:active:hover {
+  background-color:   @warm-high-color;
+  border-color: @warm-light-high-color;
+}
+
+paned.horizontal > separator {
+  background-image: url("../assets/separators/separator-handle.svg");
+}
+
+paned.vertical > separator {
+  background-image: url("../assets/separators/separator-handle-v.svg");
+}
+
+/* Hover effect */
+paned.horizontal > separator:hover,
+paned.vertical > separator:hover {
+  border-color: @mid-low-hover-color;
+}
+

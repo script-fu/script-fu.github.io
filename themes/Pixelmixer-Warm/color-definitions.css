@@ -1,0 +1,78 @@
+/*
+ * @ Author: Mark Sweeney @pixelmixer
+ * @ Created: 2023-07-22
+ * @ Description: Warm theme colors for GIMP 3.0
+ * @ Under GNU GENERAL PUBLIC LICENSE Version 3" 
+*/
+
+
+/* Foreground items should be given a "fg" color */
+@define-color fg-black-color               rgb(18, 0, 0);
+@define-color fg-dark-low-color            rgb(23, 3, 0);
+@define-color fg-dark-color                rgb(26, 9, 1);
+@define-color fg-dark-high-color          rgb(30, 16, 2);
+@define-color fg-dark-higher-color       rgb(45, 32, 24);
+
+/* Background shade colors */
+@define-color shade-lower-color          rgb(49, 36, 28);
+@define-color shade-low-color            rgb(53, 40, 32);
+@define-color shade-color                rgb(57, 44, 35);
+@define-color shade-high-color           rgb(65, 51, 42);
+@define-color shade-higher-color         rgb(71, 57, 48);
+
+/* Background mid-tone colors, hover is  +5 then +10*/
+@define-color mid-low-color              rgb(87, 78, 71);
+@define-color mid-low-hover-color        rgb(98, 88, 80);
+@define-color mid-color                 rgb(105, 95, 87);
+@define-color mid-high-color          rgb(123, 113, 104);
+@define-color mid-high-hover-color    rgb(128, 118, 109);
+@define-color mid-higher-color        rgb(139, 128, 118);
+@define-color mid-highest-color       rgb(151, 140, 130);
+@define-color mid-highest-hover-color rgb(161, 150, 140);
+
+/* Background light colors,  hover is ~ +5, +6  */
+@define-color light-low-color         rgb(170, 159, 152);
+@define-color light-low-hover-color   rgb(175, 164, 157);
+@define-color light-color             rgb(181, 170, 163);
+@define-color light-hover-color       rgb(187, 176, 169);
+@define-color light-high-color        rgb(192, 181, 174);
+@define-color light-higher-color      rgb(201, 190, 183);
+
+/* Bright foreground colors */
+@define-color fg-bright-lower-color   rgb(214, 203, 195);
+@define-color fg-bright-low-color     rgb(224, 213, 205);
+@define-color fg-bright-color         rgb(234, 223, 215);
+@define-color fg-bright-high-color    rgb(244, 233, 225);
+@define-color fg-white-color          rgb(254, 243, 255);
+
+/* Highlighting color */
+@define-color highlight-low-color       rgb(160, 50, 30);
+@define-color highlight-color          rgb(181, 110, 90);
+
+/* Canvas color */
+@define-color canvas-color             rgb(105, 95, 87);
+
+/* Disabled actions in menus */
+@define-color disabled-color              @mid-low-color;
+
+/* Decoration shadow opacity */
+@define-color box-shadow-color       rgba(0, 0, 0, 0.15);
+@define-color box-shadow-backdrop-color rgba(0, 0, 0, 0);
+
+/* Theme accent colors */
+@define-color warm-shade-color          rgb(135, 95, 70);
+@define-color warm-low-color           rgb(190, 124, 70);
+@define-color warm-color               rgb(211, 152, 75);
+@define-color warm-hover-color         rgb(216, 157, 80);
+@define-color warm-high-color          rgb(235, 170, 95);
+@define-color warm-light-low-color    rgb(245, 185, 115);
+@define-color warm-light-color        rgb(250, 210, 125);
+@define-color warm-light-high-color   rgb(255, 220, 150);
+
+/* Anything hard to reach, background gets the 2px line under image bar */
+*{
+  color:                 @fg-dark-color;
+  border-color:     @shade-higher-color;
+  background-color: @shade-higher-color;
+}
+
