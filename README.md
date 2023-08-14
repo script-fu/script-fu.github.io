@@ -33,5 +33,7 @@ These plugins are to help me make illustrations in GIMP, I hope they can help yo
   
 Also available, a directory of custom Script-Fu functions, in the procedures directory.
 
+Also available, a directory of custom 'Themes' for the GIMP GUI.
+
 
 

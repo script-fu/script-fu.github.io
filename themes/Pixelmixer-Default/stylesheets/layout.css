@@ -804,13 +804,11 @@ statusbar combobox entry {
   min-height: 1rem;
 }
 
-/* Progress bar */
+/* Progress bar, margin to the progress bar causes the initial status bar to be oversized */
 progressbar trough {
-  margin:      0.4rem;
-  padding:     0.2rem;
+  padding:     0.1rem;
   padding-left:   1px;
   padding-right:  1px;
-  margin-bottom: 1rem;
 }
 
 /* Progress bar text */

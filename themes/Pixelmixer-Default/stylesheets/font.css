@@ -359,8 +359,8 @@ statusbar entry:focus {
 
 /* progress bar */
 progressbar text {
-  font-size: 1.05rem;
-  font-weight: bold;
+  font-size: 0.95rem;
+  font-weight:  bold;
 }
 
 /* Units */
