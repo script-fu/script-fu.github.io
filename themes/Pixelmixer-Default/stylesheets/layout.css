@@ -268,6 +268,22 @@ tab GimpFgBgView {
 }
 
 
+/*** Places Sidebar, The Operating System List of Locations ***/
+
+/* Selected, each row */
+dialog placessidebar row revealer label {
+  margin:  0rem;
+  padding: 0rem;
+}
+
+/* Image margin */
+dialog placessidebar image {
+  margin: 0.2rem;
+}
+
+
+
+
 /************************** DOCKABLES **************************/
 
 /* Gives a margin to free-floating dockables, but also docked ones */

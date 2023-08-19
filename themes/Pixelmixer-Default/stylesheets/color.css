@@ -704,11 +704,6 @@ dialog box widget {
   background-color: @light-low-color;
 }
 
-/* Header background color in Preferences*/
-dialog box widget:backdrop {
-  background-color: @mid-higher-color;
-}
-
 /* Curves Graph Widget, Adjust Color Curves, Levels */
 GimpToolDialog frame frame widget {
   color:           @fg-dark-low-color;
@@ -803,6 +798,62 @@ dialog scrollbar trough {
   border:                      none;
   border-left:            solid 1px;
   border-color: @shade-higher-color;
+}
+
+
+/*** Places Sidebar, The Operating System List of Locations ***/
+
+/* Widgets for selecting places */
+dialog placessidebar widget {
+  border: none;
+}
+
+/* Container */
+dialog placessidebar list {
+  background-color: @mid-color;
+  border: none;
+}
+
+/* Window in the container */
+dialog placessidebar viewport {
+  border:                    none;
+  border-top:           solid 1px;
+  border-bottom:        solid 1px;
+  border-color: @shade-high-color;
+}
+
+/* Each row of the places list */
+dialog placessidebar list row {
+  background-color: @mid-color;
+}
+
+/* Each widget in the places list, the panel behind the label */
+dialog placessidebar row widget {
+  background-color: @mid-color;
+}
+
+/* Hover, Each row the OS places list */
+dialog placessidebar row:hover revealer widget {
+  background-color: @mid-high-color;
+}
+
+/* Selected, Each row the OS places list */
+dialog placessidebar row:selected revealer widget {
+  background-color: @light-low-color;
+}
+
+/* Hover or selected, Each box label in the OS places list */
+dialog placessidebar row:hover revealer widget label,
+dialog placessidebar row:selected revealer widget label {
+  color: @fg-black-color;
+}
+
+/* The vertical, (smaller horizontal) panel separator between OS places */
+dialog filechooser paned list separator {
+  background-color: @shade-high-color;
+  border:                   solid 2px;
+  border-color:          @shade-color;
+  background-image:              none;
 }
 
 
