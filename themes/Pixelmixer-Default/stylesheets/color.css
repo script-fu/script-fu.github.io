@@ -79,7 +79,7 @@ button {
   border:                    solid 2px;
   border-color:         @mid-low-color;
   background-clip:         padding-box;
-  background-size:           auto 100%;
+  background-size:               cover;
   background-position:          center;
 }
 

@@ -868,10 +868,8 @@ flowbox {
 
 /* Items in the flowbox, and when flowbox is empty */
 flowboxchild {
-  padding:     0.05rem;
-  margin:      0.05rem;
-  margin-right:   2rem;
-  min-width:      2rem;
+  padding: 0.05rem;
+  margin:  0.05rem;
 }
 
 
