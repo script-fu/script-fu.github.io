@@ -98,15 +98,15 @@
 (define (store-group-in-file img srcGrp preFxL prxTag sDir sveInfo)
   (let*
     (
-    (brkTok "/")(selDraw 0)(fileInfo (get-image-file-info img))(saveNme "")
+    (selDraw 0)(fileInfo (get-image-file-info img))(saveNme "")
     (grpNme (car(gimp-item-get-name srcGrp)))
     (srcNme (string-append grpNme ".xcf" ))
     (fPth (vector-ref fileInfo 3))(fNoExt (vector-ref fileInfo 2))
     (prxD (string-append fNoExt sDir))(prxImg 0)
     (dirPth (string-append "/" fPth "/" fNoExt sDir "/" grpNme))(winPth "")
+    (brkTok DIR-SEPARATOR)
     )
 
-    (if (equal? () (car (file-glob "/usr" 0)))(set! brkTok "\\")); windows OS
     (set! saveNme (string-append fPth brkTok prxD brkTok grpNme brkTok srcNme))
     (set! winPth (string-append fPth "/" fNoExt sDir "/" grpNme))
 
@@ -258,14 +258,12 @@
     (
       (placehL 0)(globR "")(infoD 0)(fPth "")(wdthR 0)(hghtR 0)(scale 0)
       (srcNme (car(gimp-item-get-name srcGrp)))(fileNme "")(placehLNme "")
-      (infoFNme)(brkTok "/")(fileBase "")(fNoExt "")
+      (infoFNme)(fileBase "")(fNoExt "")(brkTok DIR-SEPARATOR)
       (width (car (gimp-image-get-width img)))
       (height (car (gimp-image-get-height img)))
       (recD 0)(scX 1)(scY 1)
     )
 
-    (if (equal? () (car (file-glob "/usr" 0)))(set! brkTok "\\")); windows OS
-    
     ; recover data from proxy layer and txt file record
     (set! srcNme (car(reverse (strbreakup srcNme prxTag ))))
     (set! placehL (vector-ref (cadr (gimp-item-get-children srcGrp) )0))
@@ -1112,10 +1110,10 @@
 (define (get-image-file-info img)
   (let*
     (
-      (fNme "")(fBse "")(fwEx "")(fPth "")(brkTok "/")(usr "")(strL "")
+      (fNme "")(fBse "")(fwEx "")(fPth "")(usr "")(strL "")
+      (brkTok DIR-SEPARATOR)
     )
 
-    (if (equal? () (car (file-glob "/usr" 0)))(set! brkTok "\\")); windows OS
     (if (equal? "/" brkTok)(set! usr(getenv"HOME"))(set! usr(getenv"HOMEPATH")))
 
     (when (> (car (gimp-image-id-is-valid img)) 0)
@@ -1166,10 +1164,10 @@
 (define (get-image-file-info img)
   (let*
     (
-      (fNme "")(fBse "")(fwEx "")(fPth "")(brkTok "/")(usr "")(strL "")
+      (fNme "")(fBse "")(fwEx "")(fPth "")(usr "")(strL "")
+      (brkTok DIR-SEPARATOR)
     )
 
-    (if (equal? () (car (file-glob "/usr" 0)))(set! brkTok "\\")); windows OS
     (if (equal? "/" brkTok)(set! usr(getenv"HOME"))(set! usr(getenv"HOMEPATH")))
 
     (when (> (car (gimp-image-id-is-valid img)) 0)

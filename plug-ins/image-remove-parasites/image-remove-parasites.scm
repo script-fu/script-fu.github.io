@@ -5,9 +5,8 @@
   (let*
     (
       (len "")(id 0)(i 0)(aStr "")(para "")(pV "")(pN "")(det #f)
-      (para 0)(len 0)(opnImgs 0)(fNme "")(fBse "")(brkTok "/")
+      (para 0)(len 0)(opnImgs 0)(fNme "")(fBse "")(brkTok DIR-SEPARATOR)
     )
-    (if (equal? () (car (file-glob "/usr" 0)))(set! brkTok "\\")); windows OS
 
   ; create a formatted string
     (when (not(equal? (car(gimp-image-get-file actImg)) ""))

@@ -49,10 +49,10 @@
 (define (get-image-file-info img)
   (let*
     (
-      (fNme "")(fBse "")(fwEx "")(fPth "")(brkTok "/")(usr "")(strL "")
+      (fNme "")(fBse "")(fwEx "")(fPth "")(usr "")(strL "")
+      (brkTok DIR-SEPARATOR)
     )
 
-    (if (equal? () (car (file-glob "/usr" 0)))(set! brkTok "\\")); windows OS
     (if (equal? "/" brkTok)(set! usr(getenv"HOME"))(set! usr(getenv"HOMEPATH")))
 
     (when (> (car (gimp-image-id-is-valid img)) 0)

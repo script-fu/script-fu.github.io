@@ -4,9 +4,9 @@
   (let*
     (
       (len "")(id 0)(i 0)(aStr "")(para "")(actImg 0)(j 0)(pV "")(pN "")
-      (para 0)(len 0)(opnImgs 0)(fNme "")(fBse "")(brkTok "/")
+      (para 0)(len 0)(opnImgs 0)(fNme "")(fBse "")(brkTok DIR-SEPARATOR)
     )
-    (if (equal? () (car (file-glob "/usr" 0)))(set! brkTok "\\")); windows OS
+
     (set! opnImgs (gimp-get-images))
 
     ; create a formatted string

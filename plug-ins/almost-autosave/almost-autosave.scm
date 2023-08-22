@@ -104,10 +104,9 @@
 (define (incremental-save img sLoc incr quiet)
   (let*
     (
-      (fNme "")(fBse "")(fPth "")(fNoExt "")(sNme "")(selDraw 0)(brkTok "/")
+      (fNme "")(fBse "")(fPth "")(fNoExt "")(sNme "")(selDraw 0)
+      (brkTok DIR-SEPARATOR)
     )
-
-    (if (equal? () (car (file-glob "/usr" 0)))(set! brkTok "\\")); windows OS
 
     ; give a save name to untitled images
     (when (equal? (car(gimp-image-get-file img)) "")

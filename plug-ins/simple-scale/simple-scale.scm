@@ -3,14 +3,12 @@
 (define (script-fu-simple-scale img drawables scaleX scaleY pix pX pY crop)
   (let*
     (
-      (width 0)(height 0)(brkTok "/")(cropMsk 0)(cropBx 0)(opac 0)
+      (width 0)(height 0)(cropMsk 0)(cropBx 0)(opac 0)
       (dstImg 0)(dstL 0)(fileInfo (get-image-file-info img))(safeName "")
-      (fileNoExt (vector-ref fileInfo 2))(ScAdj 0)
+      (fileNoExt (vector-ref fileInfo 2))(ScAdj 0)(brkTok DIR-SEPARATOR)
       (filePath (vector-ref fileInfo 3))(fileBase (vector-ref fileInfo 1))
       (mode INTERPOLATION-CUBIC) ; LINEAR ; CUBIC ; NOHALO ; LOHALO ; NONE
     )
-
-    (if (equal? () (car (file-glob "/usr" 0)))(set! brkTok "\\")); windows OS
 
     (gimp-context-push)
 
@@ -110,10 +108,10 @@
 (define (get-image-file-info img)
   (let*
     (
-      (fNme "")(fBse "")(fwEx "")(fPth "")(brkTok "/")(usr "")(strL "")
+      (fNme "")(fBse "")(fwEx "")(fPth "")(usr "")(strL "")
+      (brkTok DIR-SEPARATOR)
     )
 
-    (if (equal? () (car (file-glob "/usr" 0)))(set! brkTok "\\")); windows OS
     (if (equal? "/" brkTok)(set! usr(getenv"HOME"))(set! usr(getenv"HOMEPATH")))
 
     (when (> (car (gimp-image-id-is-valid img)) 0)

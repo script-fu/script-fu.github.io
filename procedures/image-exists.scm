@@ -2,9 +2,9 @@
 (define (image-exists findName)
   (let*
     (
-      (openImages 0)(img 0)(exists 0)(fileName 0)(fileBase 0)(i 0)(brkTok "/")
+      (openImages 0)(img 0)(exists 0)(fileName 0)(fileBase 0)(i 0)
+      (brkTok DIR-SEPARATOR)
     )
-    (if (equal? () (car (file-glob "/usr" 0)))(set! brkTok "\\")); windows OS
 
     (set! openImages (gimp-get-images))
     (while (< i (car openImages))

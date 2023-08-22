@@ -10,12 +10,11 @@
       (height (car (gimp-image-get-height img)))
       (scAdj (percent-to-resolution scaleX scaleY width height))
       (scWdth (car scAdj))(scHght (cadr scAdj))(adjLst 0)(lckLst 0)
-      (fileNoExt (vector-ref fileInfo 2))(noPrxyGrp 0)(brkTok "/")
+      (fileNoExt (vector-ref fileInfo 2))(noPrxyGrp 0)(brkTok DIR-SEPARATOR)
       (filePath (vector-ref fileInfo 3))(fileBase (vector-ref fileInfo 1))
       (mode INTERPOLATION-CUBIC) ; LINEAR ; CUBIC ; NOHALO ; LOHALO ; NONE
     )
 
-    (if (equal? () (car (file-glob "/usr" 0)))(set! brkTok "\\")); windows OS
     (if (> pix 0)(set! scWdth pX))(if (> pix 0)(set! scHght pY))
 
     (gimp-context-push)
@@ -364,10 +363,10 @@
 (define (get-image-file-info img)
   (let*
     (
-      (fNme "")(fBse "")(fwEx "")(fPth "")(brkTok "/")(usr "")(strL "")
+      (fNme "")(fBse "")(fwEx "")(fPth "")(usr "")(strL "")
+      (brkTok DIR-SEPARATOR)
     )
 
-    (if (equal? () (car (file-glob "/usr" 0)))(set! brkTok "\\")); windows OS
     (if (equal? "/" brkTok)(set! usr(getenv"HOME"))(set! usr(getenv"HOMEPATH")))
 
     (when (> (car (gimp-image-id-is-valid img)) 0)
