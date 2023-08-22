@@ -5,8 +5,7 @@
     (
       (actL 0)(pnts 0)(mskSel 0)(wdth 0)(hgt 0)(offX 0)(offY 0)(i 0)(drwMsk 0)
       (imgWidth (car (gimp-image-get-width img)))
-      (imgHeight (car (gimp-image-get-height img)))
-      (oldOffX 0)(oldOffY 0)
+      (imgHeight (car (gimp-image-get-height img)))(oldOffX 0)(oldOffY 0)
     )
 
     (gimp-context-push)
@@ -54,37 +53,37 @@
         ;clamp layer size to extent of image size
         (when (< offX 0)
           (set! offX 0)
-          (gimp-message " clamping offset X to 0 ")
+          (if debug (gimp-message " clamping offset X to 0 "))
         )
 
         (when (< imgWidth (+ wdth offX))
-         (set! wdth (- imgWidth offX))
-         (gimp-message
-           (string-append
-             " image width = " (number->string imgWidth)
-             "\n resize width = " (number->string wdth)
-           )
-         )
+          (set! wdth (- imgWidth offX))
+          (if debug
+            (gimp-message
+              (string-append
+                " image width = " (number->string imgWidth)
+                "\n resize width = " (number->string wdth)
+              )
+            )
+          )
         )
 
         (when (< offY 0)
           (set! offY 0)
-          (gimp-message " clamping offset Y to 0 ")
+          (if debug (gimp-message " clamping offset Y to 0 "))
         )
 
         (when (< imgHeight (+ hgt offY))
-         (set! hgt (- imgHeight offY))
-         (gimp-message
-           (string-append
-             " image height = " (number->string imgHeight)
-             "\n resize height = " (number->string hgt)
-           )
-         )
+          (set! hgt (- imgHeight offY))
+          (if debug
+            (gimp-message
+              (string-append
+                " image height = " (number->string imgHeight)
+                "\n resize height = " (number->string hgt)
+              )
+            )
+          )
         )
-
-        ; (gimp-image-select-rectangle img 2 offX offY wdth hgt)
-        ; (gimp-displays-flush)
-        ; (exit "here")
 
         (gimp-layer-resize actL wdth hgt (- oldOffX offX) (- oldOffY offY))
       )
