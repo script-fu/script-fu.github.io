@@ -7,7 +7,8 @@
   (let*
     (
       (timeDelay 0.001) ; mask-mode check frequency
-      (mmPID 0)(pIDf 0)(actL 0)(msk 0)(colLst 0)(col 6)
+      (forceBW 1) ; forxes the foreground to be either black or white
+      (mmPID 0)(pIDf 0)(actL 0)(msk 0)(colLst 0)(col 6)(fG 0)
     )
 
     ; set foreground colour to white, background to black
@@ -37,6 +38,13 @@
         (set! actL (vector-ref (cadr(gimp-image-get-selected-layers img)) 0))
         (set! msk (car (gimp-layer-get-mask actL)))
         (if (> msk 0)(gimp-layer-set-edit-mask actL 1))
+
+        (when (= forceBW 1)
+          (set! fG (caar(gimp-context-get-foreground)))
+          (if (> fG 128) (gimp-context-set-foreground (list 255 255 255))
+            (gimp-context-set-foreground (list 0 0 0))
+          )
+        )
 
         (usleep (* 60 (* timeDelay 1000000)))
       ); mask mode loop

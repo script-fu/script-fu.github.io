@@ -900,6 +900,10 @@ dialog stack viewport combobox cellview:hover  {
   background-color: @mid-highest-color;
 }
 
+/* Modifiers fix */
+dialog stack viewport row {
+  background-color: @mid-higher-color;
+}
 
 
 
@@ -1579,7 +1583,7 @@ title {
 
 /* Document title box, padding for min, max and close app */
 headerbar {
-  background-color: @mid-color;
+  background-color: @mid-high-color;
 }
 
 /* Title bar, active document name */
@@ -1609,7 +1613,7 @@ headerbar button:active:hover {
 
 /* Give the menu bar a background color */
 menubar {
-  background-color: @mid-color;
+  background-color: @mid-high-color;;
 }
 
 

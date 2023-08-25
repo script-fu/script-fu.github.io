@@ -122,7 +122,7 @@
     )
 
     (gimp-selection-none img)
-    (gimp-context-push)
+    (gimp-context-pop)
 
   )
 )

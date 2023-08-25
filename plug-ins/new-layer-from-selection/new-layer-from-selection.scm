@@ -36,7 +36,7 @@
     (gimp-context-set-foreground (list 250 180 128))
     (gimp-image-insert-layer img actL actP pos)
     (gimp-drawable-edit-fill actL FILL-FOREGROUND)
-    (when (or (= mskB 1) (= mskW 1))
+    (when (= mskB 1)
       (gimp-layer-set-edit-mask actL (add-mask actL msk))
       (gimp-context-set-foreground (list 255 255 255))
     )

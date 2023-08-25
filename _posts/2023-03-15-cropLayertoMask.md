@@ -137,7 +137,7 @@ To download [**crop-layer-to-mask.scm**](https://raw.githubusercontent.com/scrip
     )
 
     (gimp-selection-none img)
-    (gimp-context-push)
+    (gimp-context-pop)
 
   )
 )
