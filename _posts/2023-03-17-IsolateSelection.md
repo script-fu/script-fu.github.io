@@ -1,18 +1,20 @@
-## Isolate Selected Layers
+## Isolate Selected Layers - Linux Only
 
-# * Tested in GIMP 2.99.14 *
+# * Tested in GIMP 2.99.17 - Linux Only *
 
 GIMP 3 allows multilayer selection, which is a great boost for plug-ins. This plugin allows the user to isolate a selection of layers or groups. If the selection hasn't changed since it last ran, it toggles the isolation mode off again. There's a second plugin, exit isolation that just exits the isolated state.  
 
-I'm trying out a new approach with these plugins, they are very slow on big files due to the way GIMP works. So they now use a 'C' utility function that gives them a massive speed up. That function is just another plugin and can be found [here.](https://github.com/script-fu/script-fu.github.io/tree/main/plug-ins/set-items-visibility/); 
+See it in action on Youtube [here.](https://www.youtube.com/watch?v=VlcMF0uuW3A)  
   
+I'm trying out a new approach with these plugins, they are very slow on big files due to the way GIMP works. So they now use a 'C' utility function that gives them a massive speed up. Unfortunately that means this plug-in will only work in Linux.
+
 The Isolate plug-ins should appear in the Tools menu.  
   
 To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/isolateSelected/isolateSelected.scm) and [**exitIsolation.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/exitIsolation/exitIsolation.scm)...
 ...follow the link, right click the page, Save as isolateSelected.scm, in a folder called isolateSelected, in a GIMP plug-ins location.  In Linux, set the file to be executable.
 
-To download the required utility function [set-items-visibility](https://github.com/script-fu/script-fu.github.io/tree/main/plug-ins/set-items-visibility/set-items-visibility)...
-...follow the link, download button, download raw file, in a GIMP plug-ins location.  
+To download the required utility plug-in [**set-items-visibility**](https://github.com/script-fu/script-fu.github.io/tree/main/plug-ins/set-items-visibility/set-items-visibility)...
+...follow the link, click the plug-in, there's a download button top right, download raw file, in a GIMP plug-ins location.  
 
 
 <!-- include-plugin "isolateSelected" -->
