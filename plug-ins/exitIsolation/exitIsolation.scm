@@ -7,7 +7,7 @@
   (let*
     (
       (lstL 0)(fileNme "")(fndP 0)
-      (types (list "isolated" "hidden" "isoParent" "hiddenChld" "isoChild"))
+      (types (vector "isolated" "hidden" "isoParent" "hiddenChld" "isoChild"))
     )
 
     (gimp-image-undo-group-start img)
@@ -106,21 +106,26 @@
 )
 
 
-; sets the visibility state of a layer list
-(define (set-list-visibility lstL vis)
+; stores and sets the visibility state of a layer list
+(define (set-list-visibility img lstL vis)
   (let*
     (
       (vLst())(i 0)(actL 0)
     )
 
     (if (list? lstL) (set! lstL (list->vector lstL)))
+
     (while (< i (vector-length lstL))
       (set! actL (vector-ref lstL i))
       (set! vLst (append vLst (list actL (car(gimp-item-get-visible actL)))))
-      (gimp-item-set-visible actL vis)
+      ;(gimp-item-set-visible actL vis)
       (set! i (+ i 1))
     )
 
+    ;Experimental plug-in
+    (pm-set-items-visibility 1 img (vector-length lstL) lstL vis)
+
+    ;return the list of stored visibility states
     vLst
   )
 )
@@ -197,43 +202,46 @@
 (define (revert-layer img lstL types)
   (let*
     (
-      (tagLst 0)(i 0)(actL 0)(t 0)(actT "")(isoP 0)
+      (tagLst 0)(i 0)(actL 0)(t 0)(actT "")(isoP 0)(hLst())(vLst())(visTag 0)
     )
 
-    ; isolatedParents are a special case for speed up reasons
-    (set! types (list->vector types))
-    (set! isoP (find-layers-tagged img lstL "isoParent"))
-    (set! isoP (remove-duplicates isoP))
-    (set-list-visibility isoP 0)
-
-    ; restore every type apart from isoParent
+    ; restore every type
     (while (< t (vector-length types))
       (set! actT (vector-ref types t))
-      (if #f (gimp-message actT)) ;debug
+      (if debug (gimp-message actT))
       (set! tagLst (find-layers-tagged img lstL actT))
       (set! tagLst (remove-duplicates (vector->list tagLst)))
       (set! tagLst (list->vector tagLst))
       (when (> (vector-length tagLst) 0)
         (set! i 0)
         (while (< i (vector-length tagLst))
+          (set! visTag 0)
           (set! actL (vector-ref tagLst i))
-          (if (not(member actL isoP)) (restore-layer actL actT))
+          (set! visTag (restore-layer actL actT))
+
+          (if (= visTag 1) (set! vLst (append vLst (list actL))))
+          (if (= visTag 0) (set! hLst (append hLst (list actL))))
+
           (set! i (+ i 1))
         )
       )
       (set! t (+ t 1))
     )
 
-    ; final pass - restore isolatedParents
-    (if (list? isoP) (set! isoP (list->vector isoP)))
-    (when (> (vector-length isoP) 0)
-      (set! i 0)
-      (while (< i (vector-length isoP))
-        (set! actL (vector-ref isoP i))
-        (restore-layer actL "isoParent")
-        (set! i (+ i 1))
-      )
+    (when debug (gimp-message " restore visible layers:")
+      (print-layer-id-name vLst)
     )
+
+    (when debug (gimp-message " restore hidden layers: ")
+      (print-layer-id-name hLst)
+    )
+
+    (set! vLst (list->vector vLst))
+    (set! hLst (list->vector hLst))
+
+    ; final pass - restore visibility for tagged layers
+    (pm-set-items-visibility 1 img (vector-length vLst) vLst 1)
+    (pm-set-items-visibility 1 img (vector-length hLst) hLst 0)
 
   )
 )
@@ -258,22 +266,16 @@
       (gimp-item-set-color-tag actL colTag)
       (gimp-layer-set-opacity actL opaTag)
 
-      ; special case
-      (when (equal? "isolated" actT)
-        (gimp-layer-set-mode actL modeTag)
-        (gimp-item-set-visible actL visTag)
-      )
-
-      ; special case
-      (when (equal? "isoParent" actT)
-        (gimp-item-set-visible actL visTag)
-      )
+      ; special case, restore mode of isolated layer
+      (if (equal? "isolated" actT) (gimp-layer-set-mode actL modeTag))
 
       (gimp-item-detach-parasite actL actT)
       (if (> (car(gimp-layer-get-mask actL)) 0)
         (gimp-layer-set-show-mask actL 0)
       )
     )
+
+  visTag
   )
 )
 

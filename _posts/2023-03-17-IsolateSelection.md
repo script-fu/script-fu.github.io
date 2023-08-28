@@ -2,15 +2,20 @@
 
 # * Tested in GIMP 2.99.14 *
 
-GIMP 3 allows multilayer selection, which is a great boost for plug-ins.
-This plugin allows the user to isolate a selection of layers or groups.
-If the selection hasn't changed since it last ran, it toggles the isolation mode off again. 
-There's a second plugin, exit isolation that just exits the isolated state.  
+GIMP 3 allows multilayer selection, which is a great boost for plug-ins. This plugin allows the user to isolate a selection of layers or groups. If the selection hasn't changed since it last ran, it toggles the isolation mode off again.
+
+There's a second plugin, exit isolation that just exits the isolated state. I'm trying out a new
+approach with these plugins, they are very slow on big files due to the way GIMP works. So they
+now use a 'C' utility function that gives them a massive speed up. That function is just another plugin and can be found in [here](https://github.com/script-fu/script-fu.github.io/tree/main/plug-ins/set-items-visibility/); 
   
 The plug-ins should appear in the Tools menu.  
   
 To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/isolateSelected/isolateSelected.scm) and [**exitIsolation.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/exitIsolation/exitIsolation.scm)...
 ...follow the link, right click the page, Save as isolateSelected.scm, in a folder called isolateSelected, in a GIMP plug-ins location.  In Linux, set the file to be executable.
+
+To download the required utility function...
+[set-items-visibility](https://github.com/script-fu/script-fu.github.io/tree/main/plug-ins/set-items-visibility/); 
+
 
 <!-- include-plugin "isolateSelected" -->
 ```scheme
@@ -22,8 +27,8 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
 (define (script-fu-isolateSelected img drwbles)
   (let*
     (
-      (lstL 0)(tgdLst 0)(isolated 0)(isoPLst 0)(changed 1)(isoLst 0)
-      (types (list "isolated" "hidden" "hiddenChld" "isoChild"))
+      (lstL 0)(tgdLst 0)(isolated 0)(isoPLst 0)(changed 1)
+      (types (vector "isolated" "hidden" "hiddenChld" "isoChild"))
     )
 
      (gimp-image-undo-group-start img)
@@ -43,7 +48,7 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
       (set! tgdLst (find-layers-tagged img lstL "isolated"))
       (when (> (vector-length tgdLst) 0)
         (set! isolated 1)
-        (if #f (gimp-message " image in isolation mode ")) ; debug
+        (if debug (gimp-message " image in isolation mode ")) 
         (if (= (number-lists-match tgdLst drwbles) 1) (set! changed 0))
       )
 
@@ -51,19 +56,19 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
       (when (= isolated 1)
         (revert-layer img lstL types)
         (if (= changed 1) (set! isolated 0)
-        (if #f (gimp-message " exit isolation mode "))
+        (if debug (gimp-message " exit isolation mode "))
         )
       )
 
       ; create a new isolation mode
       (when (= isolated 0)
-        (if #f (gimp-message " isolation mode "))
+        (if debug (gimp-message " isolation mode "))
 
         ; isolate and tag selected layers
-        (set! isoLst (isolate-selected-layers img drwbles))
+        (set! isoPLst (isolate-selected-layers img drwbles))
 
         ; hide and process all the other layers
-        (hide-layers img drwbles lstL (car isoLst) (cadr isoLst))
+        (hide-layers img drwbles lstL isoPLst)
       )
 
       ; unlock the plugins
@@ -78,7 +83,7 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
 )
 
 
-(define (hide-layers img drwbles lstL isoPLst allP)
+(define (hide-layers img drwbles lstL isoPLst)
   (let*
     (
       (i 0)(actL 0)(parent 0)(hdCol 6)
@@ -103,22 +108,10 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
       (set! i (+ i 1))
     )
 
-    ; do layer updates all at once
-    (set! i 0)
     (set! visLst (list->vector visLst))
-    (while (< i (vector-length visLst))
-      (set! actL (vector-ref visLst i))
-      (set! isGrp (car (gimp-item-is-group actL)))
-      ;(gimp-item-set-visible actL 0) sloooow
-      (gimp-layer-set-opacity actL 0) ; much faster
-      (gimp-item-set-color-tag actL hdCol)
-      (if (= isGrp 1)(colorChldrn img actL "hiddenChld" hdCol))
 
-      (set! i (+ i 1))
-    )
-
-    ; set all the parents of an isolated layer back to visible
-    (set-list-visibility allP 1)
+    ;Experimental plug-in, hide all the list in one pass
+    (pm-set-items-visibility 1 img (vector-length visLst) visLst 0)
 
   )
 )
@@ -127,14 +120,14 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
 (define (isolate-selected-layers img drwbles)
   (let*
     (
-      (i 0)(actL 0)(allParents ())(isoPLst ())(isoLst())(isGrp 0)(isoCol 2)
+      (i 0)(actL 0)(isoPLst ())(isoLst())(isGrp 0)(isoCol 2)(vis 1)
     )
 
     ; look through the selected layers
     (while (< i (vector-length drwbles))
       (set! actL (vector-ref drwbles i))
 
-      (if #f ;debug
+      (if debug
         (gimp-message
           (string-append "selected ->  " (car(gimp-item-get-name actL))
           )
@@ -144,37 +137,42 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
       (iso-tag-layer actL "isolated")
       (set! isoLst (append isoLst (list actL)))
 
-      ; list all the selected layers direct parents - used to hide sibling
+      ; list all the selected layers direct parents - used to hide siblings
       (set! isoPLst (append isoPLst (list (car(gimp-item-get-parent actL)))))
-
-      ; make a list of all the selected layers parents - used to speed up
-      (set! allParents (append allParents (get-all-parents img actL)))
       (set! i (+ i 1))
     )
 
-    ; tag all parents for restoration, turn off visibility for speed up
-    (set! allParents (remove-duplicates allParents))
     (set! isoPLst (remove-duplicates isoPLst))
-    (set-isolated-parents img allParents)
-    (set-list-visibility allParents 0)
+    (set! isoLst (list->vector isoLst))
 
     ; visual updates all at once
-    (set! isoLst (list->vector isoLst))
     (set! i 0)
     (while (< i (vector-length isoLst))
       (set! actL (vector-ref isoLst i))
       (set! isGrp (car (gimp-item-is-group actL)))
-      (gimp-layer-set-opacity actL 100)
+      ;(gimp-layer-set-opacity actL 100) 
       (gimp-item-set-color-tag actL isoCol)
-      (if (= isGrp 0)(gimp-layer-set-mode actL LAYER-MODE-NORMAL))
+      ; if it's not a group and is not in normal mode, set the layer to normal
+      (if (and (= isGrp 0) (not (= (car (gimp-layer-get-mode actL)) 28)))
+        (gimp-layer-set-mode actL LAYER-MODE-NORMAL))
 
-      ; colour kids green
-      (if (= isGrp 1)(colorChldrn img actL "isoChild" isoCol))
-      (gimp-item-set-visible actL 1)
+      (set! vis (* vis (car(gimp-item-get-visible actL))))
       (set! i (+ i 1))
     )
 
-  (list isoPLst allParents)
+    ; Experimental plug-in, make all isolated visible, if any were hidden
+    (when (= vis 0)
+      (if debug
+        (gimp-message
+          (string-append " vis ->  " (number->string vis)
+                         " \ngoing to make all selected visible "
+          )
+        )
+      )
+      (pm-set-items-visibility 1 img (vector-length isoLst) isoLst 1)
+    )
+
+    isoPLst
   )
 )
 
@@ -189,7 +187,7 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
 
     (set! pLst (car(gimp-item-get-parasite-list actL)))
     (when (> (length pLst) 0)
-      (if #f (gimp-message " existing parasites found on layer! " )) ;debug
+      (if debug (gimp-message " existing parasites found on layer! " )) 
       (while (< i (length pLst))
         (if (member (list-ref pLst i) types)(set! marked (list-ref pLst i)))
         (set! i (+ i 1))
@@ -197,7 +195,7 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
     )
 
     (when (not (equal? marked ""))
-      (if #f ;debug
+      (if debug
         (gimp-message
           (string-append
             " trying to tag as -> " tag
@@ -215,41 +213,6 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
       (set! opaTag (number->string (car(gimp-layer-get-opacity actL))))
       (set! dataStr (string-append colTag "_" visTag "_" modeTag "_" opaTag))
       (gimp-item-attach-parasite actL (list tag mde dataStr))
-    )
-
-  )
-)
-
-
-(define (set-isolated-parents img allParents)
-  (let*
-    (
-      (i 0)(actP 0)
-    )
-    (if (list? allParents) (set! allParents (list->vector allParents)))
-    (while (< i (vector-length allParents))
-      (set! actP (vector-ref allParents i))
-
-      (iso-tag-layer actP "isoParent")
-      (set! i (+ i 1))
-    )
-
-  )
-)
-
-
-(define (colorChldrn img actL name col)
-  (let*
-    (
-      (chldrn (all-childrn img actL))(i 0)(actC 0)
-    )
-
-    (set! chldrn (list->vector chldrn))
-    (while (< i (vector-length chldrn))
-      (set! actC (vector-ref chldrn i))
-      (iso-tag-layer actC name)
-      (gimp-item-set-color-tag actC col)
-      (set! i (+ i 1))
     )
 
   )
@@ -296,21 +259,26 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
 )
 
 
-; sets the visibility state of a layer list
-(define (set-list-visibility lstL vis)
+; stores and sets the visibility state of a layer list
+(define (set-list-visibility img lstL vis)
   (let*
     (
       (vLst())(i 0)(actL 0)
     )
 
     (if (list? lstL) (set! lstL (list->vector lstL)))
+
     (while (< i (vector-length lstL))
       (set! actL (vector-ref lstL i))
       (set! vLst (append vLst (list actL (car(gimp-item-get-visible actL)))))
-      (gimp-item-set-visible actL vis)
+      ;(gimp-item-set-visible actL vis)
       (set! i (+ i 1))
     )
 
+    ;Experimental plug-in
+    (pm-set-items-visibility 1 img (vector-length lstL) lstL vis)
+
+    ;return the list of stored visibility states
     vLst
   )
 )
@@ -570,43 +538,46 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
 (define (revert-layer img lstL types)
   (let*
     (
-      (tagLst 0)(i 0)(actL 0)(t 0)(actT "")(isoP 0)
+      (tagLst 0)(i 0)(actL 0)(t 0)(actT "")(isoP 0)(hLst())(vLst())(visTag 0)
     )
 
-    ; isolatedParents are a special case for speed up reasons
-    (set! types (list->vector types))
-    (set! isoP (find-layers-tagged img lstL "isoParent"))
-    (set! isoP (remove-duplicates isoP))
-    (set-list-visibility isoP 0)
-
-    ; restore every type apart from isoParent
+    ; restore every type
     (while (< t (vector-length types))
       (set! actT (vector-ref types t))
-      (if #f (gimp-message actT)) ;debug
+      (if debug (gimp-message actT))
       (set! tagLst (find-layers-tagged img lstL actT))
       (set! tagLst (remove-duplicates (vector->list tagLst)))
       (set! tagLst (list->vector tagLst))
       (when (> (vector-length tagLst) 0)
         (set! i 0)
         (while (< i (vector-length tagLst))
+          (set! visTag 0)
           (set! actL (vector-ref tagLst i))
-          (if (not(member actL isoP)) (restore-layer actL actT))
+          (set! visTag (restore-layer actL actT))
+
+          (if (= visTag 1) (set! vLst (append vLst (list actL))))
+          (if (= visTag 0) (set! hLst (append hLst (list actL))))
+
           (set! i (+ i 1))
         )
       )
       (set! t (+ t 1))
     )
 
-    ; final pass - restore isolatedParents
-    (if (list? isoP) (set! isoP (list->vector isoP)))
-    (when (> (vector-length isoP) 0)
-      (set! i 0)
-      (while (< i (vector-length isoP))
-        (set! actL (vector-ref isoP i))
-        (restore-layer actL "isoParent")
-        (set! i (+ i 1))
-      )
+    (when debug (gimp-message " restore visible layers:")
+      (print-layer-id-name vLst)
     )
+
+    (when debug (gimp-message " restore hidden layers: ")
+      (print-layer-id-name hLst)
+    )
+
+    (set! vLst (list->vector vLst))
+    (set! hLst (list->vector hLst))
+
+    ; final pass - restore visibility for tagged layers
+    (pm-set-items-visibility 1 img (vector-length vLst) vLst 1)
+    (pm-set-items-visibility 1 img (vector-length hLst) hLst 0)
 
   )
 )
@@ -631,25 +602,40 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
       (gimp-item-set-color-tag actL colTag)
       (gimp-layer-set-opacity actL opaTag)
 
-      ; special case
-      (when (equal? "isolated" actT)
-        (gimp-layer-set-mode actL modeTag)
-        (gimp-item-set-visible actL visTag)
-      )
-
-      ; special case
-      (when (equal? "isoParent" actT)
-        (gimp-item-set-visible actL visTag)
-      )
+      ; special case, restore mode of isolated layer
+      (if (equal? "isolated" actT) (gimp-layer-set-mode actL modeTag))
 
       (gimp-item-detach-parasite actL actT)
       (if (> (car(gimp-layer-get-mask actL)) 0)
         (gimp-layer-set-show-mask actL 0)
       )
     )
+
+  visTag
   )
 )
 
+
+
+; prints the layer name and id of every layer in a list in one string
+(define (print-layer-id-name lstL)
+  (let*
+    (
+      (i 0)(strL "")(msg " ")(actL 0)(id "")(nme "")
+    )
+    (if (list? lstL) (set! lstL (list->vector lstL)))
+    (while (< i (vector-length lstL))
+      (set! actL (vector-ref lstL i))
+      (when (= (car (gimp-item-id-is-valid actL)) 1)
+        (set! id (number->string actL))
+        (set! nme (car(gimp-item-get-name actL)))
+        (set! strL (string-append strL msg id " : " nme "\n"))
+      )
+      (set! i (+ i 1))
+    )
+    (gimp-message strL)
+  )
+)
 
 ```
   
@@ -666,7 +652,7 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
   (let*
     (
       (lstL 0)(fileNme "")(fndP 0)
-      (types (list "isolated" "hidden" "isoParent" "hiddenChld" "isoChild"))
+      (types (vector "isolated" "hidden" "isoParent" "hiddenChld" "isoChild"))
     )
 
     (gimp-image-undo-group-start img)
@@ -765,21 +751,26 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
 )
 
 
-; sets the visibility state of a layer list
-(define (set-list-visibility lstL vis)
+; stores and sets the visibility state of a layer list
+(define (set-list-visibility img lstL vis)
   (let*
     (
       (vLst())(i 0)(actL 0)
     )
 
     (if (list? lstL) (set! lstL (list->vector lstL)))
+
     (while (< i (vector-length lstL))
       (set! actL (vector-ref lstL i))
       (set! vLst (append vLst (list actL (car(gimp-item-get-visible actL)))))
-      (gimp-item-set-visible actL vis)
+      ;(gimp-item-set-visible actL vis)
       (set! i (+ i 1))
     )
 
+    ;Experimental plug-in
+    (pm-set-items-visibility 1 img (vector-length lstL) lstL vis)
+
+    ;return the list of stored visibility states
     vLst
   )
 )
@@ -856,43 +847,46 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
 (define (revert-layer img lstL types)
   (let*
     (
-      (tagLst 0)(i 0)(actL 0)(t 0)(actT "")(isoP 0)
+      (tagLst 0)(i 0)(actL 0)(t 0)(actT "")(isoP 0)(hLst())(vLst())(visTag 0)
     )
 
-    ; isolatedParents are a special case for speed up reasons
-    (set! types (list->vector types))
-    (set! isoP (find-layers-tagged img lstL "isoParent"))
-    (set! isoP (remove-duplicates isoP))
-    (set-list-visibility isoP 0)
-
-    ; restore every type apart from isoParent
+    ; restore every type
     (while (< t (vector-length types))
       (set! actT (vector-ref types t))
-      (if #f (gimp-message actT)) ;debug
+      (if debug (gimp-message actT))
       (set! tagLst (find-layers-tagged img lstL actT))
       (set! tagLst (remove-duplicates (vector->list tagLst)))
       (set! tagLst (list->vector tagLst))
       (when (> (vector-length tagLst) 0)
         (set! i 0)
         (while (< i (vector-length tagLst))
+          (set! visTag 0)
           (set! actL (vector-ref tagLst i))
-          (if (not(member actL isoP)) (restore-layer actL actT))
+          (set! visTag (restore-layer actL actT))
+
+          (if (= visTag 1) (set! vLst (append vLst (list actL))))
+          (if (= visTag 0) (set! hLst (append hLst (list actL))))
+
           (set! i (+ i 1))
         )
       )
       (set! t (+ t 1))
     )
 
-    ; final pass - restore isolatedParents
-    (if (list? isoP) (set! isoP (list->vector isoP)))
-    (when (> (vector-length isoP) 0)
-      (set! i 0)
-      (while (< i (vector-length isoP))
-        (set! actL (vector-ref isoP i))
-        (restore-layer actL "isoParent")
-        (set! i (+ i 1))
-      )
+    (when debug (gimp-message " restore visible layers:")
+      (print-layer-id-name vLst)
     )
+
+    (when debug (gimp-message " restore hidden layers: ")
+      (print-layer-id-name hLst)
+    )
+
+    (set! vLst (list->vector vLst))
+    (set! hLst (list->vector hLst))
+
+    ; final pass - restore visibility for tagged layers
+    (pm-set-items-visibility 1 img (vector-length vLst) vLst 1)
+    (pm-set-items-visibility 1 img (vector-length hLst) hLst 0)
 
   )
 )
@@ -917,22 +911,16 @@ To download [**isolateSelected.scm**](https://raw.githubusercontent.com/script-f
       (gimp-item-set-color-tag actL colTag)
       (gimp-layer-set-opacity actL opaTag)
 
-      ; special case
-      (when (equal? "isolated" actT)
-        (gimp-layer-set-mode actL modeTag)
-        (gimp-item-set-visible actL visTag)
-      )
-
-      ; special case
-      (when (equal? "isoParent" actT)
-        (gimp-item-set-visible actL visTag)
-      )
+      ; special case, restore mode of isolated layer
+      (if (equal? "isolated" actT) (gimp-layer-set-mode actL modeTag))
 
       (gimp-item-detach-parasite actL actT)
       (if (> (car(gimp-layer-get-mask actL)) 0)
         (gimp-layer-set-show-mask actL 0)
       )
     )
+
+  visTag
   )
 )
 
