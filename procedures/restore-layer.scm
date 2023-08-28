@@ -17,21 +17,15 @@
       (gimp-item-set-color-tag actL colTag)
       (gimp-layer-set-opacity actL opaTag)
 
-      ; special case
-      (when (equal? "isolated" actT)
-        (gimp-layer-set-mode actL modeTag)
-        (gimp-item-set-visible actL visTag)
-      )
-
-      ; special case
-      (when (equal? "isoParent" actT)
-        (gimp-item-set-visible actL visTag)
-      )
+      ; special case, restore mode of isolated layer
+      (if (equal? "isolated" actT) (gimp-layer-set-mode actL modeTag))
 
       (gimp-item-detach-parasite actL actT)
       (if (> (car(gimp-layer-get-mask actL)) 0)
         (gimp-layer-set-show-mask actL 0)
       )
     )
+
+  visTag
   )
 )
