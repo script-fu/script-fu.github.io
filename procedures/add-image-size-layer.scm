@@ -20,6 +20,7 @@
     )
 
     (gimp-image-insert-layer img actL parent pos)
+    (gimp-layer-set-composite-space actL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
 
   actL
   )

@@ -12,6 +12,7 @@
     (if (= mask 1)(set! actL (car (gimp-layer-from-mask actL))))
     (gimp-layer-set-opacity actL opacity)
     (gimp-layer-set-mode actL mode)
+    (gimp-layer-set-composite-space actL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
     (gimp-item-set-visible actL vis)
     (set! actL (vector-ref (cadr(gimp-image-get-selected-layers img))0))
     (if(= (car (gimp-item-id-is-layer-mask actL)) 1)

@@ -45,6 +45,7 @@
     (when (equal? (car (gimp-item-is-group srcL)) TRUE)
       (set! actL (car (gimp-layer-group-new dstImg)))
       (gimp-image-insert-layer dstImg actL prnt 0)
+      (gimp-layer-set-composite-space actL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
       (gimp-layer-set-offsets actL offX offY)
       (set! grp 1)
     )

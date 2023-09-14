@@ -4,7 +4,7 @@
   (let*
     (
       (parent 0)(pos 0)(lckVis 0)(nme "")(mde 0)(opac 0)(col 0)(vis 0)
-      (lckPos 0)(lckAlp 0)(lckCnt 0)(id 0)
+      (lckPos 0)(lckAlp 0)(lckCnt 0)(id 0)(cmpSpc 0)
     )
 
     (set! id actL)
@@ -19,8 +19,9 @@
     (set! lckAlp (car(gimp-layer-get-lock-alpha actL)))
     (set! lckCnt (car(gimp-item-get-lock-content actL)))
     (set! lckVis (car(gimp-item-get-lock-visibility actL)))
+    (set! cmpSpc (car(gimp-layer-get-composite-space actL)))
 
-    (list id nme parent pos opac mde vis col lckPos lckAlp lckCnt lckVis)
+    (list id nme parent pos opac mde vis col lckPos lckAlp lckCnt lckVis cmpSpc)
 
   )
 )

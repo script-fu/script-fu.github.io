@@ -9,6 +9,7 @@
     (gimp-image-insert-layer img actG parent pos)
     (gimp-item-set-name actG nme)
     (gimp-layer-set-mode actG mde)
+    (gimp-layer-set-composite-space actG LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
 
     actG
   )

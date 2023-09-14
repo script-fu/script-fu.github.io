@@ -13,6 +13,7 @@
       (set! tmpGrp (gimp-layer-group-new img))
       (set! tmpGrpLst (append tmpGrpLst tmpGrp))
       (gimp-image-insert-layer img (car tmpGrp) 0 0)
+      (gimp-layer-set-composite-space tmpGrp LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
 
       (set! chldrn (gimp-item-get-children actG))
       (set! lstL (list->vector (reverse (vector->list (cadr chldrn)))))

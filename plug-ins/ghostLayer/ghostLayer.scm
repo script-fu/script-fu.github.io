@@ -64,7 +64,11 @@
       (actL 0)
       (parent 0)
       (pos 0)
+      (compSpc 0)
     )
+
+    ; what's the layers composite space?
+    (set! compSpc (car(gimp-layer-get-composite-space srcL)))
 
     (set! parent (car (gimp-item-get-parent srcL)))
     (set! pos (car (gimp-image-get-item-position img srcL)))
@@ -74,6 +78,9 @@
     (gimp-layer-set-mode actL mode)
     (gimp-item-set-name actL name)
     (gimp-item-set-visible actL vis)
+
+    ; restore composite space, due to it being reset to linear by mode change
+    (gimp-layer-set-composite-space actL compSpc)
 
   actL
   )
@@ -101,6 +108,7 @@
     (gimp-image-insert-layer img grp parent pos)
     (gimp-item-set-name grp nme)
     (gimp-layer-set-mode grp mde)
+    (gimp-layer-set-composite-space grp LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
 
     (while (> i -1)
       (set! actL (vector-ref drwbls i))

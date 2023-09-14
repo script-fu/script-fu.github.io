@@ -27,6 +27,7 @@
     )
     (gimp-image-insert-layer dstImg dstL dstP 0)
     (gimp-layer-set-offsets dstL offX offY)
+    (gimp-layer-set-composite-space dstL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
 
     ; paste onto the destination layer
     (set! actL (vector-ref (cadr(gimp-edit-paste dstL 1)) 0 ))

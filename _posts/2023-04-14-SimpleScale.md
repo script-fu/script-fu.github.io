@@ -80,6 +80,7 @@ To download [**simple-scale.scm**](https://raw.githubusercontent.com/script-fu/s
 
     (set! dstL (vector-ref (cadr(gimp-image-get-selected-layers dstImg))0))
     (gimp-item-set-name dstL "scaled-copy")
+    (gimp-layer-set-composite-space dstL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
     (gimp-edit-copy-visible dstImg)
     (gimp-image-clean-all dstImg)
     (gimp-display-new dstImg)

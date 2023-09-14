@@ -10,6 +10,7 @@
 
     (set! actL (car (gimp-layer-new img wdth hght typ nme opa mde)))
     (gimp-image-insert-layer img actL parent pos)
+    (gimp-layer-set-composite-space actL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
     (gimp-layer-set-offsets actL offX offY)
     (gimp-context-push)
     (gimp-context-set-opacity 100)

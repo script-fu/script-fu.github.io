@@ -120,7 +120,7 @@ To download the required utility plug-in [**set-items-visibility**](https://gith
 (define (isolate-selected-layers img drwbles)
   (let*
     (
-      (i 0)(actL 0)(isoPLst ())(isoLst())(isGrp 0)(isoCol 2)(vis 1)
+      (i 0)(actL 0)(isoPLst ())(isoLst())(isGrp 0)(isoCol 2)(vis 1)(compSpc 0)
     )
 
     ; look through the selected layers
@@ -152,9 +152,17 @@ To download the required utility plug-in [**set-items-visibility**](https://gith
       (set! isGrp (car (gimp-item-is-group actL)))
       ;(gimp-layer-set-opacity actL 100) 
       (gimp-item-set-color-tag actL isoCol)
+
+      ; whats the layers composite space?
+      (set! compSpc (car(gimp-layer-get-composite-space actL)))
+
       ; if it's not a group and is not in normal mode, set the layer to normal
       (if (and (= isGrp 0) (not (= (car (gimp-layer-get-mode actL)) 28)))
-        (gimp-layer-set-mode actL LAYER-MODE-NORMAL))
+        (gimp-layer-set-mode actL LAYER-MODE-NORMAL)
+      )
+
+      ; restore composite space, due to it being reset to linear by mode change
+      (gimp-layer-set-composite-space actL compSpc)
 
       (set! vis (* vis (car(gimp-item-get-visible actL))))
       (set! i (+ i 1))
@@ -181,7 +189,7 @@ To download the required utility plug-in [**set-items-visibility**](https://gith
   (let*
     (
       (visTag 0)(colTag 0)(modeTag 0)(opaTag 0)(visTag 0)(mde 3)(dataStr "")
-      (pLst 0)(marked "")(i 0)
+      (pLst 0)(marked "")(i 0)(spcTag 0)
       (types (list "isolated" "hidden" "hiddenChld" "isoChild"))
     )
 
@@ -211,7 +219,8 @@ To download the required utility plug-in [**set-items-visibility**](https://gith
       (set! visTag (number->string (car(gimp-item-get-visible actL))))
       (set! modeTag (number->string (car(gimp-layer-get-mode actL))))
       (set! opaTag (number->string (car(gimp-layer-get-opacity actL))))
-      (set! dataStr (string-append colTag "_" visTag "_" modeTag "_" opaTag))
+      (set! spcTag (number->string (car(gimp-layer-get-composite-space actL))))
+      (set! dataStr (string-append colTag "_" visTag "_" modeTag "_" opaTag "_" spcTag))
       (gimp-item-attach-parasite actL (list tag mde dataStr))
     )
 
@@ -588,7 +597,7 @@ To download the required utility plug-in [**set-items-visibility**](https://gith
   (let*
     (
       (len (length (car(gimp-item-get-parasite-list actL))))
-      (colTag 0)(modeTag 0)(opaTag 0)(visTag 0)(dataStr "")
+      (colTag 0)(modeTag 0)(opaTag 0)(visTag 0)(dataStr "")(spcTag 0)
     )
 
     (when (> len 0)
@@ -599,11 +608,15 @@ To download the required utility plug-in [**set-items-visibility**](https://gith
       (set! visTag (string->number (cadr dataStr)))
       (set! modeTag (string->number (caddr dataStr)))
       (set! opaTag (string->number (cadddr dataStr)))
+      (set! spcTag (string->number (cadddr (cdr dataStr))))
       (gimp-item-set-color-tag actL colTag)
       (gimp-layer-set-opacity actL opaTag)
 
       ; special case, restore mode of isolated layer
       (if (equal? "isolated" actT) (gimp-layer-set-mode actL modeTag))
+
+      ; restore layer composite space
+      (gimp-layer-set-composite-space actL spcTag)
 
       (gimp-item-detach-parasite actL actT)
       (if (> (car(gimp-layer-get-mask actL)) 0)
@@ -897,7 +910,7 @@ To download the required utility plug-in [**set-items-visibility**](https://gith
   (let*
     (
       (len (length (car(gimp-item-get-parasite-list actL))))
-      (colTag 0)(modeTag 0)(opaTag 0)(visTag 0)(dataStr "")
+      (colTag 0)(modeTag 0)(opaTag 0)(visTag 0)(dataStr "")(spcTag 0)
     )
 
     (when (> len 0)
@@ -908,11 +921,15 @@ To download the required utility plug-in [**set-items-visibility**](https://gith
       (set! visTag (string->number (cadr dataStr)))
       (set! modeTag (string->number (caddr dataStr)))
       (set! opaTag (string->number (cadddr dataStr)))
+      (set! spcTag (string->number (cadddr (cdr dataStr))))
       (gimp-item-set-color-tag actL colTag)
       (gimp-layer-set-opacity actL opaTag)
 
       ; special case, restore mode of isolated layer
       (if (equal? "isolated" actT) (gimp-layer-set-mode actL modeTag))
+
+      ; restore layer composite space
+      (gimp-layer-set-composite-space actL spcTag)
 
       (gimp-item-detach-parasite actL actT)
       (if (> (car(gimp-layer-get-mask actL)) 0)

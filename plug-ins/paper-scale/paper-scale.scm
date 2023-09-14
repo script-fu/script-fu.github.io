@@ -25,12 +25,9 @@
     (gimp-context-push)
     (gimp-edit-copy-visible img)
     (set! dstImg (car(gimp-edit-paste-as-new-image)))
-    ()
-    (gimp-image-scale dstImg width height)
-    (here 1)
-    (here dstImg)
 
-    (here 2)
+    (gimp-image-scale dstImg width height)
+
     (when placeOnPaper
       (gimp-image-resize dstImg paperX paperY (/ (- paperX width) 2)
                                             (/ (- paperY height) 4)
@@ -40,6 +37,8 @@
     )
     (set! dstL (vector-ref (cadr(gimp-image-get-selected-layers dstImg))0))
     (gimp-item-set-name dstL "paper-scaled")
+    (gimp-layer-set-composite-space dstL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
+
     (gimp-display-new dstImg)
 
     (gimp-image-set-file dstImg (string-append "*** Display DPI is "

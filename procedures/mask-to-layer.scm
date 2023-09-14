@@ -24,6 +24,7 @@
       )
       (gimp-item-set-visible dstL 0)
       (gimp-image-insert-layer dstImg dstL dstP 0)
+      (gimp-layer-set-composite-space dstL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
     )
     (set! actL (vector-ref (cadr(gimp-edit-paste dstL 1)) 0 ))
     (gimp-floating-sel-anchor actL)

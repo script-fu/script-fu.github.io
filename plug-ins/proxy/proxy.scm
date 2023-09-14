@@ -90,6 +90,7 @@
     (gimp-layer-set-lock-alpha actL (vector-ref actLAttr 9))
     (gimp-item-set-lock-content actL (vector-ref actLAttr 10))
     (gimp-item-set-lock-visibility actL (vector-ref actLAttr 11))
+    (gimp-layer-set-composite-space actL (vector-ref actLAttr 12))
 
   )
 )
@@ -615,7 +616,7 @@
   (let*
     (
       (parent 0)(pos 0)(lckVis 0)(nme "")(mde 0)(opac 0)(col 0)(vis 0)
-      (lckPos 0)(lckAlp 0)(lckCnt 0)(id 0)
+      (lckPos 0)(lckAlp 0)(lckCnt 0)(id 0)(cmpSpc 0)
     )
 
     (set! id actL)
@@ -630,8 +631,9 @@
     (set! lckAlp (car(gimp-layer-get-lock-alpha actL)))
     (set! lckCnt (car(gimp-item-get-lock-content actL)))
     (set! lckVis (car(gimp-item-get-lock-visibility actL)))
+    (set! cmpSpc (car(gimp-layer-get-composite-space actL)))
 
-    (list id nme parent pos opac mde vis col lckPos lckAlp lckCnt lckVis)
+    (list id nme parent pos opac mde vis col lckPos lckAlp lckCnt lckVis cmpSpc)
 
   )
 )
@@ -655,6 +657,7 @@
     (gimp-layer-set-lock-alpha actL (vector-ref actLAttr 9))
     (gimp-item-set-lock-content actL (vector-ref actLAttr 10))
     (gimp-item-set-lock-visibility actL (vector-ref actLAttr 11))
+    (gimp-layer-set-composite-space actL (vector-ref actLAttr 12))
 
   )
 )
@@ -674,8 +677,8 @@
     )
 
     (set! actL (car (gimp-layer-new img wdth hght typ name opa mode)))
+    (gimp-layer-set-composite-space actL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
     (gimp-image-insert-layer img actL actP pos)
-
     (gimp-context-push)
     (gimp-context-set-opacity 100)
     (gimp-context-set-paint-mode LAYER-MODE-NORMAL)
@@ -764,6 +767,7 @@
     )
 
     (gimp-image-insert-layer img actL parent pos)
+    (gimp-layer-set-composite-space actL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
 
   actL
   )
@@ -967,6 +971,7 @@
     (set! dstImg (car (gimp-edit-paste-as-new-image)))
     (set! actL (vector-ref (cadr(gimp-image-get-selected-layers dstImg))0))
     (set! dstNme (car(gimp-item-get-name actL)))
+    (gimp-layer-set-composite-space actL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
     (set! allPrnts (get-all-parents dstImg actL))
     ;(gimp-display-new dstImg)
 
@@ -1070,6 +1075,7 @@
     (if (= mask 1)(set! actL (car (gimp-layer-from-mask actL))))
     (gimp-layer-set-opacity actL opacity)
     (gimp-layer-set-mode actL mode)
+    (gimp-layer-set-composite-space actL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
     (gimp-item-set-visible actL vis)
     (set! actL (vector-ref (cadr(gimp-image-get-selected-layers img))0))
     (if(= (car (gimp-item-id-is-layer-mask actL)) 1)
@@ -1618,6 +1624,7 @@
     (when (equal? (car (gimp-item-is-group srcL)) TRUE)
       (set! actL (car (gimp-layer-group-new dstImg)))
       (gimp-image-insert-layer dstImg actL prnt 0)
+      (gimp-layer-set-composite-space actL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
       (gimp-layer-set-offsets actL offX offY)
       (set! grp 1)
     )

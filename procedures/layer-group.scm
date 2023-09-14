@@ -19,6 +19,7 @@
     (gimp-image-insert-layer img grp parent pos)
     (gimp-item-set-name grp nme)
     (gimp-layer-set-mode grp mde)
+    (gimp-layer-set-composite-space grp LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
 
     (while (> i -1)
       (set! actL (vector-ref drwbls i))

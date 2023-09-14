@@ -15,6 +15,7 @@
     (gimp-layer-set-lock-alpha actL (vector-ref actLAttr 9))
     (gimp-item-set-lock-content actL (vector-ref actLAttr 10))
     (gimp-item-set-lock-visibility actL (vector-ref actLAttr 11))
+    (gimp-layer-set-composite-space actL (vector-ref actLAttr 12))
 
   )
 )

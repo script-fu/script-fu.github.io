@@ -12,8 +12,8 @@
     )
 
     (set! actL (car (gimp-layer-new img wdth hght typ name opa mode)))
+    (gimp-layer-set-composite-space actL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
     (gimp-image-insert-layer img actL actP pos)
-
     (gimp-context-push)
     (gimp-context-set-opacity 100)
     (gimp-context-set-paint-mode LAYER-MODE-NORMAL)

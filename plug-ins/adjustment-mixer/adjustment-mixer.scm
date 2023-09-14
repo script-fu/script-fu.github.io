@@ -174,6 +174,7 @@
     (set! actL (car (gimp-layer-group-new img)))
     (gimp-image-insert-layer img actL parent pos)
     (gimp-layer-set-mode actL mode)
+    (gimp-layer-set-composite-space actL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
     (gimp-item-set-name actL name)
     actL
   )
@@ -190,6 +191,7 @@
       (set! actL (paste-copy img srcL img parent name))
       (gimp-layer-set-opacity actL 0)
       (gimp-layer-set-mode actL mode)
+      (gimp-layer-set-composite-space actL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
       (gimp-layer-set-opacity actL 0)
     )
 
@@ -258,6 +260,7 @@
     (gimp-image-insert-layer img grp parent pos)
     (gimp-item-set-name grp nme)
     (gimp-layer-set-mode grp mde)
+    (gimp-layer-set-composite-space grp LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
 
     (while (> i -1)
       (set! actL (vector-ref drwbls i))
@@ -347,6 +350,7 @@
     )
     (gimp-image-insert-layer dstImg dstL dstP 0)
     (gimp-layer-set-offsets dstL offX offY)
+    (gimp-layer-set-composite-space dstL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
 
     ; paste onto the destination layer
     (set! actL (vector-ref (cadr(gimp-edit-paste dstL 1)) 0 ))

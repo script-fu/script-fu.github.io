@@ -11,6 +11,7 @@
     (set! dstImg (car (gimp-edit-paste-as-new-image)))
     (set! actL (vector-ref (cadr(gimp-image-get-selected-layers dstImg))0))
     (set! dstNme (car(gimp-item-get-name actL)))
+    (gimp-layer-set-composite-space actL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
     (set! allPrnts (get-all-parents dstImg actL))
     ;(gimp-display-new dstImg)
 
