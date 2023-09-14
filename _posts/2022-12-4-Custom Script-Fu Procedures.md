@@ -64,6 +64,7 @@ Here's an evolving list of the custom procedures I've made to help build scripts
 - [layer-reframe](https://github.com/script-fu/script-fu.github.io/blob/main/procedures/layer-reframe.scm)
 - [layer-size-adjust](https://github.com/script-fu/script-fu.github.io/blob/main/procedures/layer-size-adjust.scm)
 - [layer-size-restore](https://github.com/script-fu/script-fu.github.io/blob/main/procedures/layer-size-restore.scm)
+- [layer-to-hidden-image](https://github.com/script-fu/script-fu.github.io/blob/main/procedures/layer-to-hidden-image.scm)
 - [layer-to-image](https://github.com/script-fu/script-fu.github.io/blob/main/procedures/layer-to-image.scm)
 - [layer-to-new-image](https://github.com/script-fu/script-fu.github.io/blob/main/procedures/layer-to-new-image.scm)
 - [make-dir-path](https://github.com/script-fu/script-fu.github.io/blob/main/procedures/make-dir-path.scm)
