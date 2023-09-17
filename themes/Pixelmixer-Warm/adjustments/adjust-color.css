@@ -3,9 +3,8 @@
 */
 
 /* Canvas, mid gray */
-GimpDisplayShell,
-header tabs,
-statusbar border {
+GimpDisplayShell
+ {
   background-color: @canvas-color;
 }
 

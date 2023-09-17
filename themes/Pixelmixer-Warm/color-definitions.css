@@ -63,7 +63,7 @@
 
 
 /* Canvas color */
-@define-color canvas-color             rgb(105, 95, 87);
+@define-color canvas-color             rgb(110, 100, 87);
 
 /* Disabled actions in menus */
 @define-color disabled-color              @mid-low-color;
