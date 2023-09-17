@@ -5,48 +5,62 @@
  * @ Under GNU GENERAL PUBLIC LICENSE Version 3" 
 */
 
+/* Paste from GIMP below */
+
 
 /* Foreground items should be given a "fg" color */
 @define-color fg-black-color                rgb(0, 0, 0);
-@define-color fg-dark-low-color             rgb(8, 8, 8);
-@define-color fg-dark-color              rgb(13, 13, 13);
-@define-color fg-dark-high-color         rgb(19, 19, 19);
-@define-color fg-dark-higher-color       rgb(55, 55, 55);
+@define-color fg-dark-low-color             rgb(15, 15, 15);
+@define-color fg-dark-color              rgb(22, 22, 22);
+@define-color fg-dark-high-color         rgb(30, 30, 30);
+@define-color fg-dark-higher-color       rgb(51, 51, 51);
 
 /* Background shade colors */
-@define-color shade-lower-color          rgb(52, 52, 52);
-@define-color shade-low-color            rgb(57, 57, 57);
-@define-color shade-color                rgb(62, 62, 62);
-@define-color shade-high-color           rgb(70, 70, 70);
-@define-color shade-higher-color         rgb(78, 78, 78);
+@define-color shade-lower-color          rgb(44, 44, 44);
+@define-color shade-low-color            rgb(48, 48, 48);
+@define-color shade-color                rgb(52, 52, 52);
+@define-color shade-high-color           rgb(60, 60, 60);
+@define-color shade-higher-color         rgb(67, 67, 67);
 
-/* Background mid-tone colors, hover is ~ +5, +10 */
-@define-color mid-low-color           rgb(101, 101, 101);
-@define-color mid-color               rgb(114, 114, 114);
-@define-color mid-high-color          rgb(130, 130, 130);
-@define-color mid-high-hover-color    rgb(135, 135, 135);
-@define-color mid-higher-color        rgb(143, 143, 143);
-@define-color mid-highest-color       rgb(153, 153, 153);
-@define-color mid-highest-hover-color rgb(163, 163, 163);
+/* Background mid-tone colors */
+@define-color mid-low-color              rgb(93, 93, 93);
+@define-color mid-low-hover-color        rgb(105, 105, 105);
+@define-color mid-color                  rgb(113, 113, 113);
+@define-color mid-high-color          rgb(135, 135, 135);
+@define-color mid-high-hover-color    rgb(142, 142, 142);
+@define-color mid-higher-color        rgb(154, 154, 154);
+@define-color mid-highest-color       rgb(170, 170, 170);
+@define-color mid-highest-hover-color rgb(184, 184, 184);
 
-/* Background light colors,  hover is ~ +5, +6  */
-@define-color light-low-color         rgb(166, 166, 166);
-@define-color light-low-hover-color   rgb(169, 169, 169);
-@define-color light-color             rgb(176, 176, 176);
-@define-color light-hover-color       rgb(182, 182, 182);
-@define-color light-high-color        rgb(186, 186, 186);
-@define-color light-higher-color      rgb(195, 195, 195);
+/* Background light colors */
+@define-color light-low-color         rgb(203, 203, 203);
+@define-color light-low-hover-color   rgb(210, 210, 210);
+@define-color light-color             rgb(218, 218, 218);
+@define-color light-hover-color       rgb(227, 227, 227);
+@define-color light-high-color        rgb(234, 234, 234);
+@define-color light-higher-color      rgb(247, 247, 247);
 
 /* Bright foreground colors */
-@define-color fg-bright-lower-color   rgb(208, 208, 208);
-@define-color fg-bright-low-color     rgb(217, 217, 217);
+@define-color fg-bright-lower-color   rgb(200, 200, 200);
+@define-color fg-bright-low-color     rgb(213, 213, 213);
 @define-color fg-bright-color         rgb(227, 227, 227);
-@define-color fg-bright-high-color    rgb(236, 236, 236);
-@define-color fg-white-color          rgb(246, 246, 246);
+@define-color fg-bright-high-color    rgb(241, 241, 241);
+@define-color fg-white-color          rgb(255, 255, 255);
 
 /* Highlighting color */
-@define-color highlight-low-color       rgb(51, 85, 147);
+@define-color highlight-low-color       rgb(0, 115, 157);
 @define-color highlight-color           rgb(0, 155, 178);
+
+/* fg darks with no remapping */
+@define-color og-black-color                rgb(0, 0, 0);
+@define-color og-dark-low-color             rgb(15, 15, 15);
+@define-color og-dark-color              rgb(22, 22, 22);
+@define-color og-dark-high-color         rgb(30, 30, 30);
+@define-color og-dark-higher-color       rgb(51, 51, 51);
+
+
+/* End paste */
+
 
 /* Canvas color */
 @define-color canvas-color            rgb(100, 100, 100);

@@ -32,7 +32,7 @@ GimpSpinScale progress {
 check {
   background-color:   transparent;
   border-color: @shade-high-color;
-  -gtk-icon-source: url("../assets/checkbox/checkbox-unchecked.svg");
+  -gtk-icon-source: url("./assets/checkbox/checkbox-unchecked.svg");
 }
 
 check:disabled {

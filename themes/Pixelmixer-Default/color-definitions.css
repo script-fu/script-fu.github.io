@@ -5,6 +5,8 @@
  * @ Under GNU GENERAL PUBLIC LICENSE Version 3" 
 */
 
+/* Paste from GIMP below */
+
 
 /* Foreground items should be given a "fg" color */
 @define-color fg-black-color                rgb(0, 0, 0);
@@ -20,7 +22,7 @@
 @define-color shade-high-color           rgb(54, 54, 54);
 @define-color shade-higher-color         rgb(60, 60, 60);
 
-/* Background mid-tone colors, hover is ~ + 5, +10 */
+/* Background mid-tone colors */
 @define-color mid-low-color              rgb(80, 80, 80);
 @define-color mid-low-hover-color        rgb(90, 90, 90);
 @define-color mid-color                  rgb(97, 97, 97);
@@ -30,7 +32,7 @@
 @define-color mid-highest-color       rgb(142, 142, 142);
 @define-color mid-highest-hover-color rgb(152, 152, 152);
 
-/* Background light colors,  hover is ~ +5, +6*/
+/* Background light colors */
 @define-color light-low-color         rgb(161, 161, 161);
 @define-color light-low-hover-color   rgb(166, 166, 166);
 @define-color light-color             rgb(172, 172, 172);
@@ -47,7 +49,10 @@
 
 /* Highlighting color */
 @define-color highlight-low-color       rgb(160, 30, 30);
-@define-color highlight-color           rgb(181, 90, 90);
+@define-color highlight-color           rgb(180, 90, 90);
+
+
+/* End paste */
 
 /* Disabled actions in menus */
 @define-color disabled-color              @mid-low-color;

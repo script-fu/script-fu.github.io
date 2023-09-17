@@ -298,9 +298,14 @@ radio:checked {
   -gtk-icon-source: url("../assets/radiobutton/radio-checked.svg");
 }
 
-/* Hover or checked */
+/* Hover */
 check:hover,
-radio:hover, 
+radio:hover {
+  background-color:  transparent;
+  border-color: @light-color;
+}
+
+/* checked */
 check:checked,
 radio:checked {
   background-color:  transparent;
@@ -369,9 +374,9 @@ GimpSpinScale     button {
 spinbutton        button:not(:checked):hover,
 dialog spinbutton button:not(:checked):hover,
 GimpSpinScale     button:not(:checked):hover {
-  color:           @shade-higher-color;
-  background-color: @mid-highest-color;
-  border-color:      @shade-high-color;
+  color:                 @shade-higher-color;
+  background-color: @mid-highest-hover-color;
+  border-color:            @shade-high-color;
 }
 
 /* Focus, overrides */

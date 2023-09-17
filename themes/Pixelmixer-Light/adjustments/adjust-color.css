@@ -44,14 +44,6 @@ radio:checked {
   -gtk-icon-source: url("../assets/radiobutton/radio-checked.svg");
 }
 
-/* Hover or checked */
-check:hover,
-radio:hover, 
-check:checked,
-radio:checked {
-  background-color:  transparent;
-  border-color: @shade-lower-color;
-}
 
 /* Hover, GimpDock checkboxes */
 GimpDock paned widget checkbutton:hover label,
