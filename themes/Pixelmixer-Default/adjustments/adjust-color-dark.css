@@ -10,7 +10,7 @@ button image,
 tab image {
   color:         @og-dark-color;
   background-color: transparent;
-  opacity:                  0.8;
+  opacity:                  0.85;
 }
 
 /* Inactive, image on button */
@@ -24,6 +24,7 @@ tab:not(:checked)    image {
 button:not(:checked):hover image,
 tab:not(:checked):hover    image {
   color: @og-dark-color;
+  opacity: 0.9;
 }
 
 /* Clicked, image on button */
@@ -36,6 +37,7 @@ tab:active:hover    image {
 button:checked image,
 tab:checked    image {
   color: @og-dark-low-color;
+  opacity: 0.95;
 }
 
 /* Hover Checked button, image has highest contrast */
@@ -152,4 +154,30 @@ paned.horizontal > separator {
 
 paned.vertical > separator {
   background-image: url("../assets/separators/separator-handle-v-dark.svg");
+}
+
+
+/* All expansion arrows */
+arrow:hover {
+  color:  @og-black-color;
+  background: transparent;
+}
+
+
+radio:checked {
+  -gtk-icon-source: url("../assets/radiobutton/radio-checked-dark.svg");
+}
+
+
+/* Toolbutton and Action button texture */
+toolbutton button,
+buttonbox button {
+  background-image: url("../assets/toolbutton/toolbutton-dark.png");
+}
+
+/* Tabs, need to be specific because of the image bar tabs */
+GimpDock header tab,
+dialog header tab,
+GimpDock header button {
+  background-image: url("../assets/tab/tab-dark.png");
 }
