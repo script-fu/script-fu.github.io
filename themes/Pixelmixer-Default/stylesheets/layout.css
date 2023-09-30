@@ -28,10 +28,10 @@
 */
 
 
-/* Removing all the default layout settings inherited from Gtk */
+/* emoving all the default layout settings inherited from Gtk */
 *{
-  padding: 0rem;
-  margin:  0rem;
+  padding: 0em;
+  margin:  0em;
 }
 
 
@@ -40,31 +40,31 @@
 
 /* User input boxes */
 entry {
-  margin:         0.1rem;
-  padding-left:   0.2rem;
-  padding-top:    0.1rem;
-  padding-bottom: 0.1rem;
-  min-width:     0.45rem;
+  margin:         0.1em;
+  padding-left:   0.2em;
+  padding-top:    0.1em;
+  padding-bottom: 0.1em;
+  min-width:     0.45em;
 }
 
 /* For any image in an entry, usually a little dropdown arrow */
 entry image {
-  margin:       0.15rem;
-  margin-right: 0.25rem;
+  margin:       0.15em;
+  margin-right: 0.25em;
 }
 
 /* All Labels */
 label {
-  margin: 0.1rem;
+  margin: 0.1em;
 }
 
 /* Button and tabs */
 button,
 GimpDock tab,
 dialog tab {
-  margin:     0.1rem;
-  min-height: 0.65rem;
-  min-width:  0.65rem;
+  margin:     0.1em;
+  min-height: 0.65em;
+  min-width:  0.65em;
 }
 
 /* The image on a button, 'em' for relative to scale to parent  */
@@ -81,87 +81,87 @@ button label {
 /* Checkboxes and Radio Buttons */
 check,
 radio {
-  min-height:   0.5rem;
-  min-width:    0.5rem;
-  margin:      0.15rem;
-  margin-left:  0.1rem;
+  min-height:   0.5em;
+  min-width:    0.5em;
+  margin:      0.15em;
+  margin-left:  0.1em;
 }
 
 /* Radio button adjust */
 radio {
-  margin: 0rem;
+  margin: 0em;
 }
 
 /* Position of label next to checkboxes */
 checkbutton label,
 radiobutton label {
-  margin-left: 0.2rem;
+  margin-left: 0.2em;
 }
 
 /* Combobox, Dropdown, Pop-up Menus */
 combobox box button {
-  margin: 0rem;
+  margin: 0em;
 }
 
 /* Switch Button */
 switch {
-  margin:   0.2rem;
+  margin:   0.2em;
   min-width:  52px;
   min-height: 24px;
 }
 
 /* Action Buttons, Help, Reset, Cancel and OK */
 .dialog-action-box button label {
-  margin: 0.2rem;
+  margin: 0.2em;
 }
 
 /* Spinbutton container, height related to slider */
 spinbutton {
-  margin:     0.1rem;
-  min-height: 1.4rem;
-  min-width:    1rem;
+  margin:     0.1em;
+  min-height: 1.4em;
+  min-width:    1em;
 }
 
 /* Input box, position of numbers */
 spinbutton entry {
-  margin:        0.1rem;
-  margin-right:    0rem;
-  padding-left:  0.2rem;
-  padding-right: 0.2rem;
-  padding-top:  0.05rem;
+  margin:        0.1em;
+  margin-right:    0em;
+  padding-left:  0.2em;
+  padding-right: 0.2em;
+  padding-top:  0.05em;
 }
 
 /* Buttons next to slider, margin-top and bottom control -+ shape */
 spinbutton    button,
 GimpSpinScale button {
-  min-height:     0.6rem;
-  min-width:      0.6rem;
-  margin:           0rem;
-  margin-left:    0.1rem;
-  margin-top:    0.28rem;
-  margin-bottom: 0.28rem;
-  padding:        0.1rem;
+  min-height:     0.6em;
+  min-width:      0.6em;
+  margin:           0em;
+  margin-left:    0.1em;
+  margin-top:    0.28em;
+  margin-bottom: 0.28em;
+  padding:        0.1em;
 }
 
 spinbutton    button {
-  margin-top:    0.22rem;
-  margin-bottom: 0.22rem;
+  margin-top:    0.22em;
+  margin-bottom: 0.22em;
 }
 
 /* The corner buttons on the canvas, Access Menu, Zoom, Navigate, Quick Mask */
 GimpDisplayShell grid > button,
 GimpDisplayShell grid > button.flat,
 GimpDisplayShell grid > widget {
-  min-width:  0.45rem;
-  min-height: 0.45rem;
-  margin:        0rem;
+  min-width:  0.45em;
+  min-height: 0.45em;
+  margin:        0em;
 }
 
 /* Image margin override to get rid of pixel gap */
 GimpDisplayShell grid > button image,
 GimpDisplayShell grid > button.flat image,
 GimpDisplayShell grid > widget image {
-  margin: 0rem;
+  margin: 0em;
 }
 
 /*** Reset and Link Button Overrides ***/
@@ -174,8 +174,8 @@ GimpDock widget viewport box box box button.flat image {
 /* A particular button path to catch 'Link to Brush Default' and 'Reset' */
 GimpDock widget viewport box box box button.flat {
   margin:        0.02em;
-  margin-top:    0.22rem;
-  margin-bottom: 0.22rem;
+  margin-top:    0.22em;
+  margin-bottom: 0.22em;
 }
 
 
@@ -184,7 +184,7 @@ GimpDock widget viewport box box box button.flat {
 
 /* CMYK color selection dialog chooser area */
 GimpColorSelection ColorselCmyk {
-  padding: 0.1rem;
+  padding: 0.1em;
 }
 
 /* Color selectors spacing */
@@ -193,24 +193,24 @@ GimpColorSelect,
 ColorselCmyk,
 ColorselWater,
 GimpColorSelectorPalette {
-  margin:        0.5rem;
-  margin-bottom: 0.5rem;
+  margin:        0.5em;
+  margin-bottom: 0.5em;
 }
 
 /* Color square buttons override */
 GimpColorHistory button {
-  min-width:  0.9rem;
-  min-height: 0.9rem;
+  min-width:  0.9em;
+  min-height: 0.9em;
 }
 
 /* Color select sliders */
 GimpColorScale trough {
-  min-height: 0.45rem;;
+  min-height: 0.45em;;
 }
 
 /* Color gradient slider width */
 GimpColorSelect box frame {
-  min-width: 1.5rem;
+  min-width: 1.5em;
 }
 
 
@@ -222,26 +222,26 @@ GimpColorSelect box frame {
 
 /* Show all files, select file types and action boxes, effects all dialogs */
 actionbar {
-  padding: 0.2rem;
+  padding: 0.2em;
 }
 
 /* Label in preferences header */
 dialog widget label {
-  padding:     0.1rem;
-  margin-left: 0.4rem;
+  padding:     0.1em;
+  margin-left: 0.4em;
 }
 
 /* Image in preferences header */
 dialog widget image {
-  padding: 0.2rem;
+  padding: 0.2em;
 }
 
 /* Margin between internal frame for locations and container */
 dialog scrolledwindow viewport frame {
-  margin-right:  1rem;
-  margin-bottom: 1rem;
-  margin-top:  0.2rem;
-  margin-left: 0.2rem;
+  margin-right:  1em;
+  margin-bottom: 1em;
+  margin-top:  0.2em;
+  margin-left: 0.2em;
 }
 
 
@@ -249,22 +249,22 @@ dialog scrolledwindow viewport frame {
 
 /* Behind the rows of locations */
 dialog list {
-  padding: 0.1rem;
+  padding: 0.1em;
 }
 
 /* Spacing for rows of locations to select */
 dialog row {
-  padding: 0.1rem;
+  padding: 0.1em;
 }
 
 /* Labels in a row */
 dialog row label {
-  padding-left: 0.2rem;
+  padding-left: 0.2em;
 }
 
 /* Widget for FG/BG in a tab */
 tab GimpFgBgView {
-  padding: 0.1rem;
+  padding: 0.1em;
 }
 
 
@@ -272,13 +272,13 @@ tab GimpFgBgView {
 
 /* Selected, each row */
 dialog placessidebar row revealer label {
-  margin:  0rem;
-  padding: 0rem;
+  margin:  0em;
+  padding: 0em;
 }
 
 /* Image margin */
 dialog placessidebar image {
-  margin: 0.2rem;
+  margin: 0.2em;
 }
 
 
@@ -288,12 +288,12 @@ dialog placessidebar image {
 
 /* Gives a margin to free-floating dockables, but also docked ones */
 GimpDock {
-  margin: 0.2rem;
+  margin: 0.2em;
 }
 
 /* Slider that appears when needed */
 GimpDock scrollbar {
-  margin-left: 0.2rem;
+  margin-left: 0.2em;
 }
 
 /* More margin room for a label on a dockable tab, related to icon scale */
@@ -312,29 +312,29 @@ dialog tab label {
 
 /* Margin around places sidebar */
 GimpFileDialog viewport {
-  margin:  0rem;
-  padding: 0rem;
+  margin:  0em;
+  padding: 0em;
 }
 
 /* Margin between the dialog edge and the dialog content */
 GimpFileDialog filechooser {
-  margin: 0rem;
+  margin: 0em;
 }
 
 /* Scroll bars */
 GimpFileDialog scrollbar slider {
-  margin:  0rem;
-  padding: 0rem;
+  margin:  0em;
+  padding: 0em;
 }
 
 /* Seperator between sections in the OS places list */
 GimpFileDialog filechooser paned list separator {
-  margin: 0.1rem;
+  margin: 0.1em;
 }
 
 /* Moveable panel separator between places and files to choose */
 GimpFileDialog filechooser paned separator {
-  margin: 0rem;
+  margin: 0em;
 }
 
 
@@ -343,10 +343,10 @@ GimpFileDialog filechooser paned separator {
 /* Name, Size, Type buttons */
 GimpFileDialog treeview header button,
 GimpFileDialog expander treeview button {
-  margin:          0rem;
-  padding:         0rem;
-  padding-right: 0.4rem;
-  padding-left:  0.2rem;
+  margin:          0em;
+  padding:         0em;
+  padding-right: 0.4em;
+  padding-left:  0.2em;
 }
 
 
@@ -354,23 +354,23 @@ GimpFileDialog expander treeview button {
 
 /* Awkward inner area */
 GimpFileDialog treeview widget box box {
-  padding-right: 1rem;
+  padding-right: 1em;
 }
 
 /* The "Preview" area in File Dialog */
 GimpFileDialog treeview widget box {
-  padding-left: 0.4rem;
+  padding-left: 0.4em;
 }
 
 /* The 'Preview' header box button in File Dialog, hiding it */
 GimpFileDialog treeview widget header button {
-  padding-right: 0.4rem;
-  padding-left:  0.4rem;
+  padding-right: 0.4em;
+  padding-left:  0.4em;
 }
 
 /* Justify the 'Preview' label */
 GimpFileDialog treeview widget header button label {
-  padding-left: 2.5rem;
+  padding-left: 2.5em;
 }
 
 
@@ -378,13 +378,13 @@ GimpFileDialog treeview widget header button label {
 
 /* Selected, each row */
 GimpFileDialog placessidebar row revealer label {
-  margin:  0rem;
-  padding: 0rem;
+  margin:  0em;
+  padding: 0em;
 }
 
 /* Image margin */
 GimpFileDialog placessidebar image {
-  margin: 0.2rem;
+  margin: 0.2em;
 }
 
 
@@ -394,7 +394,7 @@ GimpFileDialog placessidebar image {
 
 /* The G icon in a GEGL filter dialog*/
 GimpToolDialog image {
-  margin: 0.2rem;
+  margin: 0.2em;
 }
 
 
@@ -403,13 +403,13 @@ GimpToolDialog image {
 
 /* Image buttons override */
 header tab button image {
-  padding: 0rem;
-  margin:  0rem;
+  padding: 0em;
+  margin:  0em;
 }
 
 /* Hover, buttons override */
 header tab button:not(:checked):hover image{
-  margin: 0rem;
+  margin: 0em;
 }
 
 
@@ -422,56 +422,56 @@ header tab button:not(:checked):hover image{
 
 /* "Legacy" Layer Mode arrows, diminish */
 GimpDock combobox box box arrow {
-/*   min-width:  0rem;
-  min-height: 0rem;
-  margin:     0rem;
-  padding:    0rem; */
+/*   min-width:  0em;
+  min-height: 0em;
+  margin:     0em;
+  padding:    0em; */
 }
 
 /* Items in the stack, layers */
 GimpDock treeview.view {
-  padding:     0.1rem;
+  padding:     0.1em;
   padding-top:    1px;
   padding-bottom: 1px;
-  margin-left: 0.2rem;
+  margin-left: 0.2em;
 }
 
 /* Layer naming */
 GimpDock treeview.view entry {
-  padding-left: 0.4rem;
-  margin:         0rem;
+  padding-left: 0.4em;
+  margin:         0em;
 }
 
 /* Space around the tabs and one pixel line */
 GimpDock header {
-  margin-top:    0rem;
-  margin-bottom: 0rem;
+  margin-top:    0em;
+  margin-bottom: 0em;
 }
 
 /* Color tag squares in 'Create a New Layer' */
 #gimp-color-tag-box button {
-  padding:      0rem;
-  margin:     0.4rem;
-  margin-top: 0.4rem;
+  padding:      0em;
+  margin:     0.4em;
+  margin-top: 0.4em;
 }
 
 /*** Padlock and Visibility Column Icons above Layer Stack ***/
 
 /* Underline divider */
 GimpDock treeview header box {
-  margin-bottom: 0.1rem;
+  margin-bottom: 0.1em;
 }
 
 /* Lower Opacity */
 GimpDock treeview header button {
-  padding-left: 0.2rem;
-  margin:         0rem;
+  padding-left: 0.03em;
+  margin:         0em;
 }
 
 /* How many items are selected */
 GimpDock treeview.view header label,
 GimpDock treeview.view header label selection {
-  padding-left: 0.6rem;
+  padding-left: 0.6em;
 }
 
 
@@ -481,67 +481,67 @@ GimpDock treeview.view header label selection {
 
 /* General arrow */
 arrow {
-  min-width:  0.6rem;
-  min-height: 0.6rem;
+  min-width:  0.6em;
+  min-height: 0.6em;
 }
 
 /* Menu panel */
 menu {
-  padding-top:    0.25rem;
-  padding-bottom: 0.25rem;
-  padding-left:   0.25rem;
+  padding-top:    0.25em;
+  padding-bottom: 0.25em;
+  padding-left:   0.25em;
 }
 
 /* Items rows in the menu */
 menuitem {
-  min-width:      1rem;
-  margin-left: 0.25rem;
-  margin-right:   1rem;
-  margin-top:     0rem;
-  margin-bottom:  0rem;
+  min-width:      1em;
+  margin-left: 0.25em;
+  margin-right:   1em;
+  margin-top:     0em;
+  margin-bottom:  0em;
 }
 
 /* That horizontal dividing line between menu sections */
 menu separator {
-  margin:     0.2rem;
-  margin-left:  1rem;
-  margin-right: 1rem;
+  margin:     0.2em;
+  margin-left:  1em;
+  margin-right: 1em;
 }
 
 /* Arrow to sub-menu */
 menuitem > arrow {
-  margin: 0.2rem;
+  margin: 0.2em;
 }
 
 /* Up, down Arrow */
 menu arrow {
-  margin: 0.4rem;
+  margin: 0.4em;
 }
 
 /* Labels padding in menu */
 menubar  label,
 menu     label,
 menuitem label {
-  padding-bottom: 0.05rem;
+  padding-bottom: 0.05em;
 }
 
 
 /*** Document Title Header ***/
 
 headerbar, menubar {
-  min-height: 0.2rem;
+  min-height: 0.2em;
 }
 
 /* Active document name, padding from the menu items*/
 headerbar .title {
-  padding-left: 1rem;
+  padding-left: 1em;
 }
 
 /* Override button base state for min, max and close */
 headerbar button {
-  margin:     0.1rem;
-  min-width:  0.2rem;
-  min-height: 0.2rem;
+  margin:     0.1em;
+  min-width:  0.2em;
+  min-height: 0.2em;
 }
 
 
@@ -549,11 +549,11 @@ headerbar button {
 
 /* Top menu spacing, padding controls highlighting area */
 menubar > menuitem {
-  margin-top:   0.05rem;
-  margin-right: 0.15rem;
-  padding-top:     0rem;
-  padding-left:  0.2rem;
-  padding-right: 0.2rem;
+  margin-top:   0.05em;
+  margin-right: 0.15em;
+  padding-top:     0em;
+  padding-left:  0.2em;
+  padding-right: 0.2em;
 }
 
 
@@ -561,40 +561,40 @@ menubar > menuitem {
 
 /* exterior margin, padding gets to the 'Legacy Modes' reset icon */
 cellview {
-  margin-bottom: 0.1rem;
-  margin-left:   0.1rem;
-  margin-right:  0rem;
-  padding:       0.1rem;
+  margin-bottom: 0.1em;
+  margin-left:   0.1em;
+  margin-right:  0em;
+  padding:       0.1em;
 }
 
 /* The external, visible cell Justify the label for the 'Mode     Normal' */
 combobox cellview {
-  padding-left:   0.05rem;
-  padding-top:    0.01rem;
-  padding-bottom: 0.01rem;
+  padding-left:   0.05em;
+  padding-top:    0.01em;
+  padding-bottom: 0.01em;
 }
 
 /* Panel of the drop down menu, padding is around the border */
 combobox menu {
-  padding: 0.2rem;
-  padding-top:     0.35rem;
-  padding-bottom:  0.35rem;
+  padding: 0.2em;
+  padding-top:     0.35em;
+  padding-bottom:  0.35em;
 }
 
 /* That horizontal dividing line between menu sections in a combobox menu */
 combobox menu separator {
-  margin:         0.2rem;
-  margin-left:    0.5rem;
-  margin-right:   0.5rem;
+  margin:         0.2em;
+  margin-left:    0.5em;
+  margin-right:   0.5em;
   background-image: none;
 }
 
 /* Cells *in* the drop menu */
 combobox menuitem cellview {
-  margin:      0.1rem;
-  padding:       0rem;
-  margin-top:    0rem;
-  margin-bottom: 0rem;
+  margin:      0.1em;
+  padding:       0em;
+  margin-top:    0em;
+  margin-bottom: 0em;
 }
 
 
@@ -602,12 +602,12 @@ combobox menuitem cellview {
 
 /* Helps, especially on white brush selection */
 iconview {
-  padding: 0.1rem;
+  padding: 0.1em;
 }
 
 /* Inside and behind a 'filter' and iconview, needs a better path */
 GimpDock widget .view {
-  margin: 0.2rem;
+  margin: 0.2em;
 }
 
 
@@ -618,12 +618,12 @@ GimpDock widget .view {
 
 /* Background panel */
 GimpOverlayDialog > box {
-  margin: 0.2rem;
+  margin: 0.2em;
 }
 
 /* Scale reset button fix */
 GimpOverlayDialog > buttonbox :last-child {
-  margin-left: 1rem;
+  margin-left: 1em;
 }
 
 
@@ -633,47 +633,47 @@ GimpOverlayDialog > buttonbox :last-child {
 
 /* Placeholder for the Canvas */
 GimpDisplayShell {
-  padding: 0rem;
+  padding: 0em;
 }
 
 /* Placeholder for the final background to various panels and dialogs */
 .background {
-  padding: 0rem;
+  padding: 0em;
 }
 
 /* Window edge zone */
 decoration {
-  margin: 1rem;
+  margin: 1em;
 }
 
 /* Edge to a dialog, sometimes not, for Script-Fu windows its an inner edge */
 .dialog-vbox {
-  padding: 0.2rem;
+  padding: 0.2em;
 }
 
 /* Placeholder, some panels have windows within called viewports */
 viewport {
-  padding: 0rem;
+  padding: 0em;
 }
 
 /* Placeholder, for a scrolled window in a dialog or dockable */
 scrolledwindow {
-  padding: 0rem;
+  padding: 0em;
 }
 
 /* Placeholder, around canvas corner buttons */
 GimpDisplayShell grid {
-  padding: 0rem;
+  padding: 0em;
 }
 
 /* Text Tool, toolbar spacing */
 toolbar {
-  margin: 0.2rem;
+  margin: 0.2em;
 }
 
 /* Text Tool, seperator spacing */
 toolbar separator {
-  margin: 0.1rem;
+  margin: 0.1em;
 }
 
 
@@ -682,23 +682,23 @@ toolbar separator {
 /* Canvas separators */
 paned.horizontal > separator,
 paned.vertical > separator {
-  min-width:  0.3rem;
-  min-height: 0.3rem;
+  min-width:  0.3em;
+  min-height: 0.3em;
 }
 
 paned.vertical > separator {
-  min-width:     0.3rem;
-  min-height:    0.3rem;
-  margin-top:    0.1rem;
-  margin-bottom: 0.1rem;
-  margin-left:     0rem;
-  margin-right:    0rem;
+  min-width:     0.3em;
+  min-height:    0.3em;
+  margin-top:    0.1em;
+  margin-bottom: 0.1em;
+  margin-left:     0em;
+  margin-right:    0em;
 }
 
 /* Distance between dockable tabs and baked in line */
 tabs {
-  padding-bottom: 0.15rem;
-  margin-bottom:     0rem;
+  padding-bottom: 0.15em;
+  margin-bottom:     0em;
 }
 
 
@@ -710,8 +710,8 @@ tabs {
 
 /* Popovers -Text Tool - Edge */
 popover.background {
-  padding: 0.2rem;
-  margin:    0rem;
+  padding: 0.2em;
+  margin:    0em;
 }
 
 
@@ -726,16 +726,16 @@ popover.background {
 
 /* Placeholder for the slider */
 scrollbar slider {
-  padding: 0rem;
-  margin:  0rem;
+  padding: 0em;
+  margin:  0em;
 }
 
 /* Min values get rid of a 1 pixel gap */
 scrollbar trough {
-  min-width:  0.5rem;
-  min-height: 0.5rem;
+  min-width:  0.5em;
+  min-height: 0.5em;
   padding:       1px;
-  margin:       0rem;
+  margin:       0em;
 }
 
 
@@ -747,26 +747,26 @@ scrollbar trough {
 
 /* Placeholder, Slider container, margin around slider */
 GimpSpinScale {
-  margin:        0.1rem;
-  margin-right:  0.1rem;
+  margin:        0.1em;
+  margin-right:  0.1em;
 }
 
 /* Slider trough, also sets height of the slider */
 GimpSpinScale entry {
-  min-height:    1.4rem;
-  padding:         0rem;
+  min-height:    1.4em;
+  padding:         0em;
   padding-right:    8px;
   padding-left:     1px;
-  margin:          0rem;
-  margin-right: 0.05rem;
+  margin:          0em;
+  margin-right: 0.05em;
 }
 
 /* Slider highlight, it's progress, negative hack, see padding above */
 GimpSpinScale progress {
-  margin-left:   0rem;
+  margin-left:   0em;
   margin-right:  -7px;
-  margin-top:    0rem;
-  margin-bottom: 0rem;
+  margin-top:    0em;
+  margin-bottom: 0em;
 }
 
 
@@ -774,30 +774,30 @@ GimpSpinScale progress {
 
 /* Container */
 scale {
-  margin-left: 0.2rem;
+  margin-left: 0.2em;
 }
 
 /* Placeholder, trough */
 scale trough {
-  margin: 0rem;
+  margin: 0em;
 }
 
 /* Slider handle, sizing */
 scale slider {
-  min-height: 0.7rem;
-  min-width:  0.7rem;
+  min-height: 0.7em;
+  min-width:  0.7em;
 }
 
 /* Slider highlight, behind the handle */
 scale highlight {
-  margin:  0.1rem;
-  padding: 0.1rem;
+  margin:  0.1em;
+  padding: 0.1em;
 }
 
 /* Notches on slider */
 scale indicator {
-  min-height:  0.5rem;
-  min-width:  0.15rem;
+  min-height:  0.5em;
+  min-width:  0.15em;
 }
 
 
@@ -808,34 +808,34 @@ scale indicator {
 
 /*  Soft-proofing on view off, low contrast */
 statusbar box widget button {
-  padding:     0.2rem;
-  margin:     0.25rem;
-  min-width:   0.4rem;
-  min-height:  0.4rem;
+  padding:     0.2em;
+  margin:     0.25em;
+  min-width:   0.4em;
+  min-height:  0.4em;
 }
 
 /* Zoom box on status bar */
 statusbar combobox entry {
-  min-width:  4rem;
-  min-height: 1rem;
+  min-width:  4em;
+  min-height: 1em;
 }
 
 /* Progress bar, margin to the progress bar causes the initial status bar to be oversized */
 progressbar trough {
-  padding:     0.1rem;
+  padding:     0.1em;
   padding-left:   1px;
   padding-right:  1px;
 }
 
 /* Progress bar text */
 progressbar text {
-  margin: 0.2rem;
+  margin: 0.2em;
 }
 
 /* Progress bar highlight */
 progressbar progress {
-  padding: 0rem;
-  margin:  0rem;
+  padding: 0em;
+  margin:  0em;
 }
 
 
@@ -845,7 +845,7 @@ progressbar progress {
 
 /* Spacing around edge of pop up and editor*/
 GimpTextStyleEditor {
-  margin: 0.2rem;
+  margin: 0.2em;
 }
 
 
@@ -860,16 +860,16 @@ toolbutton button image {
 
 /* Placeholder, FG/BG area on toolbox */
 flowbox {
-  margin:        0.1rem;
-  margin-top:      0rem;
-  margin-bottom: 0.1rem;
-  padding:      0.05rem;
+  margin:        0.1em;
+  margin-top:      0em;
+  margin-bottom: 0.1em;
+  padding:      0.05em;
 }
 
 /* Items in the flowbox, and when flowbox is empty */
 flowboxchild {
-  padding: 0.05rem;
-  margin:  0.05rem;
+  padding: 0.05em;
+  margin:  0.05em;
 }
 
 
@@ -878,23 +878,23 @@ flowboxchild {
 
 /* Pop-up menu padding */
 toolbutton window menu {
-  padding: 0.1rem;
-  margin:  0.2rem;
+  padding: 0.1em;
+  margin:  0.2em;
 }
 
 /* Space between the tools inside the menu */
 toolbutton window menuitem {
-  margin:           0rem;
-  padding:          0rem;
-  padding-top:    0.1rem;
-  padding-bottom: 0.1rem;
+  margin:           0em;
+  padding:          0em;
+  padding-top:    0.1em;
+  padding-bottom: 0.1em;
 }
 
  /* Icons in toolbutton group pop-up */
 toolbutton window menuitem image {
-  padding:  0.1rem;
-  min-width:  1rem;
-  min-height: 1rem;
+  padding:  0.1em;
+  min-width:  1em;
+  min-height: 1em;
 }
 
 
@@ -904,17 +904,17 @@ toolbutton window menuitem image {
 
 /* Around the edge */
 tooltip.background {
-  padding: 0.1rem;
+  padding: 0.1em;
 }
 
 tooltip box label {
-  padding: 0.1rem;
-  margin:  0.1rem;
+  padding: 0.1em;
+  margin:  0.1em;
 }
 
 tooltip box image {
-  padding: 0.2rem;
-  margin:  0.1rem;
+  padding: 0.2em;
+  margin:  0.1em;
 }
 
 

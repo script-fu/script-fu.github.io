@@ -1,0 +1,75 @@
+/*
+* @ THEME ADJUSTMENTS GO IN HERE
+*/
+
+/* Toolbutton image/icon margin, bigger margin for Huge icons a circles */
+toolbutton button image {
+  margin: 0.35em;
+}
+
+
+/* Spinbutton container, height related to slider */
+spinbutton {
+  margin:     0.1em;
+  min-height: 0.6em;
+  min-width:    1em;
+}
+
+/* Input box, position of numbers */
+spinbutton entry {
+  margin:          0em;
+  margin-right:    0em;
+  padding-left:  0.2em;
+  padding-right: 0.2em;
+  padding-top:  0.05em;
+}
+
+
+/* Buttons next to slider, margin-top and bottom control -+ shape */
+spinbutton    button,
+GimpSpinScale button {
+  min-height:     0.6em;
+  min-width:      0.1em;
+  margin:           0em;
+  margin-left:      0em;
+  margin-top:       0em;
+  margin-bottom:    0em;
+  padding:        0.2em;
+}
+
+spinbutton button {
+  margin-top:    0em;
+  margin-bottom: 0em;
+}
+
+/* Placeholder, Slider container, margin around slider */
+GimpSpinScale {
+  margin:       0.1em;
+  margin-right: 0.1em;
+  padding:        0em;
+}
+
+/* Slider trough, also sets height of the slider */
+GimpSpinScale entry {
+  min-height:    1.3em;
+  padding:         0em;
+  padding-left:     1px;
+  margin:          0em;
+}
+
+/* Slider highlight, it's progress, negative hack, see padding above */
+GimpSpinScale progress {
+  margin-left:   0em;
+  margin-right:  0em;
+  margin-top:    0em;
+  margin-bottom: 0em;
+}
+
+/* Checkboxes and Radio Buttons */
+check,
+radio {
+  min-height:   0.6em;
+  min-width:    0.6em;
+  margin:      0.15em;
+  margin-left:  0.1em;
+}

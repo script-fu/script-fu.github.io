@@ -27,13 +27,13 @@
 * @ TOOLTIPS
 */
 
-/* Extra small      0.75rem */
-/* Small size       0.95rem */
-/* Normal size      1.0rem */
-/* Large size       1.05rem */
-/* Extra Large size 1.1rem */
+/* Extra small      0.75em */
+/* Small size       0.95em */
+/* Normal size      1.0em */
+/* Large size       1.05em */
+/* Extra Large size 1.1em */
 
-/* Scaling for font size is usually found in the OS Accessibilty settings.
+/* Scaling for font size is usually found in the OS Accessibility settings.
    Scale your fonts system wide using those settings before changing these.
    GIMP inherits those settings. The standard DPI settings are:
 
@@ -48,7 +48,7 @@
 
 /* Default for all fonts  */
 *{
-  font-size:     1.0rem;
+  font-size:     1.0em;
   font-weight:   normal;
   font-style:    normal;
   text-shadow:     none;
@@ -60,7 +60,7 @@
 
 /* All labels, usually near a button*/
 label {
-  font-size:   1.0rem;
+  font-size:   1.0em;
   font-weight: normal;
   font-style:  normal;
   text-shadow:   none;
@@ -72,21 +72,21 @@ label:disabled {
 
 /* User input box */
 entry {
-  font-size:   1.0rem;
+  font-size:   1.0em;
   font-weight: normal;
   font-style:  normal;
 }
 
 /* Text pop up box for filtering tags */
 widget {
-  font-size:   1.0rem;
+  font-size:   1.0em;
   font-weight: normal;
   font-style:  normal;
 }
 
 /* Numerical user input */
 spinbutton {
-  font-size:   1.0rem;
+  font-size:   1.0em;
   font-weight: normal;
   font-style:  normal;
 }
@@ -98,22 +98,22 @@ spinbutton {
 
 /* Labels on grid of checkboxes in the mapping matrix */
 GimpDock stack box grid label {
-  font-size: 0.95rem;
+  font-size: 0.95em;
 }
 
 /* Labels At Top of a Dockable And in pop up layer menu*/
 GimpDock stack widget box label {
-  font-size: 0.95rem;
+  font-size: 0.95em;
 }
 
 /* Override the above for right click layer menu */
 GimpDock stack widget menu label {
-  font-size: 1rem;
+  font-size: 1em;
 }
 
 /* Labels on a tab */
 GimpDock tab label {
-  font-size: 0.75rem;
+  font-size: 0.75em;
   font-weight: normal;
 }
 
@@ -124,34 +124,34 @@ GimpDock tab label {
 
 /* Help, Reset, Cancel, OK */
 .dialog-action-box button label {
-  font-size: 1.05rem;
+  font-size: 1.05em;
 }
 
 /* Entry for saved name */
 GimpFileDialog entry {
   font-weight: normal;
-  font-size:  1.05rem;
+  font-size:  1.05em;
 }
 
 /* Each box label in the OS places list */
 GimpFileDialog row revealer widget label {
-  font-size: 1.0rem;
+  font-size: 1.0em;
 }
 
 /* list of files */
 GimpFileDialog treeview  {
   font-style: normal;
-  font-size:  1.0rem;
+  font-size:  1.0em;
 }
 
 /* Name, location, size...Labels */
 GimpFileDialog header {
-  font-size: 1.0rem;
+  font-size: 1.0em;
 }
 
 /* Path buttons */
 GimpFileDialog revealer widget > button label {
-  font-size: 1.05rem;
+  font-size: 1.05em;
 }
 
 
@@ -161,17 +161,17 @@ GimpFileDialog revealer widget > button label {
 
 /* Name of filter */
 GimpToolDialog box frame box label {
-  font-size: 0.95rem;
+  font-size: 0.95em;
 }
 
 /* Name of document in a filter dialog*/
 GimpToolDialog box frame box label:last-child {
-  font-size: 1.05rem;
+  font-size: 1.05em;
 }
 
 /* Name of document in a filter dialog*/
 GimpToolDialog expander title {
-  font-size: 0.95rem;
+  font-size: 0.95em;
 }
 
 
@@ -182,6 +182,7 @@ GimpToolDialog expander title {
 
 /* History, Layers and other Lists of Items */
 GimpDock treeview {
+  font-size: 1.0em;
   font-weight: normal;
   font-style:  normal;
 }
@@ -202,7 +203,7 @@ GimpDock treeview :drop(active) {
 /* How many items are selected, when icons are small it stops twitching at 0.5*/
 GimpDock treeview.view header label,
 GimpDock treeview.view header label selection {
-  font-size:  0.75rem;
+  font-size:  0.75em;
   font-weight: bolder;
   font-style:  normal;
 }
@@ -214,7 +215,7 @@ GimpDock treeview.view header label selection {
 
 /* Expanding sections have a title */
 title label {
-  font-size:   1.0rem;
+  font-size:   1.0em;
   font-weight:   bold;
   font-style:  normal;
 }
@@ -225,14 +226,14 @@ title label {
 /* External cell, usually the 'Mode" of the blend */
 cellview {
   font-style:  normal;
-  font-size:  0.95rem;
+  font-size:  0.95em;
   font-weight:  normal
 }
 
 
 /* Inside the combobox labels */
 combobox menuitem cellview {
-  font-size:     1rem;
+  font-size:     1em;
   font-style:  normal;
   font-weight: normal;
 }
@@ -242,17 +243,17 @@ combobox menuitem cellview {
 
 /* Document title box, padding for min, max and close app */
 headerbar .title {
-  font-size: 1.05rem;
+  font-size: 1.05em;
 }
 
 /* Menu bar labels */
 menuitem label {
-  font-size: 1.1rem;
+  font-size: 1.1em;
 }
 
 /* Drop down menu labels */
 menu menuitem label {
-  font-size: 1.05rem;
+  font-size: 1.05em;
 }
 
 /* Hover */
@@ -287,7 +288,7 @@ GimpOverlayDialog label {
 /* Entry for saved name */
 GimpOverlayDialog entry {
   font-weight: bolder;
-  font-size: 1.05rem
+  font-size: 1.05em
 }
 
 
@@ -297,17 +298,17 @@ GimpOverlayDialog entry {
 
 /* Rows of locations */
 dialog viewport row label {
-  font-size: 1.05rem
+  font-size: 1.05em
 }
 
 /* The tree of options to view */
 dialog treeview {
-  font-size: 1.05rem
+  font-size: 1.05em
 }
 
 /* Locations path */
 dialog .dim-label {
-  font-size: 1.0rem
+  font-size: 1.0em
 }
 
 
@@ -316,7 +317,7 @@ dialog .dim-label {
 /************************** RULER **************************/
 
 GimpRuler {
-  font-size: 1.0rem;
+  font-size: 1.0em;
 }
 
 
@@ -326,13 +327,13 @@ GimpRuler {
 
 /* Slider container, slider overlayed font, no padding option */
 GimpSpinScale {
-  font-size:   0.95rem;
+  font-size:   0.95em;
   font-weight:  normal;
   font-style:   normal;
 }
 
 GimpSpinScale:focus {
-  font-size:  0.95rem;
+  font-size:  0.95em;
   font-weight: normal;
 }
 
@@ -342,36 +343,36 @@ GimpSpinScale:focus {
 /************************** STATUS BAR **************************/
 
 statusbar label {
-  font-size: 1.05rem;
+  font-size: 1.05em;
 }
 
 /* Zoom box on status bar */
 statusbar entry.combo {
-  font-size: 1.05rem;
+  font-size: 1.05em;
   font-weight: bold;
 
 }
 
 statusbar entry:focus {
-  font-size: 1.05rem;
+  font-size: 1.05em;
   font-weight: bold;
 }
 
 /* progress bar */
 progressbar text {
-  font-size: 0.95rem;
+  font-size: 0.95em;
   font-weight:  bold;
 }
 
 /* Units */
 statusbar combobox cellview {
-  font-size: 0.95rem;
+  font-size: 0.95em;
   font-weight: bold;
 }
 
 /* Units inside menu */
 statusbar combobox menuitem cellview {
-  font-size:  0.95rem;
+  font-size:  0.95em;
   font-weight: normal;
 }
 
@@ -381,12 +382,12 @@ statusbar combobox menuitem cellview {
 
 /* Entry for font name */
 GimpTextStyleEditor entry {
-  font-size: 1.0rem;
+  font-size: 1.0em;
 }
 
 /* Text editor */
 textview.view text {
-  font-size: 1.0rem;
+  font-size: 1.0em;
 }
 
 
@@ -395,5 +396,5 @@ textview.view text {
 /************************** TOOLTIPS **************************/
 
 tooltip box label {
-  font-size: 1.0rem;
+  font-size: 1.0em;
 }

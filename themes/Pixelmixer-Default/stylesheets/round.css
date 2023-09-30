@@ -54,7 +54,7 @@ toolbutton window menuitem image,
 tooltip.background,
 tooltip background,
 tooltip box image {
-  border-radius: 0.5rem;
+  border-radius: 0.5em;
 }
 
 
@@ -69,17 +69,19 @@ GimpSpinScale entry,
 popover button,
 GimpColorHistory button,
 #gimp-color-tag-box button {
-  border-radius: 0.25rem;
+  border-radius: 0.25em;
 }
 
 /* EVEN LESS ROUNDED */
 check,
 GimpDock tab,
 GimpDock header button,
+GimpDock GimpColorHistory button,
+GimpDock widget box > box > box > box button,
 dialog tab,
 GimpSpinScale progress,
 GimpSpinScale progress:focus {
-  border-radius: 0.12rem;
+  border-radius: 0.12em;
 }
 
 /* SQUARE */
@@ -97,7 +99,7 @@ dialog treeview.view :selected,
 dialog treeview.view:not(:selected):hover,
 dialog treeview.view :selected,
 dialog treeview.view:not(:selected):hover {
-  border-radius: 0rem;
+  border-radius: 0em;
 }
 
 

@@ -8,20 +8,20 @@ toolbutton button {
 
 spinbutton    button,
 GimpSpinScale button {
-  border-radius: 0rem;
+  border-radius: 0em;
 }
 
 GimpSpinScale entry,
 spinbutton entry {
-  border-top-right-radius:    0rem;
-  border-bottom-right-radius: 0rem;
+  border-top-right-radius:    0em;
+  border-bottom-right-radius: 0em;
 }
 
 /* Buttons, - +, overrides */
 spinbutton        button.up,
 dialog spinbutton button.up,
 GimpSpinScale     button.up {
-  border-top-right-radius:    0.25rem;
-  border-bottom-right-radius: 0.25rem;
+  border-top-right-radius:    0.25em;
+  border-bottom-right-radius: 0.25em;
 }
 

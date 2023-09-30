@@ -265,3 +265,79 @@ GimpDock widget viewport box box box button.flat:checked {
   border-color:    @light-higher-color;
   opacity:                        0.95;
 }
+
+
+/* Hover, a menu item */
+menuitem:hover {
+  background: @mid-highest-hover-color;
+}
+
+
+/* Toolbutton and Action button texture */
+toolbutton button,
+buttonbox button {
+  background-image: url("../assets/toolbutton/toolbutton.png");
+}
+
+/* Checked button - on, higher contrast */
+toolbutton button:checked {
+  background-image: url("../assets/toolbutton/toolbutton-checked.png");
+}
+
+/* Checked, Layer locks */
+popover button:checked {
+  border-color: @highlight-color;
+}
+
+/* Checked, Clicked Layer locks */
+popover button:checked:active:hover {
+  border-color: @highlight-hover-color;
+}
+
+/* Checked Hover */
+popover button:checked:hover {
+  border-color: @highlight-low-color;
+}
+
+/* Tabs, need to be specific because of the image bar tabs */
+GimpDock header tab,
+dialog header tab,
+GimpDock header button {
+  background-image: url("../assets/tab/tab.png");
+}
+
+toolbutton button:not(:checked):hover {
+  border-color:      @fg-black;
+  background-image: url("../assets/toolbutton/toolbutton-hover.png");
+}
+
+/* Cellview, external view of combobox */
+cellview {
+  background-image: url("../assets/cellview/cellview.png");
+}
+
+/* Entry for 'filter' */
+GimpDock widget box box > entry {
+  background-image: url("../assets/cellview/cellview.png");
+}
+
+GimpSpinScale progress {
+  background-image: url("../assets/cellview/cellview.png");
+}
+
+/* Hover, highlighting on iconview */
+iconview:not(:selected):hover {
+  border-color: @fg-white-color;
+}
+
+/* Selected items highlighting, red for Gray theme! deals with gray brushes */
+iconview:selected {
+  border-color: @highlight-low-color;
+}
+
+/* Buttons, - +, overrides */
+spinbutton        button,
+dialog spinbutton button,
+GimpSpinScale     button {
+  background-image: url("../assets/spinbutton/spinbutton.png");
+}

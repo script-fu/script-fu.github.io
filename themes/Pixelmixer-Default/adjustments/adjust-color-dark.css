@@ -99,7 +99,7 @@ combobox menu separator {
 
 /* Canvas, mid gray */
 GimpDisplayShell {
-  background-color: @mid-color;
+  background-color: @canvas-color;
   color: @shade-high-color;
 }
 

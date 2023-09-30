@@ -38,7 +38,7 @@
       (set! i (+ i 1))
     )
 
-    (gimp-message aStr)
+    (if debug (gimp-message aStr))
 
     aStr
   )

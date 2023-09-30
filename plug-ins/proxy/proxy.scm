@@ -174,7 +174,7 @@
     (gimp-layer-resize actL wdthL hghtL (- 0 offX) (- 0 offY))
     (restore-all-locks lckLst)
     (set-lock-layer placehL 1 1 1 1)
-    (gimp-item-set-color-tag srcGrp 2)
+    (gimp-item-set-color-tag srcGrp 8)
 
     prxImg
   )

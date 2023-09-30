@@ -83,11 +83,17 @@ In Linux, set the file to be executable.
         (while (< i (car imgLst))
           (set! img (vector-ref (cadr imgLst) i))
 
+          ; Test freeze and thaw 
+          (gimp-image-undo-freeze img)
+
           (when (and (not(= img imgOn))(> (car (gimp-image-id-is-valid img))0))
             (if (> (car (gimp-image-is-dirty img)) 0)
               (incremental-save img save-location (number->string incr) quiet)
             )
           )
+
+          ; Test freeze and thaw 
+          (gimp-image-undo-thaw img)
 
           (set! i (+ i 1))
         )

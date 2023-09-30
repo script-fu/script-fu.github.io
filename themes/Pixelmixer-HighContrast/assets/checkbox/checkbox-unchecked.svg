@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Gravit.io -->
+
+<svg
+   style="isolation:isolate"
+   viewBox="0 0 14 14"
+   width="14"
+   height="14"
+   version="1.1"
+   id="svg9"
+   sodipodi:docname="checkbox-unchecked.svg"
+   inkscape:version="1.3-beta (12614ed929, 2023-05-28)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview9"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="69.750003"
+     inkscape:cx="1.6989247"
+     inkscape:cy="7.9928312"
+     inkscape:window-width="2560"
+     inkscape:window-height="1409"
+     inkscape:window-x="3840"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg9" />
+  <defs
+     id="defs1">
+    <clipPath
+       id="_clipPath_SoG4ylrcTj00cmKqLkGdiMh2JNqSmder">
+      <rect
+         width="16"
+         height="16"
+         id="rect1"
+         x="0"
+         y="0" />
+    </clipPath>
+  </defs>
+  <g
+     clip-path="url(#_clipPath_SoG4ylrcTj00cmKqLkGdiMh2JNqSmder)"
+     id="g9"
+     style="fill:#b3b3b3">
+    <clipPath
+       id="_clipPath_9PUGFjVT5fwEPmLladJFCx26EWPRVN56">
+      <rect
+         x="0"
+         y="0"
+         width="16"
+         height="16"
+         fill="#ffffff"
+         id="rect2" />
+    </clipPath>
+    <g
+       clip-path="url(#_clipPath_9PUGFjVT5fwEPmLladJFCx26EWPRVN56)"
+       id="g8"
+       style="fill:#b3b3b3">
+      <g
+         id="g7"
+         style="fill:#b3b3b3">
+        <clipPath
+           id="_clipPath_1D6vvKQT5sJVWQjcP8AsyStft0nhAlCz">
+          <rect
+             x="0"
+             y="0"
+             width="16"
+             height="16"
+             fill="#ffffff"
+             id="rect3" />
+        </clipPath>
+        <g
+           clip-path="url(#_clipPath_1D6vvKQT5sJVWQjcP8AsyStft0nhAlCz)"
+           id="g6"
+           style="fill:#b3b3b3">
+          <g
+             id="g5"
+             style="fill:#b3b3b3">
+            <g
+               id="Group"
+               style="fill:#b3b3b3">
+              <g
+                 id="checkbox-checked-dark"
+                 style="fill:#b3b3b3">
+                <g
+                   id="checkbox-unchecked-5-59"
+                   style="fill:#b3b3b3">
+                  <g
+                     id="sdsd-7-54"
+                     style="fill:#b3b3b3">
+                    <g
+                       id="scdsdcd-5-8"
+                       style="fill:#b3b3b3">
+                      <g
+                         id="g5400-6-68"
+                         transform="translate(-1.06,-1)"
+                         style="fill:#b3b3b3">
+                        <linearGradient
+                           id="_lgradient_2"
+                           x1="1.0599999"
+                           y1="8"
+                           x2="1.0599999"
+                           y2="-6"
+                           gradientUnits="userSpaceOnUse">
+                          <stop
+                             offset="50%"
+                             stop-opacity="1"
+                             style="stop-color:rgb(154,154,154)"
+                             id="stop4" />
+                        </linearGradient>
+                        <path
+                           d="m 3.06,1 h 10 c 1.104,0 2,0.896 2,2 v 10 c 0,1.104 -0.896,2 -2,2 h -10 c -1.104,0 -2,-0.896 -2,-2 V 3 c 0,-1.104 0.896,-2 2,-2 z"
+                           fill="url(#_lgradient_2)"
+                           id="path4"
+                           style="fill:#b3b3b3;fill-opacity:1" />
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -9,54 +9,54 @@
 
 
 /* Foreground items should be given a "fg" color */
-@define-color fg-black-color                rgb(27, 0, 0);
-@define-color fg-dark-low-color             rgb(31, 2, 0);
-@define-color fg-dark-color              rgb(33, 7, 0);
-@define-color fg-dark-high-color         rgb(36, 15, 0);
-@define-color fg-dark-higher-color       rgb(50, 31, 0);
+@define-color fg-black-color                rgb(21, 0, 0);
+@define-color fg-dark-low-color             rgb(26, 3, 0);
+@define-color fg-dark-color              rgb(28, 8, 0);
+@define-color fg-dark-high-color         rgb(31, 15, 0);
+@define-color fg-dark-higher-color       rgb(45, 31, 8);
 
 /* Background shade colors */
-@define-color shade-lower-color          rgb(53, 35, 2);
-@define-color shade-low-color            rgb(57, 39, 12);
-@define-color shade-color                rgb(61, 43, 20);
-@define-color shade-high-color           rgb(68, 50, 30);
-@define-color shade-higher-color         rgb(74, 56, 38);
+@define-color shade-lower-color          rgb(48, 34, 15);
+@define-color shade-low-color            rgb(51, 38, 22);
+@define-color shade-color                rgb(55, 42, 28);
+@define-color shade-high-color           rgb(62, 49, 36);
+@define-color shade-higher-color         rgb(68, 55, 43);
 
 /* Background mid-tone colors */
-@define-color mid-low-color              rgb(95, 76, 58);
-@define-color mid-low-hover-color        rgb(106, 86, 67);
-@define-color mid-color                  rgb(113, 93, 73);
-@define-color mid-high-color          rgb(132, 111, 89);
-@define-color mid-high-hover-color    rgb(138, 116, 93);
-@define-color mid-higher-color        rgb(148, 126, 102);
-@define-color mid-highest-color       rgb(161, 138, 113);
-@define-color mid-highest-hover-color rgb(171, 148, 121);
+@define-color mid-low-color              rgb(102, 88, 76);
+@define-color mid-low-hover-color        rgb(114, 99, 86);
+@define-color mid-color                  rgb(122, 107, 93);
+@define-color mid-high-color          rgb(143, 127, 111);
+@define-color mid-high-hover-color    rgb(149, 133, 116);
+@define-color mid-higher-color        rgb(160, 144, 127);
+@define-color mid-highest-color       rgb(174, 157, 139);
+@define-color mid-highest-hover-color rgb(186, 168, 149);
 
 /* Background light colors */
-@define-color light-low-color         rgb(183, 156, 124);
-@define-color light-low-hover-color   rgb(189, 161, 128);
-@define-color light-color             rgb(195, 167, 134);
-@define-color light-hover-color       rgb(201, 173, 139);
-@define-color light-high-color        rgb(207, 178, 144);
-@define-color light-higher-color      rgb(216, 187, 152);
+@define-color light-low-color         rgb(199, 177, 152);
+@define-color light-low-hover-color   rgb(205, 183, 158);
+@define-color light-color             rgb(212, 190, 164);
+@define-color light-hover-color       rgb(219, 196, 170);
+@define-color light-high-color        rgb(225, 202, 175);
+@define-color light-higher-color      rgb(235, 212, 185);
 
 /* Bright foreground colors */
-@define-color fg-bright-lower-color   rgb(230, 200, 164);
-@define-color fg-bright-low-color     rgb(240, 209, 174);
-@define-color fg-bright-color         rgb(251, 219, 183);
-@define-color fg-bright-high-color    rgb(255, 229, 192);
-@define-color fg-white-color          rgb(255, 239, 201);
+@define-color fg-bright-lower-color   rgb(228, 205, 179);
+@define-color fg-bright-low-color     rgb(239, 215, 188);
+@define-color fg-bright-color         rgb(249, 225, 198);
+@define-color fg-bright-high-color    rgb(255, 235, 208);
+@define-color fg-white-color          rgb(255, 245, 217);
 
 /* Highlighting color */
-@define-color highlight-low-color       rgb(145, 53, 8);
-@define-color highlight-color           rgb(171, 97, 68);
+@define-color highlight-low-color       rgb(150, 47, 17);
+@define-color highlight-color           rgb(174, 95, 76);
 
 /* fg darks with no remapping */
-@define-color og-black-color                rgb(27, 0, 0);
-@define-color og-dark-low-color             rgb(31, 2, 0);
-@define-color og-dark-color              rgb(33, 7, 0);
-@define-color og-dark-high-color         rgb(36, 15, 0);
-@define-color og-dark-higher-color       rgb(50, 31, 0);
+@define-color og-black-color                rgb(21, 0, 0);
+@define-color og-dark-low-color             rgb(26, 3, 0);
+@define-color og-dark-color              rgb(28, 8, 0);
+@define-color og-dark-high-color         rgb(31, 15, 0);
+@define-color og-dark-higher-color       rgb(45, 31, 8);
 
 
 /* End paste */
@@ -66,7 +66,7 @@
 @define-color canvas-color             rgb(110, 100, 87);
 
 /* Disabled actions in menus */
-@define-color disabled-color              @mid-low-color;
+@define-color disabled-color              rgb(92, 78, 66);
 
 /* Decoration shadow opacity */
 @define-color box-shadow-color       rgba(0, 0, 0, 0.15);

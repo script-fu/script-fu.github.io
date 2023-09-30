@@ -368,6 +368,7 @@ GimpSpinScale     button {
   color:            @shade-high-color;
   background-color: @mid-highest-color;
   border-color:        @mid-low-color;
+  background-image: url("../assets/spinbutton/spinbutton.png");
 }
 
 /* Hover, overrides */
@@ -571,13 +572,13 @@ button.suggested-action {
 /* The active button of a dialog, what happens when you hit enter */
 button.default {
   background-color: @mid-highest-hover-color;
-  border-color:             @highlight-color;
+  border-color:                 @fg-bright-high-color;
 }
 
 /* Hover */
 button.default:hover {
   background-color: @light-color;
-  border-color: @highlight-low-color;
+  border-color: @shade-low-color;
 }
 
 /* Widgets, often like a button */
@@ -1535,7 +1536,7 @@ menubar menuitem label {
 
 /* Hover, a menu item */
 menuitem:hover {
-  background: @mid-high-hover-color;
+  background: @mid-higher-color;
 }
 
 /* Sub menu items*/
@@ -1692,7 +1693,7 @@ combobox menuitem cellview {
 /* Hover, on the items in the drop down menu */
 combobox menuitem:hover {
   color:               @fg-black-color;
-  background-color: @mid-highest-color;
+  background-color: @mid-highest-hover-color;
 }
 
 
@@ -1734,7 +1735,7 @@ iconview:not(:selected):hover {
 
 /* Selected items highlighting, red for Gray theme! deals with gray brushes */
 iconview:selected {
-  border-color: @fg-bright-low-color;
+  border-color: @highlight-low-color;
 }
 
 /* More to see effects in a scrolled window */
@@ -1779,10 +1780,11 @@ GimpOverlayDialog.background {
 
 /* Canvas, mid gray */
 GimpDisplayShell {
-  background-color: @mid-color;
-  border:                 none;
-  color:     @shade-high-color;
+  background-color: @canvas-color;
+  border:                    none;
+  color:        @shade-high-color;
 }
+
 
 /* For a hard border between canvas and UI, between image bar and canvas */
 GimpDisplayShell grid {
@@ -2071,7 +2073,7 @@ GimpSpinScale progress {
   background-clip:         padding-box;
   background-size:           auto 100%;
   background-position:          center;
-  background-image:               none;
+  background-image: url("../assets/cellview/cellview.png");
 }
 
 /* Focus, progress bar */

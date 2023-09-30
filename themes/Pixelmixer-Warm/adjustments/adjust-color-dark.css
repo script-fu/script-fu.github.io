@@ -47,3 +47,74 @@ paned.horizontal > separator:hover,
 paned.vertical > separator:hover {
   border-color: @mid-low-hover-color;
 }
+
+/* Toolbutton and Action button texture */
+toolbutton button,
+buttonbox button {
+  background-image: url("../assets/toolbutton/toolbutton.png");
+}
+
+/* Hopefully, just button bar buttons */
+GimpDock notebook widget box > box > button {
+  background-image: url("../assets/toolbutton/toolbutton.png");
+}
+
+/* Cellview, external view of combobox */
+cellview {
+  background-image: url("../assets/cellview/cellview.png");
+}
+
+/* Entry for 'filter' */
+GimpDock widget box box > entry {
+  background-image: url("../assets/cellview/cellview.png");
+}
+
+/* Focus, progress bar */
+GimpSpinScale progress:focus {
+  background-image: url("../assets/cellview/cellview.png");
+  background-color: @light-low-color;
+} 
+
+GimpSpinScale progress {
+  background-image: url("../assets/cellview/cellview.png");
+}
+
+/* Buttons, - +, overrides */
+spinbutton        button,
+dialog spinbutton button,
+GimpSpinScale     button {
+  background-image: url("../assets/spinbutton/spinbutton.png");
+}
+
+/* Checked button - on, higher contrast */
+toolbutton button:checked {
+  background-image: url("../assets/toolbutton/toolbutton-checked-dark.png");
+}
+
+/* Tabs, need to be specific because of the image bar tabs */
+GimpDock header tab,
+dialog header tab,
+GimpDock header button {
+  background-image: url("../assets/tab/tab.png");
+}
+
+radio:checked {
+  -gtk-icon-source: url("../assets/radiobutton/radio-checked-dark.svg");
+}
+
+check:checked {
+  -gtk-icon-source: url("../assets/checkbox/checkbox-checked.svg");
+}
+
+
+/* Hover, over a file row */
+GimpFileDialog treeview.view:not(:selected):hover {
+  color:                  @fg-black-color;
+  background-color: @mid-high-hover-color;
+}
+
+/* Selected, file */
+GimpFileDialog treeview.view :selected {
+  color:              @fg-black-color;
+  background-color:  @mid-highest-hover-color;
+}

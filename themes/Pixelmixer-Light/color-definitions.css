@@ -59,10 +59,10 @@
 @define-color highlight-hover-color    rgb(10, 175, 198);
 
 /* Canvas color */
-@define-color canvas-color            rgb(100, 100, 100);
+@define-color canvas-color            rgb(140, 140, 140);
 
 /* Disabled actions in menus */
-@define-color disabled-color         @shade-higher-color;
+@define-color disabled-color             rgb(115, 115, 115);
 
 /* Decoration shadow opacity */
 @define-color box-shadow-color       rgba(0, 0, 0, 0.15);

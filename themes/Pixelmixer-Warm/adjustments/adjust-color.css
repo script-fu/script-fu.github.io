@@ -2,31 +2,6 @@
 * @ THEME ADJUSTMENTS GO IN HERE
 */
 
-/* Canvas, mid gray */
-GimpDisplayShell
- {
-  background-color: @canvas-color;
-}
-
-/* Slider trough */
-GimpSpinScale entry {
-  background-color: @warm-shade-color;
-}
-
-/* Focus, trough */
-GimpSpinScale entry:focus {
-  background-color: @warm-shade-color;
-}
-
-/* Slider progress/amount bar and margins */
-GimpSpinScale progress {
-  background-color: @warm-low-color;
-}
-
-/* Focus, progress bar */
- GimpSpinScale progress:focus {
-  background-color: @warm-color;
-} 
 
 check {
   background-color:   transparent;
@@ -71,23 +46,11 @@ radio:checked {
 
 /* Checked button - on, higher contrast */
 toolbutton button:checked {
-  background-color:   @warm-color;
+
   border-color: @warm-light-color;
   background-image: url("../assets/toolbutton/toolbutton-checked.png");
 }
 
-/* Hover, checked button, has even higher contrast */
-toolbutton button:checked:hover {
-  background-color:  @warm-hover-color;
-  border-color: @warm-light-high-color;
-}
-
-/* Clicked, and Hover highest contrast */
-toolbutton button:active:hover,
-toolbutton button:checked:active:hover {
-  background-color:   @warm-high-color;
-  border-color: @warm-light-high-color;
-}
 
 paned.horizontal > separator {
   background-image: url("../assets/separators/separator-handle.svg");
@@ -103,3 +66,47 @@ paned.vertical > separator:hover {
   border-color: @mid-low-hover-color;
 }
 
+/* Toolbutton and Action button texture */
+toolbutton button,
+buttonbox button {
+  background-image: url("../assets/toolbutton/toolbutton.png");
+}
+
+/* Hopefully, just button bar buttons */
+GimpDock notebook widget box > box > button {
+  background-image: url("../assets/toolbutton/toolbutton.png");
+}
+
+/* Cellview, external view of combobox */
+cellview {
+  background-image: url("../assets/cellview/cellview.png");
+}
+
+/* Entry for 'filter' */
+GimpDock widget box box > entry {
+  background-image: url("../assets/cellview/cellview.png");
+}
+
+/* Focus, progress bar */
+GimpSpinScale progress:focus {
+  background-image: url("../assets/cellview/cellview.png");
+  background-color: @light-low-color;
+} 
+
+GimpSpinScale progress {
+  background-image: url("../assets/cellview/cellview.png");
+}
+
+/* Buttons, - +, overrides */
+spinbutton        button,
+dialog spinbutton button,
+GimpSpinScale     button {
+  background-image: url("../assets/spinbutton/spinbutton.png");
+}
+
+/* Tabs, need to be specific because of the image bar tabs */
+GimpDock header tab,
+dialog header tab,
+GimpDock header button {
+  background-image: url("../assets/tab/tab.png");
+}
