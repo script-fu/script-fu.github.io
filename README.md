@@ -1,10 +1,11 @@
-# Free Script-Fu Plugins Made For GIMP 3
+# Free Script-Fu Plugins and Themes Made For GIMP 3, Developement version, 2.99.16
 
-These plugins are to help me make illustrations in GIMP, I hope they can help you make your own tools. Thanks for all the free software devs!
+These plugins are to help me make illustrations in GIMP, I hope they can help you make your own tools. The themes are to make the working environment look and feel just how I like it, maybe you'll like them too. 
 
 [GNU GENERAL PUBLIC LICENSE Version 3](https://github.com/script-fu/script-fu.github.io/blob/main/LICENSE)
 
 ## [Script-Fu Website](https://script-fu.github.io/)
+## [Themes](https://script-fu.github.io/2023/08/14/Themes.html)
 
 **AlmostAutosave** - Incrementally  autosaves any open and changed files  
 **Proxy** - Saves  layer groups to storage, adds a proxy, reduces file complexity, increases speed.  
