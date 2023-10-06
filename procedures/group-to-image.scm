@@ -1,4 +1,4 @@
-; copies a layer stack branch to another image. Should be fixed in 2.99.16
+; copies a layer stack branch to another image. Uses 'layer-to-image.scm'
 ; (source image, source group, dest image, destination parent)
 (define (group-to-image srcImg actG dstImg parent) ; recursive
   (let*
