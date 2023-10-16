@@ -181,3 +181,31 @@ dialog header tab,
 GimpDock header button {
   background-image: url("../assets/tab/tab-dark.png");
 }
+
+/* Entry for 'filter' */
+GimpDock widget box box > entry {
+  background-image: url("../assets/cellview/cellview-dark.png");
+}
+
+/* Cellview, external view of combobox */
+cellview {
+  background-image: url("../assets/cellview/cellview-dark.png");
+}
+
+/* Slider progress/amount bar and margins */
+GimpSpinScale progress {
+  background-image: url("../assets/cellview/cellview-dark.png");
+}
+
+/* Focus, progress bar */
+GimpSpinScale progress:focus {
+  background-image: url("../assets/cellview/cellview-dark.png");
+} 
+
+/* That horizontal dividing line between menu sections */
+menu separator {
+  background-color:  @mid-low-hover-color;
+  border:             solid 2px;
+  border-color:  @mid-low-color;
+  background-image:        none;
+}

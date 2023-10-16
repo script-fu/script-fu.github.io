@@ -48,7 +48,14 @@
 
 ; utility functions
 (define (boolean->string bool) (if bool "#t" "#f"))
-(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+
+(define (exit msg)
+  (gimp-message-set-handler 0)
+  (gimp-message(string-append " >>> " msg " <<<"))
+  (gimp-message-set-handler 2)
+  (quit)
+)
+
 (define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
 
 
@@ -96,13 +103,30 @@
 
     (set! parent (car(gimp-item-get-parent actL)))
 
+    (if debug 
+      (gimp-message 
+        (string-append 
+          "found parent ID: " 
+          (number->string parent)
+        )
+      )
+    )
+    
     (when (> parent 0)
       (while (> parent 0)
+
         (set! allParents (append allParents (list parent)))
+        (if debug 
+          (gimp-message 
+            (string-append 
+              "found parent: " 
+              (car(gimp-item-get-name parent))
+            )
+          )
+        )
         (set! parent (car(gimp-item-get-parent parent)))
       )
     )
-
     allParents
   )
 )

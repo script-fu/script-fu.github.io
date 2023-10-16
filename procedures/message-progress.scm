@@ -8,7 +8,9 @@
     (set! prg (* (/ 1 maxAmt) (+ currAmt 1)))
     (set! prg (trunc (floor (* prg 100))))
     (set! message (string-append " >>> " message " > "(number->string prg) "%"))
+    (gimp-message-set-handler 0)
     (gimp-message message)
+    (gimp-message-set-handler 2)
 
   )
 )

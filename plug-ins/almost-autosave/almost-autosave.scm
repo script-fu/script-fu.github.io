@@ -25,9 +25,10 @@
       ; *** end user tweaks ***
 
       (i 0)(incr 1)(imgLst 0)(img 0)(imgOn 0)(asPID 0)(asOnR 0)(pIDf 0)(iDsp 0)
+      (initial #t) (loop #f)
     )
 
-    (proxy-active-test) ; pause, if there is a Proxy plugin process running
+    (proxy-active-test initial) ; if there is a Proxy plugin process running
 
     ; if autosave is not on
     (when (= (autosave-active "autosave-pid") 0)
@@ -40,7 +41,7 @@
       ; autosave loop, while a parasite with a PID exists
       (while (> (autosave-match-pid "autosave-pid" asPID) 0)
 
-        (proxy-active-test) ; pause, if there is a Proxy plugin process running
+        (proxy-active-test loop) ; pause, if there is a Proxy plugin process running
         (set! imgLst (gimp-get-images))
 
         (when debug
@@ -92,14 +93,24 @@
 )
 
 
-(define (proxy-active-test)
+(define (proxy-active-test initial)
 
   (when (not (equal? () (car (file-glob "proxy" 0))))
     (when (equal? "proxy" (caar (file-glob "proxy" 0)))
-      (if debug (gimp-message " found proxy plugin ")) ; debug
+      (if debug (gimp-message " found proxy plugin file ")) ; debug
       (while (= (plugin-get-lock "proxy") 1)
-        (gimp-message " auto-save paused until Proxy plugin completes ")
-        (usleep (* 60 (* 1 300000)))
+        (when initial
+          (exit "  An auto-save lock is on, try deleting the 'proxy' text 
+                   file in your Home directory in Linux or your User directory 
+                   in Windows. 
+
+                   \nThen run the auto-save plug-in again."
+          )
+        )
+        (when (not initial)
+          (gimp-message " auto-save paused until Proxy plugin completes ")
+          (usleep (* 60 (* 1 300000)))
+        )
       )
     )
   )
@@ -256,7 +267,14 @@
 
 ; utility functions
 (define (boolean->string bool) (if bool "#t" "#f"))
-(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+
+(define (exit msg)
+  (gimp-message-set-handler 0)
+  (gimp-message(string-append " >>> " msg " <<<"))
+  (gimp-message-set-handler 2)
+  (quit)
+)
+
 (define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
 
 

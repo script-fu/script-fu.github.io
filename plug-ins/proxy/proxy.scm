@@ -15,14 +15,25 @@
       (mode INTERPOLATION-CUBIC) ; LINEAR ; CUBIC ; NOHALO ; LOHALO ; NONE
     )
 
-    (when (= (plugin-get-lock "proxy") 0)(plugin-set-lock "proxy" 1)
+    (if (equal? fileName "") (exit "\nSave your image before using proxy"))
+
+    (when (= (plugin-get-lock "proxy") 1)
+      (exit " A proxy lock-out is on, try deleting the 'proxy' text 
+              file in your Home directory in Linux or your User directory 
+              in Windows.\n
+
+              Then run the proxy plug-in again.")
+    )
+
+    (when (= (plugin-get-lock "proxy") 0)
+      
+      (plugin-set-lock "proxy" 1)
 
       (gimp-context-push)
       (gimp-image-undo-group-start img)
       (gimp-context-set-interpolation mode)
       (gimp-selection-none img) 
       (gimp-image-freeze-layers img)
-      (gimp-progress-init "proxy process" -1)
 
       ; which items to process
       (set! drwbles (filter-selected img drwbles preFxL))
@@ -70,7 +81,6 @@
       (gimp-displays-flush)
       (gimp-image-undo-group-end img)
       (plugin-set-lock "proxy" 0)
-
     )
 
   )
@@ -214,7 +224,6 @@
 
       ; if image and loaded proxy have scale mismatch, scale the proxy image
       (when (> scale 0)
-        (here 1)
         (precise-scale-proxy prxImg (* scX 100) (* scY 100))
         ;(gimp-display-new prxImg)
       )
@@ -401,6 +410,7 @@
     (set! drwbles (exclude-children img drwbles))
     (set! drwbles (exclude-parents-of-proxy-children img drwbles preFxL))
     (set! drwbles (only-groups-proxy drwbles preFxL))
+
     drwbles
   )
 )
@@ -461,7 +471,6 @@
     (i 0)(actL 0)(excLst())(tagLst 0)
     (allChldLst 0)(j 0)(actChl 0)(found 0)
     )
-
 
     (set! tagLst (get-proxy-groups img preFxL))
     (set! tagLst (vector->list tagLst))
@@ -582,7 +591,14 @@
 
 ; utility functions
 (define (boolean->string bool) (if bool "#t" "#f"))
-(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+
+(define (exit msg)
+  (gimp-message-set-handler 0)
+  (gimp-message(string-append " >>> " msg " <<<"))
+  (gimp-message-set-handler 2)
+  (quit)
+)
+
 (define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
 
 
@@ -1152,13 +1168,30 @@
 
     (set! parent (car(gimp-item-get-parent actL)))
 
+    (if debug 
+      (gimp-message 
+        (string-append 
+          "found parent ID: " 
+          (number->string parent)
+        )
+      )
+    )
+    
     (when (> parent 0)
       (while (> parent 0)
+
         (set! allParents (append allParents (list parent)))
+        (if debug 
+          (gimp-message 
+            (string-append 
+              "found parent: " 
+              (car(gimp-item-get-name parent))
+            )
+          )
+        )
         (set! parent (car(gimp-item-get-parent parent)))
       )
     )
-
     allParents
   )
 )
@@ -1700,7 +1733,9 @@
     (set! prg (* (/ 1 maxAmt) (+ currAmt 1)))
     (set! prg (trunc (floor (* prg 100))))
     (set! message (string-append " >>> " message " > "(number->string prg) "%"))
+    (gimp-message-set-handler 0)
     (gimp-message message)
+    (gimp-message-set-handler 2)
 
   )
 )

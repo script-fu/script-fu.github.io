@@ -26,10 +26,10 @@
  "2023"
  "*"
  SF-ONE-OR-MORE-DRAWABLE
- SF-STRING      "parasite name"   "skin"
- SF-ADJUSTMENT  "attach mode 0-3 " (list 3 0 6 1 1 0 SF-SPINNER)
- SF-STRING      "parasite data"   "pale skin"
- SF-ADJUSTMENT  "layer color 0-8 " (list 0 0 8 1 1 0 SF-SPINNER)
+ SF-STRING      "parasite _name"   "skin"
+ SF-ADJUSTMENT  "attach _mode 0-3 " (list 3 0 6 1 1 0 SF-SPINNER)
+ SF-STRING      "parasite _data"   "pale skin"
+ SF-ADJUSTMENT  "layer color _0-8 " (list 0 0 8 1 1 0 SF-SPINNER)
 )
 (script-fu-menu-register "script-fu-layer-set-parasite" "<Image>/Layer/Tag")
 
@@ -38,7 +38,14 @@
 
 ; utility functions
 (define (boolean->string bool) (if bool "#t" "#f"))
-(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+
+(define (exit msg)
+  (gimp-message-set-handler 0)
+  (gimp-message(string-append " >>> " msg " <<<"))
+  (gimp-message-set-handler 2)
+  (quit)
+)
+
 (define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
 
 

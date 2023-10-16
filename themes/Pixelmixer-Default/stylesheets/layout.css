@@ -329,12 +329,16 @@ GimpFileDialog scrollbar slider {
 
 /* Seperator between sections in the OS places list */
 GimpFileDialog filechooser paned list separator {
-  margin: 0.1em;
+  margin:     0.1em;
+  min-width:  0.1em;
+  min-height: 0.1em;
 }
 
 /* Moveable panel separator between places and files to choose */
 GimpFileDialog filechooser paned separator {
-  margin: 0em;
+  margin:    0em;
+  min-width:  0.1em;
+  min-height: 0.1em;
 }
 
 
@@ -503,6 +507,8 @@ menuitem {
 
 /* That horizontal dividing line between menu sections */
 menu separator {
+  min-width:  0.1em;
+  min-height: 0.1em;
   margin:     0.2em;
   margin-left:  1em;
   margin-right: 1em;
@@ -583,6 +589,8 @@ combobox menu {
 
 /* That horizontal dividing line between menu sections in a combobox menu */
 combobox menu separator {
+  min-width:      0.1em;
+  min-height:     0.1em;
   margin:         0.2em;
   margin-left:    0.5em;
   margin-right:   0.5em;
@@ -673,7 +681,9 @@ toolbar {
 
 /* Text Tool, seperator spacing */
 toolbar separator {
-  margin: 0.1em;
+  min-width:  0.1em;
+  min-height: 0.1em;
+  margin:     0.1em;
 }
 
 

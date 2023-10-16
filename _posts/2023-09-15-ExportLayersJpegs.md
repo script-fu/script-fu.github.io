@@ -16,7 +16,7 @@ In Linux, set the file to be executable.
 
 (define debug #f)
 
-(define (layer-export-jpeg img drwbls expNme expDir)
+(define (script-fu-layer-export-jpeg img drwbls expNme expDir)
   (let*
     (
       (quality 0.85)(filePth "")(isGrp 0)
@@ -51,7 +51,7 @@ In Linux, set the file to be executable.
 )
 
 
-(script-fu-register-filter "layer-export-jpeg"
+(script-fu-register-filter "script-fu-layer-export-jpeg"
  "Export All Layers as Jpeg"
  "exports all the layers to a named 'Home' folder as jpegs"
  "Mark Sweeney"
@@ -62,14 +62,21 @@ In Linux, set the file to be executable.
  SF-STRING "file prefix" "layer"
  SF-STRING "name of storage folder" "exported-layers"
 )
-(script-fu-menu-register "layer-export-jpeg" "<Image>/File")
+(script-fu-menu-register "script-fu-layer-export-jpeg" "<Image>/File")
 
 
 ; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
 
 ; utility functions
 (define (boolean->string bool) (if bool "#t" "#f"))
-(define (exit msg)(gimp-message(string-append " >>> " msg " <<<"))(quit))
+
+(define (exit msg)
+  (gimp-message-set-handler 0)
+  (gimp-message(string-append " >>> " msg " <<<"))
+  (gimp-message-set-handler 2)
+  (quit)
+)
+
 (define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
 
 
