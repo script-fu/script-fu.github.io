@@ -1263,7 +1263,6 @@
 
 
 
-
 ; filters out children from a list of layers
 ; returns the top levels groups, or layers that are in the root and in the list
 (define (exclude-children img lstL)

@@ -9,13 +9,16 @@
       (quickInfo 0)(quickImg 0)(quickDsp 0)(quickL 0)(saveN "")(tmpL 0)
       (fileInfo 0)(fileBase 0)(fileNoExt 0)(filePath 0)(srcNme "")
       (actMsk 0)(srcMsk 0)(mde 0)(opac 100)(rootP 0)(srcImg 0)(srcL 0)
-      (fileName (car(gimp-image-get-file img)))
+      (fileName 0)(isGrp 0)
     )
     
-    (gimp-message-set-handler 0)
     (if (equal? fileName "") (exit "Please save your image before painting"))
-    (gimp-message-set-handler 2)
+    (set! isGrp (car (gimp-item-is-group actL)))
+    (if (= isGrp 1) (exit "Not implemented group mask painting yet"))
+    (if (> (vector-length drwbls) 1) (exit "Only select one layer please"))
      
+    (set! fileName (car(gimp-image-get-file img)))
+
     (set! actL (add-alpha-to-layer actL))
     (set! actNme (car(gimp-item-get-name actL)))
     (set! quickPaintLayer (get-layer-parasite actL "quickpainting"))
@@ -34,10 +37,9 @@
       (set! filePath (vector-ref fileInfo 3))
 
       ; create a new image to paint on
-      (set! quickInfo (layer-to-new-image img actL))
+      (set! quickInfo (layer-to-hidden-image img actL))
       (set! quickImg (car quickInfo))
-      (set! quickDsp (cadr quickInfo))
-      (set! quickL (caddr quickInfo))
+      (set! quickL (cadr quickInfo))
 
       ; finds inherited group hierarchy 
       (set! rootP (get-root-parent quickImg quickL))
@@ -73,12 +75,13 @@
       (gimp-item-set-name tmpL fileNoExt)
       (gimp-layer-set-offsets tmpL 0 0)
 
-      (tag-layer quickL "quickpainting" 3 fileName 0)
-      (tag-layer quickL "displayID" 3 (number->string quickDsp) 0)
-
       ; set up ready to paint
       (gimp-image-set-selected-layers quickImg 1 (vector quickL))
       (if(> (car (gimp-layer-get-mask quickL)) 0) (gimp-layer-set-edit-mask quickL 1))
+      (set! quickDsp (car(gimp-display-new quickImg)))
+
+      (tag-layer quickL "quickpainting" 3 fileName 0)
+      (tag-layer quickL "displayID" 3 (number->string quickDsp) 0)
     )
 
     ; return a painting image to the source image

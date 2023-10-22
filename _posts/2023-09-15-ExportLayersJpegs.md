@@ -2,7 +2,7 @@
 
 # * Tested in GIMP 2.99.17 *
 
-This exports all the layers as jpegs to a specified folder in your 'Home'directory in Linux or 'User' directory in Windows.
+This exports all the layers as jpegs to a specified folder in your 'Home' directory in Linux or 'User' directory in Windows.
 
 I use it to quickly export all the cropped and scaled screengrabs that I opened as layers in GIMP. Youtube demo [here.](https://youtu.be/ezrWiDJjkRs)
 

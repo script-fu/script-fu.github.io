@@ -1619,7 +1619,7 @@ headerbar button:active:hover {
 
 /* Give the menu bar a background color */
 menubar {
-  background-color: @mid-high-color;;
+  background-color: @mid-high-color;
 }
 
 
