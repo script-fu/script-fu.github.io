@@ -209,3 +209,13 @@ menu separator {
   border-color:  @mid-low-color;
   background-image:        none;
 }
+
+check {
+  background-color:   transparent;
+  border-color: @shade-high-color;
+  -gtk-icon-source: url("../assets/checkbox/checkbox-unchecked-dark.svg");
+}
+
+check:checked {
+  -gtk-icon-source: url("../assets/checkbox/checkbox-checked-dark.svg");
+}

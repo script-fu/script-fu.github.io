@@ -26,8 +26,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="92.437505"
-     inkscape:cx="2.3150776"
-     inkscape:cy="7.9837724"
+     inkscape:cx="2.3258957"
+     inkscape:cy="8.0054086"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -69,31 +69,31 @@
      transform="translate(0,-292.76665)">
     <g
        transform="matrix(0.26458333,0,0,0.26458333,-25.663455,292.67082)"
-       style="display:inline;opacity:0.47460011;fill:#c8a38b;fill-opacity:1"
+       style="display:inline;opacity:1;fill:#4d4d4d"
        id="radio-unchecked"
        inkscape:label="#g10975">
       <g
          id="g10964-4"
-         style="fill:#c8a38b;fill-opacity:1">
+         style="fill:#4d4d4d">
         <g
-           style="display:inline;fill:#c8a38b;fill-opacity:1"
+           style="display:inline;fill:#4d4d4d"
            id="radio-unchecked2-6"
            transform="matrix(0.93617253,0,0,0.93566004,-96.78315,-244.76084)"
            inkscape:label="#g15805">
           <g
              id="g7025-3"
-             style="fill:#c8a38b;fill-opacity:1">
+             style="fill:#4d4d4d">
             <g
-               style="display:inline;fill:#c8a38b;fill-opacity:1"
+               style="display:inline;fill:#4d4d4d"
                id="g5489-2-9-3-8"
                transform="matrix(0.5089163,0,0,0.51739823,181.7932,197.56426)">
               <g
                  id="g5428-8-1-7-83"
                  transform="matrix(1.1421758,0,0,1.1488591,-9.4461684,-20.906379)"
-                 style="fill:#c8a38b;fill-opacity:1">
+                 style="fill:#4d4d4d">
                 <rect
                    ry="13.246163"
-                   style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:0.5;fill:#c8a38b;fill-opacity:1;fill-rule:nonzero;stroke:#1a1a1a;stroke-width:0;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
+                   style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:0.58960008;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:#1a1a1a;stroke-width:0;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
                    id="rect5147-9-1-7-7"
                    width="27.303804"
                    height="26.835894"

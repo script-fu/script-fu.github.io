@@ -6,7 +6,7 @@
 check {
   background-color:   transparent;
   border-color: @shade-high-color;
-  -gtk-icon-source: url("../assets/checkbox/checkbox-unchecked.svg");
+  -gtk-icon-source: url("../assets/checkbox/checkbox-unchecked-dark.svg");
 }
 
 check:disabled {
@@ -15,7 +15,7 @@ check:disabled {
 }
 
 check:checked {
-  -gtk-icon-source: url("../assets/checkbox/checkbox-checked.svg");
+  -gtk-icon-source: url("../assets/checkbox/checkbox-checked-dark.svg");
 }
 
 check:checked:disabled {

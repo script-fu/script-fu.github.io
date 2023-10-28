@@ -8,7 +8,7 @@
    height="14"
    version="1.1"
    id="svg11"
-   sodipodi:docname="checkbox-checked-disabled.svg"
+   sodipodi:docname="checkbox-checked-dark.svg"
    inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -23,15 +23,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="70.695053"
-     inkscape:cx="1.7823029"
-     inkscape:cy="7.9637821"
+     inkscape:zoom="69.750003"
+     inkscape:cx="1.8207885"
+     inkscape:cy="7.9999997"
      inkscape:window-width="2560"
      inkscape:window-height="1403"
      inkscape:window-x="3840"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g10" />
+     inkscape:current-layer="scdsdcd-5-8" />
   <defs
      id="defs1">
     <clipPath
@@ -114,17 +114,17 @@
                            d="m 3.06,1 h 10 c 1.104,0 2,0.896 2,2 v 10 c 0,1.104 -0.896,2 -2,2 h -10 c -1.104,0 -2,-0.896 -2,-2 V 3 c 0,-1.104 0.896,-2 2,-2 z"
                            fill="url(#_lgradient_1)"
                            id="path4"
-                           style="fill:#917f73;fill-opacity:1" />
+                           style="fill:#b3b3b3" />
                         <path
                            d="M 5.03,6.46 7.904,9.395 C 8.268,9.768 8.25,10.357 7.865,10.708 L 7.778,10.786 C 7.393,11.138 6.785,11.121 6.421,10.748 L 3.547,7.812 C 3.183,7.439 3.13,6.852 3.516,6.5 L 3.602,6.422 C 3.988,6.07 4.666,6.087 5.03,6.46 Z"
                            fill="#202020"
                            id="path5"
-                           style="fill:#63554c;fill-opacity:1" />
+                           style="fill:#1a1a1a" />
                         <path
                            d="M 12.987,5.472 7.761,10.784 C 7.41,11.141 6.835,11.146 6.478,10.794 L 6.346,10.665 C 5.989,10.314 5.984,9.738 6.336,9.381 l 5.226,-5.312 c 0.351,-0.357 0.926,-0.361 1.283,-0.01 l 0.132,0.13 c 0.357,0.351 0.362,0.926 0.01,1.283 z"
                            fill="#202020"
                            id="path7"
-                           style="isolation:isolate;fill:#63554d;fill-opacity:1" />
+                           style="isolation:isolate;fill:#1a1a1a" />
                       </g>
                     </g>
                   </g>

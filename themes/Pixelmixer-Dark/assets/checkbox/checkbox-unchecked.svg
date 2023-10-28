@@ -23,14 +23,14 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="70.928571"
-     inkscape:cx="6.9859014"
-     inkscape:cy="6.9929507"
-     inkscape:window-width="2289"
-     inkscape:window-height="1273"
-     inkscape:window-x="4044"
-     inkscape:window-y="130"
-     inkscape:window-maximized="0"
+     inkscape:zoom="69.750003"
+     inkscape:cx="8.0143366"
+     inkscape:cy="8.0143366"
+     inkscape:window-width="3840"
+     inkscape:window-height="2071"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
      inkscape:current-layer="svg9" />
   <defs
      id="defs1">
@@ -47,7 +47,7 @@
   <g
      clip-path="url(#_clipPath_SoG4ylrcTj00cmKqLkGdiMh2JNqSmder)"
      id="g9"
-     style="fill:#826f63;fill-opacity:1;opacity:0.9">
+     style="fill:#4d4d4d">
     <clipPath
        id="_clipPath_9PUGFjVT5fwEPmLladJFCx26EWPRVN56">
       <rect
@@ -61,10 +61,10 @@
     <g
        clip-path="url(#_clipPath_9PUGFjVT5fwEPmLladJFCx26EWPRVN56)"
        id="g8"
-       style="fill:#826f63;fill-opacity:1">
+       style="fill:#4d4d4d">
       <g
          id="g7"
-         style="fill:#826f63;fill-opacity:1">
+         style="fill:#4d4d4d">
         <clipPath
            id="_clipPath_1D6vvKQT5sJVWQjcP8AsyStft0nhAlCz">
           <rect
@@ -78,29 +78,29 @@
         <g
            clip-path="url(#_clipPath_1D6vvKQT5sJVWQjcP8AsyStft0nhAlCz)"
            id="g6"
-           style="fill:#826f63;fill-opacity:1">
+           style="fill:#4d4d4d">
           <g
              id="g5"
-             style="fill:#826f63;fill-opacity:1">
+             style="fill:#4d4d4d">
             <g
                id="Group"
-               style="fill:#826f63;fill-opacity:1">
+               style="fill:#4d4d4d">
               <g
                  id="checkbox-checked-dark"
-                 style="fill:#826f63;fill-opacity:1">
+                 style="fill:#4d4d4d">
                 <g
                    id="checkbox-unchecked-5-59"
-                   style="fill:#826f63;fill-opacity:1">
+                   style="fill:#4d4d4d">
                   <g
                      id="sdsd-7-54"
-                     style="fill:#826f63;fill-opacity:1">
+                     style="fill:#4d4d4d">
                     <g
                        id="scdsdcd-5-8"
-                       style="fill:#826f63;fill-opacity:1">
+                       style="fill:#4d4d4d">
                       <g
                          id="g5400-6-68"
                          transform="translate(-1.06,-1)"
-                         style="fill:#826f63;fill-opacity:1">
+                         style="fill:#4d4d4d">
                         <linearGradient
                            id="_lgradient_2"
                            x1="1.0599999"
@@ -118,7 +118,7 @@
                            d="m 3.06,1 h 10 c 1.104,0 2,0.896 2,2 v 10 c 0,1.104 -0.896,2 -2,2 h -10 c -1.104,0 -2,-0.896 -2,-2 V 3 c 0,-1.104 0.896,-2 2,-2 z"
                            fill="url(#_lgradient_2)"
                            id="path4"
-                           style="fill:#826f63;fill-opacity:1" />
+                           style="fill:#4d4d4d;fill-opacity:1" />
                       </g>
                     </g>
                   </g>
