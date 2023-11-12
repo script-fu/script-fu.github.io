@@ -48,8 +48,8 @@
 @define-color fg-white-color          rgb(249, 249, 249);
 
 /* Highlighting color */
-@define-color highlight-low-color       rgb(99, 1, 1);
-@define-color highlight-color           rgb(126, 26, 26);
+@define-color highlight-low-color       rgb(140, 22, 22);
+@define-color highlight-color           rgb(161, 72, 72);
 
 /* fg darks with no remapping */
 @define-color og-black-color                rgb(0, 0, 0);
@@ -72,6 +72,9 @@
 
 /* Canvas color */
 @define-color canvas-color             rgb(60, 60, 60);
+
+/* Certain Caret colors */
+@define-color caret-color             rgb(255, 20, 20);
 
 /* Disabled actions in menus */
 @define-color disabled-color             @mid-highest-hover-color;

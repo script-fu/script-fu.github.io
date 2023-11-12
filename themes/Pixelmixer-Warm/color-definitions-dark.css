@@ -62,6 +62,9 @@
 /* Canvas color */
 @define-color canvas-color                rgb(71, 59, 49);
 
+/* Certain Caret colors */
+@define-color caret-color             rgb(255, 20, 20);
+
 /* Decoration shadow opacity */
 @define-color box-shadow-color        rgba(0, 0, 0, 0.15);
 @define-color box-shadow-backdrop-color  rgba(0, 0, 0, 0);

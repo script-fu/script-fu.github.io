@@ -353,7 +353,7 @@ switch slider {
 spinbutton {
   color:             @fg-dark-color;
   border-color:      @mid-low-color;
-  caret-color: @highlight-low-color;
+  caret-color:         @caret-color;
 }
 
 /* Focus, font color */
@@ -494,7 +494,7 @@ entry {
   background-color: @mid-highest-color;
   border:                    solid 2px;
   border-color:         @mid-low-color;
-  caret-color:    @highlight-low-color;
+  caret-color:            @caret-color;
 }
 
 /* Workaround for color is border color on spinbuttons */
@@ -509,7 +509,7 @@ entry:focus {
   color:                @fg-dark-color;
   background-color:   @light-low-color;
   border-color:     @shade-lower-color;
-  caret-color:    @highlight-low-color;
+  caret-color:            @caret-color;
 }
 
 /* Turns off a 1 pixel theme colored box around a slider */
@@ -538,7 +538,7 @@ tab image {
 label {
   color:             @fg-dark-color;
   background-color:     transparent;
-  caret-color: @highlight-low-color;
+  caret-color:         @caret-color;
 }
 
 /* Gray out for not available or unchecked */
@@ -2259,7 +2259,7 @@ textview.view,
 textview.view text {
   color:        @fg-dark-high-color;
   background-color:      @mid-color;
-  caret-color: @highlight-low-color;
+  caret-color:         @caret-color;
 }
 
 /* Selected */

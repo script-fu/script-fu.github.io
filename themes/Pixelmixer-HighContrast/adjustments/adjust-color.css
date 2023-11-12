@@ -83,7 +83,7 @@ entry:focus {
   color:                @fg-dark-color;
   background-color:  @light-high-color;
   border-color:     @shade-lower-color;
-  caret-color:    @highlight-low-color;
+  caret-color:            @caret-color;
 }
 
 /* Buttons, - +, overrides */

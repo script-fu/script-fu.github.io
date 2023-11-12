@@ -64,6 +64,9 @@
 /* Canvas color */
 @define-color canvas-color            rgb(119, 119, 119);
 
+/* Certain Caret colors */
+@define-color caret-color             rgb(255, 20, 20);
+
 /* Disabled actions in menus */
 @define-color disabled-color             rgb(80, 80, 80);
 
