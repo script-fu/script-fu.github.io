@@ -91,6 +91,10 @@ toolbutton button:checked {
   background-image: url("../assets/toolbutton/toolbutton-checked-dark.png");
 }
 
+/* Checked button - on, higher contrast */
+toolbutton button {
+  background-image: url("../assets/toolbutton/toolbutton-dark.png");
+}
 /* Tabs, need to be specific because of the image bar tabs */
 GimpDock header tab,
 dialog header tab,

@@ -153,12 +153,19 @@ dialog header tab:not(:checked):hover {
   border-color:           @shade-color;
 }
 
+
+
+
 /* Hover, checked button, has even higher contrast */
-button:checked:hover,
+button:checked:hover {
+  background-color: @mid-highest-color;
+  border-color:      @light-high-color;
+}
+
 GimpDock header tab:checked:hover,
 dialog header tab:checked:hover {
   background-color: @mid-highest-color;
-  border-color:      @light-high-color;
+  border-color:      @highlight-low-color;
 }
 
 /* Clicked, highest contrast */
@@ -180,7 +187,7 @@ button:checked {
 GimpDock header tab:checked,
 dialog header tab:checked {
   background-color: @mid-highest-color;
-  border-color:       @fg-bright-color;
+  border-color:       @highlight-color;
 }
 
 /* Hover, checked button, has even higher contrast */
@@ -190,7 +197,7 @@ toolbutton button:checked:hover {
 }
 
 toolbutton button:not(:checked):hover {
-  border-color:      @fg-black;
+  border-color:     @highlight-low-color;
   background-image: url("../assets/toolbutton/toolbutton-hover.png");
 }
 
@@ -432,3 +439,26 @@ dialog spinbutton button,
 GimpSpinScale     button {
   background-image: url("../assets/spinbutton/spinbutton.png");
 }
+
+/*** Indicate Where a Dragged Layer or Folder Would Be Dropped, Drag and Drop***/
+
+/* In the item */
+GimpDock treeview.view :drop(active) {
+  border:          solid 4px;
+  border-color: @light-higher-color;
+}
+
+/* Above the item */
+GimpDock treeview.view :drop(active).before {
+  border:                   none;
+  border-top:         solid 3px;
+  border-top-color: @light-higher-color;
+}
+
+/* Below the item */
+GimpDock treeview.view :drop(active).after {
+  border:                      none;
+  border-bottom:         solid 3px;
+  border-bottom-color: @light-higher-color;
+}
+

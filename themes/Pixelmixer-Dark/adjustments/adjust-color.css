@@ -66,3 +66,26 @@ cellview {
 }
 
 
+/* Toolbutton texture */
+toolbutton button {
+  background-image: url("../assets/toolbutton/toolbutton-dark.png");
+}
+
+/* Checked button - on, higher contrast */
+toolbutton button:checked {
+  background-image: url("../assets/toolbutton/toolbutton-checked-dark.png");
+}
+
+/* Tabs, need to be specific because of the image bar tabs */
+GimpDock header tab,
+dialog header tab,
+GimpDock header button {
+  background-image: url("../assets/tab/tab-dark.png");
+}
+
+/* Checked button - on, higher contrast */
+toolbutton button {
+  background-color: @mid-high-color;
+  border-color:    @og-black-color;
+}
+

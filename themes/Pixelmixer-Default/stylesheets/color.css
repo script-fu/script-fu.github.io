@@ -1388,26 +1388,26 @@ GimpDock treeview.view entry selection {
 }
 
 
-/*** Indicate Where a Dragged Layer or Folder Would Be Dropped ***/
+/*** Indicate Where a Dragged Layer or Folder Would Be Dropped, Drag and Drop***/
 
 /* In the item */
 GimpDock treeview.view :drop(active) {
-  border:              solid 2px;
-  border-color: @highlight-color;
+  border:          solid 2px;
+  border-color: @light-color;
 }
 
 /* Above the item */
 GimpDock treeview.view :drop(active).before {
-  border:                           none;
-  border-top:                 dotted 2px;
-  border-top-color: @highlight-low-color;
+  border:                   none;
+  border-top:         dotted 2px;
+  border-top-color: @light-color;
 }
 
 /* Below the item */
 GimpDock treeview.view :drop(active).after {
-  border:                              none;
-  border-bottom:                 dotted 2px;
-  border-bottom-color: @highlight-low-color;
+  border:                      none;
+  border-bottom:         dotted 2px;
+  border-bottom-color: @light-color;
 }
 
 
