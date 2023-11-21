@@ -1,6 +1,7 @@
 # Custom Script-Fu Procedures  
 # * Tested in GIMP 2.99.14 *  
-Here's an evolving list of the custom procedures I've made to help build scripts quickly.    
+Here's an evolving list of the custom procedures I've made to help build scripts quickly. 
+An example of how to use them is located [here.](https://script-fu.github.io/2023/08/22/Library.html)   
 
 <!-- include procedure list -->  
 - [add-alpha-to-layer](https://github.com/script-fu/script-fu.github.io/blob/main/procedures/add-alpha-to-layer.scm)
