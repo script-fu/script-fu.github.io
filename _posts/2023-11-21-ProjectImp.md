@@ -2,7 +2,8 @@
 
 This is a 'GitLab' branch of GIMP, it is my stable working version of GIMP Dev. Where all the Script-Fu plug-ins here, should work.  
 
-It also applies all the changes I've made to that version via 'C' code. If you're able to build GIMP locally already, then you should be able to fetch and switch to the Imp branch, and build Imp the same way you build GIMP. Use at your own risk, it's not GIMP stable.
+It also applies all the changes I've made to that version via 'C' code. If you're able to build GIMP locally already, then you should be able to fetch and switch to the Imp branch, and build Imp the same way you build GIMP. Use at your own risk, it's not GIMP stable. Please make a backup of your 'gimprc', put it somewhere safe. It can get messed up when switching between Imp and GIMP. Imp has some extra preferences.
+My 'gimprc' lives in home/.config/GIMP/2.99
 
 GitLab repo branch for [Imp](https://gitlab.gnome.org/pixelmixer/gimp-plugins/-/tree/Imp?ref_type=heads)
 
