@@ -38,6 +38,7 @@ Then build Imp like you would the Dev GIMP version. Imp is only possible with th
 - There is a threshold pick option on brushes for mask painting, paint black or white
 - Smooth Stroke option moved to top of paintbrush dockable for easy access
 - Bigger color swatches on color dockable
+- Bigger swap and set the default icons next to the swatches
 - Crosshair cursor when sizing a brush
 
 ## Paths
@@ -47,6 +48,8 @@ Then build Imp like you would the Dev GIMP version. Imp is only possible with th
 - Paths have a visibility option on the Paths Tool, visible by default
 - Paths have a pop up option "New Path", that starts the next path
 - The possible snapping distance has been greatly increased, Preferences->Snapping
+- Paths have a lock handles checkbox, to keep curves smooth
+- There is a "New Path" button on the Paths Tool
 
 ## Misc
 - Text Filter boxes are removed from brush and palette dockables

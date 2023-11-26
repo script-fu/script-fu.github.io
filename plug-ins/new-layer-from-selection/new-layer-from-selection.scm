@@ -9,7 +9,7 @@
     )
     
     (gimp-image-undo-group-start img)
-    (gimp-context-push)
+    ;(gimp-context-push)
 
     (if (= mde 1) (set! mde 30)
       (set! mde 28)
@@ -33,7 +33,8 @@
     (set! actL (car(gimp-layer-new img wdth hgt RGBA-IMAGE name 100 mde)))
 
     (gimp-layer-set-offsets actL (vector-ref pVec 1) (vector-ref pVec 2))
-    (gimp-context-set-foreground (list 250 180 128))
+    (gimp-context-set-foreground (list 70 70 70))
+    (gimp-context-set-opacity 100)
     (gimp-image-insert-layer img actL actP pos)
     (gimp-drawable-edit-fill actL FILL-FOREGROUND)
     (gimp-layer-set-composite-space actL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
@@ -45,8 +46,9 @@
     (gimp-selection-none img)
     (gimp-image-undo-group-end img)
     (gimp-displays-flush)
-    (if (and (= mskB 0) (= mskW 0)) (gimp-context-pop))
-
+    (when (and (= mskB 0) (= mskW 0)) 
+     ;(gimp-context-pop) always popping?
+    )
   )
 )
 
@@ -72,7 +74,7 @@
 
 (define (exit msg)
   (gimp-message-set-handler 0)
-  (gimp-message(string-append " >>> " msg " <<<"))
+  (gimp-message (string-append " >>> " msg " <<<"))
   (gimp-message-set-handler 2)
   (quit)
 )

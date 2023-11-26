@@ -1,5 +1,5 @@
 ; special case of merging down to the layer below, keeps and restores the mask
-(define (merge-down-keep-upper-mask img upperL lowerL)
+(define (merge-down-keep-as-mask img upperL)
   (let*
     (
       (msk (car (gimp-layer-get-mask upperL)))(actL 0)(dstMsk 0)
