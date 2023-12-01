@@ -2,7 +2,7 @@
 (define (get-pixel-color img actL px py)
   (let*
     (
-      (offX 0)(offY 0)(col 0)(debug #f)
+      (offX 0)(offY 0)(col 0)
     )
 
     ; take into account layer offset

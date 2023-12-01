@@ -38,8 +38,11 @@ Then build Imp like you would the Dev GIMP version. Imp is only possible with th
 - There is a threshold pick option on brushes for mask painting, paint black or white
 - Smooth Stroke option moved to top of paintbrush dockable for easy access
 - Bigger color swatches on color dockable
-- Bigger swap and set the default icons next to the swatches
+- Bigger 'swap' and 'set to default' icons next to the swatches
 - Crosshair cursor when sizing a brush
+- The Free Select tool has options for blocking in with the foreground color
+- Paint Dynamics has an adjusted and fixed velocity mapping
+- Paint Dynamics has an adjusted brush spacing function, slider value is MAX
 
 ## Paths
 - Paths are softly drawn, with more alpha
@@ -52,7 +55,7 @@ Then build Imp like you would the Dev GIMP version. Imp is only possible with th
 - There is a "New Path" button on the Paths Tool
 
 ## Misc
-- Text Filter boxes are removed from brush and palette dockables
 - The blank canvas message says "Start Autosave"
 - The error console doesn't shout the same warning at the user with every message
-- Curve points in editors are much bigger and easy to grab
+- Curve points in editors are much bigger and easy to grab, preference option for size in 'Image Windows'
+- Preference option to show filter entry boxes and tagging input, Tools Options->Show tag filtering
