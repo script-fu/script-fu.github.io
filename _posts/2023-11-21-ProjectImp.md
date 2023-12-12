@@ -1,9 +1,8 @@
 ## Project Imp 
 
-This is a 'GitLab' branch of GIMP, it is my stable working version of GIMP Dev. Where all the Script-Fu plug-ins here, should work.  
+This is a 'GitLab' branch of GIMP, it is my stable working version of GIMP Dev. Where all the Script-Fu plug-ins here, should work. It also applies all the changes I've made to that version via 'C' code. If you're able to build GIMP locally already, then you should be able to fetch and switch to the Imp branch, and build Imp the same way you build GIMP. 
 
-It also applies all the changes I've made to that version via 'C' code. If you're able to build GIMP locally already, then you should be able to fetch and switch to the Imp branch, and build Imp the same way you build GIMP. Use at your own risk, it's not GIMP stable. Please make a backup of your 'gimprc', put it somewhere safe. It can get messed up when switching between Imp and GIMP. Imp has some extra preferences.
-My 'gimprc' lives in home/.config/GIMP/2.99
+**Use at your own risk, it's not GIMP stable. Please make a backup of your 'gimprc' and 'shortcutrc', put them somewhere safe.** They can get messed up when switching between Imp and GIMP. Imp has some extra preferences. For example my active 'gimprc' and 'shortcutrc' for GIMP 2.99 live in home/.config/GIMP/2.99, I back those up all the time using Timeshift and also make manual copies. 
 
 GitLab repo branch for [Imp](https://gitlab.gnome.org/pixelmixer/gimp-plugins/-/tree/Imp?ref_type=heads)
 
@@ -14,7 +13,7 @@ git remote set-url upstream git@ssh.gitlab.gnome.org:GNOME/gimp.git
 git checkout Imp
 ```
 
-Then build Imp like you would the Dev GIMP version. Imp is only possible with the good work of the GIMP developers, they make it feasible for an amateur to flavour the ice-cream. Please support the GIMP Project anyway you can, testing, promoting or coding.  
+Then build Imp like you would the Dev GIMP version. Imp is only possible with the good work of the GIMP developers, they make it feasible for an amateur to flavour the ice-cream. **Please support the GIMP Project anyway you can, testing, promoting or coding.**  
 
 @pixelmixer
 
@@ -43,19 +42,26 @@ Then build Imp like you would the Dev GIMP version. Imp is only possible with th
 - The Free Select tool has options for blocking in with the foreground color
 - Paint Dynamics has an adjusted and fixed velocity mapping
 - Paint Dynamics has an adjusted brush spacing function, slider value is MAX
+- Selecting a Tool preset, always restores the Tool and preset, even when already selected
 
 ## Paths
 - Paths are softly drawn, with more alpha
 - Pick a path easily with 'Snap to Active Path' on, the path tool is excluded from the snap
-- Path points are much bigger and easy to grab, there's a size option in Preferences->Image Windows
 - Paths have a visibility option on the Paths Tool, visible by default
 - Paths have a pop up option "New Path", that starts the next path
-- The possible snapping distance has been greatly increased, Preferences->Snapping
 - Paths have a lock handles checkbox, to keep curves smooth
 - There is a "New Path" button on the Paths Tool
+
+## Preferences ->
+- Tool Options -> Show link to brush default buttons, allows you to hide those buttons
+- Snapping -> Snapping Distance, increase snapping distance range 
+- Image Windows -> Path handle size, makes path handles bigger
+- Tools Options -> Show tag filtering, to hide filter entry boxes and tagging input
 
 ## Misc
 - The blank canvas message says "Start Autosave"
 - The error console doesn't shout the same warning at the user with every message
-- Curve points in editors are much bigger and easy to grab, preference option for size in 'Image Windows'
-- Preference option to show filter entry boxes and tagging input, Tools Options->Show tag filtering
+- Curve points in editors are bigger and easy to grab
+- The icon size of 'Configure this tab' now scales with the preference set for icon sizes
+- The Warp Tool warns the user that the next undo will cancel the warp 
+- The Warp Tool never starts in Erase Mode (Although the GUI option may looks like it does)
