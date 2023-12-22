@@ -224,3 +224,8 @@ check {
 check:checked {
   -gtk-icon-source: url("../assets/checkbox/checkbox-checked-dark.svg");
 }
+
+/* Header background for the filter and image name, curve and other backdrops */
+GimpToolDialog frame border {
+  background-color: @mid-low-color;
+}

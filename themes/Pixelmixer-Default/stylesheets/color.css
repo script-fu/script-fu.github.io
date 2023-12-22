@@ -710,12 +710,6 @@ dialog box widget {
   background-color: @light-low-color;
 }
 
-/* Curves Graph Widget, Adjust Color Curves, Levels */
-GimpToolDialog frame frame widget {
-  color:           @fg-dark-low-color;
-  background-color: @mid-higher-color;
-}
-
 /* Background to the places to set options */
 dialog.background scrolledwindow {
   background-color: @mid-higher-color;
@@ -1278,7 +1272,7 @@ GimpToolDialog .dialog-vbox {
   border-color: @shade-low-color;
 }
 
-/* Header background for the filter and image name */
+/* Header background for the filter and image name, behind curves and gradients */
 GimpToolDialog frame border {
   color:        @fg-dark-high-color;
   background-color:    @light-color;
@@ -1288,9 +1282,22 @@ GimpToolDialog frame border {
 
 /* Backdrop */
 GimpToolDialog frame border:backdrop {
-  background-color: @mid-highest-color;
+  background-color: @mid-higher-color;
 }
 
+/* Curves Graph Widget, Adjust Color Curves, Levels */
+GimpToolDialog frame frame widget {
+  color:           @fg-dark-low-color;
+  background-color: @mid-higher-color;
+}
+
+/* Curves Graph Widget, Adjust Color Curves, Levels */
+GimpToolDialog frame frame widget:backdrop {
+  color:           @fg-dark-low-color;
+  background-color: @mid-higher-color;
+  border:                      none;
+  border-color: @shade-higher-color;
+}
 /* Expanding sections */
 GimpToolDialog expander {
   background-color: transparent;

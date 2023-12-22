@@ -89,3 +89,7 @@ toolbutton button {
   border-color:    @og-black-color;
 }
 
+/* Header background for the filter and image name, curve and other backdrops */
+GimpToolDialog frame border {
+  background-color: @mid-low-color;
+}

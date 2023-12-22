@@ -64,4 +64,7 @@ Then build Imp like you would the Dev GIMP version. Imp is only possible with th
 - Curve points in editors are bigger and easy to grab
 - The icon size of 'Configure this tab' now scales with the preference set for icon sizes
 - The Warp Tool warns the user that the next undo will cancel the warp 
-- The Warp Tool never starts in Erase Mode (Although the GUI option may looks like it does)
+- If the Warp Tool is in 'Erase Mode' when the tool changes, then the mode is switched to 'Move'
+- The Warp tool always warps, if it can't 'Erase' or 'Smooth' it switches to 'Move'
+- The Levels Tool has larger control handles on the sliders
+- More of the tiny icons now respond to the user custom icon scale set in preferences
