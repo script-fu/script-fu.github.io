@@ -54,9 +54,11 @@ Then build Imp like you would the Dev GIMP version. Imp is only possible with th
 
 ## Preferences ->
 - Tool Options -> Show link to brush default buttons, allows you to hide those buttons
+- Tool Options -> Show reset to brush default buttons, allows you to hide those buttons
 - Snapping -> Snapping Distance, increase snapping distance range 
 - Image Windows -> Path handle size, makes path handles bigger
 - Tools Options -> Show tag filtering, to hide filter entry boxes and tagging input
+- Tools Options -> Tool Preset Editor, to set the size of the icon displayed by the Tool Preset Editor
 
 ## Misc
 - The blank canvas message says "Start Autosave"
@@ -68,3 +70,5 @@ Then build Imp like you would the Dev GIMP version. Imp is only possible with th
 - The Warp tool always warps, if it can't 'Erase' or 'Smooth' it switches to 'Move'
 - The Levels Tool has larger control handles on the sliders
 - More of the tiny icons now respond to the user custom icon scale set in preferences
+- Layout change to the brush picker in Painting Tool Options, avoids icon distortion
+- Previews can be set to 256 or 512 in size
