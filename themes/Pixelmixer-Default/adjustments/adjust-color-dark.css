@@ -62,7 +62,7 @@ entry selection {
 }
 
 /* Menu bar, odd double header needed */
-menubar :backdrop,
+
 headerbar:backdrop,
 headerbar :backdrop {
   background-color: @mid-low-color;
@@ -227,5 +227,11 @@ check:checked {
 
 /* Header background for the filter and image name, curve and other backdrops */
 GimpToolDialog frame border {
+  background-color: @mid-low-color;
+}
+
+menubar:backdrop
+menubar :backdrop {
+ /*  color: @mid-low-color; */
   background-color: @mid-low-color;
 }

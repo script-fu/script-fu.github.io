@@ -1633,7 +1633,6 @@ menubar {
 /*** Backdrop - App or Dialog Not Active ***/
 
 /* Menu bar, odd double header needed */
-menubar :backdrop,
 headerbar:backdrop,
 headerbar :backdrop {
   background-color: @mid-low-color;
@@ -1651,7 +1650,17 @@ headerbar .title:backdrop {
 
 /* Labels */
 menubar label:backdrop {
-  color: @mid-high-color;
+  color: @shade-low-color;
+  background-color: @mid-low-color;
+}
+menubar:backdrop {
+  background-color: @mid-low-color;
+}
+
+menubar:backdrop
+menubar :backdrop {
+ /*  color: @mid-low-color; */
+  background-color: @mid-low-color;
 }
 
 

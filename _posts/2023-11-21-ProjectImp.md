@@ -2,7 +2,7 @@
 
 This is a 'GitLab' branch of GIMP, it is my stable working version of GIMP Dev. Where all the Script-Fu plug-ins here, should work. It also applies all the changes I've made to that version via 'C' code. If you're able to build GIMP locally already, then you should be able to fetch and switch to the Imp branch, and build Imp the same way you build GIMP. 
 
-**Use at your own risk, it's not GIMP stable. Please make a backup of your 'gimprc' and 'shortcutrc', put them somewhere safe.** They can get messed up when switching between Imp and GIMP. Imp has some extra preferences. For example my active 'gimprc' and 'shortcutrc' for GIMP 2.99 live in home/.config/GIMP/2.99, I back those up all the time using Timeshift and also make manual copies. 
+**Use at your own risk, it's not GIMP stable. Please make a backup of your 'gimprc, 'shortcutrc', 'sessionrc' and 'toolsrc' put them somewhere safe.** They can get messed up when switching between Imp and GIMP. Imp has some extra preferences. For example my active 'gimprc' and 'shortcutrc' for GIMP 2.99 live in home/.config/GIMP/2.99, I back those up all the time using Timeshift and also make manual copies. 
 
 GitLab repo branch for [Imp](https://gitlab.gnome.org/pixelmixer/gimp-plugins/-/tree/Imp?ref_type=heads)
 
@@ -43,6 +43,7 @@ Then build Imp like you would the Dev GIMP version. Imp is only possible with th
 - Paint Dynamics has an adjusted and fixed velocity mapping
 - Paint Dynamics has an adjusted brush spacing function, slider value is MAX
 - Selecting a Tool preset, always restores the Tool and preset, even when already selected
+- An expander to hide lesser used brush slider options, giving more dockable space
 
 ## Paths
 - Paths are softly drawn, with more alpha
@@ -59,6 +60,8 @@ Then build Imp like you would the Dev GIMP version. Imp is only possible with th
 - Image Windows -> Path handle size, makes path handles bigger
 - Tools Options -> Show tag filtering, to hide filter entry boxes and tagging input
 - Tools Options -> Tool Preset Editor, to set the size of the icon displayed by the Tool Preset Editor
+- Interface -> General -> Show available mode groups button, allows you to hide those buttons
+- Help System -> General -> Preferences -> Help System -> General -> Show tool tips
 
 ## Misc
 - The blank canvas message says "Start Autosave"
@@ -72,3 +75,4 @@ Then build Imp like you would the Dev GIMP version. Imp is only possible with th
 - More of the tiny icons now respond to the user custom icon scale set in preferences
 - Layout change to the brush picker in Painting Tool Options, avoids icon distortion
 - Previews can be set to 256 or 512 in size
+- Less .00 and .0 on GUI sliders
