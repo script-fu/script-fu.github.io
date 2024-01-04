@@ -32,6 +32,7 @@ Then build Imp like you would the Dev GIMP version. Imp is only possible with th
 - Slider overlay text is adjusted from the edge of the slider
 
 ## Painting
+- New design for the Paintbrush GUI
 - Smoothed brush pressure when using Smooth Stroke for good lines
 - The painting cursur is enhanced, it has a contact point for pressure brushes
 - There is a threshold pick option on brushes for mask painting, paint black or white
@@ -43,7 +44,7 @@ Then build Imp like you would the Dev GIMP version. Imp is only possible with th
 - Paint Dynamics has an adjusted and fixed velocity mapping
 - Paint Dynamics has an adjusted brush spacing function, slider value is MAX
 - Selecting a Tool preset, always restores the Tool and preset, even when already selected
-- An expander to hide lesser used brush slider options, giving more dockable space
+- Preference option to have a large FG/BG colour picker on the toolbox.
 
 ## Paths
 - Paths are softly drawn, with more alpha
@@ -54,14 +55,18 @@ Then build Imp like you would the Dev GIMP version. Imp is only possible with th
 - There is a "New Path" button on the Paths Tool
 
 ## Preferences ->
-- Tool Options -> Show link to brush default buttons, allows you to hide those buttons
-- Tool Options -> Show reset to brush default buttons, allows you to hide those buttons
+- Help System -> General -> Preferences -> Help System -> General -> Show tool tips
+- Tool Options -> Paint Options -> Keep the paint mode box at the top of the options
+- Tool Options -> Paint Options -> Show link to brush default buttons, allows you to hide those buttons
+- Tool Options -> Paint Options -> Show reset to brush default buttons, allows you to hide those buttons
+- Tool Options -> Brush Options Sliders -> Pick and choose which sliders are visible at top level
+- Tool Options -> Tool Preset Editor -> change the size of the tool preset icon
 - Snapping -> Snapping Distance, increase snapping distance range 
 - Image Windows -> Path handle size, makes path handles bigger
 - Tools Options -> Show tag filtering, to hide filter entry boxes and tagging input
 - Tools Options -> Tool Preset Editor, to set the size of the icon displayed by the Tool Preset Editor
 - Interface -> General -> Show available mode groups button, allows you to hide those buttons
-- Help System -> General -> Preferences -> Help System -> General -> Show tool tips
+- Interface -> Toolbox -> Flexible layout for the foreground and background colour picker
 
 ## Misc
 - The blank canvas message says "Start Autosave"

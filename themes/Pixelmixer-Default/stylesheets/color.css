@@ -2311,7 +2311,11 @@ GimpDock border {
   background-color: transparent;
 }
 
-/* Tool buttons panel */
+/* behind Tool buttons */
+toolpalette {
+  background-color: transparent;
+}
+
 toolpalette toolitemgroup {
   background-color: @mid-high-color
 }
