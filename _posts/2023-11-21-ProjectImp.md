@@ -67,6 +67,7 @@ Then build Imp like you would the Dev GIMP version. Imp is only possible with th
 - Tools Options -> Tool Preset Editor, to set the size of the icon displayed by the Tool Preset Editor
 - Interface -> General -> Show available mode groups button, allows you to hide those buttons
 - Interface -> Toolbox -> Flexible layout for the foreground and background colour picker
+- Interface -> Layer Stack -> Shows the layer stack column header
 
 ## Misc
 - The blank canvas message says "Start Autosave"

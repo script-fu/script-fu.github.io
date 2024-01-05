@@ -7,5 +7,7 @@
   
 * [Additional Script-Fu homebrew for GIMP 3](https://script-fu.github.io/2022/12/04/Custom-Script-Fu-Procedures.html)
 
+* If you feel like saying [thank you](https://www.patreon.com/pixelmixer)  
+
 
 

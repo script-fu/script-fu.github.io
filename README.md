@@ -4,6 +4,7 @@ These plugins are to help me make illustrations in GIMP, I hope they can help yo
 
 [GNU GENERAL PUBLIC LICENSE Version 3](https://github.com/script-fu/script-fu.github.io/blob/main/LICENSE)
 
+## If you feel like saying [thank you](https://www.patreon.com/pixelmixer)
 ## [Script-Fu Website](https://script-fu.github.io/)
 ## [Custom Themes](https://script-fu.github.io/2023/08/14/Themes.html)
 ## [Project Imp](https://script-fu.github.io/2023/11/21/ProjectImp.html)
