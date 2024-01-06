@@ -365,9 +365,9 @@ spinbutton:focus {
 spinbutton        button,
 dialog spinbutton button,
 GimpSpinScale     button {
-  color:            @shade-high-color;
-  background-color: @mid-highest-color;
-  border-color:        @mid-low-color;
+  color:            @shade-higher-color;
+  background-color: @mid-higher-color;
+  border-color:     @mid-color;
   background-image: url("../assets/spinbutton/spinbutton.png");
 }
 

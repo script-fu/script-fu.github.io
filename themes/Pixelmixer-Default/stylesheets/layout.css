@@ -478,6 +478,11 @@ GimpDock treeview.view header label selection {
   padding-left: 0.6em;
 }
 
+/* space between layer tree and opacity slider, when the layer mode is hidden */
+/* also all scrolled windows in docks :( */
+GimpDock scrolledwindow {
+  padding-top: 0.2em;
+}
 
 
 
