@@ -2,7 +2,8 @@
 
 This is a 'GitLab' branch of GIMP, it is my stable working version of GIMP Dev. Where all the Script-Fu plug-ins here, should work. It also applies all the changes I've made to that version via 'C' code. If you're able to build GIMP locally already, then you should be able to fetch and switch to the Imp branch, and build Imp the same way you build GIMP. 
 
-**Use at your own risk, it's not GIMP stable. Please make a backup of your 'gimprc, 'shortcutrc', 'sessionrc' and 'toolsrc' put them somewhere safe.** They can get messed up when switching between Imp and GIMP. Imp has some extra preferences. For example my active 'gimprc' and 'shortcutrc' for GIMP 2.99 live in home/.config/GIMP/2.99, I back those up all the time using Timeshift and also make manual copies. 
+**Use at your own risk, it's not GIMP stable. I might be a hacker, I could be double bluffing.
+Please make a backup of your 'gimprc, 'shortcutrc', 'sessionrc' and 'toolsrc' put them somewhere safe.** They can get messed up when switching between Imp and GIMP. Imp has some extra preferences, I have also coded Imp to use a different .config folder called 'Imp'.
 
 GitLab repo branch for [Imp](https://gitlab.gnome.org/pixelmixer/gimp-plugins/-/tree/Imp?ref_type=heads)
 
@@ -13,7 +14,10 @@ git remote set-url upstream git@ssh.gitlab.gnome.org:GNOME/gimp.git
 git checkout Imp
 ```
 
-Then build Imp like you would the Dev GIMP version. Imp is only possible with the good work of the GIMP developers, they make it feasible for an amateur to flavour the ice-cream. **Please support the GIMP Project anyway you can, testing, promoting or coding.**  
+Then build Imp like you would the Dev GIMP version. Imp is only possible with the good work of the GIMP developers, they make it feasible for an amateur to flavour the ice-cream. **Please support the GIMP Project anyway you can, testing, promoting or coding.** 
+
+Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP, and if you are willing to risk it, Imp. 
+
 
 @pixelmixer
 
