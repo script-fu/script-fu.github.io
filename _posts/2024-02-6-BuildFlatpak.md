@@ -1,5 +1,5 @@
 # A Guide for Building Flatpak Versions of GIMP
-Here's how I learned to build a Flatpak version of a [GIMP source](https://gitlab.gnome.org/GNOME/gimp) code fork, from a specified branch. In this case, the branch is called ['Imp'](https://gitlab.gnome.org/pixelmixer/gimp-plugins/-/tree/Imp?ref_type=heads), and is an **unofficial** testbed for possible GIMP features. It also serves as an **example** of how you might build your own [Flatpak version of GIMP](https://www.gimp.org/downloads/).
+Here's how I learned to build a Flatpak version of a [GIMP source](https://gitlab.gnome.org/GNOME/gimp) code fork, from a specified branch. In this case, the branch is called ['Imp'](https://gitlab.gnome.org/pixelmixer/gimp-plugins/-/tree/Imp?ref_type=heads), and is an **unofficial**, personal version of GIMP. It also serves as an **example** of how you might build your own [Flatpak version of GIMP](https://www.gimp.org/downloads/).
 
 ## Why Flatpak?
 [Flatpak](https://flatpak.org/) is a software utility for packaging and running Linux applications.
@@ -12,10 +12,10 @@ If you would like to take the risk of building Imp, are willing to trust a stran
 ## Prepare the System
 If you are going to build GIMP as a Flatpak, you need to have the latest parts it needs to be assembled.  Here's a rough guide to this process for a Debian based, Linux Mint platform. It will probably be a unique process for your system, good luck.
 
-Sourced from:
-<https://gitlab.gnome.org/GNOME/gimp/tree/master/build/flatpak>
-<https://developer.gimp.org/core/setup/build/linux/>
-
+Sourced from:  
+* <https://gitlab.gnome.org/GNOME/gimp/tree/master/build/flatpak>  
+* <https://developer.gimp.org/core/setup/build/linux/>
+  
 ```sh
 sudo apt build-dep gimp
 ```
@@ -115,4 +115,4 @@ You can copy your gimprc to the Imp .config location. **Do not** copy your gimpr
 **Use at your own risk, it's unofficial, it’s not GIMP stable, not even GIMP Dev.**
 
 ## More about Imp
-https://script-fu.github.io/2023/11/21/ProjectImp.html
+<https://script-fu.github.io/2023/11/21/ProjectImp.html>

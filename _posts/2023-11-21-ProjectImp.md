@@ -100,3 +100,4 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 - Previews can be set to 256 or 512 in size
 - Less .00 and .0 on GUI sliders
 - Lock all guide positions in an image per session
+- NDE option on filters to allow it to be turned off

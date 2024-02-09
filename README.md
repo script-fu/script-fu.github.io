@@ -8,6 +8,7 @@ These plugins are to help me make illustrations in GIMP, I hope they can help yo
 ## [Script-Fu Website](https://script-fu.github.io/)
 ## [Custom Themes](https://script-fu.github.io/2023/08/14/Themes.html)
 ## [Project Imp](https://script-fu.github.io/2023/11/21/ProjectImp.html)
+## [Building GIMP](https://script-fu.github.io/2024/02/06/BuildFlatpak.html)
 ## [Custom Script-Fu](https://script-fu.github.io/2022/12/04/Custom-Script-Fu-Procedures.html)
 
 ## A Few Plug-ins to Try:
