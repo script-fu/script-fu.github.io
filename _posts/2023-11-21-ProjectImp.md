@@ -54,6 +54,8 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 - The brush aspect ratio dynamic works in a linear way, a more natural response
 - Pick and snap to path option, pick a path and automatically snap the brush to it whilst painting
 - A higher quality implementation of the 'Force' attribute is available to select 
+- Smooth Stroke has an option to smooth brush angles, in Additional options.
+- Directional change of the brush is much more sensitive
 
 ## Paths
 - Paths are softly drawn, with more alpha
