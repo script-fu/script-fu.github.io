@@ -37,6 +37,7 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 
 ## Painting
 - New design for the Paintbrush GUI
+- Paint dabbing, a particle system to create dabs of paint and much more
 - Smoothed brush pressure when using Smooth Stroke for good lines
 - The painting cursur is enhanced, it has a contact point for pressure brushes
 - There is a threshold pick option on brushes for mask painting, paint black or white
@@ -74,8 +75,8 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 ## Preferences ->
 - Help System -> General -> Preferences -> Help System -> General -> Show tool tips
 - Tool Options -> Paint Options -> Keep the paint mode box at the top of the options
-- Tool Options -> Paint Options -> Show link to bsrush default buttons, allows you to hide those buttons
-- Tool Options -> Paint Options -> Show reset to brush default buttons, allows you to hide those buttons
+- Tool Options -> Paint Options -> Show link to brush default buttons, to hide those buttons
+- Tool Options -> Paint Options -> Show reset to brush default buttons, to hide those buttons
 - Tool Options -> Brush Options Sliders -> Pick and choose which sliders are visible at top level
 - Tool Options -> Tool Preset Editor -> change the size of the tool preset icon
 - Snapping -> Snapping Distance, increase snapping distance range for active paths 
@@ -91,7 +92,6 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 - Image Windows -> Zoom and Resize Behaviour -> Initial zoom percentage
 
 ## Misc
-- The blank canvas message says "Start Autosave"
 - The error console doesn't shout the same warning at the user with every message
 - The Warp Tool warns the user that the next undo will cancel the warp 
 - If the Warp Tool is in 'Erase Mode' when the tool changes, then the mode is switched to 'Move'
