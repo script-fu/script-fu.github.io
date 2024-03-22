@@ -6,7 +6,7 @@
 check {
   background-color:   transparent;
   border-color: @shade-high-color;
-  -gtk-icon-source: url("../assets/checkbox/checkbox-unchecked.svg");
+  -gtk-icon-source: url("../assets/checkbox/checkbox-unchecked-light.svg");
 }
 
 check:disabled {
@@ -15,13 +15,13 @@ check:disabled {
 }
 
 check:checked {
-  -gtk-icon-source: url("../assets/checkbox/checkbox-checked.svg");
+  -gtk-icon-source: url("../assets/checkbox/checkbox-checked-light.svg");
 }
 
 check:checked:disabled {
   background-color: transparent;
   border-color: @disabled-color;
-  -gtk-icon-source: url("../assets/checkbox/checkbox-checked-disabled.svg");
+  -gtk-icon-source: url("../assets/checkbox/checkbox-checked-disabled-light.svg");
 }
 
 radio:disabled {
@@ -37,11 +37,11 @@ radio:checked:disabled {
 radio {
   background-color:   transparent;
   border-color: @shade-high-color;
-  -gtk-icon-source: url("../assets/radiobutton/radio-unchecked.svg");
+  -gtk-icon-source: url("../assets/radiobutton/radio-unchecked-light.svg");
 }
 
 radio:checked {
-  -gtk-icon-source: url("../assets/radiobutton/radio-checked.svg");
+  -gtk-icon-source: url("../assets/radiobutton/radio-checked-light.svg");
 }
 
 
@@ -207,11 +207,11 @@ toolbutton button:checked {
 /*** Separators ***/
 
 paned.horizontal > separator {
-  background-image: url("../assets/separators/separator-handle.svg");
+  background-image: url("../assets/separators/separator-handle-light.svg");
 }
 
 paned.vertical > separator {
-  background-image: url("../assets/separators/separator-handle-v.svg");
+  background-image: url("../assets/separators/separator-handle-v-light.svg");
 }
 
 /* Hover effect */
@@ -276,12 +276,12 @@ menuitem:hover {
 /* Toolbutton and Action button texture */
 toolbutton button,
 buttonbox button {
-  background-image: url("../assets/toolbutton/toolbutton.png");
+  background-image: url("../assets/toolbutton/toolbutton-light.png");
 }
 
 /* Checked button - on, higher contrast */
 toolbutton button:checked {
-  background-image: url("../assets/toolbutton/toolbutton-checked.png");
+  background-image: url("../assets/toolbutton/toolbutton-checked-light.png");
 }
 
 /* Checked, Layer locks */
@@ -303,26 +303,26 @@ popover button:checked:hover {
 GimpDock header tab,
 dialog header tab,
 GimpDock header button {
-  background-image: url("../assets/tab/tab.png");
+  background-image: url("../assets/tab/tab-light.png");
 }
 
 toolbutton button:not(:checked):hover {
   border-color:      @fg-black;
-  background-image: url("../assets/toolbutton/toolbutton-hover.png");
+  background-image: url("../assets/toolbutton/toolbutton-hover-light.png");
 }
 
 /* Cellview, external view of combobox */
 cellview {
-  background-image: url("../assets/cellview/cellview.png");
+  background-image: url("../assets/cellview/cellview-light.png");
 }
 
 /* Entry for 'filter' */
 GimpDock widget box box > entry {
-  background-image: url("../assets/cellview/cellview.png");
+  background-image: url("../assets/cellview/cellview-light.png");
 }
 
 GimpSpinScale progress {
-  background-image: url("../assets/cellview/cellview.png");
+  background-image: url("../assets/cellview/cellview-light.png");
 }
 
 /* Hover, highlighting on iconview */
@@ -339,5 +339,5 @@ iconview:selected {
 spinbutton        button,
 dialog spinbutton button,
 GimpSpinScale     button {
-  background-image: url("../assets/spinbutton/spinbutton.png");
+  background-image: url("../assets/spinbutton/spinbutton-light.png");
 }

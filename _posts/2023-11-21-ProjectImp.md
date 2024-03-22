@@ -27,7 +27,6 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 - Warm
 - High Contrast
 - Dark
-- Light
 
 ## Sliders
 - Full range slider interaction, no snagging on the number input

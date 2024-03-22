@@ -1,13 +1,13 @@
 /* Order is important, color -> layout -> image */
 
-/* Import from 'Light' theme */
-@import url("./color-definitions-dark.css");
+/* Import from 'Dark' theme */
+@import url("./color-definitions-light.css");
 
 /* Import from 'Default' theme */
 @import url("../Pixelmixer-Default/stylesheets/color.css");
 
-/* Import from 'Light theme */
-@import url("./adjustments/adjust-color-dark.css");
+/* Import from 'Dark' theme */
+@import url("./adjustments/adjust-color.css");
 
 /* Import from the 'Default' theme */
 @import url("../Pixelmixer-Default/stylesheets/layout.css");

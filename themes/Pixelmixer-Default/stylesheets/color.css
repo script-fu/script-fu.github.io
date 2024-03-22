@@ -188,6 +188,11 @@ dialog frame button:not(:checked):hover {
   background-color: @light-color;
 }
 
+/* Hover combobox fix */
+dialog frame combobox button:not(:checked):hover {
+  background-color: transparent;
+}
+
 /* Clicked button, highest contrast */
 dialog frame button:active:hover {
   background-color: @light-high-color;
