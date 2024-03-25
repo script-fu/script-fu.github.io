@@ -26,13 +26,6 @@ Dependencies to install or update:
 - flatpak-builder
 - appstream-compose
 
-Perhaps install these extra bits:
-```sh
-flatpak remote-add --user --from gnome https://nightly.gnome.org/gnome-nightly.flatpakrepo
-flatpak install --user gnome org.gnome.Platform/x86_64/master org.gnome.Sdk/x86_64/master
-flatpak install --user gnome org.gnome.Platform/aarch64/master org.gnome.Sdk/aarch64/master
-```
-
 ## Learn About Git
 This is another topic altogether, you'll need some [basic knowledge](https://script-fu.github.io/2024/02/05/Git.html) and have 'Git' installed.
 
