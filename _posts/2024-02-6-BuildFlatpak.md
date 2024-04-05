@@ -36,13 +36,24 @@ This is another topic altogether, you'll need some [basic knowledge](https://scr
 cd /yourfolder
 git clone https://github.com/script-fu/Imp.git
 ```
-##### Download the submodules and update them, this may not work...
+##### Download the submodules and update them 
 ```sh
 git submodule update --init --recursive
 git submodule update --remote --merge
 
 ```
-##### Open the file _org.gimp.GIMP.json_ in a text editor, find the lines that specify the official, the verified and trustable source, the safe code
+##### Open the file _org.gimp.GIMP.json_ in a text editor 
+
+Find this top line:
+```
+"app-id": "org.gimp.GIMP",
+```
+Change to:
+```
+"app-id": "org.gimp.Imp",
+```
+
+find the lines that specify the official, the verified and trustable source, the safe code
 ```json
 "type": "git",
 "url": "https://gitlab.gnome.org/GNOME/gimp.git",
@@ -55,13 +66,6 @@ Change to:
 "type": "git",
 "url": "https://gitlab.gnome.org/pixelmixer/gimp-plugins.git",
 "branch": "Imp"
-```
-
-##### Much Better, Play with the Verified Source Code Locally
-```json
-"type": "git",
-"url": "file:///path/to/your/repo/for/building/gimp",
-"branch": "YourBranch"
 ```
 
 ## What do the shell scripts do?

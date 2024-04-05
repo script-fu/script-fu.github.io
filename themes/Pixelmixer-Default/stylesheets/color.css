@@ -1463,6 +1463,11 @@ GimpDock treeview.view header label selection {
   background-color: transparent;
 }
 
+/* fix searchbox twitch */
+GimpDock treeview.view header button:hover {
+  border-width: 0;
+}
+
 
 /*** Visibility Buttons in the Layer Stack ***/
 
