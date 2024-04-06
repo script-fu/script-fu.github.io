@@ -57,7 +57,7 @@ To download [**get-image-file-info.scm**](https://raw.githubusercontent.com/scri
 
 (define (exit msg)
   (gimp-message-set-handler 0)
-  (gimp-message(string-append " >>> " msg " <<<"))
+  (gimp-message (string-append " >>> " msg " <<<"))
   (gimp-message-set-handler 2)
   (quit)
 )

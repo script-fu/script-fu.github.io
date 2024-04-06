@@ -1,42 +1,44 @@
-## Select All Layers
+## Rename All Layers
 
-# * Tested in GIMP 2.99.14 *
+# * Tested in GIMP 2.99.19 *
 
-This selects all the layers in the stack, useful if you want to apply another plugin to every layer. For example, you might select every layer, and then use the "Layer Parasites" plugin to find out what parasites are attached.
+This plug-in renames all the layers in the active image, automatically including a #
   
-The plug-in should appear in the Layer menu.  
+The plug-in should appear in the "Layer" menu.  
   
-To download [**select-all-layers.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/select-all-layers/select-all-layers.scm)  
-...follow the link, right click the page, Save as select-all-layers.scm, in a folder called select-all-layers, in a GIMP plug-ins location.  In Linux, set the file to be executable.
-   
-   
-<!-- include-plugin "select-all-layers" -->
+To download [**rename-all-layers.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/rename-all-layers/rename-all-layers.scm)  
+...follow the link, right click the page, Save as rename-all-layers.scm, in a folder called rename-all-layers, in a GIMP plug-ins location.  In Linux, set the file to be executable.
+  
+*Renames all the layers in the active image*  
+
+<!-- include-plugin "rename-all-layers" -->
 ```scheme
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
 
-(define (script-fu-select-all-layers img drwbls)
+(define (script-fu-rename-all-layers img drwbls newname)
   (let*
     (
       (chldrn (all-childrn img 0))(lstL 0)(i 0)(actL 0)(allL ())
       (selChldrn (list->vector (reverse chldrn)))
     )
     (gimp-image-set-selected-layers img (length chldrn ) selChldrn)
-    (if debug (print-layer-id-name chldrn))
+    (rename-layers chldrn newname)
   )
 )
 
 (define debug #f)
 
-(script-fu-register-filter "script-fu-select-all-layers"
- "Select All Layers"
- "Selects all the layers in the stack"
+(script-fu-register-filter "script-fu-rename-all-layers"
+ "Rename All Layers"
+ "Renames all the layers in the stack"
  "Mark Sweeney"
  "Under GNU GENERAL PUBLIC LICENSE Version 3"
  "2023"
  "*"
  SF-ONE-OR-MORE-DRAWABLE
+ SF-STRING "name" "newname"
 )
-(script-fu-menu-register "script-fu-select-all-layers" "<Image>/Layer")
+(script-fu-menu-register "script-fu-rename-all-layers" "<Image>/Layer")
 
 ; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
 
@@ -85,23 +87,22 @@ To download [**select-all-layers.scm**](https://raw.githubusercontent.com/script
 )
 
 
-; prints the layer name and id of every layer in a list in one string
-(define (print-layer-id-name lstL)
+; renames all the given layers
+(define (rename-layers lstL nme)
   (let*
     (
-      (i 0)(strL "")(msg " ")(actL 0)(id "")(nme "")
+      (i 0)(actL 0)
     )
+
+    (set! nme (string-append nme " #1"))
     (if (list? lstL) (set! lstL (list->vector lstL)))
     (while (< i (vector-length lstL))
       (set! actL (vector-ref lstL i))
       (when (= (car (gimp-item-id-is-valid actL)) 1)
-        (set! id (number->string actL))
-        (set! nme (car(gimp-item-get-name actL)))
-        (set! strL (string-append strL msg id " : " nme "\n"))
+        (gimp-item-set-name actL nme)
       )
       (set! i (+ i 1))
     )
-    (gimp-message strL)
   )
 )
 

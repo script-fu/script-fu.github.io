@@ -39,7 +39,7 @@ Seems to like only creating one directory at a time so I put it in a wrapper.
 
 (define (exit msg)
   (gimp-message-set-handler 0)
-  (gimp-message(string-append " >>> " msg " <<<"))
+  (gimp-message (string-append " >>> " msg " <<<"))
   (gimp-message-set-handler 2)
   (quit)
 )

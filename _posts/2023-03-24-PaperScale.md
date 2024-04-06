@@ -101,7 +101,7 @@ To download [**paper-scale.scm**](https://raw.githubusercontent.com/script-fu/sc
 
 (define (exit msg)
   (gimp-message-set-handler 0)
-  (gimp-message(string-append " >>> " msg " <<<"))
+  (gimp-message (string-append " >>> " msg " <<<"))
   (gimp-message-set-handler 2)
   (quit)
 )

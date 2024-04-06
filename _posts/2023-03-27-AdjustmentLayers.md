@@ -259,7 +259,7 @@ To download [**adjustment-mixer.scm**](https://raw.githubusercontent.com/script-
 
 (define (exit msg)
   (gimp-message-set-handler 0)
-  (gimp-message(string-append " >>> " msg " <<<"))
+  (gimp-message (string-append " >>> " msg " <<<"))
   (gimp-message-set-handler 2)
   (quit)
 )

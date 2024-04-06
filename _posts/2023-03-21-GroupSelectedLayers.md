@@ -19,13 +19,15 @@ To download [**layer-group.scm**](https://raw.githubusercontent.com/script-fu/sc
 (define (script-fu-layer-group img drwbles)
   (let*
     (
+      (addMask #t) ; puts a white mask on the group
+
       (mde LAYER-MODE-PASS-THROUGH) ; LAYER-MODE-NORMAL ; LAYER-MODE-MULTIPLY
       (nme "groupName")
-
       (drwbles (exclude-children img drwbles))
       (numDraw (vector-length drwbles))(actL (vector-ref drwbles 0))
       (parent (car (gimp-item-get-parent actL)))(i (- numDraw 1))
       (pos (car (gimp-image-get-item-position img actL)))(grp 0)
+      
     )
 
     (gimp-image-undo-group-start img)
@@ -42,6 +44,8 @@ To download [**layer-group.scm**](https://raw.githubusercontent.com/script-fu/sc
       (set! i (- i 1))
     )
 
+    (if addMask (add-mask grp ADD-MASK-WHITE))
+    
     (gimp-image-undo-group-end img)
 
   )
@@ -67,7 +71,7 @@ To download [**layer-group.scm**](https://raw.githubusercontent.com/script-fu/sc
 
 (define (exit msg)
   (gimp-message-set-handler 0)
-  (gimp-message(string-append " >>> " msg " <<<"))
+  (gimp-message (string-append " >>> " msg " <<<"))
   (gimp-message-set-handler 2)
   (quit)
 )
@@ -147,5 +151,31 @@ To download [**layer-group.scm**](https://raw.githubusercontent.com/script-fu/sc
   )
 )
 
+
+
+; adds a mask to a layer of a given type;
+; ADD-MASK-WHITE
+; ADD-MASK-BLACK
+; ADD-MASK-ALPHA
+; ADD-MASK-ALPHA-TRANSFER
+; ADD-MASK-SELECTION
+; ADD-MASK-COPY
+; ADD-MASK-CHANNEL
+; returns the mask id
+(define (add-mask actL type)
+  (let*
+    (
+      (mask (car (gimp-layer-get-mask actL)))
+    )
+
+    (when (< mask 0)
+      (set! mask (car (gimp-layer-create-mask actL type)))
+      (gimp-layer-add-mask actL mask)
+      (set! mask (car (gimp-layer-get-mask actL)))
+    )
+
+    mask
+  )
+)
 
 ```

@@ -41,7 +41,7 @@ To download [**image-set-parasite.scm**](https://raw.githubusercontent.com/scrip
 
 (define (exit msg)
   (gimp-message-set-handler 0)
-  (gimp-message(string-append " >>> " msg " <<<"))
+  (gimp-message (string-append " >>> " msg " <<<"))
   (gimp-message-set-handler 2)
   (quit)
 )
