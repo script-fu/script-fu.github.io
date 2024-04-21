@@ -30,7 +30,7 @@ To download the required utility plug-in [**set-items-visibility**](https://gith
       (lstL 0)(tgdLst 0)(isolated 0)(isoPLst 0)(changed 1)
       (types (vector "isolated" "hidden" "hiddenChld" "isoChild"))
     )
-
+    
     (when (= (plugin-get-lock "isolateSelected") 1)
           (exit "  An isolate lock is on, try deleting the 'isolateSelected' text 
                    file in your Home directory in Linux or your User directory 
@@ -52,6 +52,14 @@ To download the required utility plug-in [**set-items-visibility**](https://gith
       ; get all the layers and groups
       (set! lstL (all-childrn img 0))
 
+      ; don't continue if there is only one layer in the image
+      (when (< (length lstL) 2) 
+        (plugin-set-lock "isolateSelected" 0)
+        (plugin-set-lock "exitIsolation" 0)
+        (gimp-image-undo-group-end img)
+        (exit "doing nothing - only one layer")
+      )
+
       ; existing isolation mode? has selection changed since last time?
       (set! tgdLst (find-layers-tagged img lstL "isolated"))
       (when (> (vector-length tgdLst) 0)
@@ -59,7 +67,6 @@ To download the required utility plug-in [**set-items-visibility**](https://gith
         (if debug (gimp-message " image in isolation mode ")) 
         (if (= (number-lists-match tgdLst drwbles) 1) (set! changed 0))
       )
-
       ; exit isolated mode and enter a new one if user selection has changed
       (when (= isolated 1)
         (revert-layer img lstL types)
@@ -67,18 +74,15 @@ To download the required utility plug-in [**set-items-visibility**](https://gith
         (if debug (gimp-message " exit isolation mode "))
         )
       )
-
       ; create a new isolation mode
       (when (= isolated 0)
         (if debug (gimp-message " isolation mode "))
-
         ; isolate and tag selected layers
         (set! isoPLst (isolate-selected-layers img drwbles))
 
         ; hide and process all the other layers
         (hide-layers img drwbles lstL isoPLst)
       )
-
       ; unlock the plugins
       (plugin-set-lock "isolateSelected" 0)
       (plugin-set-lock "exitIsolation" 0)
@@ -87,6 +91,7 @@ To download the required utility plug-in [**set-items-visibility**](https://gith
     )
 
     (gimp-image-undo-group-end img)
+    (print "end script-fu-isolateSelected")
   )
 )
 
@@ -119,7 +124,9 @@ To download the required utility plug-in [**set-items-visibility**](https://gith
     (set! visLst (list->vector visLst))
 
     ;Experimental plug-in, hide all the list in one pass
-    (pm-set-items-visibility 1 img (vector-length visLst) visLst 0)
+    (if (> (vector-length visLst) 0)
+      (pm-set-items-visibility 1 img (vector-length visLst) visLst 0)
+    )
 
   )
 )
@@ -185,7 +192,9 @@ To download the required utility plug-in [**set-items-visibility**](https://gith
           )
         )
       )
-      (pm-set-items-visibility 1 img (vector-length isoLst) isoLst 1)
+      (if (> (vector-length isoLst) 0)
+        (pm-set-items-visibility 1 img (vector-length isoLst) isoLst 1)
+      )
     )
 
     isoPLst
@@ -298,9 +307,14 @@ To download the required utility plug-in [**set-items-visibility**](https://gith
       ;(gimp-item-set-visible actL vis)
       (set! i (+ i 1))
     )
-
+      (gimp-message (string-append " lstL -> " 
+              (number->string (vector-lengthlstL))
+              )
+      )
     ;Experimental plug-in
-    (pm-set-items-visibility 1 img (vector-length lstL) lstL vis)
+    (if (> (vector-length lstL) 0)
+      (pm-set-items-visibility 1 img (vector-length lstL) lstL vis)
+    )
 
     ;return the list of stored visibility states
     vLst
@@ -616,8 +630,12 @@ To download the required utility plug-in [**set-items-visibility**](https://gith
     (set! hLst (list->vector hLst))
 
     ; final pass - restore visibility for tagged layers
-    (pm-set-items-visibility 1 img (vector-length vLst) vLst 1)
-    (pm-set-items-visibility 1 img (vector-length hLst) hLst 0)
+    (if (> (vector-length vLst) 0)
+      (pm-set-items-visibility 1 img (vector-length vLst) vLst 1)
+    )
+    (if (> (vector-length hLst) 0)
+      (pm-set-items-visibility 1 img (vector-length hLst) hLst 0)
+    )
 
   )
 )
@@ -816,9 +834,14 @@ To download the required utility plug-in [**set-items-visibility**](https://gith
       ;(gimp-item-set-visible actL vis)
       (set! i (+ i 1))
     )
-
+      (gimp-message (string-append " lstL -> " 
+              (number->string (vector-lengthlstL))
+              )
+      )
     ;Experimental plug-in
-    (pm-set-items-visibility 1 img (vector-length lstL) lstL vis)
+    (if (> (vector-length lstL) 0)
+      (pm-set-items-visibility 1 img (vector-length lstL) lstL vis)
+    )
 
     ;return the list of stored visibility states
     vLst
@@ -935,8 +958,12 @@ To download the required utility plug-in [**set-items-visibility**](https://gith
     (set! hLst (list->vector hLst))
 
     ; final pass - restore visibility for tagged layers
-    (pm-set-items-visibility 1 img (vector-length vLst) vLst 1)
-    (pm-set-items-visibility 1 img (vector-length hLst) hLst 0)
+    (if (> (vector-length vLst) 0)
+      (pm-set-items-visibility 1 img (vector-length vLst) vLst 1)
+    )
+    (if (> (vector-length hLst) 0)
+      (pm-set-items-visibility 1 img (vector-length hLst) hLst 0)
+    )
 
   )
 )

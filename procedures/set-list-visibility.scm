@@ -13,9 +13,14 @@
       ;(gimp-item-set-visible actL vis)
       (set! i (+ i 1))
     )
-
+      (gimp-message (string-append " lstL -> " 
+              (number->string (vector-lengthlstL))
+              )
+      )
     ;Experimental plug-in
-    (pm-set-items-visibility 1 img (vector-length lstL) lstL vis)
+    (if (> (vector-length lstL) 0)
+      (pm-set-items-visibility 1 img (vector-length lstL) lstL vis)
+    )
 
     ;return the list of stored visibility states
     vLst

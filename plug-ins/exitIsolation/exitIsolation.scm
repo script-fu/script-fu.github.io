@@ -127,9 +127,14 @@
       ;(gimp-item-set-visible actL vis)
       (set! i (+ i 1))
     )
-
+      (gimp-message (string-append " lstL -> " 
+              (number->string (vector-lengthlstL))
+              )
+      )
     ;Experimental plug-in
-    (pm-set-items-visibility 1 img (vector-length lstL) lstL vis)
+    (if (> (vector-length lstL) 0)
+      (pm-set-items-visibility 1 img (vector-length lstL) lstL vis)
+    )
 
     ;return the list of stored visibility states
     vLst
@@ -246,8 +251,12 @@
     (set! hLst (list->vector hLst))
 
     ; final pass - restore visibility for tagged layers
-    (pm-set-items-visibility 1 img (vector-length vLst) vLst 1)
-    (pm-set-items-visibility 1 img (vector-length hLst) hLst 0)
+    (if (> (vector-length vLst) 0)
+      (pm-set-items-visibility 1 img (vector-length vLst) vLst 1)
+    )
+    (if (> (vector-length hLst) 0)
+      (pm-set-items-visibility 1 img (vector-length hLst) hLst 0)
+    )
 
   )
 )

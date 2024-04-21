@@ -40,8 +40,12 @@
     (set! hLst (list->vector hLst))
 
     ; final pass - restore visibility for tagged layers
-    (pm-set-items-visibility 1 img (vector-length vLst) vLst 1)
-    (pm-set-items-visibility 1 img (vector-length hLst) hLst 0)
+    (if (> (vector-length vLst) 0)
+      (pm-set-items-visibility 1 img (vector-length vLst) vLst 1)
+    )
+    (if (> (vector-length hLst) 0)
+      (pm-set-items-visibility 1 img (vector-length hLst) hLst 0)
+    )
 
   )
 )
