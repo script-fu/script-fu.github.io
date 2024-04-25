@@ -46,7 +46,7 @@
  "*"
  SF-ONE-OR-MORE-DRAWABLE
  SF-STRING "file prefix" "layer"
- SF-STRING "name of storage folder" "exported-layers"
+ SF-DIRNAME "label" "/var/tmp/images"
 )
 (script-fu-menu-register "script-fu-layer-export-jpeg" "<Image>/File")
 
@@ -130,20 +130,20 @@
 
     (if debug (gimp-message (string-append " exporting : " exportName)))
 
-    (file-jpeg-save 1
-                    img
-                    1 ;number of drawables to save
-                    (cadr(gimp-image-get-selected-layers img))
-                    exportName
-                    quality
-                    0 ;smoothing
-                    1 ;optimise
-                    1 ;progressive
-                    0 ; cmyk softproofing
-                    2 ;subsampling 4:4:4
-                    1 ;baseline
-                    0 ;restart markers
-                    0 ; dct integer
+    (file-jpeg-export 1
+                      img
+                      1 ;number of drawables to save
+                      (cadr(gimp-image-get-selected-layers img))
+                      exportName
+                      quality
+                      0 ;smoothing
+                      1 ;optimise
+                      1 ;progressive
+                      0 ; cmyk softproofing
+                      2 ;subsampling 4:4:4
+                      1 ;baseline
+                      0 ;restart markers
+                      0 ; dct integer
     )
   )
 

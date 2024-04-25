@@ -1,8 +1,8 @@
 ## Export All Layers as Jpegs
 
-# * Tested in GIMP 2.99.17 *
+# * Tested in GIMP source 2.99.19, latest version only for 2.99.19 onwards *
 
-This exports all the layers as jpegs to a specified folder in your 'Home' directory in Linux or 'User' directory in Windows.
+This exports all the layers as jpegs to a specified folder.
 
 I use it to quickly export all the cropped and scaled screengrabs that I opened as layers in GIMP. Youtube demo [here.](https://youtu.be/ezrWiDJjkRs)
 
@@ -60,7 +60,7 @@ In Linux, set the file to be executable.
  "*"
  SF-ONE-OR-MORE-DRAWABLE
  SF-STRING "file prefix" "layer"
- SF-STRING "name of storage folder" "exported-layers"
+ SF-DIRNAME "label" "/var/tmp/images"
 )
 (script-fu-menu-register "script-fu-layer-export-jpeg" "<Image>/File")
 
@@ -144,20 +144,20 @@ In Linux, set the file to be executable.
 
     (if debug (gimp-message (string-append " exporting : " exportName)))
 
-    (file-jpeg-save 1
-                    img
-                    1 ;number of drawables to save
-                    (cadr(gimp-image-get-selected-layers img))
-                    exportName
-                    quality
-                    0 ;smoothing
-                    1 ;optimise
-                    1 ;progressive
-                    0 ; cmyk softproofing
-                    2 ;subsampling 4:4:4
-                    1 ;baseline
-                    0 ;restart markers
-                    0 ; dct integer
+    (file-jpeg-export 1
+                      img
+                      1 ;number of drawables to save
+                      (cadr(gimp-image-get-selected-layers img))
+                      exportName
+                      quality
+                      0 ;smoothing
+                      1 ;optimise
+                      1 ;progressive
+                      0 ; cmyk softproofing
+                      2 ;subsampling 4:4:4
+                      1 ;baseline
+                      0 ;restart markers
+                      0 ; dct integer
     )
   )
 
