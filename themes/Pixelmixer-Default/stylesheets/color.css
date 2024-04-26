@@ -102,7 +102,7 @@ button:not(:checked):hover,
 GimpDock header tab:not(:checked):hover,
 dialog header tab:not(:checked):hover {
   color:                   @fg-dark-color;
-  background-color: @mid-high-hover-color;
+  background-color:     @mid-higher-color;
   border:                       solid 2px;
   border-color:              @shade-color;
 }

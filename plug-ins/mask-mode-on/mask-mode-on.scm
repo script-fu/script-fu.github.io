@@ -3,6 +3,8 @@
 ; Use additional plugin "Mask Mode Off" to disable.
 
 
+(define debug #f)
+
 (define (script-fu-mask-mode-on img)
   (let*
     (
@@ -10,10 +12,11 @@
       (forceBW 1) ; forxes the foreground to be either black or white
       (mmPID 0)(pIDf 0)(actL 0)(msk 0)(colLst 0)(col 6)(fG 0)
     )
-
+    
     ; set foreground colour to white, background to black
     (gimp-context-set-default-colors)
     (gimp-context-swap-colors)
+    (gimp-progress-end)
 
     ; if mask-mode is not on
     (when (= (mask-mode-active "mask-mode-pid") 0)
@@ -51,11 +54,10 @@
 
       (restore-all-layer-colors img colLst)
 
-      (if debug
-        (if(= (mask-mode-match-pid "mask-mode-pid" mmPID) 0)
-          (gimp-message" mask-mode is now off ")
-        )
+      (if(= (mask-mode-match-pid "mask-mode-pid" mmPID) 0)
+        (gimp-message" mask-mode is now off ")
       )
+
 
     )
 
@@ -122,8 +124,6 @@
     fndPID
   )
 )
-
-(define debug #f)
 
 (script-fu-register "script-fu-mask-mode-on"
  "Mask Mode On" 

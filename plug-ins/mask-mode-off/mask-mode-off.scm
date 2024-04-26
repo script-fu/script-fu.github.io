@@ -1,6 +1,8 @@
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
 ; Under GNU GENERAL PUBLIC LICENSE Version 3"
 
+(define debug #f)
+
 (define (script-fu-mask-mode-off)
   (let*
     (
@@ -25,7 +27,6 @@
   )
 )
 
-(define debug #f)
 
 (script-fu-register "script-fu-mask-mode-off"
  "Mask Mode Off "
