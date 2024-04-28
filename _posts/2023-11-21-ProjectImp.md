@@ -89,6 +89,7 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 - Interface -> Layer Stack -> Shows the layer stack blending mode box
 - Playground -> Insane Options -> GIMP quits without any warning dialog
 - Image Windows -> Zoom and Resize Behaviour -> Initial zoom percentage
+- Folders -> Save asset changes on exit, to stop GIMP autosaving asset changes
 
 ## Misc
 - The error console doesn't shout the same warning at the user with every message
@@ -102,3 +103,4 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 - Less .00 and .0 on GUI sliders
 - Lock all guide positions in an image per session
 - NDE option on filters to allow it to be turned off
+- A 'Save Now' button for Tool Presets, Brushes, Palettes, Dynamics and Gradients

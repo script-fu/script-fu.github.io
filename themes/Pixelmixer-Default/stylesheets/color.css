@@ -111,9 +111,9 @@ dialog header tab:not(:checked):hover {
 button:checked:hover,
 GimpDock header tab:checked:hover,
 dialog header tab:checked:hover {
-  background-color: @mid-highest-color;
-  border:                    solid 2px;
-  border-color:           @light-color;
+  background-color: @mid-highest-hover-color;
+  border:                          solid 2px;
+  border-color:                 @light-color;
 }
 
 /* Clicked, highest contrast */
