@@ -56,6 +56,7 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 - A higher quality implementation of the 'Force' attribute is available to select 
 - Smooth Stroke has an option to smooth brush angles, in Additional options.
 - Directional change of the brush is much more sensitive
+- Fixed: Tablet buttons Touch Ring were causing glitches when painting using dynamics.
 
 ## Paths
 - Paths are softly drawn, with more alpha
