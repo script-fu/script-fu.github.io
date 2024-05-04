@@ -1,3 +1,7 @@
 {
- "editor.wordWrap": "off"
+"editor.wordWrap": "off",
+"cSpell.words": [
+  "behaviour",
+  "dockable"
+]
 }
