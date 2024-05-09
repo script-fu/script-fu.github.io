@@ -1,6 +1,8 @@
-# Free Script-Fu Plugins and Themes Made For GIMP 3, Developement version, 2.99.16
+# Free Script-Fu Plugins and Themes Made For GIMP 3
 
 These plugins are to help me make illustrations in GIMP, I hope they can help you make your own tools. The themes are to make the working environment look and feel just how I like it, maybe you'll like them too. 
+
+Some plugins will only work in the very latest source built version of GIMP. There have been many changes to the developement version recently. As this repo is my backup for scripts, some plug-ins change as GIMP changes, and will no longer function in earlier versions, even in the latest Flatpak versions.
 
 [GNU GENERAL PUBLIC LICENSE Version 3](https://github.com/script-fu/script-fu.github.io/blob/main/LICENSE)
 

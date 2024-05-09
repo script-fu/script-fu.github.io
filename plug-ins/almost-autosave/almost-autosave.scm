@@ -61,17 +61,17 @@
           (set! img (vector-ref (cadr imgLst) i))
 
           ; Test freeze and thaw 
-          (gimp-image-undo-freeze img)
+          ; (gimp-image-undo-freeze img)
 
           (when (and (not(= img imgOn))(> (car (gimp-image-id-is-valid img))0))
             (if (> (car (gimp-image-is-dirty img)) 0)
               (incremental-save img save-location (number->string incr) quiet)
             )
           )
-
+ 
           ; Test freeze and thaw 
-          (gimp-image-undo-thaw img)
-
+          ; (gimp-image-undo-thaw img)
+          (gimp-progress-end)
           (set! i (+ i 1))
         )
 
@@ -143,7 +143,7 @@
     (make-dir-path (string-append "/" fPth "/" fNoExt))
     (set! sNme (string-append fPth "/" fNoExt "/" "autosave_" incr ".xcf" ))
     (set! selDraw(cadr(gimp-image-get-selected-layers img)))
-    (gimp-xcf-save 0 img 0 selDraw sNme)
+    (gimp-xcf-save 0 img sNme)
     (if (not(= quiet 1))(gimp-message(string-append" >>> "sNme)))
 
   )

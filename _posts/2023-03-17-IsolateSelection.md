@@ -308,7 +308,7 @@ To download the required utility plug-in [**set-items-visibility**](https://gith
       (set! i (+ i 1))
     )
       (gimp-message (string-append " lstL -> " 
-              (number->string (vector-lengthlstL))
+              (number->string (vector-length lstL))
               )
       )
     ;Experimental plug-in
@@ -835,7 +835,7 @@ To download the required utility plug-in [**set-items-visibility**](https://gith
       (set! i (+ i 1))
     )
       (gimp-message (string-append " lstL -> " 
-              (number->string (vector-lengthlstL))
+              (number->string (vector-length lstL))
               )
       )
     ;Experimental plug-in

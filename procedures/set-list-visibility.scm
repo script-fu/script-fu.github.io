@@ -14,7 +14,7 @@
       (set! i (+ i 1))
     )
       (gimp-message (string-append " lstL -> " 
-              (number->string (vector-lengthlstL))
+              (number->string (vector-length lstL))
               )
       )
     ;Experimental plug-in

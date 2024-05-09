@@ -14,9 +14,10 @@
     )
     
     ; set foreground colour to white, background to black
+    (gimp-progress-end)
     (gimp-context-set-default-colors)
     (gimp-context-swap-colors)
-    (gimp-progress-end)
+   
 
     ; if mask-mode is not on
     (when (= (mask-mode-active "mask-mode-pid") 0)

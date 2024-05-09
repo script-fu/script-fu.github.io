@@ -132,18 +132,16 @@
 
     (file-jpeg-export 1
                       img
-                      1 ;number of drawables to save
-                      (cadr(gimp-image-get-selected-layers img))
                       exportName
                       quality
                       0 ;smoothing
                       1 ;optimise
                       1 ;progressive
                       0 ; cmyk softproofing
-                      2 ;subsampling 4:4:4
+                      "sub-sampling-1x1" ;subsampling 4:4:4
                       1 ;baseline
                       0 ;restart markers
-                      0 ; dct integer
+                      "integer" ; dct integer
     )
   )
 

@@ -127,7 +127,7 @@
     ; save the new image as the proxy source
     (make-dir-path dirPth)
     (set! selDraw (cadr (gimp-image-get-selected-layers prxImg)))
-    (gimp-xcf-save 0 prxImg 0 selDraw saveNme)
+    (gimp-xcf-save 0 prxImg saveNme)
 
     ; record the image size when the proxy was created, delete the proxy source
     (save-layer-info img (string-append winPth brkTok sveInfo))
