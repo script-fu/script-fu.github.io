@@ -58,6 +58,7 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 - Smooth Stroke has an option to smooth brush angles, in Additional options.
 - Fixed: Tablet buttons Touch Ring were causing glitches when painting using dynamics.
 - A brush option to use a circle as a boundary, rather than a complex and twitching dynamic path.
+- Holding 'Alt' down when painting, toggles the paint mode to 'Erase'. 
 
 ## Paths
 
