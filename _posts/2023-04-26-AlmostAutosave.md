@@ -1,6 +1,6 @@
 ## Autosave Plugin
 
-# * Tested in GIMP source 2.99.19, latest version only for 2.99.19 onwards *
+# * Tested in GIMP source 2.99.19, latest source only, with a patch, for 2.99.19 onwards *
   
 Incrementally autosaves any images that have changed in the current session. You have to activate it **every** session, it _never_ deletes files, and _never_ saves over the open files. An image is created to show it's on, close it if you like, it still saves. It makes a storage folder relative to "home" for an easy clean up.  
   
@@ -41,7 +41,7 @@ In Linux, set the file to be executable.
     (
 
       ; *** tweak these numbers for user preference ***
-      (timeDelay 15) ; minutes between autosaves
+      (timeDelay 10) ; minutes between autosaves
       (increments 6) ; number of incremental saves
       (save-location "Autosaved"); will be saved in "home/Autosaved/"
       (quiet 0) ; set to 1 to stop any repeating saving messages
