@@ -2,7 +2,7 @@
 
 (define debug #f)
 
-(define (script-fu-new-layer-from-selection img drwbls name mde mskB mskW)
+(define (script-fu-new-layer-from-selection img drwbls name mde mskB mskW clr)
   (let*
     (
       (msk 0)(pVec 0)(pos 0)(actP 0)(actL (vector-ref drwbls 0))(wdth 0)(hgt 0)
@@ -36,7 +36,7 @@
     (gimp-context-set-foreground (list 70 70 70))
     (gimp-context-set-opacity 100)
     (gimp-image-insert-layer img actL actP pos)
-    (gimp-drawable-edit-fill actL FILL-FOREGROUND)
+    (if (= clr 0)(gimp-drawable-edit-fill actL FILL-FOREGROUND))
     (gimp-layer-set-composite-space actL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
     (when (= mskB 1)
       (gimp-layer-set-edit-mask actL (add-mask actL msk))
@@ -62,8 +62,9 @@
   SF-ONE-DRAWABLE
   SF-STRING     "name"   "newLayer"
   SF-TOGGLE     "multiply"             1
-  SF-TOGGLE     "add black mask"             1
-  SF-TOGGLE     "add white mask"             0
+  SF-TOGGLE     "add black mask"       1
+  SF-TOGGLE     "add white mask"       0
+  SF-TOGGLE     "transparent"          0
 )
 (script-fu-menu-register "script-fu-new-layer-from-selection" "<Image>/Layer")
 

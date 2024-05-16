@@ -59,6 +59,8 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 - Fixed: Tablet buttons Touch Ring were causing glitches when painting using dynamics.
 - A brush option to use a circle as a boundary, rather than a complex and twitching dynamic path.
 - Holding 'Alt' down when painting, toggles the paint mode to 'Erase'. 
+- A shortcut is available to toggle the paint tool to the erase tool, Tools -> Toggle Eraser
+- A shortcut is available to toggle the paint mode to 'Erase' Tools -> Paint Tools 
 
 ## Paths
 
