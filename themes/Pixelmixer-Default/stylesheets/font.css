@@ -91,8 +91,13 @@ spinbutton {
   font-style:  normal;
 }
 
-
-
+/* Checked, label */
+checkbutton:checked label,
+check:checked       label,
+radio:checked       label,
+radiobutton:checked label {
+  font-weight: bold;
+}
 
 /************************** DOCKABLES **************************/
 

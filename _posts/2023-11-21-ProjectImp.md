@@ -61,6 +61,7 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 - Holding 'Alt' down when painting, toggles the paint mode to 'Erase'. 
 - A shortcut is available to toggle the paint tool to the erase tool, Tools -> Toggle Eraser
 - A shortcut is available to toggle the paint mode to 'Erase' Tools -> Paint Tools 
+- When using a filter, GIMP changes the tool, in Imp, the old tool is restored after the filter ends.
 
 ## Paths
 
