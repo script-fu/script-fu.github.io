@@ -55,13 +55,15 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 - The brush aspect ratio dynamic works in a linear way, a more natural response
 - Pick and snap to path option, pick a path and automatically snap the brush to it whilst painting
 - A higher quality implementation of the 'Force' attribute is available to select 
-- Smooth Stroke has an option to smooth brush angles, in Additional options.
-- Fixed: Tablet buttons Touch Ring were causing glitches when painting using dynamics.
-- A brush option to use a circle as a boundary, rather than a complex and twitching dynamic path.
-- Holding 'Alt' down when painting, toggles the paint mode to 'Erase'. 
+- Smooth Stroke has an option to smooth brush angles, in Additional options
+- Fixed: Tablet buttons Touch Ring were causing glitches when painting using dynamics
+- A brush option to use a circle as a boundary, rather than a complex dynamic path
+- Holding 'Alt' down when painting, toggles the paint mode to 'Erase'
 - A shortcut is available to toggle the paint tool to the erase tool, Tools -> Toggle Eraser
 - A shortcut is available to toggle the paint mode to 'Erase' Tools -> Paint Tools 
-- When using a filter, GIMP changes the tool, in Imp, the old tool is restored after the filter ends.
+- Toggling to erase paint mode or the eraser tool is context sensitive, erase always toggles to paint
+- Ctrl picking a colour in eraser mode changes the tool and paint mode ready to paint again
+- When using a filter, GIMP changes the tool, in Imp, the old tool is restored after the filter ends
 
 ## Paths
 
@@ -81,6 +83,7 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 
 - Help System -> General -> Preferences -> Help System -> General -> Show tool tips
 - Tool Options -> Paint Options -> Keep the paint mode box at the top of the options
+- Tool Options -> Paint Options -> Change the tool and paint mode after color picking
 - Tool Options -> Paint Options -> Show link to brush default buttons, to hide those buttons
 - Tool Options -> Paint Options -> Show reset to brush default buttons, to hide those buttons
 - Tool Options -> Brush Options Sliders -> Pick and choose which sliders are visible at top level
@@ -96,7 +99,7 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 - Interface -> Layer Stack -> Shows the layer stack blending mode box
 - Playground -> Insane Options -> GIMP quits without any warning dialog
 - Image Windows -> Zoom and Resize behaviour -> Initial zoom percentage
-- Folders -> Save asset changes on exit, to stop GIMP autosaving asset changes
+- Folders -> Save asset changes on exit, to stop GIMP auto-saving asset changes
 
 ## Misc
 
@@ -111,4 +114,5 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 - Less .00 and .0 on GUI sliders
 - Lock all guide positions in an image per session
 - NDE option on filters to allow it to be turned off
-- A 'Save Now' button for Tool Presets, Brushes, Palettes, Dynamics and Gradients
+- A 'Save' button for Tool Presets, Brushes, Palettes, Dynamics and Gradients that saves on the press.
+- A 'Save Package' button for Tool Presets that saves all preset elements on the press
