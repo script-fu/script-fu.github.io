@@ -64,6 +64,7 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 - Toggling to erase paint mode or the eraser tool is context sensitive, erase always toggles to paint
 - Ctrl picking a colour in eraser mode changes the tool and paint mode ready to paint again
 - When using a filter, GIMP changes the tool, in Imp, the old tool is restored after the filter ends
+- Pressing Alt when painting, picks the layer under the cursor with a picked location indicator
 
 ## Paths
 
@@ -104,6 +105,7 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 ## Misc
 
 - The error console doesn't shout the same warning at the user with every message
+- An experimental 'Layer Group Warp' button, warps all the layers in a group folder, not undoable yet
 - The Warp Tool warns the user that the next undo will cancel the warp 
 - If the Warp Tool is in 'Erase Mode' when the tool changes, then the mode is switched to 'Move'
 - The Warp tool always warps, if it can't 'Erase' or 'Smooth' it switches to 'Move'
