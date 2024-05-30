@@ -1,17 +1,26 @@
 # Project Imp
 
-This is a 'GitLab' branch of GIMP, it is my stable working version of GIMP Dev. Where all the Script-Fu plug-ins here, should work. It also applies all the changes I've made to that version via 'C' code. If you're able to build GIMP locally already, then you should be able to fetch and switch to the Imp branch, and build Imp the same way you build GIMP. 
+This is a 'GitLab' branch of GIMP, it is my stable working version of GIMP Dev. Where all the Script-Fu plug-ins here, should work. It also applies all the changes I've made to that version via 'C' code. If you're able to build GIMP locally already, then you should be able to fetch and switch to the Imp branch, and build Imp the same way you build GIMP. Imp is designed to be used at 4K, with options for larger Tool buttons and icon scaling that works for nearly all GUI elements.
 
-**Use at your own risk, it's not GIMP stable. I might be a hacker, I could be double bluffing.
-Please make a backup of your 'gimprc, 'shortcutrc', 'sessionrc' and 'toolsrc' put them somewhere safe.** They can get messed up when switching between Imp and GIMP. Imp has some extra preferences, I have also coded Imp to use a different .config folder called 'Imp'.
+**Use at your own risk**, it's _not_ GIMP stable. When working in Imp I use [incremental saving](https://script-fu.github.io/2024/05/16/IncrementalSave.html) and an [auto-save](https://script-fu.github.io/2023/04/26/AlmostAutosave.html). Imp is hardcoded to use a different .config folder called 'Imp'.
 
 GitLab repo branch for [Imp](https://gitlab.gnome.org/pixelmixer/gimp-plugins/-/tree/Imp?ref_type=heads)
 
-```sh
+```bash
+# Step 1: Set upstream remote URL to pixelmixer/gimp-plugins.git
 git remote set-url upstream git@ssh.gitlab.gnome.org:pixelmixer/gimp-plugins.git
+
+# Step 2: Fetch the Imp branch from upstream and create/update the local Imp branch
 git fetch upstream Imp:Imp
-git remote set-url upstream git@ssh.gitlab.gnome.org:GNOME/gimp.git
+
+# Step 3: Check out the local Imp branch
 git checkout Imp
+
+# Step 4: Reset the local Imp branch to match the upstream Imp branch
+git reset --hard upstream/Imp
+
+# Step 5: Set upstream remote URL back to GNOME/gimp.git
+git remote set-url upstream git@ssh.gitlab.gnome.org:GNOME/gimp.git
 ```
 
 Then build Imp like you would the Dev GIMP version. Imp is only possible with the good work of the GIMP developers, they make it feasible for an amateur to flavour the ice-cream. **Please support the GIMP Project anyway you can, testing, promoting or coding.** 
@@ -22,7 +31,7 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 
 ## Additional Features
 
-- Includes additional themes, custom CSS themes to enhance the GIMP GUI
+- Includes additional, custom CSS themes to enhance the GIMP GUI, especially at 4K
 - Default
 - Warm
 - High Contrast
@@ -105,7 +114,7 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 ## Misc
 
 - The error console doesn't shout the same warning at the user with every message
-- An experimental 'Layer Group Warp' button, warps all the layers in a group folder, not undoable yet
+- [Layer Group Warping](https://youtu.be/FIWIP47qcHs) is implemented via a proxy warp layer
 - The Warp Tool warns the user that the next undo will cancel the warp 
 - If the Warp Tool is in 'Erase Mode' when the tool changes, then the mode is switched to 'Move'
 - The Warp tool always warps, if it can't 'Erase' or 'Smooth' it switches to 'Move'
