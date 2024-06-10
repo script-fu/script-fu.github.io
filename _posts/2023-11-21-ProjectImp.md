@@ -115,6 +115,7 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 
 - The error console doesn't shout the same warning at the user with every message
 - [Layer Group Warping](https://youtu.be/FIWIP47qcHs) is implemented via a proxy warp layer
+- Layer Group Warping also allows sub folder layers and layer masks to be warped in one pass
 - The Warp Tool warns the user that the next undo will cancel the warp 
 - If the Warp Tool is in 'Erase Mode' when the tool changes, then the mode is switched to 'Move'
 - The Warp tool always warps, if it can't 'Erase' or 'Smooth' it switches to 'Move'

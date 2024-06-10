@@ -129,4 +129,4 @@
  "2023"
  ""
 )
-(script-fu-menu-register "script-fu-debug-examples" "<Image>/Fu-Plugin")
+(script-fu-menu-register "script-fu-debug-examples" "<Image>/Plugin")

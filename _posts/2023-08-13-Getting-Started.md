@@ -29,10 +29,10 @@ The bare essentials of a Script-Fu plugin for GIMP 3 are described below.
   SF-ONE-OR-MORE-DRAWABLE
 )
 
-(script-fu-menu-register "script-fu-basic-plugin" "<Image>/Fu-Plugin")
+(script-fu-menu-register "script-fu-basic-plugin" "<Image>/Plugin")
 ```
 
-Copy the text and save as _basic-plugin.scm_ in a folder called _basic-plugin_ in a GIMP plugins folder. A GIMP plugins folder is _any_ folder included in _GIMP->Edit->Preferences->Folders->Plug-ins_. Once installed it will appear in a new menu called Fu-Plugin.  
+Copy the text and save as _basic-plugin.scm_ in a folder called _basic-plugin_ in a GIMP plugins folder. A GIMP plugins folder is _any_ folder included in _GIMP->Edit->Preferences->Folders->Plug-ins_. Once installed it will appear in a new menu called Plugin.  
 
 <sub>The first line makes the script work as a plugin in GIMP 3</sub>
 
@@ -80,7 +80,7 @@ Copy the text and save as _basic-plugin.scm_ in a folder called _basic-plugin_ i
 <sub>The plugin is registered with GIMP for a menu location</sub>
 
 ```scheme
-(script-fu-menu-register "script-fu-basic-plugin" "<Image>/Fu-Plugin")
+(script-fu-menu-register "script-fu-basic-plugin" "<Image>/Plugin")
 ```
 
 ## Shorter Variable Names
@@ -112,7 +112,7 @@ The same plugin can be given made more concise with shorter variable names.  Whi
   SF-ONE-OR-MORE-DRAWABLE
 )
 
-(script-fu-menu-register "script-fu-basic-plugin" "<Image>/Fu-Plugin")
+(script-fu-menu-register "script-fu-basic-plugin" "<Image>/Plugin")
 ```
 
 ## Without a let* Statement
@@ -134,7 +134,7 @@ In this case we don't really need the _(let*)_  statement scope, variables or th
   SF-ONE-OR-MORE-DRAWABLE
 )
 
-(script-fu-menu-register "script-fu-basic-plugin" "<Image>/Fu-Plugin")
+(script-fu-menu-register "script-fu-basic-plugin" "<Image>/Plugin")
 
 ```
 
@@ -153,7 +153,7 @@ If you don't need an image or layers to work on, we can define the most basic pl
   "Author Name" "License" "Date written" ""
 )
 
-(script-fu-menu-register "script-fu-basic-plugin" "<Image>/Fu-Plugin")
+(script-fu-menu-register "script-fu-basic-plugin" "<Image>/Plugin")
 ```
 
 ## Four Lines
@@ -164,5 +164,5 @@ A four line plugin is all you need to get started writing your own tools.
 #!/usr/bin/env gimp-script-fu-interpreter-3.0
 (define (script-fu-basic-plugin) (gimp-message " hello world "))
 (script-fu-register "script-fu-basic-plugin" "Basic" "test" "me" "free" "2023" "")
-(script-fu-menu-register "script-fu-basic-plugin" "<Image>/Fu-Plugin")
+(script-fu-menu-register "script-fu-basic-plugin" "<Image>/Plugin")
 ```

@@ -138,4 +138,4 @@
   SF-ONE-DRAWABLE
   SF-STRING     "filename"   "mydata"
 )
-(script-fu-menu-register "script-fu-dataFile" "<Image>/Fu-Plugin")
+(script-fu-menu-register "script-fu-dataFile" "<Image>/Plugin")

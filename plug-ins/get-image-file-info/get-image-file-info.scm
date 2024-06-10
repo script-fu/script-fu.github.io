@@ -34,7 +34,7 @@
  "*"
  SF-ONE-OR-MORE-DRAWABLE
 )
-(script-fu-menu-register "script-fu-get-image-file-info" "<Image>/Fu-Plugin")
+(script-fu-menu-register "script-fu-get-image-file-info" "<Image>/Plugin")
 
 ; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
 

@@ -30,7 +30,7 @@ Seems to like only creating one directory at a time so I put it in a wrapper.
  SF-STRING      "path"   "/my/new/directory"
 )
 
-(script-fu-menu-register "makeDir" "<Image>/Fu-Plugin")
+(script-fu-menu-register "makeDir" "<Image>/Plugin")
 
 ; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
 

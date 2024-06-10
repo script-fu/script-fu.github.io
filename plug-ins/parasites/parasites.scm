@@ -85,7 +85,7 @@
   "*"
  SF-ONE-DRAWABLE
 )
-(script-fu-menu-register "script-fu-parasites" "<Image>/Fu-Plugin")
+(script-fu-menu-register "script-fu-parasites" "<Image>/Plugin")
 ; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
 
 ; utility functions

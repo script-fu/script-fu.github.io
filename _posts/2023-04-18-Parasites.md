@@ -37,7 +37,7 @@ caddar is a Scheme, the programming language Script-fu is based on, short-cut fo
   
   
   
-The plug-in should appear in a Fu-Plugin menu.  
+The plug-in should appear in a Plugin menu.  
   
 To download [**parasites.scm**](https://raw.githubusercontent.com/script-fu/script-fu.github.io/main/plug-ins/parasites/parasites.scm)  
 ...follow the link, right click the page, Save as parasites.scm, in a folder called parasites, in a GIMP plug-ins location.  In Linux, set the file to be executable.
@@ -132,7 +132,7 @@ To download [**parasites.scm**](https://raw.githubusercontent.com/script-fu/scri
   "*"
  SF-ONE-DRAWABLE
 )
-(script-fu-menu-register "script-fu-parasites" "<Image>/Fu-Plugin")
+(script-fu-menu-register "script-fu-parasites" "<Image>/Plugin")
 ; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
 
 ; utility functions

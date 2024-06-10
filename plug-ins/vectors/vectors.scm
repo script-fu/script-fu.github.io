@@ -62,7 +62,7 @@
  "2023"
  ""
 )
-(script-fu-menu-register "script-fu-vectors" "<Image>/Fu-Plugin")
+(script-fu-menu-register "script-fu-vectors" "<Image>/Plugin")
 
 ; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
 

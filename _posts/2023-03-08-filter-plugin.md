@@ -42,5 +42,5 @@ by using a new type of script-fu register, *script-fu-register-filter*
   ;SF-ONE-DRAWABLE ;  limit the plug-in to a single selected drawable
   SF-ONE-OR-MORE-DRAWABLE  ; allow user to select many drawables 
 )
-(script-fu-menu-register "script-fu-selectedDrawables" "<Image>/Fu-Plugin")
+(script-fu-menu-register "script-fu-selectedDrawables" "<Image>/Plugin")
 ```

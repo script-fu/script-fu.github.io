@@ -54,4 +54,4 @@
   "*"
   SF-ONE-DRAWABLE
 )
-(script-fu-menu-register "script-fu-pluginLock" "<Image>/Fu-Plugin")
+(script-fu-menu-register "script-fu-pluginLock" "<Image>/Plugin")

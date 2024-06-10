@@ -68,5 +68,5 @@ based on reading a file system data file, maybe there's a better way?
   "*"
   SF-ONE-DRAWABLE
 )
-(script-fu-menu-register "script-fu-pluginLock" "<Image>/Fu-Plugin")
+(script-fu-menu-register "script-fu-pluginLock" "<Image>/Plugin")
 ```

@@ -148,5 +148,5 @@ When you need to store and retrieve data, write it to a file.
   SF-ONE-DRAWABLE
   SF-STRING     "filename"   "mydata"
 )
-(script-fu-menu-register "script-fu-dataFile" "<Image>/Fu-Plugin")
+(script-fu-menu-register "script-fu-dataFile" "<Image>/Plugin")
 ```

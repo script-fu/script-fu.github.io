@@ -24,4 +24,4 @@
  "2023"
  ""
 )
-(script-fu-menu-register "script-fu-helloWorld" "<Image>/Fu-Plugin")
+(script-fu-menu-register "script-fu-helloWorld" "<Image>/Plugin")
