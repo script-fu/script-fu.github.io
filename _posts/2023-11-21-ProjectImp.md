@@ -31,7 +31,7 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 
 ## Additional Features
 
-- Includes additional, custom CSS themes to enhance the GIMP GUI, especially at 4K
+- Includes additional, custom CSS [themes](https://youtu.be/G1WA8flcy-0) to enhance the GIMP GUI, especially at 4K
 - Default
 - Warm
 - High Contrast
@@ -46,7 +46,7 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 ## Painting
 
 - New design for the Paintbrush GUI
-- Paint dabbing, a particle system to create dabs of paint and much more
+- [Paint dabbing](https://youtu.be/02qgbsv0J4o), a particle system to create dabs of paint and much more
 - Smoothed brush pressure when using Smooth Stroke for good lines
 - The painting cursor is enhanced, it has a contact point for pressure brushes
 - There is a threshold pick option on brushes for mask painting, paint black or white
@@ -62,9 +62,9 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 - Additional options on apply tool presets, so that you can opt out of tool overwrites 
 - Brush aspect ratio goes from -1 to 1, 1 being full aspect, 0 being a sliver
 - The brush aspect ratio dynamic works in a linear way, a more natural response
-- Pick and snap to path option, pick a path and automatically snap the brush to it whilst painting
+- [Pick and snap to path option](https://youtu.be/f0mf1IGAkS0), pick a path and automatically snap the brush to it whilst painting
 - A higher quality implementation of the 'Force' attribute is available to select 
-- Smooth Stroke has an option to smooth brush angles, in Additional options
+- Smooth Stroke has an option to [smooth brush angles](https://youtu.be/yr1J40cQgYw), in Additional options
 - Fixed: Tablet buttons Touch Ring were causing glitches when painting using dynamics
 - A brush option to use a circle as a boundary, rather than a complex dynamic path
 - Holding 'Alt' down when painting, toggles the paint mode to 'Erase'
@@ -74,6 +74,7 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 - Ctrl picking a colour in eraser mode changes the tool and paint mode ready to paint again
 - When using a filter, GIMP changes the tool, in Imp, the old tool is restored after the filter ends
 - Pressing Alt when painting, picks the layer under the cursor with a picked location indicator
+- An option to [delay the start of the stroke](https://youtu.be/3TVY4u6XoSg) to avoid initial condition glitches
 
 ## Paths
 
@@ -114,8 +115,7 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 ## Misc
 
 - The error console doesn't shout the same warning at the user with every message
-- [Layer Group Warping](https://youtu.be/FIWIP47qcHs) is implemented via a proxy warp layer
-- Layer Group Warping also allows sub folder layers and layer masks to be warped in one pass
+- [Layer Group Warping](https://youtu.be/h1gpXi3VCw0) is implemented via a proxy warp layer
 - The Warp Tool warns the user that the next undo will cancel the warp 
 - If the Warp Tool is in 'Erase Mode' when the tool changes, then the mode is switched to 'Move'
 - The Warp tool always warps, if it can't 'Erase' or 'Smooth' it switches to 'Move'
