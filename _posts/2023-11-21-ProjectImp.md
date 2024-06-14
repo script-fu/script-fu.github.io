@@ -73,7 +73,7 @@ Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP
 - Toggling to erase paint mode or the eraser tool is context sensitive, erase always toggles to paint
 - Ctrl picking a colour in eraser mode changes the tool and paint mode ready to paint again
 - When using a filter, GIMP changes the tool, in Imp, the old tool is restored after the filter ends
-- Pressing Alt when painting, picks the layer under the cursor with a picked location indicator
+- [Colour Picker](https://youtu.be/dlbpdu8kk7Q) has an option to select the layer, useful for 'Ctrl' picking a layer when painting.
 - An option to [delay the start of the stroke](https://youtu.be/3TVY4u6XoSg) to avoid initial condition glitches
 
 ## Paths
