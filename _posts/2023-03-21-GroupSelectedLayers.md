@@ -19,7 +19,7 @@ To download [**layer-group.scm**](https://raw.githubusercontent.com/script-fu/sc
 (define (script-fu-layer-group img drwbles)
   (let*
     (
-      (addMask #t) ; puts a white mask on the group
+      (addMask #f) ; puts a white mask on the group
 
       (mde LAYER-MODE-PASS-THROUGH) ; LAYER-MODE-NORMAL ; LAYER-MODE-MULTIPLY
       (nme "groupName")
@@ -27,7 +27,6 @@ To download [**layer-group.scm**](https://raw.githubusercontent.com/script-fu/sc
       (numDraw (vector-length drwbles))(actL (vector-ref drwbles 0))
       (parent (car (gimp-item-get-parent actL)))(i (- numDraw 1))
       (pos (car (gimp-image-get-item-position img actL)))(grp 0)
-      
     )
 
     (gimp-image-undo-group-start img)
