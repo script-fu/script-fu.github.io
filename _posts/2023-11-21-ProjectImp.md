@@ -25,8 +25,6 @@ git remote set-url upstream git@ssh.gitlab.gnome.org:GNOME/gimp.git
 
 Then build Imp like you would the Dev GIMP version. Imp is only possible with the good work of the GIMP developers, they make it feasible for an amateur to flavour the ice-cream. **Please support the GIMP Project anyway you can, testing, promoting or coding.** 
 
-Here's a [**Flatpack**](https://github.com/script-fu/Imp) guide to building GIMP, and if you are willing to risk it, Imp.
-
 @pixelmixer
 
 ## Additional Features

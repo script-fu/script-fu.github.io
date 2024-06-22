@@ -1,4 +1,5 @@
 # A Guide for Building Flatpak Versions of GIMP
+#  OUT OF ORDER / BROKEN
 Here's how I learned to build a Flatpak version of a [GIMP source](https://gitlab.gnome.org/GNOME/gimp) code fork, from a specified branch. In this case, the branch is called ['Imp'](https://gitlab.gnome.org/pixelmixer/gimp-plugins/-/tree/Imp?ref_type=heads), and is an **unofficial**, personal version of GIMP. It also serves as an **example** of how you might build your own [Flatpak version of GIMP](https://www.gimp.org/downloads/).
 
 ## Why Flatpak?
