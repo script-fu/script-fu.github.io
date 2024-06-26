@@ -73,6 +73,9 @@ Then build Imp like you would the Dev GIMP version. Imp is only possible with th
 - When using a filter, GIMP changes the tool, in Imp, the old tool is restored after the filter ends
 - [Colour Picker](https://youtu.be/dlbpdu8kk7Q) has an option to select the layer, useful for 'Ctrl' picking a layer when painting.
 - An option to [delay the start of the stroke](https://youtu.be/3TVY4u6XoSg) to avoid initial condition glitches
+- [Velocity mapping](https://youtu.be/vj_kEOXggrE) instead of velocity clamping for more natural lines.
+- An option to have the pressure curve multiply the other dynamics, for line control.
+- An option to have the [fade curve multiply](https://youtu.be/qdDFZ9s7SCU) the other dynamics, for line control.
 
 ## Paths
 
