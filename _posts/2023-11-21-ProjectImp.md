@@ -57,7 +57,7 @@ Then build Imp like you would the Dev GIMP version. Imp is only possible with th
 - Paint Dynamics has an adjusted brush spacing function, slider value is MAX
 - Selecting a Tool preset, always restores the Tool and preset, even when already selected
 - Preference option to have a large FG/BG color picker on the toolbox
-- Additional options on apply tool presets, so that you can opt out of tool overwrites 
+- Additional options on apply tool presets, so that you can opt out of tool overwrites
 - Brush aspect ratio goes from -1 to 1, 1 being full aspect, 0 being a sliver
 - The brush aspect ratio dynamic works in a linear way, a more natural response
 - [Pick and snap to path option](https://youtu.be/f0mf1IGAkS0), pick a path and automatically snap the brush to it whilst painting
@@ -67,7 +67,7 @@ Then build Imp like you would the Dev GIMP version. Imp is only possible with th
 - A brush option to use a circle as a boundary, rather than a complex dynamic path
 - Holding 'Alt' down when painting, toggles the paint mode to 'Erase'
 - A shortcut is available to toggle the paint tool to the erase tool, Tools -> Toggle Eraser
-- A shortcut is available to toggle the paint mode to 'Erase' Tools -> Paint Tools 
+- A shortcut is available to toggle the paint mode to 'Erase' Tools -> Paint Tools
 - Toggling to erase paint mode or the eraser tool is context sensitive, erase always toggles to paint
 - Ctrl picking a colour in eraser mode changes the tool and paint mode ready to paint again
 - When using a filter, GIMP changes the tool, in Imp, the old tool is restored after the filter ends
@@ -76,6 +76,7 @@ Then build Imp like you would the Dev GIMP version. Imp is only possible with th
 - [Velocity mapping](https://youtu.be/vj_kEOXggrE) instead of velocity clamping for more natural lines.
 - An option to have the pressure curve multiply the other dynamics, for line control.
 - An option to have the [fade curve multiply](https://youtu.be/qdDFZ9s7SCU) the other dynamics, for line control.
+- An extra Brush Editor slider for adding [random spikes](https://youtu.be/QhHMNS39vrU)
 
 ## Paths
 
@@ -100,7 +101,7 @@ Then build Imp like you would the Dev GIMP version. Imp is only possible with th
 - Tool Options -> Paint Options -> Show reset to brush default buttons, to hide those buttons
 - Tool Options -> Brush Options Sliders -> Pick and choose which sliders are visible at top level
 - Tool Options -> Tool Preset Editor -> change the size of the tool preset icon
-- Snapping -> Snapping Distance, increase snapping distance range for active paths 
+- Snapping -> Snapping Distance, increase snapping distance range for active paths
 - Image Windows -> Path handle size, makes path handles bigger
 - Image Windows -> Curve editing handle size, makes adjustment curves easier to work with
 - Tools Options -> Show tag filtering, hide filter entry boxes and tagging input
@@ -129,3 +130,5 @@ Then build Imp like you would the Dev GIMP version. Imp is only possible with th
 - NDE option on filters to allow it to be turned off
 - A 'Save' button for Tool Presets, Brushes, Palettes, Dynamics and Gradients that saves on the press.
 - A 'Save Package' button for Tool Presets that saves all preset elements on the press
+- Pressing the Return key toggles the selected curve point type, for hard corners on dynamic graphs
+- No 'Reset Curve' button on the Dynamics editor, to avoid losing all curve data
