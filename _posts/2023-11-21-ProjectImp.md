@@ -72,6 +72,7 @@ Then build Imp like you would the Dev GIMP version. Imp is only possible with th
 - Ctrl picking a colour in eraser mode changes the tool and paint mode ready to paint again
 - When using a filter, GIMP changes the tool, in Imp, the old tool is restored after the filter ends
 - [Colour Picker](https://youtu.be/dlbpdu8kk7Q) has an option to select the layer, useful for 'Ctrl' picking a layer when painting.
+- Colour Picker has an extra option to [restore the layer](https://youtu.be/efK1VlweMZo) after picking from a layer
 - An option to [delay the start of the stroke](https://youtu.be/3TVY4u6XoSg) to avoid initial condition glitches
 - [Velocity mapping](https://youtu.be/vj_kEOXggrE) instead of velocity clamping for more natural lines.
 - An option to have the pressure curve multiply the other dynamics, for line control.
