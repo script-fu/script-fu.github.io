@@ -17,7 +17,7 @@
     (
 
       ; *** tweak these numbers for user preference ***
-      (timeDelay 10) ; minutes between autosaves
+      (timeDelay 5) ; minutes between autosaves
       (increments 6) ; number of incremental saves
       (save-location "Autosaved"); will be saved in "home/Autosaved/"
       (quiet 0) ; set to 1 to stop any repeating saving messages
@@ -60,7 +60,7 @@
         (while (< i (car imgLst))
           (set! img (vector-ref (cadr imgLst) i))
 
-          ; Test freeze and thaw 
+          ; Test freeze and thaw
           ; (gimp-image-undo-freeze img)
 
           (when (and (not(= img imgOn))(> (car (gimp-image-id-is-valid img))0))
@@ -68,8 +68,8 @@
               (incremental-save img save-location (number->string incr) quiet)
             )
           )
- 
-          ; Test freeze and thaw 
+
+          ; Test freeze and thaw
           ; (gimp-image-undo-thaw img)
           (gimp-progress-end)
           (set! i (+ i 1))
@@ -100,9 +100,9 @@
       (if debug (gimp-message " found proxy plugin file ")) ; debug
       (while (= (plugin-get-lock "proxy") 1)
         (when initial
-          (exit "  An auto-save lock is on, try deleting the 'proxy' text 
-                   file in your Home directory in Linux or your User directory 
-                   in Windows. 
+          (exit "  An auto-save lock is on, try deleting the 'proxy' text
+                   file in your Home directory in Linux or your User directory
+                   in Windows.
 
                    \nThen run the auto-save plug-in again."
           )
@@ -254,8 +254,8 @@
 
 
 (script-fu-register "script-fu-almost-autosave"
- "Almost Autosave" 
- "saves all open files incrementally, if the content has changed" 
+ "Almost Autosave"
+ "saves all open files incrementally, if the content has changed"
  "Mark Sweeney"
  "Under GNU GENERAL PUBLIC LICENSE Version 3"
  "2023"

@@ -3,7 +3,9 @@
 (define debug #f)
 
 ; a list of common names used for layers, add more "stuff"
-(define layerNames (list "new" "eyes" "face" "hair" "pants" "pupils" "jumper"
+(define layerNames (list "new" "eyes" "face" "neck" "hair" "pupils" "mouth" "brow"
+                         "nose" "fur"
+                         "jumper" "pants" "shorts" "dress" "skirt" "tongue"
                          "shoes" "socks" "t-shirt" "highlight" "background"
                          "sky" "ground" "stuff"
                    )
@@ -121,6 +123,9 @@
       (set! mask (car (gimp-layer-create-mask actL type)))
       (gimp-layer-add-mask actL mask)
       (set! mask (car (gimp-layer-get-mask actL)))
+      (if (equal? type ADD-MASK-WHITE)
+        (gimp-message "white")
+      )
     )
 
     mask

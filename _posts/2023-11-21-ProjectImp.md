@@ -55,7 +55,7 @@ Then build Imp like you would the Dev GIMP version. Imp is only possible with th
 - The Free Select tool has options for blocking in with the foreground color
 - Paint Dynamics has an adjusted and fixed velocity mapping
 - Paint Dynamics has an adjusted brush spacing function, slider value is MAX
-- Selecting a Tool preset, always restores the Tool and preset, even when already selected
+- Double clicking an already selected Tool Preset icon in a Grid View, restores that preset
 - Preference option to have a large FG/BG color picker on the toolbox
 - Additional options on apply tool presets, so that you can opt out of tool overwrites
 - Brush aspect ratio goes from -1 to 1, 1 being full aspect, 0 being a sliver
