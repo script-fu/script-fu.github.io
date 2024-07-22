@@ -64,6 +64,10 @@
 /* Certain Caret colors */
 @define-color caret-color             rgb(255, 20, 20);
 
+/* specifically for subtlety, relative to, mid-high-color 184 */
+@define-color seperator-color       rgb(179, 179, 179);
+@define-color seperator-hover-color rgb(181, 181, 181);
+
 /* Disabled actions in menus */
 @define-color disabled-color             rgb(115, 115, 115);
 

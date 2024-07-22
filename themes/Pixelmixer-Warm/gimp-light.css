@@ -9,6 +9,9 @@
 /* Import from the 'Warm adjustments' */
 @import url("./adjustments/adjust-color.css");
 
+/* Import from the 'Warm adjustments light' */
+@import url("./adjustments/adjust-color-light.css");
+
 /* Import from the 'Default' theme */
 @import url("../Pixelmixer-Default/stylesheets/layout.css");
 

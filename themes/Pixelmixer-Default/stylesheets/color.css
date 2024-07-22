@@ -1901,11 +1901,8 @@ viewport viewport {
 /*** Separators ***/
 
 paned.horizontal > separator {
-  background-color:  @mid-high-color;
-  border:                  solid 1px;
-  border-top:                   none;
-  border-bottom:                none;
-  border-color:           @mid-color;
+  background-color:  @seperator-color;
+  border-style:                none;
   background-size:           contain;
   background-position: center center;
   background-repeat:       no-repeat;
@@ -1913,21 +1910,19 @@ paned.horizontal > separator {
 }
 
 paned.vertical > separator {
-  background-color:  @mid-high-color;
-  border:                  solid 1px;
-  border-left:                  none;
-  border-right:                 none;
-  border-color:           @mid-color;
+  background-color:  @seperator-color;
+  border-style:                none;
   background-size:           contain;
   background-position: center center;
   background-repeat:       no-repeat;
+  border-image-source: none;
   background-image: url("../assets/separators/separator-handle-v.svg");
 }
 
 /* Hover effect */
 paned.horizontal > separator:hover,
 paned.vertical > separator:hover {
-  border-color: @mid-low-hover-color;
+  background-color: @seperator-hover-color;
 }
 
 

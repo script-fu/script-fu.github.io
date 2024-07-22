@@ -204,24 +204,6 @@ toolbutton button:checked {
 }
 
 
-/*** Separators ***/
-
-paned.horizontal > separator {
-  background-image: url("../assets/separators/separator-handle-light.svg");
-}
-
-paned.vertical > separator {
-  background-image: url("../assets/separators/separator-handle-v-light.svg");
-}
-
-/* Hover effect */
-paned.horizontal > separator:hover,
-paned.vertical > separator:hover {
-  border-color: @mid-low-color;
-}
-
-
-
 /*** Reset and Link Button Overrides ***/
 
 /* Button */
