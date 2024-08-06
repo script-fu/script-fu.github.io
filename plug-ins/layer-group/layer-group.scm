@@ -155,9 +155,6 @@
       (set! mask (car (gimp-layer-create-mask actL type)))
       (gimp-layer-add-mask actL mask)
       (set! mask (car (gimp-layer-get-mask actL)))
-      (if (equal? type ADD-MASK-WHITE)
-        (gimp-message "white")
-      )
     )
 
     mask

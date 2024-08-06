@@ -2,34 +2,69 @@
 
 (define debug #f)
 
+; sort of works, designed to create a copy of the active layer that can be painted
+; on, then transfered back to the original. Works on alpha layers in nested groups.
+; generally, GIMP is rather slow when painting on nested layers, so this is a
+; workaround.  One issue is an error message that gets thrown out by
+; GIMP to do with attaching parasites, it can be ignored.
+; Also uses a custom Script-Fu command (gimp-context-get-display) which tells
+; the script what the active display is.
+
 (define (script-fu-quick-painting img drwbls)
   (let*
     (
-      (actL (vector-ref drwbls 0))(actNme "")(quickPaintLayer #f)
-      (quickInfo 0)(quickImg 0)(quickDsp 0)(quickL 0)(saveN "")(tmpL 0)
-      (fileInfo 0)(fileBase 0)(fileNoExt 0)(filePath 0)(srcNme "")
-      (actMsk 0)(srcMsk 0)(mde 0)(opac 100)(rootP 0)(srcImg 0)(srcL 0)
-      (fileName 0)(isGrp 0)
+      (actL (vector-ref drwbls 0))
+      (displayID (car(gimp-context-get-display)))
+      (srcDisplayID 0)
+      (actNme "")
+      (quickPaintLayer #f)
+      (quickInfo 0)
+      (quickImg 0)
+      (quickDsp 0)
+      (quickL 0)
+      (saveN "")
+      (tmpL 0)
+      (fileInfo 0)
+      (fileBase 0)
+      (fileNoExt 0)
+      (filePath 0)
+      (srcNme "")
+      (actMsk 0)
+      (srcMsk 0)
+      (mde 0)
+      (opac 100)
+      (rootP 0)
+      (srcImg 0)
+      (srcL 0)
+      (fileName 0)
+      (isGrp 0)
     )
-    
-    (if (equal? fileName "") (exit "Please save your image before painting"))
+
     (set! isGrp (car (gimp-item-is-group actL)))
     (if (= isGrp 1) (exit "Not implemented group mask painting yet"))
-    (if (> (vector-length drwbls) 1) (exit "Only select one layer please"))
-     
+
     (set! fileName (car(gimp-image-get-file img)))
 
-    (set! actL (add-alpha-to-layer actL))
     (set! actNme (car(gimp-item-get-name actL)))
     (set! quickPaintLayer (get-layer-parasite actL "quickpainting"))
     (set! opac (car (gimp-layer-get-opacity actL)))
     (set! mde (car (gimp-layer-get-mode actL)))
-    
+
+    (if debug
+      (gimp-message
+        (string-append "file name  : " fileName
+                       "\ndisplay ID : " (number->string displayID)
+                       "\nactive layer : " (car(gimp-item-get-name actL))
+        )
+      )
+    )
+
     ; create a painting image
     (when (not quickPaintLayer)
 
+      (if debug (gimp-message "creating a quick paint layer"))
+
       ; establish file names
-      
       (set! fileInfo (get-image-file-info img))
       (set! fileName (vector-ref fileInfo 0))
       (set! fileBase (vector-ref fileInfo 1))
@@ -37,24 +72,9 @@
       (set! filePath (vector-ref fileInfo 3))
 
       ; create a new image to paint on
-      (set! quickInfo (layer-to-hidden-image img actL))
+      (set! quickInfo (layer-to-paint-image img actL))
       (set! quickImg (car quickInfo))
       (set! quickL (cadr quickInfo))
-
-      ; finds inherited group hierarchy 
-      (set! rootP (get-root-parent quickImg quickL))
-
-      (if debug (gimp-message 
-                  (string-append 
-                    "found root parent: " 
-                    (car(gimp-item-get-name rootP))
-                  )
-                )
-      )
-
-      ; puts the paint layer on root and removes any group nests
-      (set! quickL (reorder-item quickImg quickL 0 0))
-      (if (> rootP 0) (gimp-image-remove-layer quickImg rootP))
 
       (gimp-layer-set-composite-space quickL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
       (set! saveN (string-append filePath "/" fileNoExt "_" actNme "_quickPaint.xcf"))
@@ -62,26 +82,10 @@
       (gimp-layer-set-opacity quickL opac)
       (gimp-layer-set-mode quickL mde)
 
-      ; take a snapshot of the image without the paint layer visible
-      (gimp-item-set-visible actL 0)
-      (gimp-edit-copy-visible img)
-      (gimp-item-set-visible actL 1)
-
-      ; use it as a background for the new painting image
-      (set! tmpL (vector-ref (cadr(gimp-edit-paste quickL 1)) 0 ))
-      (gimp-floating-sel-to-layer tmpL)
-      (set! tmpL (get-active-layer quickImg))
-      (gimp-image-lower-item-to-bottom quickImg tmpL)
-      (gimp-item-set-name tmpL fileNoExt)
-      (gimp-layer-set-offsets tmpL 0 0)
-
-      ; set up ready to paint
-      (gimp-image-set-selected-layers quickImg 1 (vector quickL))
-      (if(> (car (gimp-layer-get-mask quickL)) 0) (gimp-layer-set-edit-mask quickL 1))
       (set! quickDsp (car(gimp-display-new quickImg)))
 
       (tag-layer quickL "quickpainting" 3 fileName 0)
-      (tag-layer quickL "displayID" 3 (number->string quickDsp) 0)
+      (tag-layer quickL "displayID" 3 (number->string displayID) 0)
     )
 
     ; return a painting image to the source image
@@ -91,29 +95,60 @@
       (set! srcNme (get-item-parasite-string actL "quickpainting"))
       (set! fileBase (car (reverse (strbreakup srcNme DIR-SEPARATOR))))
       (set! srcImg (find-image fileBase))
-      
-      (set! quickDsp (string->number (get-item-parasite-string actL "displayID")))
+
+      (set! srcDisplayID (string->number (get-item-parasite-string actL "displayID")))
 
       (when (> srcImg 0)
-        (gimp-message (string-append " source image -> " srcNme))
-        
+        (if debug (gimp-message (string-append " source image -> " srcNme)))
         (set! srcL (find-layer srcImg actNme))
-        (set! srcMsk (car (gimp-layer-get-mask srcL)))
-        
+
         (if debug (gimp-message (string-append " source layer -> " (car(gimp-item-get-name srcL)))))
+        (set! srcL (transfer-layer-to-layer img actL srcImg srcL #t))
 
-        (set! srcL (transfer-layer-to-layer img actL srcImg srcL))
-        (set! actMsk (car (gimp-layer-get-mask actL)))
-        (if (> actMsk 0) (transfer-mask-to-mask img actMsk srcImg srcMsk))
         (gimp-layer-set-composite-space srcL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
+        (if (= (car (gimp-display-id-is-valid srcDisplayID)) 1) (gimp-display-present srcDisplayID))
 
-        (gimp-display-delete quickDsp)
+        (gimp-display-delete displayID)
       )
     )
 
   )
 )
 
+; creates a new image with a copy of a source layer set up for painting
+(define (layer-to-paint-image img actL)
+  (let*
+    (
+      (dstImg 0)
+      (dstDsp 0)
+      (dstL 0)
+      (paintLayer 0)
+      (actNme 0)
+      (offX (car(gimp-drawable-get-offsets actL)))
+      (offY (cadr(gimp-drawable-get-offsets actL)))
+      (wdth (car(gimp-drawable-get-width actL)))
+      (hght (car(gimp-drawable-get-height actL)))
+    )
+
+    (gimp-image-select-rectangle img CHANNEL-OP-REPLACE offX offY wdth hght)
+    (gimp-item-set-visible actL 0)
+    (gimp-edit-copy-visible img (vector actL))
+    (set! dstImg (car (gimp-edit-paste-as-new-image)))
+    (set! dstL (vector-ref (cadr(gimp-image-get-selected-layers dstImg)) 0))
+    (gimp-layer-set-composite-space dstL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
+    (gimp-item-set-visible actL 1)
+    (gimp-edit-copy 1 (vector actL))
+    (set! actNme (car(gimp-item-get-name actL)))
+    (set! paintLayer (add-image-size-layer dstImg 0 0 actNme 28))
+    (gimp-drawable-edit-clear paintLayer)
+    (set! dstL (vector-ref (cadr(gimp-edit-paste paintLayer 1)) 0 ))
+    (gimp-floating-sel-anchor dstL)
+    (gimp-selection-none img)
+    (gimp-selection-none dstImg)
+
+    (list dstImg (get-active-layer dstImg))
+  )
+)
 
 (script-fu-register-filter "script-fu-quick-painting"
  "Quick painting"
@@ -124,7 +159,7 @@
  "*"
  SF-ONE-DRAWABLE
 )
-(script-fu-menu-register "script-fu-quick-painting" "<Image>/Tools")
+
 
 
 ; copyright 2023, Mark Sweeney, Under GNU GENERAL PUBLIC LICENSE Version 3
@@ -142,45 +177,34 @@
 (define (here x)(gimp-message(string-append " >>> " (number->string x) " <<<")))
 
 
-; creates a new image and display with a copy of a source layer
-; (source image, source layer)
-; returns a new image, a new display and the new layer
-(define (layer-to-new-image img actL)
-  (let*
+; adds a new layer the same size as the image
+; image, parent layer or group, position in tree, name, blend mode
+(define (add-image-size-layer img parent pos name mode)
+ (let*
     (
-      (dstImg 0)(dstDsp 0)
+      (width (car (gimp-image-get-width img)))
+      (height (car (gimp-image-get-height img)))
+      (actL 0)
     )
 
-    (gimp-selection-none img)
-    (gimp-edit-copy 1 (vector actL))
-    (set! dstImg (car (gimp-edit-paste-as-new-image)))
-    (set! dstDsp (car(gimp-display-new dstImg)))
-    (set! actL (vector-ref (cadr(gimp-image-get-selected-layers dstImg)) 0))
+    (set! actL (car (gimp-layer-new img
+                                    width
+                                    height
+                                    RGBA-IMAGE
+                                    name
+                                    100
+                                    mode
+                       )
+                  )
+    )
+
+    (gimp-image-insert-layer img actL parent pos)
     (gimp-layer-set-composite-space actL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
 
-    (list dstImg dstDsp actL)
+  actL
   )
 )
 
-
-; creates a new image with a copy of a source layer
-; (source image, source layer)
-; returns a new image, and the new layer
-(define (layer-to-hidden-image img actL)
-  (let*
-    (
-      (dstImg 0)(dstDsp 0)
-    )
-
-    (gimp-selection-none img)
-    (gimp-edit-copy 1 (vector actL))
-    (set! dstImg (car (gimp-edit-paste-as-new-image)))
-    (set! actL (vector-ref (cadr(gimp-image-get-selected-layers dstImg)) 0))
-    (gimp-layer-set-composite-space actL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
-
-    (list dstImg actL)
-  )
-)
 
 
 ; finds the full file name, base name, stripped name, and path of a given image
@@ -448,9 +472,10 @@
 
 ; copies a layer to a layer, returns layer ID
 ;(source image, source layer, destination image, destination layer)
-(define (transfer-layer-to-layer srcImg srcL dstImg dstL)
+(define (transfer-layer-to-layer srcImg srcL dstImg dstL clear)
     (gimp-selection-none srcImg)
     (gimp-edit-copy 1 (vector srcL))
+    (if clear (gimp-drawable-edit-clear dstL))
     (set! dstL (vector-ref (cadr(gimp-edit-paste dstL 1)) 0 ))
     (gimp-floating-sel-anchor dstL)
 
@@ -511,4 +536,34 @@
   )
 )
 
+
+
+; creates a new image and display with a copy of a source layer
+; (source image, source layer)
+; returns a new image, a new display and the new layer
+(define (layer-to-new-image img actL createDisplay selection)
+  (let*
+    (
+      (dstImg 0)
+      (dstDsp 0)
+      (rootP 0)
+    )
+
+    (if (not selection) (gimp-selection-none img))
+    (gimp-edit-copy 1 (vector actL))
+    (set! dstImg (car (gimp-edit-paste-as-new-image)))
+    (if createDisplay (set! dstDsp (car(gimp-display-new dstImg))))
+    (set! actL (vector-ref (cadr(gimp-image-get-selected-layers dstImg)) 0))
+    (gimp-layer-set-composite-space actL LAYER-COLOR-SPACE-RGB-PERCEPTUAL)
+
+    ; finds inherited group hierarchy
+    (set! rootP (get-root-parent dstImg actL))
+
+    ; puts the paint layer on root and removes any group nests
+    (set! actL (reorder-item dstImg actL 0 0))
+    (if (> rootP 0) (gimp-image-remove-layer dstImg rootP))
+
+    (vector dstImg dstDsp actL)
+  )
+)
 
