@@ -69,8 +69,8 @@
 @define-color box-shadow-backdrop-color  rgba(0, 0, 0, 0);
 
 /* specifically for subtlety, relative to, mid-high-color (172, 160, 148) (-5...-3 */
-@define-color seperator-color       rgb(167, 155, 143);
-@define-color seperator-hover-color rgb(169, 157, 145);
+@define-color seperator-color       rgb(157, 145, 133);
+@define-color seperator-hover-color rgb(164, 152, 140);
 
 /* Disabled actions in menus */
 @define-color disabled-color     @mid-highest-hover-color;

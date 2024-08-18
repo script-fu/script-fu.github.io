@@ -63,8 +63,8 @@
 @define-color canvas-color                rgb(71, 59, 49);
 
 /* specifically for subtlety, relative to, mid-high-color rgb(84, 70, 59) (-5...-3 */
-@define-color seperator-color       rgb(79, 65, 54);
-@define-color seperator-hover-color rgb(81, 67, 56);
+@define-color seperator-color       rgb(69, 55, 44);
+@define-color seperator-hover-color rgb(76, 62, 51);
 
 /* Certain Caret colors */
 @define-color caret-color             rgb(255, 20, 20);

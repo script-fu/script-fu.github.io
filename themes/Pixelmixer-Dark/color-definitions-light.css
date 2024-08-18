@@ -78,8 +78,8 @@
 @define-color disabled-color             @mid-highest-hover-color;
 
 /* specifically for subtlety, relative to, mid-high-color 62 (-5...-3 */
-@define-color seperator-color       rgb(57, 57, 57);
-@define-color seperator-hover-color rgb(59, 59, 59);
+@define-color seperator-color       rgb(47, 47, 47);
+@define-color seperator-hover-color rgb(54, 54, 54);
 
 /* Decoration shadow opacity */
 @define-color box-shadow-color        rgba(0, 0, 0, 0.15);
