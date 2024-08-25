@@ -1901,20 +1901,20 @@ viewport viewport {
 /*** Separators ***/
 
 paned.horizontal > separator {
-  background-color:  @seperator-color;
-  border-style:                none;
-  background-size:           contain;
-  background-position: center center;
+  background-color: @seperator-color;
+  border-style:                 none;
+  background-size:            0.25em;
+  background-position:        center;
   background-repeat:       no-repeat;
   background-image: url("../assets/separators/separator-handle.svg");
   transition-delay: 0.05s;
 }
 
 paned.vertical > separator {
-  background-color:  @seperator-color;
-  border-style:                none;
-  background-size:           contain;
-  background-position: center center;
+  background-color: @seperator-color;
+  border-style:                 none;
+  background-size:               1em;
+  background-position:        center;
   background-repeat:       no-repeat;
   border-image-source: none;
   background-image: url("../assets/separators/separator-handle-v.svg");
