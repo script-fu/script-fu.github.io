@@ -16,6 +16,7 @@ An example of how to use them is located [here.](https://script-fu.github.io/202
 - [alpha-box-crop](https://github.com/script-fu/script-fu/blob/main/procedures/alpha-box-crop.scm)
 - [apply-bright-curve](https://github.com/script-fu/script-fu/blob/main/procedures/apply-bright-curve.scm)
 - [apply-s-curve](https://github.com/script-fu/script-fu/blob/main/procedures/apply-s-curve.scm)
+- [artbox-revert-layer](https://github.com/script-fu/script-fu/blob/main/procedures/artbox-revert-layer.scm)
 - [basic-duplicate-layer](https://github.com/script-fu/script-fu/blob/main/procedures/basic-duplicate-layer.scm)
 - [bubble-sort](https://github.com/script-fu/script-fu/blob/main/procedures/bubble-sort.scm)
 - [close-groups](https://github.com/script-fu/script-fu/blob/main/procedures/close-groups.scm)
